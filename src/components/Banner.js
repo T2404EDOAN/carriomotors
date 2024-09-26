@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import "../assets/styles/Banner.css";
 
 const images = [
-  { src: "/anh1.jpg", alt: "BMW iX 1" },
+  { src: "/banner1.jpg", alt: "BMW iX 1" },
   {
-    src: "/anh1.jpg",
+    src: "/banner2.jpg",
     alt: "BMW iX 2",
   },
-  { src: "/anh1.jpg", alt: "BMW iX 3" },
-  { src: "/anh1.jpg", alt: "BMW iX 4" },
-  { src: "/anh1.jpg", alt: "BMW iX 5" },
+  { src: "/banner3.jpg", alt: "BMW iX 3" },
+  { src: "/banner4.jpg", alt: "BMW iX 4" },
+  { src: "/banner5.jpg", alt: "BMW iX 5" },
 ];
 
 const Banner = () => {

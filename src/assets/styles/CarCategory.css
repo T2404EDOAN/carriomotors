@@ -1,45 +1,97 @@
 .car-category {
-    font-family: sans-serif;
-    text-align: center;
-    padding: 20px;
-  }
-  
+  font-family: "Arial", sans-serif;
+  text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 50px;
+  padding-bottom: 80px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.car-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.car-card {
+  flex: 1;
+  max-width: 350px;
+  aspect-ratio: 3 / 4;
+  background-color: #fff;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.car-category-header {
+  font-size: 40px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.car-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.car-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.car-card:hover img {
+  transform: scale(1.05);
+}
+
+.car-card-content {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+}
+
+.car-card-content h2 {
+  margin: 0;
+  font-size: 28px;
+  text-align: left;
+  font-weight: 600;
+  max-width: 120px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Màu chữ cho card chẵn (index 0, 2, ...) */
+.car-card.even .car-card-content h2 {
+  color: #ffffff; /* Màu trắng */
+}
+
+/* Màu chữ cho card lẻ (index 1, 3, ...) */
+.car-card.odd .car-card-content h2 {
+  color: #000000; /* Màu đen */
+}
+
+@media (max-width: 1200px) {
   .car-grid {
-    display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
   }
-  
   .car-card {
-    width: 320px;
-    background-color: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
+    flex-basis: calc(50% - 10px);
+    max-width: none;
   }
-  
-  .car-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .car-card {
+    flex-basis: 100%;
   }
-  
-  .car-card-content {
-    padding: 15px;
-    text-align: center;
-  }
-  
-  .card-button {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background-color: #2980f9;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
+}

@@ -1,64 +1,100 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { ChevronDown, Search, User } from "lucide-react";
 import "../assets/styles/Header.css";
-
+import * as icons from "@ant-design/icons";
+import { Input } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 const Header = () => {
   const [isAboutUsOpen, setIsAboutUsOpen] = useState(false);
-
+  const { EnvironmentOutlined } = icons;
   const toggleAboutUs = () => {
     setIsAboutUsOpen(!isAboutUsOpen);
   };
+  const [expanded, setExpanded] = useState(false);
 
+  const toggleExpand = () => {
+    setExpanded(!expanded);
+  };
   return (
     <header className="header">
       <div className="header-container">
         <div className="header-left">
-          <span>
-            <img src="/Logo_remote.png" alt="Logo" className="header-logo" />
-          </span>
+          <Link to="/">
+            <img src="/logo.png" alt="Logo" className="header-logo" />
+          </Link>
+        </div>
+        <div className="header-center">
           <nav className="ul">
             <ul className="header-nav">
               <li>
-                <span className="other-link">Models</span>
+                <Link to="/models" className="other-link">
+                  Models
+                </Link>
               </li>
               <li>
-                <span className="other-link">Services</span>
+                <Link to="/services" className="other-link">
+                  Services
+                </Link>
               </li>
               <li>
-                <span className="other-link">Shopping</span>
+                <Link to="/shopping" className="other-link">
+                  Shopping
+                </Link>
               </li>
               <li>
-                <span className="other-link">FAQ</span>
+                <Link to="/faq" className="other-link">
+                  FAQ
+                </Link>
               </li>
               <li className="about-us-dropdown">
                 <span onClick={toggleAboutUs} className="other-link">
                   About Us
                 </span>
-                {isAboutUsOpen && (
+                {/* {isAboutUsOpen && (
                   <ul className="dropdown-menu">
                     <li>
-                      <span className="other-link">Our Company</span>
+                      <Link to="/about/company" className="other-link">
+                        Our Company
+                      </Link>
                     </li>
                     <li>
-                      <span className="other-link">Careers</span>
+                      <Link to="/about/careers" className="other-link">
+                        Careers
+                      </Link>
                     </li>
                     <li>
-                      <span className="other-link">Contact Us</span>
+                      <Link to="/about/contact" className="other-link">
+                        Contact Us
+                      </Link>
                     </li>
                   </ul>
-                )}
+                )} */}
               </li>
             </ul>
           </nav>
         </div>
         <div className="header-right">
-          <span className="other-link">Choose your local BMW Center</span>
-          <ChevronDown size={20} className="other-icon" />
-          <Search size={20} className="other-icon" />
+          <span className="other-link">
+            <EnvironmentOutlined />
+            Store location
+          </span>
+          <div
+            className={`search-container ${expanded ? "expanded" : ""}`}
+            onClick={toggleExpand}
+          >
+            <Input
+              placeholder="Seacr..."
+              suffix={<SearchOutlined />}
+              style={{
+                width: expanded ? "300px" : "50px",
+                transition: "width 0.3s ease",
+              }} // Kích thước thay đổi
+            />
+          </div>
           <User size={20} className="other-icon" />
         </div>
       </div>
-      <div className="header-divider"></div>
     </header>
   );
 };

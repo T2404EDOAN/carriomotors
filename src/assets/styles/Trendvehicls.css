@@ -1,0 +1,80 @@
+.trend-vehicles {
+  font-family: "Arial", sans-serif;
+  text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 50px;
+  padding-bottom: 80px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.trend-container {
+  background-color: rgb(245, 243, 240);
+}
+.trend-vehicles-grid {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 2px;
+}
+
+.trend-vehicle-card {
+  flex: 1;
+  max-width: 350px;
+  aspect-ratio: 3 / 4;
+  background-color: #fff;
+  overflow: hidden;
+
+  position: relative;
+}
+
+.trend-vehicles-header {
+  font-size: 40px;
+  text-align: left;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.trend-vehicle-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.trend-vehicle-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+}
+
+.trend-vehicle-card-content h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: #420404;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 1200px) {
+  .trend-vehicles-grid {
+    flex-wrap: wrap;
+  }
+  .trend-vehicle-card {
+    flex-basis: calc(50% - 10px);
+    max-width: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .trend-vehicle-card {
+    flex-basis: 100%;
+  }
+}
