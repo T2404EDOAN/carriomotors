@@ -40,7 +40,7 @@ const Banner = () => {
         </h1>
         <p className="hero-subtitle">
           $899 Per Month for 36 months with $6,619 due at signing.
-        </p>
+        </p>12345
         <div className="hero-buttons">
           <button className="button button-primary">Offer Details</button>
           <button className="button button-secondary">See All Offers</button>aaaaaaaa
