@@ -33,8 +33,8 @@ const Banner = () => {
           className={`hero-image ${index === currentImage ? "active" : ""}`}
         />
       ))}
-      <div className="hero-overlayyyy"></div>
-      {/* <div className="hero-content">
+      <div className="hero-overlay"></div>
+      {/* <div className="hero-contentsss">
         <h1 className="hero-title">
           LEASE THE 100% ELECTRIC 2025 BMW iX xDRIVE50.
         </h1>
