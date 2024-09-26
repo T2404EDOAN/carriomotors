@@ -38,7 +38,7 @@ const Banner = () => {
         <h1 className="hero-title">
           LEASE THE 100% ELECTRIC 2025 BMW iX xDRIVE50.
         </h1>
-        <p className="hero-subtitle">
+        <p className="hessro-subtitle">
           $899 Per Month for 36 months with $6,619 due at signing.
         </p>12345
         <div className="hero-buttons">
