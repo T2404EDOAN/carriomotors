@@ -43,7 +43,7 @@ const Banner = () => {
         </p>
         <div className="hero-buttons">
           <button className="button button-primary">Offer Details</button>
-          <button className="button button-secondary">See All Offers</button>
+          <button className="button button-secondary">See All Offers</button>aaaaaaaa
         </div>
       </div> */}
       <div className="hero-indicators">
