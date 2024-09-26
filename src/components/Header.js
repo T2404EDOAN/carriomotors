@@ -29,7 +29,7 @@ const Header = () => {
             <ul className="header-nav">
               <li>
                 <Link to="/models" className="other-link">
-                  Models
+                  Vehicles
                 </Link>
               </li>
               <li>
@@ -39,17 +39,17 @@ const Header = () => {
               </li>
               <li>
                 <Link to="/shopping" className="other-link">
-                  Shopping
+                  Finance
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/faq" className="other-link">
                   FAQ
                 </Link>
-              </li>
+              </li> */}
               <li className="about-us-dropdown">
                 <span onClick={toggleAboutUs} className="other-link">
-                  About Us
+                  About us
                 </span>
                 {/* {isAboutUsOpen && (
                   <ul className="dropdown-menu">
