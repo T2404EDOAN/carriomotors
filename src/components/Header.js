@@ -21,7 +21,7 @@ const Header = () => {
       <div className="header-container">
         <div className="header-left">
           <Link to="/">
-            <img src="/logo.png" alt="Logo" className="header-logo" />
+            <img src="/logo2.png" alt="Logo" className="header-logo" />
           </Link>
         </div>
         <div className="header-center">

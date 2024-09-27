@@ -1,63 +1,53 @@
 import React, { useState } from "react";
+import { extendTheme, CssVarsProvider } from "@mui/joy/styles";
+import Select, { selectClasses } from '@mui/joy/Select';
+
 import "../assets/styles/SearchForm.css";
+import Option from '@mui/joy/Option';
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
+
+// Extend MUI Joy theme
 
 const SearchForm = () => {
-  const [filters, setFilters] = useState({
-    rentalType: "perDay",
-    priceRange: 1500,
-    yearRange: [2016, 2023],
-    transmission: {
-      manual: false,
-      automatic: false,
-    },
-    fuelType: {
-      gas: false,
-      electric: false,
-      hybrid: false,
-    },
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    if (type === "checkbox") {
-      setFilters((prevFilters) => ({
-        ...prevFilters,
-        [name]: {
-          ...prevFilters[name],
-          [value]: checked,
-        },
-      }));
-    } else {
-      setFilters((prevFilters) => ({
-        ...prevFilters,
-        [name]: value,
-      }));
-    }
-  };
-
-  const handleRangeChange = (e) => {
-    setFilters({
-      ...filters,
-      priceRange: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // API call or logic to fetch results will go here
-    console.log(filters);
-  };
-
   return (
     <div className="Container">
-      {" "}
-      {/* Chỉ còn lại .Container */}
       <div className="container-search">
         <div className="search-top">
           <div className="search-top-left">
-            <h2>Search</h2>
-            <p>Here you can search for your desired cars</p>
+            <div className="search-top-left1">
+            <p>CAR BRAND </p>
+            <Select
+            placeholder="Select a pet…"
+            indicator={<KeyboardArrowDown />}
+            sx={{
+            width: 240,
+            [`& .${selectClasses.indicator}`]: {
+            transition: '0.2s',
+            [`&.${selectClasses.expanded}`]: {
+            transform: 'rotate(-180deg)',
+            },
+            },
+            } }
+            >
+            </Select>
+            </div>
+            <div className="search-top-left2">
+            <p>CAR BRAND </p>
+            <Select
+            placeholder="Select a pet…"
+            indicator={<KeyboardArrowDown />}
+            sx={{
+            width: 240,
+            [`& .${selectClasses.indicator}`]: {
+            transition: '0.2s',
+            [`&.${selectClasses.expanded}`]: {
+            transform: 'rotate(-180deg)',
+            },
+            },
+            } }
+            >
+            </Select>
+            </div>
           </div>
           <div className="search-top-right">
             <h2>Search</h2>
@@ -65,7 +55,8 @@ const SearchForm = () => {
           </div>
         </div>
       </div>
-      <form className="search-form" onSubmit={handleSubmit}>
+
+      <form className="search-form">
         {/* Add form inputs here */}
       </form>
     </div>

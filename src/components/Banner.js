@@ -17,7 +17,16 @@ const Banner = ({ images, interval = 5000 }) => {
     }
   }, [autoSlide, images.length, interval]);
 
-  if (!images || images.length === 0) return null;
+  // Kiểm tra nếu không có ảnh, hiển thị placeholder
+  if (!images || images.length === 0) {
+    return (
+      <section className="hero-section placeholder">
+        <div className="hero-placeholder">
+          <p>No images available, placeholder banner</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="hero-section">

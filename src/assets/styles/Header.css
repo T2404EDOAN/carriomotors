@@ -31,13 +31,13 @@
 }
 
 .header-logo {
-  height: 2rem;
+  height: 10rem;
   margin-right: 1rem;
 }
 
 .header-nav {
   display: flex;
-  justify-content: center; /* Canh giữa phần nav */
+  justify-content: center; /* Canh giữa pdsadasdhần nav */
   height: 100%;
 }
 
