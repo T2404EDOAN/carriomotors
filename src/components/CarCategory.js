@@ -49,7 +49,7 @@ const CarCard = ({ imageSrc, carName, index }) => {
   const isEven = index % 2 === 0;
   return (
     <div className={`car-card ${isEven ? "even" : "odd"}`}>
-      <img src={imageSrc} alt={carNameeeeee} />
+      <img src={imageSrc} alt={carName} />
       <div className="car-card-content">
         <h2>{carName}</h2>
       </div>

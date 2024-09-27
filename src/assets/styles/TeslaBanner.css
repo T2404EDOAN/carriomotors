@@ -1,0 +1,30 @@
+/* TeslaBanner.css */
+.tesla-banner {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .banner-content h1 {
+    font-size: 36px;
+  }
+
+  .features {
+    flex-wrap: wrap;
+  }
+
+  .feature-item {
+    flex-basis: 50%;
+    margin-bottom: 20px;
+  }
+}

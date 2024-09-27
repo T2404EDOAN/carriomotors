@@ -1,27 +1,23 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "../assets/styles/Banner.css";
 
-const images = [
-  { src: "/banner1.jpg", alt: "BMW iX 1" },
-  {
-    src: "/banner2.jpg",
-    alt: "BMW iX 2",
-  },
-  { src: "/banner3.jpg", alt: "BMW iX 3" },
-  { src: "/banner4.jpg", alt: "BMW iX 4" },
-  { src: "/banner5.jpg", alt: "BMW iX 5" },
-];
-
-const Banner = () => {
+const Banner = ({ images, interval = 5000 }) => {
   const [currentImage, setCurrentImage] = useState(0);
+  const location = useLocation(); // Lấy đường dẫn hiện tại
+  const autoSlide = location.pathname === "/"; // Chỉ bật auto-slide nếu đang ở trang chủ
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentImage((prevImage) => (prevImage + 1) % images.length);
-    }, 5000);
+    if (autoSlide && images.length > 1) {
+      const timer = setInterval(() => {
+        setCurrentImage((prevImage) => (prevImage + 1) % images.length);
+      }, interval);
 
-    return () => clearInterval(timer);
-  }, []);
+      return () => clearInterval(timer);
+    }
+  }, [autoSlide, images.length, interval]);
+
+  if (!images || images.length === 0) return null;
 
   return (
     <section className="hero-section">
@@ -34,31 +30,17 @@ const Banner = () => {
         />
       ))}
       <div className="hero-overlay"></div>
-      {/* <div className="hero-contentsss">
-        <h1 className="hero-title">
-          LEASE THE 100% ELECTRIC 2025 BMW iX xDRIVE50.
-        </h1>
-        <p className="hessro-subtitle">
-          $899 Per Month for 36 months with $6,619 due at signing.
-        </p>12345
-        <div className="hero-buttons">
-          <button className="button button-primary">Offer Details</button>
-          <button className="button button-secondary">See All Offers</button>aaaaaaaa
+      {images.length > 1 && (
+        <div className="hero-indicators">
+          {images.map((_, index) => (
+            <div
+              key={index}
+              className={`indicator ${index === currentImage ? "active" : ""}`}
+              onClick={() => setCurrentImage(index)} // Cho phép chọn ảnh thủ công
+            ></div>
+          ))}
         </div>
-      </div> */}
-      <div className="hero-indicators">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            className={`hero-indicator ${
-              index === currentImage ? "active" : ""
-            }`}
-            onClick={() => setCurrentImage(index)}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
+      )}
     </section>
   );
 };

@@ -1,0 +1,86 @@
+/* CompactNavigation.css */
+.compact-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1001;
+}
+
+.compact-nav.visible {
+  transform: translateY(0);
+}
+
+.compact-nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 20px;
+  max-width: 1730px;
+  margin: 0 auto;
+}
+
+.compact-logo img {
+  height: 30px;
+}
+
+.compact-menu {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.compact-menu li {
+  margin: 0 15px;
+}
+
+.compact-menu li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.compact-menu li.active a {
+  color: #007bff;
+}
+
+.compact-menu li a:hover {
+  color: #007bff;
+}
+
+.compact-nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+.compact-icon {
+  margin-left: 15px;
+  cursor: pointer;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .compact-nav-container {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px;
+  }
+
+  .compact-menu {
+    order: 3;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+
+  .compact-menu li {
+    margin: 5px 0;
+  }
+}
