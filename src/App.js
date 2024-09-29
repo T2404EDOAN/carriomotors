@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { Spin } from "antd";
 import Header from "./components/Header";
 import Banner from "./components/Banner";
 import Footer from "./components/Footer";
@@ -11,34 +12,62 @@ import Shopping from "./pages/Shopping";
 import FAQ from "./pages/FAQ";
 import AboutUs from "./pages/AboutUs";
 import "./App.css";
-import CompactNavigation from "./components/CompactNavigation";
 
-// API function to fetch banner data based on the page
 const fetchBannerData = async (page) => {
   try {
-    // Use the page name to fetch banners specific to that page
     const response = await fetch(
       `https://carriomotors.online/api/get_banner.php?page=${page}`
     );
     const data = await response.json();
-
-    // Map the banner data to a format expected by the Banner component
     return data.map((banner) => ({
-      src: banner.image_url, // Using image_url from API
-      alt: banner.title, // Using title as alt text
+      src: banner.image_url,
+      alt: banner.title,
     }));
   } catch (error) {
     console.error("Error fetching banner data:", error);
-    return []; // Return empty array on error
+    return [];
   }
 };
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [initialLoadDone, setInitialLoadDone] = useState(false);
+
+  useEffect(() => {
+    // Simulate initial app loading
+    setTimeout(() => {
+      setIsLoading(false);
+      setInitialLoadDone(true);
+    }, 2000); // Adjust this time as needed
+  }, []);
+
+  if (!initialLoadDone) {
+    return (
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          zIndex: 9999,
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
+  }
+
   return <AppLayout />;
 }
 
 function AppLayout() {
-  const location = useLocation(); // To track current route
+  const location = useLocation();
+  const navigate = useNavigate();
   const [bannerImages, setBannerImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const nodeRef = useRef(null);
@@ -46,25 +75,43 @@ function AppLayout() {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-
-      // Get the page name based on the current path
       const page =
         location.pathname === "/" ? "home" : location.pathname.slice(1);
-
-      const data = await fetchBannerData(page); // Fetch banner data for the page
-      setBannerImages(data); // Set banner images
+      const data = await fetchBannerData(page);
+      setBannerImages(data);
       setIsLoading(false);
     };
 
     fetchData();
   }, [location]);
 
+  const handleRouteChange = (path) => {
+    setIsLoading(true);
+    navigate(path);
+  };
+
   return (
     <div className="app-container">
-      <Header />
-      <CompactNavigation />
+      {isLoading && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#ffffff",
+            zIndex: 9999,
+          }}
+        >
+          <Spin size="large" />
+        </div>
+      )}
+      <Header onNavigate={handleRouteChange} />
       {!isLoading && (
-        // Display Banner with the images fetched for the current page
         <Banner images={bannerImages} autoSlide={location.pathname === "/"} />
       )}
       <main className="main-content">
@@ -72,7 +119,7 @@ function AppLayout() {
           <CSSTransition
             key={location.pathname}
             classNames="fade"
-            timeout={300}
+            timeout={600}
             nodeRef={nodeRef}
           >
             <div ref={nodeRef}>

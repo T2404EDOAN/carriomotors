@@ -4,8 +4,8 @@
   height: 70vh;
   width: 100%;
   overflow: hidden;
+  z-index: 1; /* Ensure it's below the CarCategory */
 }
-
 .hero-image {
   position: absolute;
   top: 0;

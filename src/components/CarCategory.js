@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../assets/styles/CarCategory.css";
 import axios from "axios";
+import { Skeleton } from "antd";
 
 const CarCategory = () => {
   const [products, setProducts] = useState([]);
@@ -20,27 +21,42 @@ const CarCategory = () => {
       });
   }, []);
 
-  if (loading) {
-    return <p></p>;
-  }
-
-  if (error) {
-    return <p>Error loading products: {error}</p>;
-  }
-
   return (
     <div className="car-category">
       <div className="car-category-header">Car Category</div>
       <div className="car-grid">
-        {products.slice(0, 4).map((product, index) => (
-          <CarCard
-            key={product.id}
-            imageSrc={product.img}
-            carName={product.name}
-            index={index}
-          />
-        ))}
+        {loading
+          ? Array(4)
+              .fill()
+              .map((_, index) => (
+                <div
+                  key={index}
+                  className={`car-card ${index % 2 === 0 ? "even" : "odd"}`}
+                >
+                  <Skeleton.Image style={{ width: "100%", height: "100%" }} />
+                  <div className="car-card-content">
+                    <Skeleton.Input
+                      style={{ width: 120 }}
+                      active
+                      size="small"
+                    />
+                  </div>
+                </div>
+              ))
+          : products
+              .slice(0, 4)
+              .map((product, index) => (
+                <CarCard
+                  key={product.id}
+                  imageSrc={product.img}
+                  carName={product.name}
+                  index={index}
+                />
+              ))}
       </div>
+      {error && (
+        <p className="error-message">Error loading products: {error}</p>
+      )}
     </div>
   );
 };

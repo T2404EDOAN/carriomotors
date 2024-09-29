@@ -4,20 +4,19 @@ import "../assets/styles/Banner.css";
 
 const Banner = ({ images, interval = 5000 }) => {
   const [currentImage, setCurrentImage] = useState(0);
-  const location = useLocation(); // Lấy đường dẫn hiện tại
-  const autoSlide = location.pathname === "/"; // Chỉ bật auto-slide nếu đang ở trang chủ
+  const location = useLocation();
+  const autoSlide = location.pathname === "/";
 
   useEffect(() => {
-    if (autoSlide && images.length > 1) {
+    if (autoSlide && images && images.length > 1) {
       const timer = setInterval(() => {
         setCurrentImage((prevImage) => (prevImage + 1) % images.length);
       }, interval);
 
       return () => clearInterval(timer);
     }
-  }, [autoSlide, images.length, interval]);
+  }, [autoSlide, images, interval]);
 
-  // Kiểm tra nếu không có ảnh, hiển thị placeholder
   if (!images || images.length === 0) {
     return (
       <section className="hero-section placeholder">
@@ -45,7 +44,7 @@ const Banner = ({ images, interval = 5000 }) => {
             <div
               key={index}
               className={`indicator ${index === currentImage ? "active" : ""}`}
-              onClick={() => setCurrentImage(index)} // Cho phép chọn ảnh thủ công
+              onClick={() => setCurrentImage(index)}
             ></div>
           ))}
         </div>

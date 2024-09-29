@@ -1,66 +1,166 @@
 import React, { useState } from "react";
-import { extendTheme, CssVarsProvider } from "@mui/joy/styles";
-import Select, { selectClasses } from '@mui/joy/Select';
+import {
+  Layout,
+  Button,
+  Input,
+  Select,
+  Card,
+  Checkbox,
+  Slider,
+  Row,
+  Col,
+  Typography,
+  Space,
+  Grid,
+  Drawer,
+} from "antd";
+import { FilterOutlined, BookOutlined, MenuOutlined } from "@ant-design/icons";
 
-import "../assets/styles/SearchForm.css";
-import Option from '@mui/joy/Option';
-import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
+const { Header, Sider, Content } = Layout;
+const { Search } = Input;
+const { Title, Text } = Typography;
+const { useBreakpoint } = Grid;
 
-// Extend MUI Joy theme
+const CarListingLayout = () => {
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const screens = useBreakpoint();
 
-const SearchForm = () => {
-  return (
-    <div className="Container">
-      <div className="container-search">
-        <div className="search-top">
-          <div className="search-top-left">
-            <div className="search-top-left1">
-            <p>CAR BRAND </p>
-            <Select
-            placeholder="Select a pet…"
-            indicator={<KeyboardArrowDown />}
-            sx={{
-            width: 240,
-            [`& .${selectClasses.indicator}`]: {
-            transition: '0.2s',
-            [`&.${selectClasses.expanded}`]: {
-            transform: 'rotate(-180deg)',
-            },
-            },
-            } }
-            >
-            </Select>
-            </div>
-            <div className="search-top-left2">
-            <p>CAR BRAND </p>
-            <Select
-            placeholder="Select a pet…"
-            indicator={<KeyboardArrowDown />}
-            sx={{
-            width: 240,
-            [`& .${selectClasses.indicator}`]: {
-            transition: '0.2s',
-            [`&.${selectClasses.expanded}`]: {
-            transform: 'rotate(-180deg)',
-            },
-            },
-            } }
-            >
-            </Select>
-            </div>
-          </div>
-          <div className="search-top-right">
-            <h2>Search</h2>
-            <p>Here you can search for your desired cars</p>
-          </div>
+  const headerStyle = {
+    background: "#fff",
+    padding: "10px 20px",
+    height: "auto",
+    lineHeight: "normal",
+  };
+
+  const colStyle = {
+    display: "flex",
+    alignItems: "center",
+    height: "40px", // Adjust this value to match the height of your Search component
+  };
+
+  const showFilter = () => {
+    setIsFilterVisible(true);
+  };
+
+  const onCloseFilter = () => {
+    setIsFilterVisible(false);
+  };
+
+  const renderSidebar = () => (
+    <>
+      <Title level={4}>Filter</Title>
+      <Button type="link" style={{ padding: 0, marginBottom: 16 }}>
+        Reset
+      </Button>
+      <Checkbox style={{ marginBottom: 16 }}>Free Test Drive</Checkbox>
+      <Title level={5}>Type of Car</Title>
+      <Space style={{ marginBottom: 16 }}>
+        <Button>New Car</Button>
+        <Button>Used Car</Button>
+      </Space>
+      <Title level={5}>Brand</Title>
+      <Checkbox style={{ marginBottom: 16 }}>All Brand</Checkbox>
+      <Title level={5}>Price Range</Title>
+      <Slider range defaultValue={[80000, 300000]} min={0} max={500000} />
+      <Row justify="space-between">
+        <Text>$80,000</Text>
+        <Text>$300,000</Text>
+      </Row>
+    </>
+  );
+
+  const renderCarCard = () => (
+    <Card
+      cover={
+        <div
+          style={{
+            height: 200,
+            background: "#f0f0f0",
+            position: "relative",
+          }}
+        >
+          <Button
+            icon={<BookOutlined />}
+            style={{ position: "absolute", top: 10, right: 10 }}
+          />
         </div>
-      </div>
+      }
+    >
+      <Card.Meta title="Car Model" description="Car Type" />
+      <Row justify="space-between" align="middle" style={{ marginTop: 16 }}>
+        <Text strong>$000,000</Text>
+        <Button size="small">Free Test Drive</Button>
+      </Row>
+    </Card>
+  );
 
-      <form className="search-form">
-        {/* Add form inputs here */}
-      </form>
-    </div>
+  return (
+    <Layout>
+      <Header style={headerStyle}>
+        <Row justify="end" align="middle" gutter={[16, 16]}>
+          <Col style={colStyle}>
+            <Search
+              placeholder="input search text"
+              allowClear
+              enterButton="Search"
+              size="large"
+              style={{ width: "300px" }}
+            />
+          </Col>
+          <Col style={colStyle}>
+            <Space size="middle">
+              <FilterOutlined style={{ fontSize: "18px" }} />
+              <span>Filter</span>
+              <Select
+                defaultValue="recommended"
+                style={{ width: 200 }}
+                size="large"
+              >
+                <Select.Option value="recommended">
+                  Sort by: Recommended
+                </Select.Option>
+              </Select>
+            </Space>
+          </Col>
+        </Row>
+      </Header>
+      <Layout>
+        {screens.md ? (
+          <Sider width={300} theme="light" style={{ padding: "20px" }}>
+            {renderSidebar()}
+          </Sider>
+        ) : null}
+        <Content style={{ padding: "20px" }}>
+          {!screens.md && (
+            <Button
+              icon={<MenuOutlined />}
+              style={{ marginBottom: 16 }}
+              onClick={showFilter}
+            >
+              Filters
+            </Button>
+          )}
+          <Title level={4}>64 Car Found</Title>
+          <Row gutter={[16, 16]}>
+            {[1, 2, 3, 4, 5, 6].map((item) => (
+              <Col xs={24} sm={12} lg={8} key={item}>
+                {renderCarCard()}
+              </Col>
+            ))}
+          </Row>
+        </Content>
+      </Layout>
+      <Drawer
+        title="Filters"
+        placement="left"
+        onClose={onCloseFilter}
+        visible={isFilterVisible}
+        width={300}
+      >
+        {renderSidebar()}
+      </Drawer>
+    </Layout>
   );
 };
 
-export default SearchForm;
+export default CarListingLayout;
