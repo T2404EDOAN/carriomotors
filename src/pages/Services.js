@@ -1,5 +1,5 @@
 import React from "react";
-import TabsBasic from "../components/Service_main";
+import TabsBasic from "../components/Service/Service_main";
 
 const Services = () => {
   return (

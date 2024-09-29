@@ -48,17 +48,29 @@ const CarListingLayout = () => {
 
   const renderSidebar = () => (
     <>
-      <Title level={4}>Filter</Title>
-      <Button type="link" style={{ padding: 0, marginBottom: 16 }}>
-        Reset
-      </Button>
-      <Checkbox style={{ marginBottom: 16 }}>Free Test Drive</Checkbox>
+      <Row justify="space-between" align="middle">
+      <Title level={4} style={{ margin: 0 }}>Filter</Title>
+      <Button type="link">Reset</Button>
+    </Row>
       <Title level={5}>Type of Car</Title>
-      <Space style={{ marginBottom: 16 }}>
-        <Button>New Car</Button>
-        <Button>Used Car</Button>
-      </Space>
-      <Title level={5}>Brand</Title>
+      
+      <Select
+      showSearch
+      style={{
+      width: 200,
+        }}
+        placeholder="Search to Select"
+        optionFilterProp="label"
+    
+        />
+     <Title level={5}>Brand</Title>
+     <Select
+    showSearch
+    style={{
+      width: 200,
+    }}
+    placeholder="Search to Select"
+  />      <Title level={5}>Brand</Title>
       <Checkbox style={{ marginBottom: 16 }}>All Brand</Checkbox>
       <Title level={5}>Price Range</Title>
       <Slider range defaultValue={[80000, 300000]} min={0} max={500000} />
@@ -89,7 +101,6 @@ const CarListingLayout = () => {
       <Card.Meta title="Car Model" description="Car Type" />
       <Row justify="space-between" align="middle" style={{ marginTop: 16 }}>
         <Text strong>$000,000</Text>
-        <Button size="small">Free Test Drive</Button>
       </Row>
     </Card>
   );
@@ -104,7 +115,7 @@ const CarListingLayout = () => {
               allowClear
               enterButton="Search"
               size="large"
-              style={{ width: "300px" }}
+              style={{ width: "500px" }}
             />
           </Col>
           <Col style={colStyle}>
@@ -117,7 +128,7 @@ const CarListingLayout = () => {
                 size="large"
               >
                 <Select.Option value="recommended">
-                  Sort by: Recommended
+                  
                 </Select.Option>
               </Select>
             </Space>
