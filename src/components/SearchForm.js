@@ -27,20 +27,22 @@ const { useBreakpoint } = Grid;
 
 const CarListingLayout = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const [cars, setCars] = useState([]); 
-  const [brands, setBrands] = useState([]); 
+  const [cars, setCars] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]); // For storing filtered cars
-  const[PriceRange,setPriceRange] = useState([0,500000]);
-  
+  const [PriceRange, setPriceRange] = useState([0, 500000]);
+
   const screens = useBreakpoint();
 
   useEffect(() => {
     const fetchCars = async () => {
       try {
         // Gọi API để lấy dữ liệu về xe
-        const response = await axios.get("https://carriomotors.online/api/get_products.php");
-        setCars(response.data); 
+        const response = await axios.get(
+          "https://carriomotors.online/api/get_products.php"
+        );
+        setCars(response.data);
         setFilteredCars(response.data); // Initialize with all cars
       } catch (error) {
         message.error("Failed to fetch car data");
@@ -55,7 +57,9 @@ const CarListingLayout = () => {
     const fetchBrand = async () => {
       try {
         // Gọi API để lấy dữ liệu về hãng xe
-        const response = await axios.get("https://carriomotors.online/api/get_brand.php");
+        const response = await axios.get(
+          "https://carriomotors.online/api/get_brand.php"
+        );
         setBrands(response.data);
       } catch (error) {
         message.error("Failed to fetch brand data");
@@ -86,12 +90,14 @@ const CarListingLayout = () => {
   const onCloseFilter = () => {
     setIsFilterVisible(false);
   };
-const chongiathanhtruot = (value) =>{
-  setPriceRange(value);
+  const handlePriceChage = (value) => {
+    setPriceRange(value);
 
-  const chongia = cars.filter((car) => car.price >= value[0] && car.price <= value[1]);
-  setFilteredCars(chongia);
-}
+    const filterPrice = cars.filter(
+      (car) => car.price >= value[0] && car.price <= value[1]
+    );
+    setFilteredCars(filterPrice);
+  };
 
   const handleBrandSelection = (checkedValues) => {
     setSelectedBrands(checkedValues);
@@ -100,21 +106,21 @@ const chongiathanhtruot = (value) =>{
       setFilteredCars(cars);
     } else {
       // Filter cars based on selected brands
-      const filtered = cars.filter(car => checkedValues.includes(car.brandid));
+      const filtered = cars.filter((car) =>
+        checkedValues.includes(car.brandid)
+      );
       setFilteredCars(filtered);
     }
   };
 
   const handleSelectAllBrands = (e) => {
     if (e.target.checked) {
-   
-      const allBrandIds = brands.map(brand => brand.brandid);
+      const allBrandIds = brands.map((brand) => brand.brandid);
       setSelectedBrands(allBrandIds);
-      setFilteredCars(cars); 
+      setFilteredCars(cars);
     } else {
-      
       setSelectedBrands([]);
-      setFilteredCars(cars); 
+      setFilteredCars(cars);
     }
   };
 
@@ -133,13 +139,14 @@ const chongiathanhtruot = (value) =>{
           width: 200,
         }}
         placeholder="Search to Select"
-        optionFilterProp="label">
-       {brands.map((brand) => (
-        <Select.Option key = {brand.brandid} value = {brand.brandid}>
-          {brand.name}
+        optionFilterProp="label"
+      >
+        {brands.map((brand) => (
+          <Select.Option key={brand.brandid} value={brand.brandid}>
+            {brand.name}
           </Select.Option>
-       ))}
-       </Select>
+        ))}
+      </Select>
       <Title level={5}>Brand</Title>
       {/* <Checkbox
       
@@ -161,12 +168,12 @@ const chongiathanhtruot = (value) =>{
       </Checkbox.Group>
 
       <Title level={5}>Price Range</Title>
-      <Slider 
-        range 
-        defaultValue={PriceRange} 
-        min={0} 
-        max={500000} 
-        onChange={chongiathanhtruot}  
+      <Slider
+        range
+        defaultValue={PriceRange}
+        min={0}
+        max={500000}
+        onChange={handlePriceChage}
       />
       <Row justify="space-between">
         <Text>${PriceRange[0].toLocaleString()}</Text>
