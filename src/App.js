@@ -12,6 +12,7 @@ import Shopping from "./pages/Shopping";
 import FAQ from "./pages/FAQ";
 import AboutUs from "./pages/AboutUs";
 import "./App.css";
+import Ticker from "./components/Ticker";
 
 const fetchBannerData = async (page) => {
   try {
@@ -72,6 +73,30 @@ function AppLayout() {
   const [isLoading, setIsLoading] = useState(true);
   const nodeRef = useRef(null);
 
+  const [dateTime, setDateTime] = useState(new Date());
+  const [locationInfo, setLocationInfo] = useState({});
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDateTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLocationInfo({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    } else {
+      setLocationInfo({
+        error: "Geolocation is not supported by this browser.",
+      });
+    }
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -135,6 +160,7 @@ function AppLayout() {
           </CSSTransition>
         </TransitionGroup>
       </main>
+      <Ticker dateTime={dateTime} locationInfo={locationInfo} />
       <Footer />
     </div>
   );

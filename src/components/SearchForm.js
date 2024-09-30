@@ -13,9 +13,10 @@ import {
   Space,
   Grid,
   Drawer,
-  message,Pagination,
+  message,
+  Pagination,
 } from "antd";
-import { FilterOutlined, BookOutlined, MenuOutlined } from "@ant-design/icons";
+import { FilterOutlined, MenuOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 const { Header, Sider, Content } = Layout;
@@ -25,42 +26,43 @@ const { useBreakpoint } = Grid;
 
 const CarListingLayout = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const [cars, setCars] = useState([]); // State để lưu dữ liệu từ API
+  const [cars, setCars] = useState([]); 
   const [brands, setBrands] = useState([]); 
-
+  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [filteredCars, setFilteredCars] = useState([]); // For storing filtered cars
   const screens = useBreakpoint();
 
-  // useEffect để gọi API và lấy dữ liệu khi component được render lần đầu
   useEffect(() => {
     const fetchCars = async () => {
       try {
         // Gọi API để lấy dữ liệu về xe
-        const response = await axios.get("https://carriomotors.online/api/get_products.php"); 
+        const response = await axios.get("https://carriomotors.online/api/get_products.php");
         setCars(response.data); 
+        setFilteredCars(response.data); // Initialize with all cars
       } catch (error) {
-        message.error("Failed to fetch car data"); 
+        message.error("Failed to fetch car data");
         console.error(error);
       }
     };
 
-    fetchCars(); // Gọi hàm fetchCars khi component được render
-  }, []); // Mảng rỗng [] để hàm useEffect chỉ chạy một lần khi component mount
-
+    fetchCars();
+  }, []);
 
   useEffect(() => {
     const fetchBrand = async () => {
       try {
-        // Gọi API để lấy dữ liệu về xe
-        const response = await axios.get("https://carriomotors.online/api/get_brand.php"); 
-        setBrands(response.data); 
+        // Gọi API để lấy dữ liệu về hãng xe
+        const response = await axios.get("https://carriomotors.online/api/get_brand.php");
+        setBrands(response.data);
       } catch (error) {
-        message.error("Failed to fetch car data"); 
+        message.error("Failed to fetch brand data");
         console.error(error);
       }
     };
 
-    fetchBrand(); // Gọi hàm fetchCars khi component được render
-  }, []); // Mảng rỗng [] để hàm useEffect chỉ chạy một lần khi component mount
+    fetchBrand();
+  }, []);
+
   const headerStyle = {
     background: "#fff",
     padding: "10px 20px",
@@ -71,7 +73,7 @@ const CarListingLayout = () => {
   const colStyle = {
     display: "flex",
     alignItems: "center",
-    height: "40px", // Điều chỉnh chiều cao để phù hợp với Search component
+    height: "40px",
   };
 
   const showFilter = () => {
@@ -82,15 +84,40 @@ const CarListingLayout = () => {
     setIsFilterVisible(false);
   };
 
+  const handleBrandSelection = (checkedValues) => {
+    setSelectedBrands(checkedValues);
+    if (checkedValues.length === 0) {
+      // If no brands are selected, show all cars
+      setFilteredCars(cars);
+    } else {
+      // Filter cars based on selected brands
+      const filtered = cars.filter(car => checkedValues.includes(car.brandid));
+      setFilteredCars(filtered);
+    }
+  };
+
+  const handleSelectAllBrands = (e) => {
+    if (e.target.checked) {
+   
+      const allBrandIds = brands.map(brand => brand.brandid);
+      setSelectedBrands(allBrandIds);
+      setFilteredCars(cars); 
+    } else {
+      
+      setSelectedBrands([]);
+      setFilteredCars(cars); 
+    }
+  };
+
   const renderSidebar = () => (
     <>
-      <Row justify="space-between" align="middle">
-        <Title level={4} style={{ margin: 0 }}>
-          Filter
-        </Title>
-        <Button type="link">Reset</Button>
+      <Row justify="space-between" align="middle" style={{ marginBottom: 20 }}>
+        <Title level={4}>Filter</Title>
+        <Button type="link" onClick={() => handleBrandSelection([])}>
+          Reset
+        </Button>
       </Row>
-      <Title level={5}>Brand</Title>
+      <Title level={5}>Models</Title>
       <Select
         showSearch
         style={{
@@ -104,18 +131,28 @@ const CarListingLayout = () => {
           </Select.Option>
        ))}
        </Select>
-      <Title level={5}>Model</Title>
-      <Select
-        showSearch
-        style={{
-          width: 200,
-        }}
-        placeholder="Search to Select"
-      />
       <Title level={5}>Brand</Title>
-      <Checkbox style={{ marginBottom: 16 }}>All Brand</Checkbox>
+      {/* <Checkbox
+      
+        onChange={handleSelectAllBrands}
+        checked={selectedBrands.length === brands.length}
+      >
+        All Brands
+      </Checkbox> */}
+      <Checkbox.Group
+        value={selectedBrands}
+        onChange={handleBrandSelection}
+        style={{ marginBottom: 20 }}
+      >
+        {brands.map((brand) => (
+          <Checkbox key={brand.brandid} value={brand.brandid}>
+            {brand.name}
+          </Checkbox>
+        ))}
+      </Checkbox.Group>
+
       <Title level={5}>Price Range</Title>
-      <Slider range defaultValue={[80000, 300000]} min={0} max={500000} />
+      <Slider range defaultValue={[80000, 300000]} min={0} max={500000}  style={{maxWidth :200}}/>
       <Row justify="space-between">
         <Text>$80,000</Text>
         <Text>$300,000</Text>
@@ -123,10 +160,9 @@ const CarListingLayout = () => {
     </>
   );
 
-  // Hàm render card cho mỗi xe (sử dụng dữ liệu từ API)
   const renderCarCard = (car) => (
     <Card
-      key={car.id} // Sử dụng ID của xe từ API làm key
+      key={car.id}
       cover={
         <div
           style={{
@@ -135,13 +171,11 @@ const CarListingLayout = () => {
             position: "relative",
           }}
         >
-          {/* Hiển thị hình ảnh của xe */}
           <img
             src={car.img}
             alt={car.model}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
-          
         </div>
       }
     >
@@ -176,8 +210,12 @@ const CarListingLayout = () => {
               >
                 <Select.Option value="recommended">Recommended</Select.Option>
                 <Select.Option value="latest">Latest</Select.Option>
-                <Select.Option value="price-low-high">Price: Low to High</Select.Option>
-                <Select.Option value="price-high-low">Price: High to Low</Select.Option>
+                <Select.Option value="price-low-high">
+                  Price: Low to High
+                </Select.Option>
+                <Select.Option value="price-high-low">
+                  Price: High to Low
+                </Select.Option>
               </Select>
             </Space>
           </Col>
@@ -199,19 +237,17 @@ const CarListingLayout = () => {
               Filters
             </Button>
           )}
-          {/* Hiển thị số lượng xe lấy được từ API */}
-          <Title level={4}>{cars.length} Cars Found</Title>
+
+          <Title level={4}>{filteredCars.length} Cars Found</Title>
           <Row gutter={[16, 16]}>
-            {/* Render danh sách xe từ API */}
-            {cars.map((car) => (
+            {filteredCars.map((car) => (
               <Col xs={24} sm={12} lg={8} key={car.id}>
-                {renderCarCard(car)} {/* Render từng card của xe */}
+                {renderCarCard(car)}
               </Col>
             ))}
           </Row>
         </Content>
       </Layout>
-      {/* <Pagination defaultCurrent={1} total={50} style={{float: right}} /> */}
       <Drawer
         title="Filters"
         placement="left"
@@ -222,7 +258,6 @@ const CarListingLayout = () => {
         {renderSidebar()}
       </Drawer>
     </Layout>
-    
   );
 };
 
