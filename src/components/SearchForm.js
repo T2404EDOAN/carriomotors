@@ -18,6 +18,7 @@ import {
 } from "antd";
 import { FilterOutlined, MenuOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { PriceChange } from "@mui/icons-material";
 
 const { Header, Sider, Content } = Layout;
 const { Search } = Input;
@@ -30,6 +31,8 @@ const CarListingLayout = () => {
   const [brands, setBrands] = useState([]); 
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]); // For storing filtered cars
+  const[PriceRange,setPriceRange] = useState([0,500000]);
+  
   const screens = useBreakpoint();
 
   useEffect(() => {
@@ -83,6 +86,12 @@ const CarListingLayout = () => {
   const onCloseFilter = () => {
     setIsFilterVisible(false);
   };
+const chongiathanhtruot = (value) =>{
+  setPriceRange(value);
+
+  const chongia = cars.filter((car) => car.price >= value[0] && car.price <= value[1]);
+  setFilteredCars(chongia);
+}
 
   const handleBrandSelection = (checkedValues) => {
     setSelectedBrands(checkedValues);
@@ -152,10 +161,16 @@ const CarListingLayout = () => {
       </Checkbox.Group>
 
       <Title level={5}>Price Range</Title>
-      <Slider range defaultValue={[80000, 300000]} min={0} max={500000}  style={{maxWidth :200}}/>
+      <Slider 
+        range 
+        defaultValue={PriceRange} 
+        min={0} 
+        max={500000} 
+        onChange={chongiathanhtruot}  
+      />
       <Row justify="space-between">
-        <Text>$80,000</Text>
-        <Text>$300,000</Text>
+        <Text>${PriceRange[0].toLocaleString()}</Text>
+        <Text>${PriceRange[1].toLocaleString()}</Text>
       </Row>
     </>
   );
