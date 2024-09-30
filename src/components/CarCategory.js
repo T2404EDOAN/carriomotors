@@ -10,7 +10,7 @@ const CarCategory = () => {
 
   useEffect(() => {
     axios
-      .get("https://carriomotors.online/api/get_products.php")
+      .get("https://carriomotors.online/api/get_brand.php")
       .then((response) => {
         setProducts(response.data);
         setLoading(false);

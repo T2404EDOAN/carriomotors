@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Layout,
   Button,
@@ -13,8 +13,10 @@ import {
   Space,
   Grid,
   Drawer,
+  message,Pagination,
 } from "antd";
 import { FilterOutlined, BookOutlined, MenuOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const { Header, Sider, Content } = Layout;
 const { Search } = Input;
@@ -23,8 +25,42 @@ const { useBreakpoint } = Grid;
 
 const CarListingLayout = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [cars, setCars] = useState([]); // State để lưu dữ liệu từ API
+  const [brands, setBrands] = useState([]); 
+
   const screens = useBreakpoint();
 
+  // useEffect để gọi API và lấy dữ liệu khi component được render lần đầu
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        // Gọi API để lấy dữ liệu về xe
+        const response = await axios.get("https://carriomotors.online/api/get_products.php"); 
+        setCars(response.data); 
+      } catch (error) {
+        message.error("Failed to fetch car data"); 
+        console.error(error);
+      }
+    };
+
+    fetchCars(); // Gọi hàm fetchCars khi component được render
+  }, []); // Mảng rỗng [] để hàm useEffect chỉ chạy một lần khi component mount
+
+
+  useEffect(() => {
+    const fetchBrand = async () => {
+      try {
+        // Gọi API để lấy dữ liệu về xe
+        const response = await axios.get("https://carriomotors.online/api/get_brand.php"); 
+        setBrands(response.data); 
+      } catch (error) {
+        message.error("Failed to fetch car data"); 
+        console.error(error);
+      }
+    };
+
+    fetchBrand(); // Gọi hàm fetchCars khi component được render
+  }, []); // Mảng rỗng [] để hàm useEffect chỉ chạy một lần khi component mount
   const headerStyle = {
     background: "#fff",
     padding: "10px 20px",
@@ -35,7 +71,7 @@ const CarListingLayout = () => {
   const colStyle = {
     display: "flex",
     alignItems: "center",
-    height: "40px", // Adjust this value to match the height of your Search component
+    height: "40px", // Điều chỉnh chiều cao để phù hợp với Search component
   };
 
   const showFilter = () => {
@@ -49,28 +85,34 @@ const CarListingLayout = () => {
   const renderSidebar = () => (
     <>
       <Row justify="space-between" align="middle">
-      <Title level={4} style={{ margin: 0 }}>Filter</Title>
-      <Button type="link">Reset</Button>
-    </Row>
-      <Title level={5}>Type of Car</Title>
-      
+        <Title level={4} style={{ margin: 0 }}>
+          Filter
+        </Title>
+        <Button type="link">Reset</Button>
+      </Row>
+      <Title level={5}>Brand</Title>
       <Select
-      showSearch
-      style={{
-      width: 200,
+        showSearch
+        style={{
+          width: 200,
         }}
         placeholder="Search to Select"
-        optionFilterProp="label"
-    
-        />
-     <Title level={5}>Brand</Title>
-     <Select
-    showSearch
-    style={{
-      width: 200,
-    }}
-    placeholder="Search to Select"
-  />      <Title level={5}>Brand</Title>
+        optionFilterProp="label">
+       {brands.map((brand) => (
+        <Select.Option key = {brand.brandid} value = {brand.brandid}>
+          {brand.name}
+          </Select.Option>
+       ))}
+       </Select>
+      <Title level={5}>Model</Title>
+      <Select
+        showSearch
+        style={{
+          width: 200,
+        }}
+        placeholder="Search to Select"
+      />
+      <Title level={5}>Brand</Title>
       <Checkbox style={{ marginBottom: 16 }}>All Brand</Checkbox>
       <Title level={5}>Price Range</Title>
       <Slider range defaultValue={[80000, 300000]} min={0} max={500000} />
@@ -81,8 +123,10 @@ const CarListingLayout = () => {
     </>
   );
 
-  const renderCarCard = () => (
+  // Hàm render card cho mỗi xe (sử dụng dữ liệu từ API)
+  const renderCarCard = (car) => (
     <Card
+      key={car.id} // Sử dụng ID của xe từ API làm key
       cover={
         <div
           style={{
@@ -91,16 +135,19 @@ const CarListingLayout = () => {
             position: "relative",
           }}
         >
-          <Button
-            icon={<BookOutlined />}
-            style={{ position: "absolute", top: 10, right: 10 }}
+          {/* Hiển thị hình ảnh của xe */}
+          <img
+            src={car.img}
+            alt={car.model}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
+          
         </div>
       }
     >
-      <Card.Meta title="Car Model" description="Car Type" />
+      <Card.Meta title={car.name} description={car.type} />
       <Row justify="space-between" align="middle" style={{ marginTop: 16 }}>
-        <Text strong>$000,000</Text>
+        <Text strong>${car.price.toLocaleString()}</Text>
       </Row>
     </Card>
   );
@@ -127,9 +174,10 @@ const CarListingLayout = () => {
                 style={{ width: 200 }}
                 size="large"
               >
-                <Select.Option value="recommended">
-                  
-                </Select.Option>
+                <Select.Option value="recommended">Recommended</Select.Option>
+                <Select.Option value="latest">Latest</Select.Option>
+                <Select.Option value="price-low-high">Price: Low to High</Select.Option>
+                <Select.Option value="price-high-low">Price: High to Low</Select.Option>
               </Select>
             </Space>
           </Col>
@@ -151,16 +199,19 @@ const CarListingLayout = () => {
               Filters
             </Button>
           )}
-          <Title level={4}>64 Car Found</Title>
+          {/* Hiển thị số lượng xe lấy được từ API */}
+          <Title level={4}>{cars.length} Cars Found</Title>
           <Row gutter={[16, 16]}>
-            {[1, 2, 3, 4, 5, 6].map((item) => (
-              <Col xs={24} sm={12} lg={8} key={item}>
-                {renderCarCard()}
+            {/* Render danh sách xe từ API */}
+            {cars.map((car) => (
+              <Col xs={24} sm={12} lg={8} key={car.id}>
+                {renderCarCard(car)} {/* Render từng card của xe */}
               </Col>
             ))}
           </Row>
         </Content>
       </Layout>
+      {/* <Pagination defaultCurrent={1} total={50} style={{float: right}} /> */}
       <Drawer
         title="Filters"
         placement="left"
@@ -171,6 +222,7 @@ const CarListingLayout = () => {
         {renderSidebar()}
       </Drawer>
     </Layout>
+    
   );
 };
 
