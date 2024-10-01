@@ -102,7 +102,7 @@ const CarListingLayout = () => {
   const handleBrandSelection = (checkedValues) => {
     setSelectedBrands(checkedValues);
     if (checkedValues.length === 0) {
-      // If no brands are selected, show all cars
+      // If no brands are selected, show all carskmsdmbaskdbaskjbdajksb
       setFilteredCars(cars);
     } else {
       // Filter cars based on selected brands

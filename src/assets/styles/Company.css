@@ -170,3 +170,69 @@
   color: black;
   background-color: aliceblue;
 }
+@media (max-width: 1024px) {
+  .company-main-container {
+    max-width: 100%;
+  }
+
+  .list-comment {
+    flex-direction: column;
+  }
+
+  .description-list {
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .box5-list1 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .title-copmany1 {
+    font-size: 30px;
+  }
+
+  .box2-company {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .list-comment {
+    gap: 20px;
+  }
+
+  .description-img1,
+  .description-img2 img,
+  .description-img3 img {
+    width: 100%;
+    height: auto;
+  }
+
+  .box5-list1 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-copmany1 {
+    font-size: 25px;
+  }
+
+  .description-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .box-company4,
+  .box-company2,
+  .title-company4,
+  .title-company5 {
+    font-size: 20px;
+  }
+
+  .box5-list1 {
+    width: 100%;
+  }
+}
