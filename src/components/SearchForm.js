@@ -15,6 +15,7 @@ import {
   Drawer,
   message,
   Pagination,
+  Avatar,
 } from "antd";
 import { FilterOutlined, MenuOutlined } from "@ant-design/icons";
 import axios from "axios";
@@ -32,43 +33,59 @@ const CarListingLayout = () => {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]); // For storing filtered cars
   const [PriceRange, setPriceRange] = useState([0, 500000]);
-
+  const [colors, setColors] = useState([
+    "red",
+    "blue",
+    "green",
+    "black",
+    "white",
+    "silver",
+    "gray",
+  ]); // List of colors
+  const [selectedColors, setSelectedColors] = useState([]); // Colors selected by user
   const screens = useBreakpoint();
-
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        // Gọi API để lấy dữ liệu về xe
-        const response = await axios.get(
-          "https://carriomotors.online/api/get_products.php"
-        );
-        setCars(response.data);
-        setFilteredCars(response.data); // Initialize with all cars
+        const response = await axios.get("http://carriomotors.atwebpages.com/get_products.php");
+        console.log('Raw response:', response);
+        const carsData = response.data.data;
+        console.log('Parsed cars data:', carsData);
+        if (Array.isArray(carsData)) {
+          setCars(carsData);
+          setFilteredCars(carsData);
+        } else {
+          console.error('Data is not an array:', carsData);
+          setCars([]);
+          setFilteredCars([]);
+        }
       } catch (error) {
-        message.error("Failed to fetch car data");
-        console.error(error);
+        console.error('Error fetching cars:', error);
+        message.error("Không thể lấy dữ liệu xe");
       }
     };
-
+  
     fetchCars();
   }, []);
+  
+  
 
-  useEffect(() => {
-    const fetchBrand = async () => {
-      try {
-        // Gọi API để lấy dữ liệu về hãng xe
-        const response = await axios.get(
-          "https://carriomotors.online/api/get_brand.php"
-        );
-        setBrands(response.data);
-      } catch (error) {
-        message.error("Failed to fetch brand data");
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchBrand = async () => {
+  //     try {
+  //       // Gọi API để lấy dữ liệu về hãng xe
+  //       const response = await axios.get(
+  //         "https://carriomotors.online/api/get_brand.php"
+  //       );
+  //       setBrands(response.data);
+  //     } catch (error) {
+  //       message.error("Failed to fetch brand data");
+  //       console.error(error);
+  //     }
+  //   };
 
-    fetchBrand();
-  }, []);
+  //   fetchBrand();
+  // }, []);
 
   const headerStyle = {
     background: "#fff",
@@ -123,7 +140,23 @@ const CarListingLayout = () => {
       setFilteredCars(cars);
     }
   };
-
+  const handleColorSelection = (color) => {
+    if (selectedColors.includes(color)) {
+      // Nếu màu đã được chọn thì bỏ chọn
+      setSelectedColors(selectedColors.filter((c) => c !== color));
+    } else {
+      // Nếu màu chưa được chọn thì thêm vào danh sách chọn
+      setSelectedColors([...selectedColors, color]);
+    }
+    
+    // Lọc danh sách xe theo màu đã chọn
+    if (selectedColors.length === 0) {
+      setFilteredCars(cars); // Nếu không chọn màu nào thì hiển thị tất cả xe
+    } else {
+      const filtered = cars.filter((car) => selectedColors.includes(car.color));
+      setFilteredCars(filtered);
+    }
+  };
   const renderSidebar = () => (
     <>
       <Row justify="space-between" align="middle" style={{ marginBottom: 20 }}>
@@ -133,6 +166,21 @@ const CarListingLayout = () => {
         </Button>
       </Row>
       <Title level={5}>Models</Title>
+      <Select
+        showSearch
+        style={{
+          width: 200,
+        }}
+        placeholder="Search to Select"
+        optionFilterProp="label"
+      >
+        {brands.map((brand) => (
+          <Select.Option key={brand.brandid} value={brand.brandid}>
+            {brand.name}
+          </Select.Option>
+        ))}
+      </Select>
+      <Title level={5}>Location</Title>
       <Select
         showSearch
         style={{
@@ -160,13 +208,14 @@ const CarListingLayout = () => {
         onChange={handleBrandSelection}
         style={{ marginBottom: 20 }}
       >
+         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
         {brands.map((brand) => (
           <Checkbox key={brand.brandid} value={brand.brandid}>
             {brand.name}
           </Checkbox>
         ))}
+        </div>
       </Checkbox.Group>
-
       <Title level={5}>Price Range</Title>
       <Slider
         range
@@ -179,6 +228,23 @@ const CarListingLayout = () => {
         <Text>${PriceRange[0].toLocaleString()}</Text>
         <Text>${PriceRange[1].toLocaleString()}</Text>
       </Row>
+      <Title level={5}>Color</Title>
+<div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+  {colors.map((color) => (
+    <Avatar
+    key={color}
+    onClick={() => handleColorSelection(color)}
+    style={{
+      backgroundColor: color,
+      cursor: "pointer",
+      border: selectedColors.includes(color) ? "2px solid #488ded" : "none",
+      transition: "transform 0.3s", // Thêm hiệu ứng chuyển động
+      transform: selectedColors.includes(color) ? "scale(1.1)" : "scale(1)",
+    }}
+    size={30}
+  />
+  ))}
+</div>
     </>
   );
 
