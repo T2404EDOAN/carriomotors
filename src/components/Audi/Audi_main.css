@@ -1,0 +1,121 @@
+
+
+.audi-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Intro Section */
+  .intro-section {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .intro-section h2 {
+    font-size: 3vw;
+    color: #000;
+  }
+  
+  .intro-section p {
+    font-size: 1.5vw;
+    color: #555;
+  }
+  
+  /* Service Details */
+  .service-details {
+    font-size: 1.3vw;
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  
+  .service-image {
+    max-width: 35vw;
+    margin-right: 30px;
+  }
+  
+  .service-info h3 {
+    font-size: 2vw;
+    margin-bottom: 10px;
+  }
+  
+  .service-info ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+  
+  /* Service Plans */
+  .service-plans {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .plans {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .plan {
+    text-align: center;
+    max-width: 200px;
+  }
+  
+  .plan img {
+    max-width: 5vw;
+    margin-bottom: 10px;
+  }
+  
+  /* Customer Support */
+  .customer-support {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .support-options {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .support-option {
+    text-align: center;
+    max-width: 300px;
+  }
+  
+  .support-option img {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  /* Additional Support */
+  .additional-support {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .support-campaigns {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .campaign {
+    text-align: center;
+    max-width: 300px;
+  }
+  
+  .campaign img {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  a {
+    color: #004ba0;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
