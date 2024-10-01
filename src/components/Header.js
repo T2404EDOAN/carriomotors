@@ -32,7 +32,7 @@ const ImprovedHeader = () => {
       key: "aboutus",
       label: "About us",
       children: [
-        { key: "company", label: "Our Company", link: "/about/company" },
+        { key: "company", label: "Our Company", link: "/About/company" },
         { key: "careers", label: "Careers", link: "/about/careers" },
         { key: "contact", label: "Contact Us", link: "/about/contact" },
       ],
