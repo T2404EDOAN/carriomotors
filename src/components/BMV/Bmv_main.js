@@ -1,6 +1,10 @@
 import { div } from "framer-motion/client";
 import React from "react";
 import './BMWService.css';
+import anh1 from '../../assets/images/Bmv_images/BMWcareoil.jpg';
+import anh2 from '../../assets/images/Bmv_images/BMWbatteries.jpg';
+import anh3 from '../../assets/images/Bmv_images/Original BMW tires.jpg';
+import anh4 from '../../assets/images/Bmv_images/BMWapp.webp';
 
 
 const Bmv_main = () => {
@@ -15,7 +19,7 @@ const Bmv_main = () => {
         {/* Services Section */}
         <div className="services">
           <div className="service-box">
-            <img src="../../assets/images/Bmv_images/BMWcareoil.jpg" alt="BMW Ultimate Care Oil Services" />
+            <img src={anh1} alt="BMW Ultimate Care Oil Services" />
             <div className="service-title">BMW ULTIMATE CARE OIL SERVICES</div>
             <div className="service-description">
               3 years prepaid for $225 for BMWs that have reached 60 months or 60,000 miles.
@@ -23,7 +27,7 @@ const Bmv_main = () => {
           </div>
   
           <div className="service-box">
-            <img src="../../assets/images/Bmv_images/BMWbatteries.jpg" alt="Original BMW Batteries" />
+            <img src={anh2} alt="Original BMW Batteries" />
             <div className="service-title">ORIGINAL BMW BATTERIES</div>
             <div className="service-description">
               Find the battery that’s right for your vehicle.
@@ -31,7 +35,7 @@ const Bmv_main = () => {
           </div>
   
           <div className="service-box">
-            <img src="../../assets/images/Bmv_images/Original BMW tires.jpg" alt="Original BMW Tires" />
+            <img src={anh3} alt="Original BMW Tires" />
             <div className="service-title">ORIGINAL BMW TIRES</div>
             <div className="service-description">Refresh your ride this season.</div>
           </div>
@@ -51,7 +55,7 @@ const Bmv_main = () => {
       </div>
   
       <div className="benefitpara">
-        <img src="../../assets/images/Bmv_images/BMWapp.webp" alt="My BMW App" className="app-image" />
+        <img src={anh4} alt="My BMW App" className="app-image" />
   
         <div className="benefitinfos">
           <div className="tinyheader">

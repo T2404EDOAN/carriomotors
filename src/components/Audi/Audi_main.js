@@ -1,6 +1,13 @@
 import { div } from "framer-motion/client";
 import React from "react";
 import './Audi_main.css'
+import anh1 from '../../assets/images/Bmv_images/730x730_ASER_P_161048.jpg';
+import anh2 from '../../assets/images/Bmv_images/download.png';
+import anh3 from '../../assets/images/Bmv_images/images.jpg';
+import anh4 from '../../assets/images/Bmv_images/883x496-recall-min.jpg';
+import anh5 from '../../assets/images/Bmv_images/883x496-tires-min.jpg';
+import anh6 from '../../assets/images/Bmv_images/883x496-roadsideassist-min.jpg';
+import anh7 from '../../assets/images/Bmv_images/844x476_S5-Cab_2RS6CR~A-min.jpg';
 
 const Audi_main = () => {
     return (<div className="audi-container">
@@ -18,7 +25,7 @@ const Audi_main = () => {
   
         {/* Service Details */}
         <section className="service-details">
-          <img src="/src/730x730_ASER_P_161048.jpg" alt="Audi Service" className="service-image" />
+          <img src={anh1} alt="Audi Service" className="service-image" />
           <div className="service-info">
             <h3>Nobody knows your Audi better.</h3>
             <p>
@@ -41,11 +48,11 @@ const Audi_main = () => {
           <h3>Service Plans</h3>
           <div className="plans">
             <div className="plan">
-              <img src="/src/download.png" alt="Audi Care" />
+              <img src={anh2} alt="Audi Care" />
               <p><strong>Audi Care:</strong> Save on prepaid, scheduled maintenance.</p>
             </div>
             <div className="plan">
-              <img src="/src/images.jpg" alt="Term Protection" />
+              <img src={anh3} alt="Term Protection" />
               <p><strong>Term Protection:</strong> Get coverage for virtually any mechanical failure.</p>
             </div>
           </div>
@@ -54,12 +61,12 @@ const Audi_main = () => {
           <h3>Customer support</h3>
           <div className="support-options">
             <div className="support-option">
-              <img src="/src/883x496-roadsideassist-min.jpg" alt="Roadside Assistance" />
+              <img src={anh4} alt="Roadside Assistance" />
               <p><strong>Roadside assistance</strong><br />Around-the-clock service, no matter where you are.</p>
               <a href="#">Explore Roadside assistance</a>
             </div>
             <div className="support-option">
-              <img src="/src/844x476_S5-Cab_2RS6CR~A-min.jpg" alt="Warranty" />
+              <img src={anh5} alt="Warranty" />
               <p><strong>Warranty</strong><br />Experience peace of mind with an Audi warranty.</p>
               <a href="#">Learn about Audi warranty</a>
             </div>
@@ -69,14 +76,17 @@ const Audi_main = () => {
         {/* Keep Your Car in Top Form Section */}
         <section className="additional-support">
           <h3>Keep your car in top form.</h3>
+          <div className="Spacer">
+            <h3> .</h3>
+          </div>
           <div className="support-campaigns">
             <div className="campaign">
-              <img src="/src/883x496-tires-min.jpg" alt="Recalls & Campaigns" />
+              <img src={anh6} alt="Recalls & Campaigns" />
               <p><strong>Recalls & service campaigns</strong><br />Look up recall and campaign information for the past 15 years.</p>
               <a href="#">Explore Recalls</a>
             </div>
             <div className="campaign">
-              <img src="/src/883x496-recall-min.jpg" alt="Audi Tires" />
+              <img src={anh7} alt="Audi Tires" />
               <p><strong>Recalls & service campaigns</strong><br />Look up recall and campaign information for the past 15 years.</p>
               <a href="#">Learn about Audi tires</a>
             </div>
