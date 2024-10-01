@@ -25,19 +25,21 @@
 .service-details {
   font-size: 1.3vw;
   display: flex;
-  flex-wrap: wrap; /* Allow wrap for smaller screens */
+  flex-direction: row; /* Ensure row layout for desktop */
   align-items: center;
+  justify-content: space-between; /* Space between image and text */
   margin-bottom: 40px;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .service-image {
   max-width: 35vw;
+  flex: 1; /* Image will take up available space */
   margin-right: 30px;
-  flex: 1 1 auto; /* Allow image to resize based on screen */
 }
 
 .service-info {
-  flex: 1 1 auto;
+  flex: 2; /* Text content will take more space compared to the image */
 }
 
 .service-info h3 {
@@ -49,7 +51,6 @@
   list-style-type: disc;
   margin-left: 20px;
 }
-
 /* Service Plans */
 .service-plans {
   text-align: center;
@@ -142,18 +143,22 @@ a:hover {
   }
 
   .service-details {
-      font-size: 2vw;
-      flex-direction: column;
-  }
+    flex-direction: column; /* Stack items in a column for smaller screens */
+    text-align: center; /* Center align text on smaller screens */
+}
 
-  .service-image {
-      max-width: 80vw;
-      margin-bottom: 20px;
-  }
+.service-image {
+    max-width: 80vw;
+    margin-bottom: 20px; /* Add margin below image when stacked */
+}
 
-  .service-info h3 {
-      font-size: 4vw;
-  }
+.service-info {
+    flex: unset; /* Reset flex on smaller screens */
+}
+
+.service-info h3 {
+    font-size: 3.5vw;
+}
 
   .plans {
       flex-direction: column;
@@ -190,12 +195,12 @@ a:hover {
   }
 
   .service-image {
-      max-width: 90vw;
-  }
+    max-width: 90vw; /* Larger image on small screens */
+}
 
-  .service-info h3 {
-      font-size: 5vw;
-  }
+.service-info h3 {
+    font-size: 4vw;
+}
 
   .plans {
       flex-direction: column;
