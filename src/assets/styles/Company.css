@@ -1,0 +1,171 @@
+.company-main-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.logo-company {
+  text-align: center;
+}
+.logo-company img {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+}
+.title-copmany1 {
+  text-align: center;
+  font-size: 40px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+.title-company2 {
+  text-align: center;
+}
+.list-company {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+.anha,
+.a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.a {
+  display: none;
+}
+.box-company2:hover .anha {
+  display: none;
+}
+.box-company2:hover .a {
+  display: block;
+}
+
+.box2-company {
+  display: flex;
+}
+.b {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.c {
+  margin-right: 50px;
+}
+.k {
+  margin-left: 25px;
+}
+.title-company3 {
+  margin-top: 30px;
+}
+.title-company3-1 {
+  font-size: 13px;
+  font-weight: bold;
+}
+.title-company3-2 {
+  font-size: 30px;
+}
+.list-comment {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+  gap: 50px;
+}
+.comment1,
+.comment2,
+.comment3 {
+  width: 700px;
+}
+.text-comment {
+  text-align: center;
+}
+.list-company-text {
+  text-align: center;
+}
+.list-company-name {
+  font-size: 25px;
+  font-weight: bold;
+}
+.box-company4 {
+  margin-top: 30px;
+}
+.title-company4 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+}
+.description-list {
+  display: flex;
+  margin-left: 100px;
+  gap: 50px;
+  margin-top: 20px;
+}
+.description-list1 {
+  width: 400px;
+}
+.description-img1 {
+  width: 400px;
+}
+.des1 {
+  width: 400px;
+  height: 400px;
+}
+.description-img2 img {
+  width: 400px;
+  height: 400px;
+}
+.description-img3 img {
+  width: 400px;
+  height: 400px;
+}
+.description-text1-1,
+.description-text2-1,
+.description-text3-1 {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 10px;
+}
+.description-text1-2,
+.description-text2-2,
+.description-text3-2 {
+  text-align: center;
+}
+.title-company5 {
+  font-weight: bold;
+  text-align: center;
+  font-size: 40px;
+  margin-top: 20px;
+}
+.box5-list {
+  display: flex;
+  justify-content: space-between;
+}
+.box5-list1 {
+  position: relative;
+  width: 300px;
+  height: 350px;
+}
+.box5-list-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.box5-list-text {
+  position: absolute;
+  bottom: 135px;
+  left: 60px;
+  color: aliceblue;
+  text-align: center;
+  font-weight: bold;
+}
+.box5-list-text1 {
+  font-size: 25px;
+}
+.box5-list-text2 {
+  color: black;
+  background-color: aliceblue;
+}
