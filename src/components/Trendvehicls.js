@@ -23,14 +23,6 @@ const Trendvehicls = () => {
       });
   }, []);
 
-  if (loading) {
-    return <p></p>;
-  }
-
-  if (error) {
-    return <p>Error loading products: {error}</p>;
-  }
-
   return (
     <div className="trend-container">
       <div className="trend-vehicles">
@@ -47,9 +39,9 @@ const Trendvehicls = () => {
         <div className="trend-vehicles-grid">
           {products.slice(4, 8).map((product, index) => (
             <TrendVehicleCard
-              key={product.id}
+              key={product.productid}
               imageSrc={product.img}
-              vehicleName={product.className}
+              vehicleName={product.name}
               isOdd={index % 2 === 0}
             />
           ))}

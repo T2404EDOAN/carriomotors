@@ -67,7 +67,7 @@ const ImprovedHeader = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
       <div className="max-w-7xl mx-auto mt-6 px-4">
-        <div className="bg-white shadow-md rounded-full flex items-center h-20 px-6">
+        <div className="bg-white shadow-md rounded-full flex items-center h-12 px-8">
           <div className="flex-none mr-8">
             <Link to="/">
               <img src="/logo2.png" alt="Logo" className="h-12 md:h-16" />

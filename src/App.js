@@ -12,6 +12,8 @@ import Shopping from "./pages/Shopping";
 import FAQ from "./pages/FAQ";
 import AboutUs from "./pages/AboutUs";
 import "./App.css";
+import Ticker from "./components/Ticker";
+import CompanyPage from "./components/AboutUs/Company";
 
 const fetchBannerData = async (page) => {
   try {
@@ -72,6 +74,30 @@ function AppLayout() {
   const [isLoading, setIsLoading] = useState(true);
   const nodeRef = useRef(null);
 
+  const [dateTime, setDateTime] = useState(new Date());
+  const [locationInfo, setLocationInfo] = useState({});
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDateTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLocationInfo({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    } else {
+      setLocationInfo({
+        error: "Geolocation is not supported by this browser.",
+      });
+    }
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -129,12 +155,14 @@ function AppLayout() {
                 <Route path="/services" element={<Services />} />
                 <Route path="/shopping" element={<Shopping />} />
                 <Route path="/faq" element={<FAQ />} />
-                <Route path="/about" element={<AboutUs />} />
+                <Route path="/about/company" element={<CompanyPage />} />
+                {/* <Route path="/about" element={<AboutUs />} /> */}
               </Routes>
             </div>
           </CSSTransition>
         </TransitionGroup>
       </main>
+      <Ticker dateTime={dateTime} locationInfo={locationInfo} />
       <Footer />
     </div>
   );

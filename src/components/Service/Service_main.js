@@ -15,7 +15,6 @@ export default function TabsBasic() {
         <Tab sx={{width: '120px'}}>Mercedes -Benz</Tab>
         <Tab sx={{width: '120px'}}>BMV</Tab>
         <Tab sx={{width: '120px'}}>Audi</Tab>
-      
         <Tab sx={{width: '120px'}}>PORSCHE</Tab>
 
       </TabList>
