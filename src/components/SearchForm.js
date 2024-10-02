@@ -47,7 +47,7 @@ const CarListingLayout = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await axios.get("http://carriomotors.atwebpages.com/get_products.php");
+        const response = await axios.get("http://carriomotors.atwebpages.com/api/get_products.php");
         console.log('Raw response:', response);
         const carsData = response.data.data;
         console.log('Parsed cars data:', carsData);

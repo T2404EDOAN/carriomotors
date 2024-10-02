@@ -72,7 +72,6 @@ function AppLayout() {
   const navigate = useNavigate();
   const [bannerImages, setBannerImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const nodeRef = useRef(null);
 
   const [dateTime, setDateTime] = useState(new Date());
   const [locationInfo, setLocationInfo] = useState({});
@@ -84,6 +83,7 @@ function AppLayout() {
 
     return () => clearInterval(timer);
   }, []);
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -98,6 +98,7 @@ function AppLayout() {
       });
     }
   }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -141,31 +142,18 @@ function AppLayout() {
         <Banner images={bannerImages} autoSlide={location.pathname === "/"} />
       )}
       <main className="main-content">
-        <TransitionGroup>
-          <CSSTransition
-            key={location.pathname}
-            classNames="fade"
-            timeout={600}
-            nodeRef={nodeRef}
-          >
-            <div ref={nodeRef}>
-              <Routes location={location}>
-                <Route path="/" element={<Home />} />
-                <Route path="/vehicles" element={<Vehicles />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/shopping" element={<Shopping />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/about/company" element={<CompanyPage />} />
-                {/* <Route path="/about" element={<AboutUs />} /> */}
-              </Routes>
-            </div>
-          </CSSTransition>
-        </TransitionGroup>
+        <Routes location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/vehicles" element={<Vehicles />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/shopping" element={<Shopping />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/about/company" element={<CompanyPage />} />
+        </Routes>
       </main>
       <Ticker dateTime={dateTime} locationInfo={locationInfo} />
       <Footer />
     </div>
   );
 }
-
 export default App;
