@@ -14,6 +14,7 @@ import AboutUs from "./pages/AboutUs";
 import "./App.css";
 import Ticker from "./components/Ticker";
 import CompanyPage from "./components/AboutUs/Company";
+import Contactus from "./components/AboutUs/Contactus";
 
 const fetchBannerData = async (page) => {
   try {
@@ -155,8 +156,9 @@ function AppLayout() {
                 <Route path="/services" element={<Services />} />
                 <Route path="/shopping" element={<Shopping />} />
                 <Route path="/faq" element={<FAQ />} />
+                <Route path="/about" element={<AboutUs />} />
                 <Route path="/about/company" element={<CompanyPage />} />
-                {/* <Route path="/about" element={<AboutUs />} /> */}
+                <Route path="/about/contact" element={<Contactus />} />
               </Routes>
             </div>
           </CSSTransition>
