@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Input, Button, Dropdown, Drawer } from "antd";
+import { Menu, Input, Button, Drawer } from "antd";
 import {
   SearchOutlined,
   UserOutlined,
   EnvironmentOutlined,
   MenuOutlined,
-  HomeOutlined,
 } from "@ant-design/icons";
 
 const ImprovedHeader = () => {
+  // Quản lý trạng thái mở rộng của thanh tìm kiếm
   const [searchExpanded, setSearchExpanded] = useState(false);
+  // Quản lý trạng thái hiển thị của Drawer khi màn hình nhỏ
   const [drawerVisible, setDrawerVisible] = useState(false);
+  // Quản lý trạng thái màn hình lớn hay nhỏ
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
 
+  // Hàm lắng nghe khi thay đổi kích thước màn hình để xác định màn hình lớn hay nhỏ
   useEffect(() => {
     const handleResize = () => {
       setIsLargeScreen(window.innerWidth >= 1024);
@@ -23,6 +26,7 @@ const ImprovedHeader = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Các item trong menu điều hướng
   const menuItems = [
     { key: "home", label: "Home", link: "/" },
     { key: "vehicles", label: "Vehicles", link: "/vehicles" },
@@ -30,7 +34,7 @@ const ImprovedHeader = () => {
     { key: "finance", label: "Finance", link: "/shopping" },
     {
       key: "aboutus",
-      label: "About us",
+      label: "About Us",
       children: [
         { key: "company", label: "Our Company", link: "/about/company" },
         { key: "careers", label: "Careers", link: "/about/careers" },
@@ -39,6 +43,7 @@ const ImprovedHeader = () => {
     },
   ];
 
+  // Hàm render menu, có thể điều chỉnh chế độ hiển thị "horizontal" hoặc "vertical"
   const renderMenu = (mode = "horizontal") => (
     <Menu
       mode={mode}
@@ -65,25 +70,27 @@ const ImprovedHeader = () => {
   );
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
-      <div className="max-w-7xl mx-auto mt-6 px-4">
-        <div className="bg-white shadow-md rounded-full flex items-center h-12 px-8">
+    // Header được thiết lập cố định trên cùng và chiếm toàn bộ chiều rộng màn hình
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-white">
+      <div className="w-full px-4">
+        <div className="flex items-center h-16 px-8">
+          {/* Logo của trang */}
           <div className="flex-none mr-8">
             <Link to="/">
               <img src="/logo2.png" alt="Logo" className="h-12 md:h-16" />
             </Link>
           </div>
+          {/* Hiển thị menu điều hướng khi màn hình lớn */}
           <div className="flex-grow flex justify-center">
             {isLargeScreen && renderMenu()}
           </div>
+          {/* Các nút điều hướng bên phải */}
           <div className="flex-none flex items-center space-x-4">
             <Button
               type="text"
               icon={<EnvironmentOutlined />}
               className="hidden md:flex items-center text-base"
-            >
-              Store location
-            </Button>
+            ></Button>
             <div
               className={`transition-all duration-300 ease-in-out ${
                 searchExpanded ? "w-64" : "w-10"
@@ -102,6 +109,7 @@ const ImprovedHeader = () => {
               icon={<UserOutlined />}
               className="text-base hidden sm:flex"
             />
+            {/* Hiển thị nút mở menu khi màn hình nhỏ */}
             {!isLargeScreen && (
               <Button
                 type="text"
@@ -112,6 +120,7 @@ const ImprovedHeader = () => {
           </div>
         </div>
       </div>
+      {/* Drawer chứa menu khi màn hình nhỏ */}
       <Drawer
         title="Menu"
         placement="right"
@@ -137,18 +146,35 @@ const ImprovedHeader = () => {
           </Button>
         </div>
       </Drawer>
+      {/* Style tùy chỉnh để bỏ in đậm và gạch chân khi hover */}
       <style jsx>{`
+        /* In đậm tất cả các mục menu và submenu */
         .ant-menu-horizontal > .ant-menu-item,
-        .ant-menu-horizontal > .ant-menu-submenu,
-        .ant-drawer .ant-menu-item,
-        .ant-drawer .ant-menu-submenu-title {
-          font-size: 16px;
+        .ant-menu-horizontal > .ant-menu-submenu-title,
+        .ant-menu-item,
+        .ant-menu-submenu-title {
+          font-weight: bold !important; /* Bắt buộc in đậm */
+          font-size: 16px !important; /* Đặt cỡ chữ 16px */
+        }
+        /* Đảm bảo các liên kết trong menu không có gạch chân */
+        .ant-menu-item a,
+        .ant-menu-submenu-title {
+          text-decoration: none !important; /* Không có gạch chân */
+          font-weight: bold !important; /* In đậm các liên kết */
+        }
+        /* Không có gạch chân khi hover vào liên kết */
+        .ant-menu-item a:hover,
+        .ant-menu-submenu-title:hover {
+          text-decoration: none !important; /* Không có gạch chân khi hover */
+          font-weight: bold !important; /* In đậm khi hover */
         }
         .ant-input {
           font-size: 16px;
+          font-weight: bold !important; /* In đậm phần input */
         }
         .ant-btn {
           font-size: 16px;
+          font-weight: bold !important; /* In đậm các nút */
         }
         @media (min-width: 1024px) {
           .ant-menu-horizontal {

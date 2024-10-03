@@ -14,11 +14,12 @@ import AboutUs from "./pages/AboutUs";
 import "./App.css";
 import Ticker from "./components/Ticker";
 import CompanyPage from "./components/AboutUs/Company";
+import Contactus from "./components/AboutUs/Contactus";
 
 const fetchBannerData = async (page) => {
   try {
     const response = await fetch(
-      `https://carriomotors.online/api/get_banner.php?page=${page}`
+      `https://carriomotors.io.vn/api/get_banner.php?page=${page}`
     );
     const data = await response.json();
     return data.map((banner) => ({
@@ -142,14 +143,26 @@ function AppLayout() {
         <Banner images={bannerImages} autoSlide={location.pathname === "/"} />
       )}
       <main className="main-content">
-        <Routes location={location}>
-          <Route path="/" element={<Home />} />
-          <Route path="/vehicles" element={<Vehicles />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/shopping" element={<Shopping />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/about/company" element={<CompanyPage />} />
-        </Routes>
+        <TransitionGroup>
+          <CSSTransition
+            key={location.pathname}
+            classNames="fade"
+            timeout={600}
+            nodeRef={nodeRef}
+          >
+            <div ref={nodeRef}>
+              <Routes location={location}>
+                <Route path="/" element={<Home />} />
+                <Route path="/vehicles" element={<Vehicles />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/shopping" element={<Shopping />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/about/company" element={<CompanyPage />} />
+                {/* <Route path="/about" element={<AboutUs />} /> */}
+              </Routes>
+            </div>
+          </CSSTransition>
+        </TransitionGroup>
       </main>
       <Ticker dateTime={dateTime} locationInfo={locationInfo} />
       <Footer />

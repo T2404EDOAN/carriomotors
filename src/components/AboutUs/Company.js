@@ -42,9 +42,9 @@ const CompanyPage = () => {
             </div>
           </div>
         </div>
-        <div className="box-company2 b">
+        <div className="box-company2 b" id="abcd">
           <div className="list-company">
-            <img src={anha} alt="anha" className="anha" />
+            <img src={anha} alt="anha" className="anha" id="abc" />
             <img src={anha1} alt="anha1" className="a" />
           </div>
           <div className="list-company-text">

@@ -10,8 +10,9 @@ const CarCategory = () => {
 
   useEffect(() => {
     axios
-      .get("https://carriomotors.online/api/get_brand.php")
+      .get("https://carriomotors.io.vn/api/get_brands.php")
       .then((response) => {
+        console.log(response.data); // Kiểm tra phản hồi từ API
         setProducts(response.data);
         setLoading(false);
       })
@@ -48,7 +49,7 @@ const CarCategory = () => {
               .map((product, index) => (
                 <CarCard
                   key={product.id}
-                  imageSrc={product.img}
+                  imageSrc={product.image_url}
                   carName={product.name}
                   index={index}
                 />

@@ -1,7 +1,7 @@
 /* Banner.css */
 .hero-section {
   position: relative;
-  height: 70vh;
+  height: 80vh;
   width: 100%;
   overflow: hidden;
   z-index: 1; /* Ensure it's below the CarCategory */
