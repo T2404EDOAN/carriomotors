@@ -19,7 +19,7 @@ import Contactus from "./components/AboutUs/Contactus";
 const fetchBannerData = async (page) => {
   try {
     const response = await fetch(
-      `https://carriomotors.online/api/get_banner.php?page=${page}`
+      `https://carriomotors.io.vn/api/get_banner.php?page=${page}`
     );
     const data = await response.json();
     return data.map((banner) => ({
@@ -146,7 +146,7 @@ function AppLayout() {
           <CSSTransition
             key={location.pathname}
             classNames="fade"
-            timeout={600}
+            timeout={100}
             nodeRef={nodeRef}
           >
             <div ref={nodeRef}>

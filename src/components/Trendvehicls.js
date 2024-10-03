@@ -1,65 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../assets/styles/Trendvehicls.css";
-import axios from "axios";
-import { Button, Divider, Radio } from "antd"; // Ensure 'antd' is installed
-import * as icons from "@ant-design/icons";
+
 const Trendvehicls = () => {
-  const [size, setSize] = useState("large");
-  const { ArrowRightOutlined } = icons;
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    axios
-      .get("https://carriomotors.online/api/get_products.php")
-      .then((response) => {
-        setProducts(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);
-
   return (
-    <div className="trend-container">
-      <div className="trend-vehicles">
-        <div className="trend-vehicles-header">
-          <p>Trend Vehicles</p>
-          <div>
-            <Button type="primary" shape="round" size={size}>
-              View all
-              <ArrowRightOutlined />
-            </Button>
-          </div>
+    <div className="trend-vehicles-container">
+      <div className="vehicle-card">
+        <img
+          src="https://via.placeholder.com/150"
+          alt="Subaru Forester"
+          className="vehicle-image"
+        />
+        <div className="vehicle-info">
+          <h3>2013 Subaru Forester</h3>
+          <p>11,475 Miles - #2019884</p>
+          <p>Seller: Subaru Champlin</p>
+          <p>Price: $21,480</p>
+          <p>Current Bid: $14,000</p>
         </div>
-
-        <div className="trend-vehicles-grid">
-          {products.slice(4, 8).map((product, index) => (
-            <TrendVehicleCard
-              key={product.productid}
-              imageSrc={product.img}
-              vehicleName={product.name}
-              isOdd={index % 2 === 0}
-            />
-          ))}
-        </div>
+        <button className="bid-button">Place Bid</button>
       </div>
-    </div>
-  );
-};
 
-const TrendVehicleCard = ({ imageSrc, vehicleName, isOdd }) => {
-  return (
-    <div className="trend-vehicle-card">
-      <img src={imageSrc} alt={vehicleName} />
-      <div
-        className="trend-vehicle-card-content"
-        style={{ color: isOdd ? "#fff" : "#000" }}
-      >
-        <h2>{vehicleName}</h2>
+      <div className="vehicle-card">
+        <img
+          src="https://via.placeholder.com/150"
+          alt="BMW X3"
+          className="vehicle-image"
+        />
+        <div className="vehicle-info">
+          <h3>2010 BMW X3</h3>
+          <p>11,475 Miles - #2019832</p>
+          <p>Seller: BMW Dealer Liana</p>
+          <p>Price: $38,800</p>
+          <p>Current Bid: $8,000</p>
+        </div>
+        <button className="bid-button">Place Bid</button>
+      </div>
+
+      <div className="vehicle-card">
+        <img
+          src="https://via.placeholder.com/150"
+          alt="Toyota BRZ"
+          className="vehicle-image"
+        />
+        <div className="vehicle-info">
+          <h3>2016 Toyota BRZ</h3>
+          <p>11,475 Miles - #2019880</p>
+          <p>Seller: Toyota Turnpike</p>
+          <p>Price: $29,500</p>
+          <p>Current Bid: $10,900</p>
+        </div>
+        <button className="bid-button">Place Bid</button>
       </div>
     </div>
   );
