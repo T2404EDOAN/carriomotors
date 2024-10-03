@@ -27,11 +27,12 @@ const { Title, Text } = Typography;
 const { useBreakpoint } = Grid;
 
 const CarListingLayout = () => {
+  // Khai báo các state cần thiết
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [cars, setCars] = useState([]);
   const [brands, setBrands] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [filteredCars, setFilteredCars] = useState([]); // For storing filtered cars
+  const [filteredCars, setFilteredCars] = useState([]);
   const [PriceRange, setPriceRange] = useState([0, 500000]);
   const [colors, setColors] = useState([
     "red",
@@ -41,36 +42,44 @@ const CarListingLayout = () => {
     "white",
     "silver",
     "gray",
-  ]); // List of colors
-  const [selectedColors, setSelectedColors] = useState([]); // Colors selected by user
+  ]);
+  const [selectedColors, setSelectedColors] = useState([]);
   const screens = useBreakpoint();
-  useEffect(() => {
-    const fetchCars = async () => {
-      try {
-        const response = await axios.get(
-          "http://carriomotors.atwebpages.com/get_products.php"
-        );
-        console.log("Raw response:", response);
-        const carsData = response.data.data;
-        console.log("Parsed cars data:", carsData);
-        if (Array.isArray(carsData)) {
-          setCars(carsData);
-          setFilteredCars(carsData);
-        } else {
-          console.error("Data is not an array:", carsData);
-          setCars([]);
-          setFilteredCars([]);
-        }
-      } catch (error) {}
-    };
 
-    fetchCars();
-  }, []);
+  // Lấy dữ liệu xe từ API
+  const fetchCars = async () => {
+    try {
+      const response = await axios.get(
+        "https://carriomotors.io.vn/api/get_vehicle.php"
+      );
+      console.log("Full API response:", response);
 
+      let carsData = [];
+      if (response.data && Array.isArray(response.data)) {
+        carsData = response.data;
+      } else if (
+        response.data &&
+        response.data.data &&
+        Array.isArray(response.data.data)
+      ) {
+        carsData = response.data.data;
+      } else {
+        console.error("Unexpected data structure:", response.data);
+        // Có thể thêm xử lý lỗi ở đây, ví dụ hiển thị thông báo cho người dùng
+      }
+
+      setCars(carsData);
+      setFilteredCars(carsData);
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+      // Xử lý lỗi, ví dụ hiển thị thông báo lỗi cho người dùng
+    }
+  };
+
+  // Lấy dữ liệu thương hiệu từ API
   useEffect(() => {
     const fetchBrand = async () => {
       try {
-        // Gọi API để lấy dữ liệu về hãng xe
         const response = await axios.get(
           "https://carriomotors.io.vn/api/get_brands.php"
         );
@@ -84,6 +93,7 @@ const CarListingLayout = () => {
     fetchBrand();
   }, []);
 
+  // Các style cho component
   const headerStyle = {
     background: "#fff",
     padding: "10px 20px",
@@ -97,6 +107,7 @@ const CarListingLayout = () => {
     height: "40px",
   };
 
+  // Các hàm xử lý sự kiện
   const showFilter = () => {
     setIsFilterVisible(true);
   };
@@ -104,6 +115,8 @@ const CarListingLayout = () => {
   const onCloseFilter = () => {
     setIsFilterVisible(false);
   };
+
+  // Xử lý thay đổi giá
   const handlePriceChage = (value) => {
     setPriceRange(value);
 
@@ -113,13 +126,12 @@ const CarListingLayout = () => {
     setFilteredCars(filterPrice);
   };
 
+  // Xử lý chọn thương hiệu
   const handleBrandSelection = (checkedValues) => {
     setSelectedBrands(checkedValues);
     if (checkedValues.length === 0) {
-      // If no brands are selected, show all carskmsdmbaskdbaskjbdajksb
       setFilteredCars(cars);
     } else {
-      // Filter cars based on selected brands
       const filtered = cars.filter((car) =>
         checkedValues.includes(car.brandid)
       );
@@ -127,6 +139,7 @@ const CarListingLayout = () => {
     }
   };
 
+  // Xử lý chọn tất cả thương hiệu
   const handleSelectAllBrands = (e) => {
     if (e.target.checked) {
       const allBrandIds = brands.map((brand) => brand.brandid);
@@ -137,23 +150,24 @@ const CarListingLayout = () => {
       setFilteredCars(cars);
     }
   };
+
+  // Xử lý chọn màu sắc
   const handleColorSelection = (color) => {
     if (selectedColors.includes(color)) {
-      // Nếu màu đã được chọn thì bỏ chọn
       setSelectedColors(selectedColors.filter((c) => c !== color));
     } else {
-      // Nếu màu chưa được chọn thì thêm vào danh sách chọn
       setSelectedColors([...selectedColors, color]);
     }
 
-    // Lọc danh sách xe theo màu đã chọn
     if (selectedColors.length === 0) {
-      setFilteredCars(cars); // Nếu không chọn màu nào thì hiển thị tất cả xe
+      setFilteredCars(cars);
     } else {
       const filtered = cars.filter((car) => selectedColors.includes(car.color));
       setFilteredCars(filtered);
     }
   };
+
+  // Render sidebar chứa các bộ lọc
   const renderSidebar = () => (
     <>
       <Row justify="space-between" align="middle" style={{ marginBottom: 20 }}>
@@ -193,13 +207,6 @@ const CarListingLayout = () => {
         ))}
       </Select>
       <Title level={5}>Brand</Title>
-      {/* <Checkbox
-      
-        onChange={handleSelectAllBrands}
-        checked={selectedBrands.length === brands.length}
-      >
-        All Brands
-      </Checkbox> */}
       <Checkbox.Group
         value={selectedBrands}
         onChange={handleBrandSelection}
@@ -243,7 +250,7 @@ const CarListingLayout = () => {
               border: selectedColors.includes(color)
                 ? "2px solid #488ded"
                 : "none",
-              transition: "transform 0.3s", // Thêm hiệu ứng chuyển động
+              transition: "transform 0.3s",
               transform: selectedColors.includes(color)
                 ? "scale(1.1)"
                 : "scale(1)",
@@ -255,6 +262,7 @@ const CarListingLayout = () => {
     </>
   );
 
+  // Render card cho mỗi xe
   const renderCarCard = (car) => (
     <Card
       key={car.id}
@@ -281,6 +289,7 @@ const CarListingLayout = () => {
     </Card>
   );
 
+  // JSX chính của component
   return (
     <Layout>
       <Header style={headerStyle}>

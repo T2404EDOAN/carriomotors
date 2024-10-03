@@ -1,17 +1,23 @@
 .trend-vehicles-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between; /* Canh đều các thẻ với khoảng cách bằng nhau */
   padding: 20px;
-  margin-left: 90px;
-  margin-right: 90px;
+  padding-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1400px;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* Khoảng cách giữa các thẻ */
 }
-
+.trend-vehicles-container-tong {
+  background-color: rgb(245, 242, 239);
+}
 .vehicle-card {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  width: 300px;
-  text-align: center;
+  width: 32%; /* Đảm bảo 3 thẻ vừa với max-width */
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
@@ -21,13 +27,13 @@
   transform: scale(1.05);
 }
 
-/* Set image to square */
+/* Set image to a rectangular shape */
 .vehicle-image {
   width: 100%;
   height: 0;
-  padding-bottom: 100%; /* Maintain 1:1 aspect ratio for square images */
+  padding-bottom: 60%; /* Đặt tỷ lệ khung hình hình chữ nhật (60% chiều cao so với chiều rộng) */
   border-radius: 8px;
-  object-fit: cover; /* Ensure the image covers the square without distortion */
+  object-fit: cover; /* Ensure the image covers the rectangle without distortion */
 }
 
 .vehicle-info {
@@ -55,4 +61,105 @@
 
 .bid-button:hover {
   background-color: #483d8b;
+}
+.price-and-bid {
+  display: flex;
+  justify-content: space-between; /* Đảm bảo giá nằm bên trái và nút nằm bên phải */
+  align-items: center; /* Căn giữa giá và nút theo chiều dọc */
+  margin-top: 10px;
+}
+
+.vehicle-price {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Đảm bảo nút không bị co lại */
+.bid-button {
+  flex-shrink: 0; /* Ngăn nút bị thu nhỏ */
+}
+.error-message {
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.dinosaur-image {
+  max-width: 200px;
+  margin-bottom: 20px;
+}
+
+.reload-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.reload-button:hover {
+  background-color: #0056b3;
+}
+.chrome-dino-game {
+  width: 100%;
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+  background-color: #f7f7f7;
+}
+
+.dino {
+  width: 40px;
+  height: 43px;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAASxJREFUWEftmOERgjAMhT+uwBE6giO4AaygbqAb6AiO4AiO4Ahs0KYnXK+FtJScPfkphPa+vLwQiKE369C7HyMwdUKjg6ODqQRSz0cHR6AtAlsRWXnHT+2kqkf7rIj47i0iwZTU9K8iMvPyOpCq6mMfNs6DCLGGBJRdR6mvpKA93ImIPeuNnGQBbaB5e1xk54fALBuQRIY1jsS5vRQkBg4BqXErm6r6igUMBbnGbWwi8oiBvII0JHA6B6CqLkRkaZMTxICbf7PQHNwQ79J38JWH5gQexXHlTQlscToHcAkEYNxyO1AnqBR9B9YhIA+gBJS8kHJp1h1UVQ8i4lIjywrsAhgDaeuOXQFtAz2J9f/BpoEuH9SauxZoAqHqpQE2/cHSOlQryP0+OvgDEwh5KSt3dmEAAAAASUVORK5CYII=");
+  background-size: 40px 43px;
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+}
+
+.cactus {
+  width: 17px;
+  height: 35px;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAjCAYAAABCDUasAAAAAXNSR0IArs4c6QAAAMlJREFUSEvtlesNwjAMhL+uwAiMACPACIzACIzACI1ucWRFaeMYwUU8f9Xk/PycuCU8bMnDPJiEJC1JNwOZJa0l3b3gjYIVclJS75BfUgIEWZDR4hpACKZC3EqaFAJoJR0kLYsz/jOFALaFsACBzL0hIZhISEi4qGDSJEHJdkpaEYpX7mPXeQLXTVmNXQj+mfHPP9cUCkGoWjqIR5OmESK0a2/C0rlKIDfwSAXZPOJxe7hOgw6VPiZA1BQz0hLI7Oar2A5Bj8R6DG89AQ9qmCWVnXQQAAAAAElFTkSuQmCC");
+  background-size: 17px 35px;
+  position: absolute;
+  bottom: 0;
+  right: -20px;
+  animation: moveCactus 1.5s infinite linear;
+}
+
+@keyframes moveCactus {
+  0% {
+    right: -20px;
+  }
+  100% {
+    right: 100%;
+  }
+}
+
+.error-message {
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.reload-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.reload-button:hover {
+  background-color: #0056b3;
 }
