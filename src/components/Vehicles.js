@@ -27,12 +27,20 @@ const { Title, Text } = Typography;
 const { useBreakpoint } = Grid;
 
 const CarListingLayout = () => {
-  const [isFilterVisible, setIsFilterVisible] = useState(false);
-  const [cars, setCars] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [selectedBrands, setSelectedBrands] = useState([]);
-  const [filteredCars, setFilteredCars] = useState([]); // For storing filtered cars
-  const [PriceRange, setPriceRange] = useState([0, 500000]);
+  const [isFilterVisible, setIsFilterVisible] = useState(false); // Trạng thái hiển thị bộ lọc
+  const [cars, setCars] = useState([]); // Danh sách các xe
+  const [brands, setBrands] = useState([]); // Danh sách các thương hiệu xe
+  const [selectedBrands, setSelectedBrands] = useState([]); // Các thương hiệu được chọn
+  const [filteredCars, setFilteredCars] = useState([]); // Các xe sau khi lọc
+  const [PriceRange, setPriceRange] = useState([0, 500000]); // Khoảng giá được chọn
+  const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
+  const [itemsPerPage] = useState(9);
+  const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const currentCars = filteredCars.slice(indexOfFirstItem, indexOfLastItem);
+const handlePageChange = (page) => {
+  setCurrentPage(page);
+};
   const [colors, setColors] = useState([
     "red",
     "blue",
@@ -42,15 +50,16 @@ const CarListingLayout = () => {
     "silver",
     "gray",
   ]); // List of colors
-  const [selectedColors, setSelectedColors] = useState([]); // Colors selected by user
+  const [selectedColors, setSelectedColors] = useState([]); 
   const screens = useBreakpoint();
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await axios.get("http://carriomotors.atwebpages.com/get_products.php");
-        console.log('Raw response:', response);
-        const carsData = response.data.data;
-        console.log('Parsed cars data:', carsData);
+        const response = await axios.get("https://carriomotors.io.vn/api/get_vehicle.php");
+        
+        console.log('Raw response:', response); // Kiểm tra toàn bộ response từ API
+        const carsData = response.data.data || response.data; // Đảm bảo lấy đúng data
+                
         if (Array.isArray(carsData)) {
           setCars(carsData);
           setFilteredCars(carsData);
@@ -61,32 +70,13 @@ const CarListingLayout = () => {
         }
       } catch (error) {
         console.error('Error fetching cars:', error);
-        message.error("Không thể lấy dữ liệu xe");
       }
     };
   
-    fetchCars();
+    fetchCars(); 
   }, []);
   
   
-
-  // useEffect(() => {
-  //   const fetchBrand = async () => {
-  //     try {
-  //       // Gọi API để lấy dữ liệu về hãng xe
-  //       const response = await axios.get(
-  //         "https://carriomotors.online/api/get_brand.php"
-  //       );
-  //       setBrands(response.data);
-  //     } catch (error) {
-  //       message.error("Failed to fetch brand data");
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchBrand();
-  // }, []);
-
   const headerStyle = {
     background: "#fff",
     padding: "10px 20px",
@@ -98,6 +88,7 @@ const CarListingLayout = () => {
     display: "flex",
     alignItems: "center",
     height: "40px",
+
   };
 
   const showFilter = () => {
@@ -119,10 +110,8 @@ const CarListingLayout = () => {
   const handleBrandSelection = (checkedValues) => {
     setSelectedBrands(checkedValues);
     if (checkedValues.length === 0) {
-      // If no brands are selected, show all carskmsdmbaskdbaskjbdajksb
       setFilteredCars(cars);
     } else {
-      // Filter cars based on selected brands
       const filtered = cars.filter((car) =>
         checkedValues.includes(car.brandid)
       );
@@ -142,16 +131,13 @@ const CarListingLayout = () => {
   };
   const handleColorSelection = (color) => {
     if (selectedColors.includes(color)) {
-      // Nếu màu đã được chọn thì bỏ chọn
       setSelectedColors(selectedColors.filter((c) => c !== color));
     } else {
-      // Nếu màu chưa được chọn thì thêm vào danh sách chọn
       setSelectedColors([...selectedColors, color]);
     }
     
-    // Lọc danh sách xe theo màu đã chọn
     if (selectedColors.length === 0) {
-      setFilteredCars(cars); // Nếu không chọn màu nào thì hiển thị tất cả xe
+      setFilteredCars(cars);
     } else {
       const filtered = cars.filter((car) => selectedColors.includes(car.color));
       setFilteredCars(filtered);
@@ -160,7 +146,7 @@ const CarListingLayout = () => {
   const renderSidebar = () => (
     <>
       <Row justify="space-between" align="middle" style={{ marginBottom: 20 }}>
-        <Title level={4}>Filter</Title>
+        <Title level={3}>Filter</Title>
         <Button type="link" onClick={() => handleBrandSelection([])}>
           Reset
         </Button>
@@ -169,7 +155,7 @@ const CarListingLayout = () => {
       <Select
         showSearch
         style={{
-          width: 200,
+          width: 200,marginBottom:20
         }}
         placeholder="Search to Select"
         optionFilterProp="label"
@@ -184,7 +170,7 @@ const CarListingLayout = () => {
       <Select
         showSearch
         style={{
-          width: 200,
+          width: 200,marginBottom:20
         }}
         placeholder="Search to Select"
         optionFilterProp="label"
@@ -196,13 +182,6 @@ const CarListingLayout = () => {
         ))}
       </Select>
       <Title level={5}>Brand</Title>
-      {/* <Checkbox
-      
-        onChange={handleSelectAllBrands}
-        checked={selectedBrands.length === brands.length}
-      >
-        All Brands
-      </Checkbox> */}
       <Checkbox.Group
         value={selectedBrands}
         onChange={handleBrandSelection}
@@ -237,8 +216,8 @@ const CarListingLayout = () => {
     style={{
       backgroundColor: color,
       cursor: "pointer",
-      border: selectedColors.includes(color) ? "2px solid #488ded" : "none",
-      transition: "transform 0.3s", // Thêm hiệu ứng chuyển động
+      border: selectedColors.includes(color) ? "1px solid #488ded" : "none",
+      transition: "transform 0.3s", 
       transform: selectedColors.includes(color) ? "scale(1.1)" : "scale(1)",
     }}
     size={30}
@@ -284,7 +263,7 @@ const CarListingLayout = () => {
               allowClear
               enterButton="Search"
               size="large"
-              style={{ width: "500px" }}
+              style={{ width: "500px", "::placeholder": { fontWeight: "normal" } }}
             />
           </Col>
           <Col style={colStyle}>
@@ -325,7 +304,6 @@ const CarListingLayout = () => {
               Filters
             </Button>
           )}
-
           <Title level={4}>{filteredCars.length} Cars Found</Title>
           <Row gutter={[16, 16]}>
             {filteredCars.map((car) => (
@@ -334,6 +312,15 @@ const CarListingLayout = () => {
               </Col>
             ))}
           </Row>
+          <Row justify="center" style={{ marginTop: 20 }}>
+    <Pagination
+      current={currentPage}
+      total={filteredCars.length}
+      pageSize={itemsPerPage}
+      onChange={handlePageChange}
+      showSizeChanger={false}
+    />
+  </Row>
         </Content>
       </Layout>
       <Drawer

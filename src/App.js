@@ -10,38 +10,20 @@ import Vehicles from "./pages/Vehicles";
 import Services from "./pages/Services";
 import Shopping from "./pages/Shopping";
 import FAQ from "./pages/FAQ";
-import AboutUs from "./pages/AboutUs";
 import "./App.css";
 import Ticker from "./components/Ticker";
 import CompanyPage from "./components/AboutUs/Company";
-import Contactus from "./components/AboutUs/Contactus";
-
-const fetchBannerData = async (page) => {
-  try {
-    const response = await fetch(
-      `https://carriomotors.io.vn/api/get_banner.php?page=${page}`
-    );
-    const data = await response.json();
-    return data.map((banner) => ({
-      src: banner.image_url,
-      alt: banner.title,
-    }));
-  } catch (error) {
-    console.error("Error fetching banner data:", error);
-    return [];
-  }
-};
+import { fetchBannerData } from './apiService'; // Import hàm fetch API từ file apiService.js
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [initialLoadDone, setInitialLoadDone] = useState(false);
 
   useEffect(() => {
-    // Simulate initial app loading
     setTimeout(() => {
       setIsLoading(false);
       setInitialLoadDone(true);
-    }, 2000); // Adjust this time as needed
+    }, 2000);
   }, []);
 
   if (!initialLoadDone) {
@@ -76,6 +58,7 @@ function AppLayout() {
 
   const [dateTime, setDateTime] = useState(new Date());
   const [locationInfo, setLocationInfo] = useState({});
+  const nodeRef = useRef(null); // Create a ref
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -105,7 +88,7 @@ function AppLayout() {
       setIsLoading(true);
       const page =
         location.pathname === "/" ? "home" : location.pathname.slice(1);
-      const data = await fetchBannerData(page);
+      const data = await fetchBannerData(page); // Gọi hàm fetchBannerData từ apiService
       setBannerImages(data);
       setIsLoading(false);
     };
@@ -158,7 +141,6 @@ function AppLayout() {
                 <Route path="/shopping" element={<Shopping />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/about/company" element={<CompanyPage />} />
-                {/* <Route path="/about" element={<AboutUs />} /> */}
               </Routes>
             </div>
           </CSSTransition>
@@ -169,4 +151,5 @@ function AppLayout() {
     </div>
   );
 }
+
 export default App;
