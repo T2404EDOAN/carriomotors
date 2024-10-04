@@ -39,3 +39,4 @@ export const fetchCars = async () => {
     throw error;
   }
 };
+

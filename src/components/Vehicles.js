@@ -20,6 +20,7 @@ import {
 import { FilterOutlined, MenuOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { PriceChange } from "@mui/icons-material";
+import CarDetailModal from "./PopupDetail/CarDetailModal";
 
 const { Header, Sider, Content } = Layout;
 const { Search } = Input;
@@ -41,6 +42,10 @@ const CarListingLayout = () => {
   const [models, setModels] = useState([]);
   const [selectedModels, setSelectedModels] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedCar, setSelectedCar] = useState(null);
+  const [mainImage, setMainImage] = useState(null); // anh chinh
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -64,8 +69,8 @@ const CarListingLayout = () => {
         `https://carriomotors.io.vn/api/get_vehicle.php?sort=${value}`
       );
 
-      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
-      const carsData = response.data.data || response.data; // Đảm bảo lấy đúng data
+      console.log("Raw response:", response); 
+      const carsData = response.data.data || response.data; 
 
       if (Array.isArray(carsData)) {
         setCars(carsData);
@@ -86,8 +91,8 @@ const CarListingLayout = () => {
           "https://carriomotors.io.vn/api/get_brands.php"
         );
 
-        console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
-        const brandsData = response.data.data || response.data; // Đảm bảo lấy đúng data
+        console.log("Raw response:", response); 
+        const brandsData = response.data.data || response.data; 
 
         if (Array.isArray(brandsData)) {
           setBrands(brandsData);
@@ -103,7 +108,16 @@ const CarListingLayout = () => {
 
     fetchBrands();
   }, []);
+  const showModal = (car) => {
+    setSelectedCar(car);
+    setMainImage(car.img); // dat tam anh chinh
+    setIsModalVisible(true);
+  };
 
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setSelectedCar(null);
+  };
   //api cua model
   const fetchModels = async () => {
     // setLoading(true);
@@ -112,8 +126,8 @@ const CarListingLayout = () => {
         "https://carriomotors.io.vn/api/get_model.php"
       );
 
-      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
-      const modelsData = response.data.data || response.data; // Đảm bảo lấy đúng data
+      console.log("Raw response:", response); 
+      const modelsData = response.data.data || response.data; 
 
       if (Array.isArray(modelsData)) {
         setModels(modelsData);
@@ -335,7 +349,9 @@ const CarListingLayout = () => {
             height: 200,
             background: "#f0f0f0",
             position: "relative",
+            cursor: "pointer",
           }}
+          onClick={() => showModal(car)}
         >
           <img
             src={car.img}
@@ -351,91 +367,68 @@ const CarListingLayout = () => {
       </Row>
     </Card>
   );
+  
 
   return (
     <Layout>
-      <Header style={headerStyle}>
-        <Row justify="end" align="middle" gutter={[16, 16]}>
-          <Col style={colStyle}>
-            <Search
-              placeholder="input search text"
-              allowClear
-              enterButton="Search"
-              size="large"
-              style={{
-                width: "500px",
-                "::placeholder": { fontWeight: "normal" },
-              }}
-            />
-          </Col>
-          <Col style={colStyle}>
-            <Space size="middle">
-              <FilterOutlined style={{ fontSize: "18px" }} />
-              <span>Filter</span>
-              <Select
-                defaultValue="recommended"
-                style={{ width: 200 }}
-                size="large"
-                onChange={(value) => fetchCars(value)}
-              >
-                <Select.Option value="recommended">Recommended</Select.Option>
-                <Select.Option value="latest">Latest</Select.Option>
-                <Select.Option value="price-low-high">
-                  Price: Low to High
-                </Select.Option>
-                <Select.Option value="price-high-low">
-                  Price: High to Low
-                </Select.Option>
-              </Select>
-            </Space>
-          </Col>
+    <Header style={headerStyle}>
+    </Header>
+    <Layout>
+      {screens.md ? (
+        <Sider width={300} theme="light" style={{ padding: "20px" }}>
+          {renderSidebar()}
+        </Sider>
+      ) : null}
+      <Content style={{ padding: "20px" }}>
+        {!screens.md && (
+          <Button
+            icon={<MenuOutlined />}
+            style={{ marginBottom: 16 }}
+            onClick={showFilter}
+          >
+            Filters
+          </Button>
+        )}
+        <Title level={4}>{filteredCars.length} Cars Found</Title>
+        <Row gutter={[16, 16]}>
+          {filteredCars.map((car) => (
+            <Col xs={24} sm={12} lg={8} key={car.id}>
+              {renderCarCard(car)}
+            </Col>
+          ))}
         </Row>
-      </Header>
-      <Layout>
-        {screens.md ? (
-          <Sider width={300} theme="light" style={{ padding: "20px" }}>
-            {renderSidebar()}
-          </Sider>
-        ) : null}
-        <Content style={{ padding: "20px" }}>
-          {!screens.md && (
-            <Button
-              icon={<MenuOutlined />}
-              style={{ marginBottom: 16 }}
-              onClick={showFilter}
-            >
-              Filters
-            </Button>
-          )}
-          <Title level={4}>{filteredCars.length} Cars Found</Title>
-          <Row gutter={[16, 16]}>
-            {filteredCars.map((car) => (
-              <Col xs={24} sm={12} lg={8} key={car.id}>
-                {renderCarCard(car)}
-              </Col>
-            ))}
-          </Row>
-          <Row justify="center" style={{ marginTop: 20 }}>
-            <Pagination
-              current={currentPage}
-              total={filteredCars.length}
-              pageSize={itemsPerPage}
-              onChange={handlePageChange}
-              showSizeChanger={false}
-            />
-          </Row>
-        </Content>
-      </Layout>
-      <Drawer
-        title="Filters"
-        placement="left"
-        onClose={onCloseFilter}
-        visible={isFilterVisible}
-        width={300}
-      >
-        {renderSidebar()}
-      </Drawer>
+        <Row justify="center" style={{ marginTop: 20 }}>
+          <Pagination
+            current={currentPage}
+            total={filteredCars.length}
+            pageSize={itemsPerPage}
+            onChange={handlePageChange}
+            showSizeChanger={false}
+          />
+        </Row>
+      </Content>
     </Layout>
+
+    {selectedCar && (
+        <CarDetailModal
+          isVisible={isModalVisible}
+          onClose={closeModal}
+          car={selectedCar}
+          mainImage={mainImage}
+          setMainImage={setMainImage} // gui mainimage xuong CarInfoTab
+        />
+      )}
+
+    <Drawer
+      title="Filters"
+      placement="left"
+      onClose={onCloseFilter}
+      visible={isFilterVisible}
+      width={300}
+    >
+      {renderSidebar()}
+    </Drawer>
+  </Layout>
   );
 };
 
