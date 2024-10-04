@@ -1,10 +1,10 @@
 import { div } from "framer-motion/client";
 import React from "react";
 import './BMWService.css';
-import anh1 from '../../assets/images/Bmv_images/BMWcareoil.jpg';
-import anh2 from '../../assets/images/Bmv_images/BMWbatteries.jpg';
-import anh3 from '../../assets/images/Bmv_images/Original BMW tires.jpg';
-import anh4 from '../../assets/images/Bmv_images/BMWapp.webp';
+import anh1 from '../../../assets/images/Bmv_images/BMWcareoil.jpg';
+import anh2 from '../../../assets/images/Bmv_images/BMWbatteries.jpg';
+import anh3 from '../../../assets/images/Bmv_images/Original BMW tires.jpg';
+import anh4 from '../../../assets/images/Bmv_images/BMWapp.webp';
 
 
 const Bmv_main = () => {

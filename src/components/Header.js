@@ -181,6 +181,34 @@ const ImprovedHeader = () => {
             display: flex !important;
           }
         }
+
+        /* Remove underline and ellipsis */
+        .ant-menu-item a,
+        .ant-menu-submenu-title a {
+          text-decoration: none !important;
+        }
+
+        .ant-menu-item:hover,
+        .ant-menu-item-active,
+        .ant-menu-item-selected,
+        .ant-menu-submenu:hover,
+        .ant-menu-submenu-active,
+        .ant-menu-submenu-selected {
+          background-color: transparent !important;
+          border-bottom: none !important;
+        }
+
+        .ant-menu-item a:hover,
+        .ant-menu-submenu-title:hover {
+          text-decoration: none !important;
+        }
+
+        .ant-menu-item,
+        .ant-menu-submenu-title {
+          white-space: normal !important;
+          overflow: visible !important;
+          text-overflow: clip !important;
+        }
       `}</style>
     </header>
   );

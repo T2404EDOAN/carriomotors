@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../assets/styles/CarCategory.css";
 import axios from "axios";
 import { Skeleton } from "antd";
-
+import { RiseOutlined } from "@ant-design/icons";
 const CarCategory = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -66,12 +66,18 @@ const CarCard = ({ imageSrc, carName, index }) => {
   const isEven = index % 2 === 0;
   return (
     <div className={`car-card ${isEven ? "even" : "odd"}`}>
-      <img src={imageSrc} alt={carName} />
+      <div className="car-card-image-container">
+        <img src={imageSrc} alt={carName} />
+        <div className="icon-container">
+          <RiseOutlined style={{ fontSize: '34px', color: '#fff' }} />
+        </div>
+      </div>
       <div className="car-card-content">
         <h2>{carName}</h2>
       </div>
     </div>
   );
 };
+
 
 export default CarCategory;

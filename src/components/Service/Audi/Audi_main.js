@@ -1,13 +1,13 @@
 import { div } from "framer-motion/client";
 import React from "react";
 import './Audi_main.css'
-import anh1 from '../../assets/images/Bmv_images/730x730_ASER_P_161048.jpg';
-import anh2 from '../../assets/images/Bmv_images/download.png';
-import anh3 from '../../assets/images/Bmv_images/images.jpg';
-import anh4 from '../../assets/images/Bmv_images/883x496-recall-min.jpg';
-import anh5 from '../../assets/images/Bmv_images/883x496-tires-min.jpg';
-import anh6 from '../../assets/images/Bmv_images/883x496-roadsideassist-min.jpg';
-import anh7 from '../../assets/images/Bmv_images/844x476_S5-Cab_2RS6CR~A-min.jpg';
+import anh1 from '../../../assets/images/Bmv_images/730x730_ASER_P_161048.jpg';
+import anh2 from '../../../assets/images/Bmv_images/download.png';
+import anh3 from '../../../assets/images/Bmv_images/images.jpg';
+import anh4 from '../../../assets/images/Bmv_images/883x496-recall-min.jpg';
+import anh5 from '../../../assets/images/Bmv_images/883x496-tires-min.jpg';
+import anh6 from '../../../assets/images/Bmv_images/883x496-roadsideassist-min.jpg';
+import anh7 from '../../../assets/images/Bmv_images/844x476_S5-Cab_2RS6CR~A-min.jpg';
 
 const Audi_main = () => {
     return (<div className="audi-container">

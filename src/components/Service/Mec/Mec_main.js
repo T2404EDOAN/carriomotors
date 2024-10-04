@@ -1,12 +1,12 @@
 import { div } from "framer-motion/client";
 import React from "react";
-import anh1 from "../../assets/images/Mec_images/anh1.webp";
-import anh2 from "../../assets/images/Mec_images/anh2.webp";
-import anh3 from "../../assets/images/Mec_images/anh3.webp";
-import anh4 from "../../assets/images/Mec_images/anh4.webp";
-import anh56 from "../../assets/images/Mec_images/anh56.webp";
-import anh7 from "../../assets/images/Mec_images/anh7.webp";
-import "../../assets/styles/mec.css";
+import anh1 from "../../../assets/images/Mec_images/anh1.webp";
+import anh2 from "../../../assets/images/Mec_images/anh2.webp";
+import anh3 from "../../../assets/images/Mec_images/anh3.webp";
+import anh4 from "../../../assets/images/Mec_images/anh4.webp";
+import anh56 from "../../../assets/images/Mec_images/anh56.webp";
+import anh7 from "../../../assets/images/Mec_images/anh7.webp";
+import "../../../assets/styles/mec.css";
 
 const Mec_main = () => {
   return (
