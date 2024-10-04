@@ -1,0 +1,117 @@
+
+
+.Porsche_main_container{
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+   
+}
+.main_title{
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-weight: bold;}
+.naiyou1{
+    display: flex;}
+.title_1{
+    font-size: large;
+    font-weight: bold;
+    }
+.img{
+    margin-right: 30px;
+    width: 710px;
+}
+.vanban1{
+    margin-top: 100px;}
+.text_long{
+    margin-top: 25px;}
+.Genuine_Part{
+    font-size: large;
+    margin-top: 20px;
+
+}    
+.anhp2{
+        width: 305px;
+        
+    }
+.anhp3{
+        width: 300px;
+        margin-left: 100px;
+    }
+.anhp6{
+        width: 265px;
+        margin-left: 100px;
+    }
+.img_2{
+        display: flex;
+        margin-top: 20px;
+        
+    }
+.img_3{
+ width: 640px;
+ margin-top: 20px;
+}
+.kokunaiyou{
+            display: flex;
+            margin-left: 90px;
+            font-size: 15px;
+   
+            margin-top: 10px;
+        }
+.two{
+            margin-left: 310px;
+        }
+.three{
+            margin-left: 280px;
+        }
+.naiyou2{
+            display: flex;
+           
+        }
+.title_2{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: large;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+.vanban_2{
+            margin-left: 75px;
+            margin-top: 90px;
+            
+        }
+.read_more_1{
+            margin-top: 20px;
+            box-shadow: 15px;
+            background-color: rgb(92, 92, 172);
+            padding: 5px 10px 5px 3px;
+            color:rgb(25, 8, 8) ;
+        }
+ .read_more_2{
+            margin-top: 20px;
+            box-shadow: 15px;
+            background-color: rgb(92, 92, 172);
+            padding: 5px 10px 5px 3px;
+            color:rgb(25, 8, 8) ;
+        }
+.Contact{
+        
+            text-align: center;
+            margin-top: 80px;
+            font-size: larger;
+            box-shadow: 10px ;
+            background-color: rgb(237, 237, 247);
+            padding: 40px 20px 40px 20px;
+        }
+.contact_us{
+            margin-top: 20px;
+            font-size: medium;
+            box-shadow: 10px;
+            background-color: rgb(92, 92, 172);
+            color: rgb(25, 8, 8) ;
+            padding: 10px 5px 10px 5px;
+        }
+.title_end{
+            font-size: large;
+            font-weight: bold;
+        }   
