@@ -36,11 +36,14 @@ const CarListingLayout = () => {
   const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
   const [itemsPerPage] = useState(9);
   const indexOfLastItem = currentPage * itemsPerPage;
-const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-const currentCars = filteredCars.slice(indexOfFirstItem, indexOfLastItem);
-const handlePageChange = (page) => {
-  setCurrentPage(page);
-};
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentCars = filteredCars.slice(indexOfFirstItem, indexOfLastItem);
+  const [models, setModels] = useState([]);
+  const [selectedModels, setSelectedModels] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
   const [colors, setColors] = useState([
     "red",
     "blue",
@@ -50,33 +53,86 @@ const handlePageChange = (page) => {
     "silver",
     "gray",
   ]); // List of colors
-  const [selectedColors, setSelectedColors] = useState([]); 
+  const [selectedColors, setSelectedColors] = useState([]);
   const screens = useBreakpoint();
+
+  //api cua vehicle
+  const fetchCars = async (value = "recommended") => {
+    // setLoading(true);
+    try {
+      const response = await axios.get(
+        `https://carriomotors.io.vn/api/get_vehicle.php?sort=${value}`
+      );
+
+      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
+      const carsData = response.data.data || response.data; // Đảm bảo lấy đúng data
+
+      if (Array.isArray(carsData)) {
+        setCars(carsData);
+        setFilteredCars(carsData);
+      } else {
+        console.error("Data is not an array:", carsData);
+        setCars([]);
+        setFilteredCars([]);
+      }
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+    }
+  };
   useEffect(() => {
-    const fetchCars = async () => {
+    const fetchBrands = async () => {
       try {
-        const response = await axios.get("https://carriomotors.io.vn/api/get_vehicle.php");
-        
-        console.log('Raw response:', response); // Kiểm tra toàn bộ response từ API
-        const carsData = response.data.data || response.data; // Đảm bảo lấy đúng data
-                
-        if (Array.isArray(carsData)) {
-          setCars(carsData);
-          setFilteredCars(carsData);
+        const response = await axios.get(
+          "https://carriomotors.io.vn/api/get_brands.php"
+        );
+
+        console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
+        const brandsData = response.data.data || response.data; // Đảm bảo lấy đúng data
+
+        if (Array.isArray(brandsData)) {
+          setBrands(brandsData);
+          setSelectedBrands(brandsData);
         } else {
-          console.error('Data is not an array:', carsData);
-          setCars([]);
-          setFilteredCars([]);
+          setBrands([]);
+          setSelectedBrands([]);
         }
       } catch (error) {
-        console.error('Error fetching cars:', error);
+        console.error("Error fetching cars:", error);
       }
     };
-  
-    fetchCars(); 
+
+    fetchBrands();
   }, []);
-  
-  
+
+  //api cua model
+  const fetchModels = async () => {
+    // setLoading(true);
+    try {
+      const response = await axios.get(
+        "https://carriomotors.io.vn/api/get_model.php"
+      );
+
+      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
+      const modelsData = response.data.data || response.data; // Đảm bảo lấy đúng data
+
+      if (Array.isArray(modelsData)) {
+        setModels(modelsData);
+        // setFilteredCars(modelsData);
+      } else {
+        console.error("Data is not an array:", modelsData);
+        setModels([]);
+        // setFilteredCars([]);
+      }
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCars();
+    fetchModels();
+  }, []);
+
   const headerStyle = {
     background: "#fff",
     padding: "10px 20px",
@@ -88,7 +144,6 @@ const handlePageChange = (page) => {
     display: "flex",
     alignItems: "center",
     height: "40px",
-
   };
 
   const showFilter = () => {
@@ -119,23 +174,35 @@ const handlePageChange = (page) => {
     }
   };
 
-  const handleSelectAllBrands = (e) => {
-    if (e.target.checked) {
-      const allBrandIds = brands.map((brand) => brand.brandid);
-      setSelectedBrands(allBrandIds);
+  const handleModelSelection = (checkedValues) => {
+    setSelectedModels(checkedValues);
+    if (checkedValues.length === 0) {
       setFilteredCars(cars);
     } else {
-      setSelectedBrands([]);
-      setFilteredCars(cars);
+      const filtered = cars.filter((car) =>
+        checkedValues.includes(car.car_modelid)
+      );
+      setFilteredCars(filtered);
     }
   };
+
+  // const handleSelectAllBrands = (e) => {
+  //   if (e.target.checked) {
+  //     const allBrandIds = brands.map((brand) => brand.id);
+  //     setSelectedBrands(allBrandIds);
+  //     setFilteredCars(cars);
+  //   } else {
+  //     setSelectedBrands([]);
+  //     setFilteredCars(cars);
+  //   }
+  // };
   const handleColorSelection = (color) => {
     if (selectedColors.includes(color)) {
       setSelectedColors(selectedColors.filter((c) => c !== color));
     } else {
       setSelectedColors([...selectedColors, color]);
     }
-    
+
     if (selectedColors.length === 0) {
       setFilteredCars(cars);
     } else {
@@ -143,58 +210,84 @@ const handlePageChange = (page) => {
       setFilteredCars(filtered);
     }
   };
+
+  const reset = () => {
+    setSelectedModels([]);
+    setSelectedBrands([]);
+    setPriceRange([0, 500000]);
+    setFilteredCars(cars);
+  };
+
   const renderSidebar = () => (
     <>
       <Row justify="space-between" align="middle" style={{ marginBottom: 20 }}>
         <Title level={3}>Filter</Title>
-        <Button type="link" onClick={() => handleBrandSelection([])}>
+        <Button type="link" onClick={reset}>
           Reset
         </Button>
       </Row>
+
+      {/* model */}
+
       <Title level={5}>Models</Title>
       <Select
         showSearch
         style={{
-          width: 200,marginBottom:20
+          width: 200,
+          marginBottom: 20,
         }}
         placeholder="Search to Select"
         optionFilterProp="label"
+        value={selectedModels}
+        onChange={handleModelSelection}
       >
-        {brands.map((brand) => (
-          <Select.Option key={brand.brandid} value={brand.brandid}>
-            {brand.name}
+        {models.map((model) => (
+          <Select.Option key={model.id} value={model.id}>
+            {model.name}
           </Select.Option>
         ))}
       </Select>
+
+      {/* Location */}
       <Title level={5}>Location</Title>
       <Select
         showSearch
         style={{
-          width: 200,marginBottom:20
+          width: 200,
+          marginBottom: 20,
         }}
         placeholder="Search to Select"
         optionFilterProp="label"
       >
         {brands.map((brand) => (
-          <Select.Option key={brand.brandid} value={brand.brandid}>
+          <Select.Option key={brand.id} value={brand.id}>
             {brand.name}
           </Select.Option>
         ))}
       </Select>
+      {/* brand */}
       <Title level={5}>Brand</Title>
       <Checkbox.Group
         value={selectedBrands}
         onChange={handleBrandSelection}
         style={{ marginBottom: 20 }}
       >
-         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-        {brands.map((brand) => (
-          <Checkbox key={brand.brandid} value={brand.brandid}>
-            {brand.name}
-          </Checkbox>
-        ))}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "10px",
+          }}
+        >
+          {brands.map((brand) => (
+            <Checkbox key={brand.id} value={brand.id}>
+              {brand.name}
+            </Checkbox>
+          ))}
         </div>
       </Checkbox.Group>
+
+      {/* price */}
       <Title level={5}>Price Range</Title>
       <Slider
         range
@@ -204,26 +297,32 @@ const handlePageChange = (page) => {
         onChange={handlePriceChage}
       />
       <Row justify="space-between">
-        <Text>${PriceRange[0].toLocaleString()}</Text>
-        <Text>${PriceRange[1].toLocaleString()}</Text>
+        <Text>${PriceRange[0]}</Text>
+        <Text>${PriceRange[1]}</Text>
       </Row>
+
+      {/* color */}
       <Title level={5}>Color</Title>
-<div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-  {colors.map((color) => (
-    <Avatar
-    key={color}
-    onClick={() => handleColorSelection(color)}
-    style={{
-      backgroundColor: color,
-      cursor: "pointer",
-      border: selectedColors.includes(color) ? "1px solid #488ded" : "none",
-      transition: "transform 0.3s", 
-      transform: selectedColors.includes(color) ? "scale(1.1)" : "scale(1)",
-    }}
-    size={30}
-  />
-  ))}
-</div>
+      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+        {colors.map((color) => (
+          <Avatar
+            key={color}
+            onClick={() => handleColorSelection(color)}
+            style={{
+              backgroundColor: color,
+              cursor: "pointer",
+              border: selectedColors.includes(color)
+                ? "1px solid #488ded"
+                : "none",
+              transition: "transform 0.3s",
+              transform: selectedColors.includes(color)
+                ? "scale(1.1)"
+                : "scale(1)",
+            }}
+            size={30}
+          />
+        ))}
+      </div>
     </>
   );
 
@@ -248,7 +347,7 @@ const handlePageChange = (page) => {
     >
       <Card.Meta title={car.name} description={car.type} />
       <Row justify="space-between" align="middle" style={{ marginTop: 16 }}>
-        <Text strong>${car.price.toLocaleString()}</Text>
+        <Text strong>${car.price}</Text>
       </Row>
     </Card>
   );
@@ -263,7 +362,10 @@ const handlePageChange = (page) => {
               allowClear
               enterButton="Search"
               size="large"
-              style={{ width: "500px", "::placeholder": { fontWeight: "normal" } }}
+              style={{
+                width: "500px",
+                "::placeholder": { fontWeight: "normal" },
+              }}
             />
           </Col>
           <Col style={colStyle}>
@@ -274,6 +376,7 @@ const handlePageChange = (page) => {
                 defaultValue="recommended"
                 style={{ width: 200 }}
                 size="large"
+                onChange={(value) => fetchCars(value)}
               >
                 <Select.Option value="recommended">Recommended</Select.Option>
                 <Select.Option value="latest">Latest</Select.Option>
@@ -313,14 +416,14 @@ const handlePageChange = (page) => {
             ))}
           </Row>
           <Row justify="center" style={{ marginTop: 20 }}>
-    <Pagination
-      current={currentPage}
-      total={filteredCars.length}
-      pageSize={itemsPerPage}
-      onChange={handlePageChange}
-      showSizeChanger={false}
-    />
-  </Row>
+            <Pagination
+              current={currentPage}
+              total={filteredCars.length}
+              pageSize={itemsPerPage}
+              onChange={handlePageChange}
+              showSizeChanger={false}
+            />
+          </Row>
         </Content>
       </Layout>
       <Drawer
