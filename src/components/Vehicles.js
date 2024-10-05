@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Layout,
   Button,
@@ -46,6 +46,7 @@ const CarListingLayout = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
   const [mainImage, setMainImage] = useState(null); // anh chinh
+  const searchInputRef = useRef(null);
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -119,7 +120,6 @@ const CarListingLayout = () => {
   };
   //api cua model
   const fetchModels = async () => {
-    // setLoading(true);
     try {
       const response = await axios.get(
         "https://carriomotors.io.vn/api/get_model.php"
@@ -145,7 +145,6 @@ const CarListingLayout = () => {
       const response = await axios.get(
         "https://carriomotors.io.vn/api/get_location.php"
       );
-
       console.log("Raw response:", response); // Kiểm tra toàn bộ response từ AP
       const locationsData = response.data.data || response.data; // Đảm bảo lấy đúng a
 
@@ -154,6 +153,25 @@ const CarListingLayout = () => {
       } else {
         console.error("Data is not an array:", locationsData);
         setLocations([]);
+      }
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+    }
+  };
+  //api cua Search
+  const fetchSearch = async (value) => {
+    try {
+      const response = await axios.get(
+        `https://carriomotors.io.vn/api/get_search.php?name=${value}`
+      );
+      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ AP
+      const searchData = response.data.data || response.data; // Đảm bảo lấy đúng a
+
+      if (Array.isArray(searchData)) {
+        setFilteredCars(searchData);
+      } else {
+        console.error("Data is not an array:", searchData);
+        setFilteredCars([]);
       }
     } catch (error) {
       console.error("Error fetching cars:", error);
@@ -252,6 +270,10 @@ const CarListingLayout = () => {
     setSelectedLocations([]);
     setPriceRange([0, 500000]);
     setFilteredCars(cars);
+
+    if (searchInputRef.current) {
+      searchInputRef.current.input.value = "";
+    }
   };
   // aaa
   const renderSidebar = () => (
@@ -394,14 +416,16 @@ const CarListingLayout = () => {
 
   return (
     <Layout>
-    <Header style={headerStyle}>
-    <Row justify="end" align="middle" gutter={[16, 16]}>
+      <Header style={headerStyle}>
+        <Row justify="end" align="middle" gutter={[16, 16]}>
           <Col style={colStyle}>
             <Search
+              ref={searchInputRef}
               placeholder="input search text"
               allowClear
               enterButton="Search"
               size="large"
+              onSearch={fetchSearch}
               style={{
                 width: "500px",
                 "::placeholder": { fontWeight: "normal" },
@@ -430,42 +454,42 @@ const CarListingLayout = () => {
             </Space>
           </Col>
         </Row>
-    </Header>
-    <Layout>
-      {screens.md ? (
-        <Sider width={300} theme="light" style={{ padding: "20px" }}>
-          {renderSidebar()}
-        </Sider>
-      ) : null}
-      <Content style={{ padding: "20px" }}>
-        {!screens.md && (
-          <Button
-            icon={<MenuOutlined />}
-            style={{ marginBottom: 16 }}
-            onClick={showFilter}
-          >
-            Filters
-          </Button>
-        )}
-        <Title level={4}>{filteredCars.length} Cars Found</Title>
-        <Row gutter={[16, 16]}>
-          {filteredCars.map((car) => (
-            <Col xs={24} sm={12} lg={8} key={car.id}>
-              {renderCarCard(car)}
-            </Col>
-          ))}
-        </Row>
-        <Row justify="center" style={{ marginTop: 20 }}>
-          <Pagination
-            current={currentPage}
-            total={filteredCars.length}
-            pageSize={itemsPerPage}
-            onChange={handlePageChange}
-            showSizeChanger={false}
-          />
-        </Row>
-      </Content>
-    </Layout>
+      </Header>
+      <Layout>
+        {screens.md ? (
+          <Sider width={300} theme="light" style={{ padding: "20px" }}>
+            {renderSidebar()}
+          </Sider>
+        ) : null}
+        <Content style={{ padding: "20px" }}>
+          {!screens.md && (
+            <Button
+              icon={<MenuOutlined />}
+              style={{ marginBottom: 16 }}
+              onClick={showFilter}
+            >
+              Filters
+            </Button>
+          )}
+          <Title level={4}>{filteredCars.length} Cars Found</Title>
+          <Row gutter={[16, 16]}>
+            {filteredCars.map((car) => (
+              <Col xs={24} sm={12} lg={8} key={car.id}>
+                {renderCarCard(car)}
+              </Col>
+            ))}
+          </Row>
+          <Row justify="center" style={{ marginTop: 20 }}>
+            <Pagination
+              current={currentPage}
+              total={filteredCars.length}
+              pageSize={itemsPerPage}
+              onChange={handlePageChange}
+              showSizeChanger={false}
+            />
+          </Row>
+        </Content>
+      </Layout>
       {selectedCar && (
         <CarDetailModal
           isVisible={isModalVisible}
