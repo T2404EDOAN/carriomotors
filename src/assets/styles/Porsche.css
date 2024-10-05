@@ -1,0 +1,128 @@
+.Porsche_main_container {
+    width: 100%;
+    max-width: 1400px; /* Updated max-width */
+    margin: 0 auto;
+}
+
+.main_title {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.naiyou1 {
+    display: flex;
+    justify-content: space-between; /* Balanced spacing */
+    align-items: flex-start;
+    margin-bottom: 30px; /* Add space between sections */
+}
+
+.title_1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.img {
+    margin-right: 30px;
+    width: 50%; /* Adjusted to fit larger width */
+}
+
+.vanban1 {
+    margin-top: 60px;
+    width: 45%; /* Adjusted to fit */
+}
+
+.text_long {
+    margin-top: 25px;
+    line-height: 1.6; /* Improve readability */
+}
+
+.Genuine_Part {
+    font-size: 28px;
+    margin-top: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.img_2 {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.anhp2, .anhp3, .anhp6 {
+    width: 30%; /* Ensure all images have the same width */
+    height: 200px; /* Set a fixed height for all images */
+}
+
+.anhp2 img, .anhp3 img, .anhp6 img {
+    width: 100%; /* Ensure image takes up the full width of the div */
+    height: 100%; /* Ensure image takes up the full height of the div */
+    object-fit: cover; /* Ensures the image covers the entire div while maintaining aspect ratio */
+}
+
+
+.kokunaiyou {
+    display: flex;
+    justify-content: space-between; /* Spread text evenly */
+    margin-top: 20px;
+    font-size: 16px;
+    padding: 0 100px; /* Add padding to balance the layout */
+}
+
+.naiyou2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 40px;
+}
+
+.img_3 {
+    width: 50%; /* Adjust to fit the new layout */
+}
+
+.vanban_2 {
+    margin-left: 30px;
+    margin-top: 60px;
+    width: 45%;
+}
+
+.title_2 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.read_more_1, .read_more_2 {
+    margin-top: 20px;
+    background-color: rgb(92, 92, 172);
+    padding: 5px 10px;
+    color: rgb(25, 8, 8);
+    cursor: pointer;
+}
+
+.Contact {
+    text-align: center;
+    margin-top: 80px;
+    font-size: larger;
+    background-color: rgb(237, 237, 247);
+    padding: 40px;
+    border-radius: 8px;
+}
+
+.contact_us {
+    margin-top: 20px;
+    font-size: medium;
+    background-color: rgb(92, 92, 172);
+    color: rgb(25, 8, 8);
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.title_end {
+    font-size: 24px;
+    font-weight: bold;
+}

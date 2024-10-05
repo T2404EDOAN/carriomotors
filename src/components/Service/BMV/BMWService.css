@@ -1,5 +1,4 @@
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -44,11 +43,11 @@ body {
 .service-title {
   font-weight: bold;
   margin-top: 20px;
-  font-size: 1.5vw;
+
 }
 
 .service-description {
-  font-size: 1.5vw;
+  
   color: #555;
   margin-top: 10px;
 }
@@ -183,7 +182,7 @@ body {
   }
 
   .service-description {
-      font-size: 4vw;
+      font-size: 3vw;
   }
 
   .benefitpara {

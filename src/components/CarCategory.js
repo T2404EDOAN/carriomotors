@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
-import "../assets/styles/CarCategory.css";
-import axios from "axios";
 import { Skeleton } from "antd";
+import { RiseOutlined } from "@ant-design/icons";
+import axios from "axios";
+import "../assets/styles/CarCategory.css";
+import CarDetailModal from "./PopupDetail/CarDetailModal";
 
 const CarCategory = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedCar, setSelectedCar] = useState(null);
 
   useEffect(() => {
     axios
-      .get("https://carriomotors.online/api/get_brand.php")
+      .get("https://carriomotors.io.vn/api/get_brands.php")
       .then((response) => {
         setProducts(response.data);
         setLoading(false);
@@ -20,6 +24,16 @@ const CarCategory = () => {
         setLoading(false);
       });
   }, []);
+
+  const showModal = (product) => {
+    setSelectedCar(product);
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setSelectedCar(null);
+  };
 
   return (
     <div className="car-category">
@@ -48,24 +62,37 @@ const CarCategory = () => {
               .map((product, index) => (
                 <CarCard
                   key={product.id}
-                  imageSrc={product.img}
+                  imageSrc={product.image_url}
                   carName={product.name}
                   index={index}
+                  onClick={() => showModal(product)}
                 />
               ))}
       </div>
       {error && (
         <p className="error-message">Error loading products: {error}</p>
       )}
+
+      {/* Sử dụng PopupVehiclesDetail để hiển thị thông tin xe */}
+      <CarDetailModal
+        isVisible={isModalVisible}
+        onClose={closeModal}
+        car={selectedCar}
+      />
     </div>
   );
 };
 
-const CarCard = ({ imageSrc, carName, index }) => {
+const CarCard = ({ imageSrc, carName, index, onClick }) => {
   const isEven = index % 2 === 0;
   return (
-    <div className={`car-card ${isEven ? "even" : "odd"}`}>
-      <img src={imageSrc} alt={carName} />
+    <div className={`car-card ${isEven ? "even" : "odd"}`} onClick={onClick}>
+      <div className="car-card-image-container">
+        <img src={imageSrc} alt={carName} />
+        <div className="icon-container">
+          <RiseOutlined style={{ fontSize: "34px", color: "#fff" }} />
+        </div>
+      </div>
       <div className="car-card-content">
         <h2>{carName}</h2>
       </div>
