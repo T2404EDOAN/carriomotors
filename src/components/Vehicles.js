@@ -75,7 +75,7 @@ const CarListingLayout = () => {
       if (Array.isArray(carsData)) {
         setCars(carsData);
         setFilteredCars(carsData);
-        const uniqueColors = [...new Set(carsData.map(car => car.color))];
+        const uniqueColors = [...new Set(carsData.map((car) => car.color))];
         setColors(uniqueColors);
       } else {
         setCars([]);
@@ -256,12 +256,11 @@ const CarListingLayout = () => {
     } else {
       setSelectedColors([...selectedColors, color]);
     }
-  
+
     // Lọc xe dựa trên màu sắc đã chọn
     const filtered = cars.filter((car) => selectedColors.includes(car.color));
     setFilteredCars(filtered);
   };
-  
 
   const reset = () => {
     setSelectedModels([]);
@@ -360,26 +359,29 @@ const CarListingLayout = () => {
       </Row>
 
       {/* color */}
-<Title level={5} style={{marginTop:'15px'}}>Color</Title>
-<div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-  {colors.map((color) => (
-    <Avatar
-      key={color}
-      onClick={() => handleColorSelection(color)}
-      style={{
-        backgroundColor: color, // Màu từ database
-        cursor: "pointer",
-        border: selectedColors.includes(color)
-          ? "1px solid #488ded"
-          : "none",
-        transition: "transform 0.3s",
-        transform: selectedColors.includes(color) ? "scale(1.1)" : "scale(1)",
-      }}
-      size={30}
-    />
-  ))}
-</div>
-
+      <Title level={5} style={{ marginTop: "15px" }}>
+        Color
+      </Title>
+      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+        {colors.map((color) => (
+          <Avatar
+            key={color}
+            onClick={() => handleColorSelection(color)}
+            style={{
+              backgroundColor: color, // Màu từ database
+              cursor: "pointer",
+              border: selectedColors.includes(color)
+                ? "1px solid #488ded"
+                : "none",
+              transition: "transform 0.3s",
+              transform: selectedColors.includes(color)
+                ? "scale(1.1)"
+                : "scale(1)",
+            }}
+            size={30}
+          />
+        ))}
+      </div>
     </>
   );
 
@@ -389,7 +391,7 @@ const CarListingLayout = () => {
       cover={
         <div
           style={{
-            height: 200,
+            height: 300,
             background: "#f0f0f0",
             position: "relative",
             cursor: "pointer",

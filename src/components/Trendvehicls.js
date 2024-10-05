@@ -1,155 +1,74 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/styles/Trendvehicls.css";
 import axios from "axios";
-
+import { Button, Divider, Radio } from "antd"; // Ensure 'antd' is installed
+import * as icons from "@ant-design/icons";
 const Trendvehicls = () => {
-  const [vehicles, setVehicles] = useState([]);
+  const [size, setSize] = useState("large");
+  const { ArrowRightOutlined } = icons;
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [cars, setCars] = useState([]);
-  const [filteredCars, setFilteredCars] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchVehicles = async () => {
-  //     try {
-  //       const response = await fetch("https://api.example.com/vehicles");
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       const data = await response.json();
-  //       setVehicles(data);
-  //       setError(false);
-  //     } catch (error) {
-  //       console.error("Error fetching vehicle data:", error);
-  //       setVehicles([]);
-  //       setError(true);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchVehicles();
-  // }, []);
-
-  const fetchCars = async () => {
-    try {
-      const response = await axios.get(
-        "https://carriomotors.io.vn/api/get_home1.php"
-      );
-
-      console.log("Raw response:", response);
-      const carsData = response.data.data || response.data;
-
-      if (Array.isArray(carsData)) {
-        setCars(carsData);
-        setFilteredCars(carsData);
-      } else {
-        console.error("Data is not an array:", carsData);
-        setCars([]);
-        setFilteredCars([]);
-      }
-    } catch (error) {
-      console.error("Error fetching cars:", error);
-    }
-  };
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchCars();
+    axios
+      .get("https://carriomotors.io.vn/api/get_vehicle.php")
+      .then((response) => {
+        setProducts(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+      });
   }, []);
 
-  const renderContent = () => {
-    // if (loading) {
-    //   return <p className="loading-message">Đang tải dữ liệu...</p>;
-    // }
+  if (loading) {
+    return <p>Loading products...</p>;
+  }
 
-    // if (error || vehicles.length === 0) {
-    //   return (
-    //     <div
-    //       className="error-message"
-    //       style={{
-    //         minHeight: "300px",
-    //         display: "flex",
-    //         flexDirection: "column",
-    //         justifyContent: "center",
-    //         alignItems: "center",
-    //       }}
-    //     >
-    //       <div
-    //         className="chrome-dino-game"
-    //         style={{
-    //           width: "100%",
-    //           height: "150px",
-    //           position: "relative",
-    //           overflow: "hidden",
-    //           backgroundColor: "#f7f7f7",
-    //           marginBottom: "20px",
-    //         }}
-    //       >
-    //         <div
-    //           className="dino"
-    //           style={{
-    //             width: "40px",
-    //             height: "43px",
-    //             backgroundImage: `url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAASxJREFUWEftmOERgjAMhT+uwBE6giO4AaygbqAb6AiO4AiO4Ahs0KYnXK+FtJScPfkphPa+vLwQiKE369C7HyMwdUKjg6ODqQRSz0cHR6AtAlsRWXnHT+2kqkf7rIj47i0iwZTU9K8iMvPyOpCq6mMfNs6DCLGGBJRdR6mvpKA93ImIPeuNnGQBbaB5e1xk54fALBuQRIY1jsS5vRQkBg4BqXErm6r6igUMBbnGbWwi8oiBvII0JHA6B6CqLkRkaZMTxICbf7PQHNwQ79J38JWH5gQexXHlTQlscToHcAkEYNxyO1AnqBR9B9YhIA+gBJS8kHJp1h1UVQ8i4lIjywrsAhgDaeuOXQFtAz2J9f/BpoEuH9SauxZoAqHqpQE2/cHSOlQryP0+OvgDEwh5KSt3dmEAAAAASUVORK5CYII=")`,
-    //             backgroundSize: "40px 43px",
-    //             position: "absolute",
-    //             bottom: "0",
-    //             left: "20px",
-    //           }}
-    //         ></div>
-    //         <div
-    //           className="cactus"
-    //           style={{
-    //             width: "17px",
-    //             height: "35px",
-    //             backgroundImage: `url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAjCAYAAABCDUasAAAAAXNSR0IArs4c6QAAAMlJREFUSEvtlesNwjAMhL+uwAiMACPACIzACIzACI1ucWRFaeMYwUU8f9Xk/PycuCU8bMnDPJiEJC1JNwOZJa0l3b3gjYIVclJS75BfUgIEWZDR4hpACKZC3EqaFAJoJR0kLYsz/jOFALaFsACBzL0hIZhISEi4qGDSJEHJdkpaEYpX7mPXeQLXTVmNXQj+mfHPP9cUCkGoWjqIR5OmESK0a2/C0rlKIDfwSAXZPOJxe7hOgw6VPiZA1BQz0hLI7Oar2A5Bj8R6DG89AQ9qmCWVnXQQAAAAAElFTkSuQmCC")`,
-    //             backgroundSize: "17px 35px",
-    //             position: "absolute",
-    //             bottom: "0",
-    //             right: "-20px",
-    //             animation: "moveCactus 1.5s infinite linear",
-    //           }}
-    //         ></div>
-    //       </div>
-    //       <h2>Oops! Có vẻ như có lỗi xảy ra</h2>
-    //       <p>
-    //         {error
-    //           ? "Không thể kết nối đến máy chủ."
-    //           : "Không tìm thấy dữ liệu xe."}
-    //       </p>
-    //       <button
-    //         onClick={() => window.location.reload()}
-    //         className="reload-button"
-    //         style={{ marginTop: "20px" }}
-    //       >
-    //         Thử lại
-    //       </button>
-    //     </div>
-    //   );
-
-    return cars.map((vehicle) => (
-      <div className="vehicle-card" key={vehicle.id}>
-        <img
-          src={vehicle.img}
-          alt={`${vehicle.model}`}
-          className="vehicle-image"
-        />
-        <div className="vehicle-info">
-          <h3>{`${vehicle.year} ${vehicle.model}`}</h3>
-          <p>{`${vehicle.mileage} Miles - #${vehicle.id}`}</p>
-          <p>{`Seller: ${vehicle.seller}`}</p>
-          <div className="price-and-bid">
-            <p className="vehicle-price">{`Price: $${vehicle.price}`}</p>
-            <button className="bid-button">Place Bid</button>
-          </div>
-        </div>
-      </div>
-    ));
-  };
+  if (error) {
+    return <p>Error loading products: {error}</p>;
+  }
 
   return (
-    <div className="trend-vehicles-container-tong">
-      <div className="trend-vehicles-container">{renderContent()}</div>
+    <div className="trend-container">
+      <div className="trend-vehicles">
+        <div className="trend-vehicles-header">
+          <p>Trend Vehicles</p>
+          <div>
+            <Button type="primary" shape="round" size={size}>
+              View all
+              <ArrowRightOutlined />
+            </Button>
+          </div>
+        </div>
+
+        <div className="trend-vehicles-grid">
+          {products.slice(0, 4).map((product, index) => (
+            <TrendVehicleCard
+              key={product.id}
+              imageSrc={product.main_img}
+              vehicleName={product.name}
+              isOdd={index % 2 === 0}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TrendVehicleCard = ({ imageSrc, vehicleName, isOdd }) => {
+  return (
+    <div className="trend-vehicle-card">
+      <img src={imageSrc} alt={vehicleName} />
+      <div
+        className="trend-vehicle-card-content"
+        style={{ color: isOdd ? "#fff" : "#000" }}
+      >
+        <h2>{vehicleName}</h2>
+      </div>
     </div>
   );
 };
