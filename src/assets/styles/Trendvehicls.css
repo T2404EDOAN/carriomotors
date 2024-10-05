@@ -30,8 +30,8 @@
 /* Set image to a rectangular shape */
 .vehicle-image {
   width: 100%;
-  height: 0;
-  padding-bottom: 60%; /* Đặt tỷ lệ khung hình hình chữ nhật (60% chiều cao so với chiều rộng) */
+  height: 300px;
+  /* Đặt tỷ lệ khung hình hình chữ nhật (60% chiều cao so với chiều rộng) */
   border-radius: 8px;
   object-fit: cover; /* Ensure the image covers the rectangle without distortion */
 }
@@ -112,7 +112,7 @@
   background-color: #f7f7f7;
 }
 
-.dino {
+/* .dino {
   width: 40px;
   height: 43px;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAASxJREFUWEftmOERgjAMhT+uwBE6giO4AaygbqAb6AiO4AiO4Ahs0KYnXK+FtJScPfkphPa+vLwQiKE369C7HyMwdUKjg6ODqQRSz0cHR6AtAlsRWXnHT+2kqkf7rIj47i0iwZTU9K8iMvPyOpCq6mMfNs6DCLGGBJRdR6mvpKA93ImIPeuNnGQBbaB5e1xk54fALBuQRIY1jsS5vRQkBg4BqXErm6r6igUMBbnGbWwi8oiBvII0JHA6B6CqLkRkaZMTxICbf7PQHNwQ79J38JWH5gQexXHlTQlscToHcAkEYNxyO1AnqBR9B9YhIA+gBJS8kHJp1h1UVQ8i4lIjywrsAhgDaeuOXQFtAz2J9f/BpoEuH9SauxZoAqHqpQE2/cHSOlQryP0+OvgDEwh5KSt3dmEAAAAASUVORK5CYII=");
@@ -120,9 +120,9 @@
   position: absolute;
   bottom: 0;
   left: 20px;
-}
+} */
 
-.cactus {
+/* .cactus {
   width: 17px;
   height: 35px;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAjCAYAAABCDUasAAAAAXNSR0IArs4c6QAAAMlJREFUSEvtlesNwjAMhL+uwAiMACPACIzACIzACI1ucWRFaeMYwUU8f9Xk/PycuCU8bMnDPJiEJC1JNwOZJa0l3b3gjYIVclJS75BfUgIEWZDR4hpACKZC3EqaFAJoJR0kLYsz/jOFALaFsACBzL0hIZhISEi4qGDSJEHJdkpaEYpX7mPXeQLXTVmNXQj+mfHPP9cUCkGoWjqIR5OmESK0a2/C0rlKIDfwSAXZPOJxe7hOgw6VPiZA1BQz0hLI7Oar2A5Bj8R6DG89AQ9qmCWVnXQQAAAAAElFTkSuQmCC");
@@ -131,7 +131,7 @@
   bottom: 0;
   right: -20px;
   animation: moveCactus 1.5s infinite linear;
-}
+} */
 
 @keyframes moveCactus {
   0% {
