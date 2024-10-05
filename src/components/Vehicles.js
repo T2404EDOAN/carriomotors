@@ -372,6 +372,41 @@ const CarListingLayout = () => {
   return (
     <Layout>
     <Header style={headerStyle}>
+    <Row justify="end" align="middle" gutter={[16, 16]}>
+          <Col style={colStyle}>
+            <Search
+              placeholder="input search text"
+              allowClear
+              enterButton="Search"
+              size="large"
+              style={{
+                width: "500px",
+                "::placeholder": { fontWeight: "normal" },
+              }}
+            />
+          </Col>
+          <Col style={colStyle}>
+            <Space size="middle">
+              <FilterOutlined style={{ fontSize: "18px" }} />
+              <span>Filter</span>
+              <Select
+                defaultValue="recommended"
+                style={{ width: 200 }}
+                size="large"
+                onChange={(value) => fetchCars(value)}
+              >
+                <Select.Option value="recommended">Recommended</Select.Option>
+                <Select.Option value="latest">Latest</Select.Option>
+                <Select.Option value="price-low-high">
+                  Price: Low to High
+                </Select.Option>
+                <Select.Option value="price-high-low">
+                  Price: High to Low
+                </Select.Option>
+              </Select>
+            </Space>
+          </Col>
+        </Row>
     </Header>
     <Layout>
       {screens.md ? (
