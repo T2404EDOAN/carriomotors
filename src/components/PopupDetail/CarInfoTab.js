@@ -32,7 +32,10 @@ const CarInfoTab = ({ car, mainImage, setMainImage }) => {
   // Khi bấm next sẽ di chuyển qua một nhóm ảnh
   const handleNextClick = () => {
     setCurrentIndex((prevIndex) =>
-      Math.min(prevIndex + thumbnailsPerPage, totalThumbnails - thumbnailsPerPage)
+      Math.min(
+        prevIndex + thumbnailsPerPage,
+        totalThumbnails - thumbnailsPerPage
+      )
     );
   };
 
@@ -130,10 +133,10 @@ const CarInfoTab = ({ car, mainImage, setMainImage }) => {
         </div>
 
         {/* Hiển thị tên xe và giá */}
-        <Row justify="space-between" style={{ padding: 0,marginTop: '20px' }}>
+        <Row justify="space-between" style={{ padding: 0, marginTop: "20px" }}>
           <Title level={4}>{car.name || "Sample Car Name"}</Title>
           <Text strong style={{ fontSize: "18px" }}>
-             ${car.price || "99999"}
+            ${car.price || "99999"}
           </Text>
         </Row>
       </Col>
@@ -155,7 +158,20 @@ const CarInfoTab = ({ car, mainImage, setMainImage }) => {
             </Text>
             <br />
             <Text>
-              <strong>Acceleration (0-100):</strong> {car.acceleration || "3.5s"}
+              <strong>
+                AccelerationVụ Trần Trường là chuỗi sự kiện biểu tình diễn ra
+                tại Little Saigon, Quận Cam, tiểu bang California vào đầu năm
+                1999. Sự việc diễn ra trong hơn 50 ngày, từ ngày 17 tháng 1, bắt
+                nguồn từ việc ông Trần Văn Trường treo cờ đỏ sao vàng của nước
+                Việt Nam cùng chân dung Hồ Chí Minh (hình minh họa) trước cửa
+                tiệm cho thuê băng video của mình. Thấy thế, cộng đồng người Mỹ
+                gốc Việt sinh sống quanh đó phẫn nộ và phản đối kịch liệt. Trong
+                suốt gần hai tháng, ngày nào cũng có hàng trăm người tụ tập biểu
+                tình trước cửa tiệm và kêu gọi ông Trường tháo các biểu tượng
+                này xuống. Đây được xem là vụ biểu tình lớn nhất trong lịch sử
+                người Việt tại Hoa Kỳ. [ Đọc tiếp ] (0-100):
+              </strong>{" "}
+              {car.acceleration || "3.5s"}
             </Text>
           </Card>
         </Scrollbars>

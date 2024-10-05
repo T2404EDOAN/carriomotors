@@ -19,9 +19,8 @@ import {
 } from "antd";
 import { FilterOutlined, MenuOutlined } from "@ant-design/icons";
 import axios from "axios";
-import { PriceChange } from "@mui/icons-material";
 import CarDetailModal from "./PopupDetail/CarDetailModal";
-
+import "../assets/styles/SearchForm.css";
 const { Header, Sider, Content } = Layout;
 const { Search } = Input;
 const { Title, Text } = Typography;
@@ -85,6 +84,8 @@ const CarListingLayout = () => {
       console.error("Error fetching cars:", error);
     }
   };
+
+  // api cua brands
   useEffect(() => {
     const fetchBrands = async () => {
       try {
@@ -109,6 +110,7 @@ const CarListingLayout = () => {
 
     fetchBrands();
   }, []);
+
   const showModal = (car) => {
     setSelectedCar(car);
     setMainImage(car.img); // dat tam anh chinh
@@ -119,6 +121,7 @@ const CarListingLayout = () => {
     setIsModalVisible(false);
     setSelectedCar(null);
   };
+
   //api cua model
   const fetchModels = async () => {
     try {
@@ -146,8 +149,8 @@ const CarListingLayout = () => {
       const response = await axios.get(
         "https://carriomotors.io.vn/api/get_location.php"
       );
-      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ AP
-      const locationsData = response.data.data || response.data; // Đảm bảo lấy đúng a
+      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
+      const locationsData = response.data.data || response.data; // Đảm bảo lấy đúng API data
 
       if (Array.isArray(locationsData)) {
         setLocations(locationsData);
@@ -159,14 +162,15 @@ const CarListingLayout = () => {
       console.error("Error fetching cars:", error);
     }
   };
+
   //api cua Search
   const fetchSearch = async (value) => {
     try {
       const response = await axios.get(
         `https://carriomotors.io.vn/api/get_search.php?name=${value}`
       );
-      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ AP
-      const searchData = response.data.data || response.data; // Đảm bảo lấy đúng a
+      console.log("Raw response:", response);
+      const searchData = response.data.data || response.data;
 
       if (Array.isArray(searchData)) {
         setFilteredCars(searchData);
@@ -186,7 +190,7 @@ const CarListingLayout = () => {
   }, []);
 
   const headerStyle = {
-    background: "#fff",
+    background: "#fff", // Nền trắng
     padding: "10px 20px",
     height: "auto",
     lineHeight: "normal",
@@ -205,6 +209,7 @@ const CarListingLayout = () => {
   const onCloseFilter = () => {
     setIsFilterVisible(false);
   };
+
   const handlePriceChage = (value) => {
     setPriceRange(value);
 
@@ -257,7 +262,6 @@ const CarListingLayout = () => {
       setSelectedColors([...selectedColors, color]);
     }
 
-    // Lọc xe dựa trên màu sắc đã chọn
     const filtered = cars.filter((car) => selectedColors.includes(car.color));
     setFilteredCars(filtered);
   };
@@ -273,16 +277,18 @@ const CarListingLayout = () => {
       searchInputRef.current.input.value = "";
     }
   };
-  // aaa
+
+  // Sidebar rendering
   const renderSidebar = () => (
-    <>
+    <div style={{ background: "#fff" }}>
+      {" "}
+      {/* Nền trắng cho sidebar */}
       <Row justify="space-between" align="middle" style={{ marginBottom: 20 }}>
         <Title level={3}>Filter</Title>
         <Button type="link" onClick={reset}>
           Reset
         </Button>
       </Row>
-
       {/* model */}
       <Title level={5}>Models</Title>
       <Select
@@ -302,7 +308,6 @@ const CarListingLayout = () => {
           </Select.Option>
         ))}
       </Select>
-
       {/* Location */}
       <Title level={5}>Location</Title>
       <Select
@@ -343,10 +348,10 @@ const CarListingLayout = () => {
           ))}
         </div>
       </Checkbox.Group>
-
       {/* price */}
       <Title level={5}>Price Range</Title>
       <Slider
+        style={{ color: "black" }}
         range
         defaultValue={PriceRange}
         min={0}
@@ -357,7 +362,6 @@ const CarListingLayout = () => {
         <Text>${PriceRange[0]}</Text>
         <Text>${PriceRange[1]}</Text>
       </Row>
-
       {/* color */}
       <Title level={5} style={{ marginTop: "15px" }}>
         Color
@@ -368,7 +372,7 @@ const CarListingLayout = () => {
             key={color}
             onClick={() => handleColorSelection(color)}
             style={{
-              backgroundColor: color, // Màu từ database
+              backgroundColor: color,
               cursor: "pointer",
               border: selectedColors.includes(color)
                 ? "1px solid #488ded"
@@ -382,12 +386,21 @@ const CarListingLayout = () => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 
+  // Card rendering
   const renderCarCard = (car) => (
     <Card
       key={car.id}
+      className="custom-card" // Custom class for styling
+      style={{
+        background: "#fff",
+        boxShadow: "none",
+        border: "none",
+        borderRadius: 0,
+        overflow: "hidden",
+      }}
       cover={
         <div
           style={{
@@ -414,53 +427,33 @@ const CarListingLayout = () => {
   );
 
   return (
-    <Layout>
+    <Layout style={{ background: "#fff" }}>
+      {" "}
+      {/* Nền trắng cho Layout */}
       <Header style={headerStyle}>
-        <Row justify="end" align="middle" gutter={[16, 16]}>
-          {/* <Col style={colStyle}>
-            <Search
-              ref={searchInputRef}
-              placeholder="input search text"
-              allowClear
-              enterButton="Search"
-              size="large"
-              onSearch={fetchSearch}
-              style={{
-                width: "500px",
-                "::placeholder": { fontWeight: "normal" },
-              }}
-            />
-          </Col> */}
-          {/* <Col style={colStyle}>
-            <Space size="middle">
-              <FilterOutlined style={{ fontSize: "18px" }} />
-              <span>Filter</span>
-              <Select
-                defaultValue="recommended"
-                style={{ width: 200 }}
-                size="large"
-                onChange={(value) => fetchCars(value)}
-              >
-                <Select.Option value="recommended">Recommended</Select.Option>
-                <Select.Option value="latest">Latest</Select.Option>
-                <Select.Option value="price-low-high">
-                  Price: Low to High
-                </Select.Option>
-                <Select.Option value="price-high-low">
-                  Price: High to Low
-                </Select.Option>
-              </Select>
-            </Space>
-          </Col> */}
+        <Row
+          justify="end"
+          align="middle"
+          style={{ marginTop: "10px", display: "flex", justifyContent: "left" }}
+        >
+          <h2 style={{ fontSize: "50px" }}>Model Overview</h2>
         </Row>
       </Header>
-      <Layout>
+      <Layout style={{ background: "#fff" }}>
         {screens.md ? (
-          <Sider width={300} theme="light" style={{ padding: "20px" }}>
+          <Sider
+            width={400}
+            theme="light"
+            style={{
+              padding: "20px",
+              background: "#fff",
+              borderRight: "1px solid #f0f0f0",
+            }}
+          >
             {renderSidebar()}
           </Sider>
         ) : null}
-        <Content style={{ padding: "20px" }}>
+        <Content style={{ padding: "20px", background: "#fff" }}>
           {!screens.md && (
             <Button
               icon={<MenuOutlined />}
@@ -498,13 +491,13 @@ const CarListingLayout = () => {
           setMainImage={setMainImage} // gui mainimage xuong CarInfoTab
         />
       )}
-
       <Drawer
         title="Filters"
         placement="left"
         onClose={onCloseFilter}
         visible={isFilterVisible}
         width={300}
+        style={{ background: "#fff" }} // Drawer nền trắng
       >
         {renderSidebar()}
       </Drawer>

@@ -4,8 +4,13 @@ import CarInfoTab from "./CarInfoTab";
 
 const { TabPane } = Tabs; // Sử dụng TabPane từ Ant Design
 
-
-const CarDetailModal = ({ isVisible, onClose, car, mainImage, setMainImage }) => {
+const CarDetailModal = ({
+  isVisible,
+  onClose,
+  car,
+  mainImage,
+  setMainImage,
+}) => {
   const [activeTab, setActiveTab] = useState("1");
 
   // Reset tab về tab đầu tiên khi modal đóng
@@ -16,21 +21,25 @@ const CarDetailModal = ({ isVisible, onClose, car, mainImage, setMainImage }) =>
   }, [isVisible]);
 
   const handleTabChange = (key) => {
-    setActiveTab(key); 
+    setActiveTab(key);
   };
 
   return (
     <Modal
       title={car?.model || "Car Details"}
-      open={isVisible} 
+      open={isVisible}
       onCancel={onClose}
       footer={null}
-      width={1200}
+      width={1400}
     >
       <Tabs activeKey={activeTab} onChange={handleTabChange}>
         <TabPane tab="Design" key="1">
           {/* Hiển thị thông tin và hình ảnh trong CarInfoTab */}
-          <CarInfoTab car={car} mainImage={mainImage} setMainImage={setMainImage} />
+          <CarInfoTab
+            car={car}
+            mainImage={mainImage}
+            setMainImage={setMainImage}
+          />
         </TabPane>
         <TabPane tab="Exterior" key="2">
           <div>Thông số kỹ thuật xe</div>
