@@ -21,21 +21,21 @@ const CarDetailModal = ({ isVisible, onClose, car, mainImage, setMainImage }) =>
 
   return (
     <Modal
-      title={car?.name || "Car Details"}
+      title={car?.model || "Car Details"}
       open={isVisible} 
       onCancel={onClose}
       footer={null}
       width={1200}
     >
       <Tabs activeKey={activeTab} onChange={handleTabChange}>
-        <TabPane tab="Thông tin và Hình ảnh" key="1">
+        <TabPane tab="Design" key="1">
           {/* Hiển thị thông tin và hình ảnh trong CarInfoTab */}
           <CarInfoTab car={car} mainImage={mainImage} setMainImage={setMainImage} />
         </TabPane>
-        <TabPane tab="Thông số kỹ thuật" key="2">
+        <TabPane tab="Exterior" key="2">
           <div>Thông số kỹ thuật xe</div>
         </TabPane>
-        <TabPane tab="Bình luận" key="3">
+        <TabPane tab="Service" key="3">
           <div>Bình luận về xe</div>
         </TabPane>
       </Tabs>
