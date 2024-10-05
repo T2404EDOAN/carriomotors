@@ -20,6 +20,7 @@ import {
 import { FilterOutlined, MenuOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { PriceChange } from "@mui/icons-material";
+import CarDetailModal from "./PopupDetail/CarDetailModal";
 
 const { Header, Sider, Content } = Layout;
 const { Search } = Input;
@@ -42,6 +43,9 @@ const CarListingLayout = () => {
   const [selectedModels, setSelectedModels] = useState([]);
   const [locations, setLocations] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedCar, setSelectedCar] = useState(null);
+  const [mainImage, setMainImage] = useState(null); // anh chinh
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -64,8 +68,8 @@ const CarListingLayout = () => {
         `https://carriomotors.io.vn/api/get_vehicle.php?sort=${value}`
       );
 
-      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
-      const carsData = response.data.data || response.data; // Đảm bảo lấy đúng data
+      console.log("Raw response:", response);
+      const carsData = response.data.data || response.data;
 
       if (Array.isArray(carsData)) {
         setCars(carsData);
@@ -86,8 +90,8 @@ const CarListingLayout = () => {
           "https://carriomotors.io.vn/api/get_brands.php"
         );
 
-        console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
-        const brandsData = response.data.data || response.data; // Đảm bảo lấy đúng data
+        console.log("Raw response:", response);
+        const brandsData = response.data.data || response.data;
 
         if (Array.isArray(brandsData)) {
           setBrands(brandsData);
@@ -103,7 +107,16 @@ const CarListingLayout = () => {
 
     fetchBrands();
   }, []);
+  const showModal = (car) => {
+    setSelectedCar(car);
+    setMainImage(car.img); // dat tam anh chinh
+    setIsModalVisible(true);
+  };
 
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setSelectedCar(null);
+  };
   //api cua model
   const fetchModels = async () => {
     // setLoading(true);
@@ -112,8 +125,8 @@ const CarListingLayout = () => {
         "https://carriomotors.io.vn/api/get_model.php"
       );
 
-      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
-      const modelsData = response.data.data || response.data; // Đảm bảo lấy đúng data
+      console.log("Raw response:", response);
+      const modelsData = response.data.data || response.data;
 
       if (Array.isArray(modelsData)) {
         setModels(modelsData);
@@ -133,8 +146,8 @@ const CarListingLayout = () => {
         "https://carriomotors.io.vn/api/get_location.php"
       );
 
-      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
-      const locationsData = response.data.data || response.data; // Đảm bảo lấy đúng data
+      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ AP
+      const locationsData = response.data.data || response.data; // Đảm bảo lấy đúng a
 
       if (Array.isArray(locationsData)) {
         setLocations(locationsData);
@@ -240,7 +253,7 @@ const CarListingLayout = () => {
     setPriceRange([0, 500000]);
     setFilteredCars(cars);
   };
-
+  // aaa
   const renderSidebar = () => (
     <>
       <Row justify="space-between" align="middle" style={{ marginBottom: 20 }}>
@@ -360,7 +373,9 @@ const CarListingLayout = () => {
             height: 200,
             background: "#f0f0f0",
             position: "relative",
+            cursor: "pointer",
           }}
+          onClick={() => showModal(car)}
         >
           <img
             src={car.img}
@@ -379,43 +394,7 @@ const CarListingLayout = () => {
 
   return (
     <Layout>
-      <Header style={headerStyle}>
-        <Row justify="end" align="middle" gutter={[16, 16]}>
-          <Col style={colStyle}>
-            <Search
-              placeholder="input search text"
-              allowClear
-              enterButton="Search"
-              size="large"
-              style={{
-                width: "500px",
-                "::placeholder": { fontWeight: "normal" },
-              }}
-            />
-          </Col>
-          <Col style={colStyle}>
-            <Space size="middle">
-              <FilterOutlined style={{ fontSize: "18px" }} />
-              <span>Filter</span>
-              <Select
-                defaultValue="recommended"
-                style={{ width: 200 }}
-                size="large"
-                onChange={(value) => fetchCars(value)}
-              >
-                <Select.Option value="recommended">Recommended</Select.Option>
-                <Select.Option value="latest">Latest</Select.Option>
-                <Select.Option value="price-low-high">
-                  Price: Low to High
-                </Select.Option>
-                <Select.Option value="price-high-low">
-                  Price: High to Low
-                </Select.Option>
-              </Select>
-            </Space>
-          </Col>
-        </Row>
-      </Header>
+      <Header style={headerStyle}></Header>
       <Layout>
         {screens.md ? (
           <Sider width={300} theme="light" style={{ padding: "20px" }}>
@@ -451,6 +430,17 @@ const CarListingLayout = () => {
           </Row>
         </Content>
       </Layout>
+
+      {selectedCar && (
+        <CarDetailModal
+          isVisible={isModalVisible}
+          onClose={closeModal}
+          car={selectedCar}
+          mainImage={mainImage}
+          setMainImage={setMainImage} // gui mainimage xuong CarInfoTab
+        />
+      )}
+
       <Drawer
         title="Filters"
         placement="left"
