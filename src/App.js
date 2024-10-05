@@ -13,7 +13,8 @@ import FAQ from "./pages/FAQ";
 import "./App.css";
 import Ticker from "./components/Ticker";
 import CompanyPage from "./components/AboutUs/Company";
-import { fetchBannerData } from './apiService'; // Import hàm fetch API từ file apiService.js
+import { fetchBannerData } from "./apiService"; // Import hàm fetch API từ file apiService.js
+import Careers from "./components/AboutUs/Careers";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -141,6 +142,7 @@ function AppLayout() {
                 <Route path="/shopping" element={<Shopping />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/about/company" element={<CompanyPage />} />
+                <Route path="/about/careers" element={<Careers />} />
               </Routes>
             </div>
           </CSSTransition>

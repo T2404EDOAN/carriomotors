@@ -417,7 +417,7 @@ const CarListingLayout = () => {
     <Layout>
       <Header style={headerStyle}>
         <Row justify="end" align="middle" gutter={[16, 16]}>
-          <Col style={colStyle}>
+          {/* <Col style={colStyle}>
             <Search
               ref={searchInputRef}
               placeholder="input search text"
@@ -430,8 +430,8 @@ const CarListingLayout = () => {
                 "::placeholder": { fontWeight: "normal" },
               }}
             />
-          </Col>
-          <Col style={colStyle}>
+          </Col> */}
+          {/* <Col style={colStyle}>
             <Space size="middle">
               <FilterOutlined style={{ fontSize: "18px" }} />
               <span>Filter</span>
@@ -451,7 +451,7 @@ const CarListingLayout = () => {
                 </Select.Option>
               </Select>
             </Space>
-          </Col>
+          </Col> */}
         </Row>
       </Header>
       <Layout>
