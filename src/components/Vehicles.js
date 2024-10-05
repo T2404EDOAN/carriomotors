@@ -40,7 +40,8 @@ const CarListingLayout = () => {
   const currentCars = filteredCars.slice(indexOfFirstItem, indexOfLastItem);
   const [models, setModels] = useState([]);
   const [selectedModels, setSelectedModels] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [locations, setLocations] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState([]);
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -58,7 +59,6 @@ const CarListingLayout = () => {
 
   //api cua vehicle
   const fetchCars = async (value = "recommended") => {
-    // setLoading(true);
     try {
       const response = await axios.get(
         `https://carriomotors.io.vn/api/get_vehicle.php?sort=${value}`
@@ -117,11 +117,30 @@ const CarListingLayout = () => {
 
       if (Array.isArray(modelsData)) {
         setModels(modelsData);
-        // setFilteredCars(modelsData);
       } else {
         console.error("Data is not an array:", modelsData);
         setModels([]);
-        // setFilteredCars([]);
+      }
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+    }
+  };
+
+  //api cua location
+  const fetchLocations = async () => {
+    try {
+      const response = await axios.get(
+        "https://carriomotors.io.vn/api/get_location.php"
+      );
+
+      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
+      const locationsData = response.data.data || response.data; // Đảm bảo lấy đúng data
+
+      if (Array.isArray(locationsData)) {
+        setLocations(locationsData);
+      } else {
+        console.error("Data is not an array:", locationsData);
+        setLocations([]);
       }
     } catch (error) {
       console.error("Error fetching cars:", error);
@@ -131,6 +150,7 @@ const CarListingLayout = () => {
   useEffect(() => {
     fetchCars();
     fetchModels();
+    fetchLocations();
   }, []);
 
   const headerStyle = {
@@ -186,16 +206,18 @@ const CarListingLayout = () => {
     }
   };
 
-  // const handleSelectAllBrands = (e) => {
-  //   if (e.target.checked) {
-  //     const allBrandIds = brands.map((brand) => brand.id);
-  //     setSelectedBrands(allBrandIds);
-  //     setFilteredCars(cars);
-  //   } else {
-  //     setSelectedBrands([]);
-  //     setFilteredCars(cars);
-  //   }
-  // };
+  const handleLocationSelection = (checkedValues) => {
+    setSelectedLocations(checkedValues);
+    if (checkedValues.length === 0) {
+      setFilteredCars(cars);
+    } else {
+      const filtered = cars.filter((car) =>
+        checkedValues.includes(car.locationid)
+      );
+      setFilteredCars(filtered);
+    }
+  };
+
   const handleColorSelection = (color) => {
     if (selectedColors.includes(color)) {
       setSelectedColors(selectedColors.filter((c) => c !== color));
@@ -214,6 +236,7 @@ const CarListingLayout = () => {
   const reset = () => {
     setSelectedModels([]);
     setSelectedBrands([]);
+    setSelectedLocations([]);
     setPriceRange([0, 500000]);
     setFilteredCars(cars);
   };
@@ -258,10 +281,12 @@ const CarListingLayout = () => {
         }}
         placeholder="Search to Select"
         optionFilterProp="label"
+        value={selectedLocations}
+        onChange={handleLocationSelection}
       >
-        {brands.map((brand) => (
-          <Select.Option key={brand.id} value={brand.id}>
-            {brand.name}
+        {locations.map((location) => (
+          <Select.Option key={location.id} value={location.id}>
+            {location.name}
           </Select.Option>
         ))}
       </Select>
