@@ -1,0 +1,62 @@
+.careers-main-container {
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.careers-left {
+  width: 700px;
+}
+.careers-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.careers-right {
+  width: 500px;
+  margin-left: 200px;
+}
+.title-careers1 {
+  font-size: 40px;
+  font-weight: bold;
+}
+.line1 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.information {
+  font-size: 30px;
+  font-weight: bold;
+}
+.inputcar-info {
+  margin-top: 20px;
+}
+.inputcar-info Input {
+  height: 50px;
+}
+.method,
+.ques {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.end {
+  font-size: smaller;
+  margin-top: 10px;
+}
+.line2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.error-message {
+  margin-top: 0;
+  text-align: left;
+  margin-left: 8px;
+}
+.star1,
+.star {
+  top: -0.2rem;
+  color: red;
+}
