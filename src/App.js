@@ -13,7 +13,7 @@ import FAQ from "./pages/FAQ";
 import "./App.css";
 import Ticker from "./components/Ticker";
 import CompanyPage from "./components/AboutUs/Company";
-import { fetchBannerData } from "./apiService"; // Import hàm fetch API từ file apiService.js
+import { fetchBannerData } from "./apiService"; 
 import Careers from "./components/AboutUs/Careers";
 
 function App() {
@@ -48,7 +48,9 @@ function App() {
     );
   }
 
-  return <AppLayout />;
+  return (
+      <AppLayout />
+  );
 }
 
 function AppLayout() {

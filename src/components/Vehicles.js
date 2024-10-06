@@ -22,18 +22,17 @@ import axios from "axios";
 import CarDetailModal from "./PopupDetail/CarDetailModal";
 import "../assets/styles/SearchForm.css";
 const { Header, Sider, Content } = Layout;
-const { Search } = Input;
 const { Title, Text } = Typography;
 const { useBreakpoint } = Grid;
 
-const CarListingLayout = () => {
-  const [isFilterVisible, setIsFilterVisible] = useState(false); // Trạng thái hiển thị bộ lọc
-  const [cars, setCars] = useState([]); // Danh sách các xe
-  const [brands, setBrands] = useState([]); // Danh sách các thương hiệu xe
-  const [selectedBrands, setSelectedBrands] = useState([]); // Các thương hiệu được chọn
-  const [filteredCars, setFilteredCars] = useState([]); // Các xe sau khi lọc
-  const [PriceRange, setPriceRange] = useState([0, 500000]); // Khoảng giá được chọn
-  const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
+const CarListingLayout = ({isTechnicalDataVisible }) => {
+  const [isFilterVisible, setIsFilterVisible] = useState(false); 
+  const [cars, setCars] = useState([]); 
+  const [brands, setBrands] = useState([]); 
+  const [selectedBrands, setSelectedBrands] = useState([]); 
+  const [filteredCars, setFilteredCars] = useState([]); 
+  const [PriceRange, setPriceRange] = useState([0, 500000]); 
+  const [currentPage, setCurrentPage] = useState(1); 
   const [itemsPerPage] = useState(9);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -203,13 +202,6 @@ const CarListingLayout = () => {
     height: "40px",
   };
 
-  const showFilter = () => {
-    setIsFilterVisible(true);
-  };
-
-  const onCloseFilter = () => {
-    setIsFilterVisible(false);
-  };
 
   const handlePriceChage = (value) => {
     setPriceRange(value);
@@ -451,7 +443,8 @@ const CarListingLayout = () => {
   
 
   return (
-    <div style={{ maxWidth: "1400px", margin: "0 auto" }}> {/* Add this container for fixed width */}
+    <div className={isModalVisible  ? "blur-background" : ""}> 
+    <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
       <Layout style={{ background: "#fff" }}>
         {/* Nền trắng cho Layout */}
         <Header style={headerStyle}>
@@ -482,7 +475,6 @@ const CarListingLayout = () => {
               <Button
                 icon={<MenuOutlined />}
                 style={{ marginBottom: 16 }}
-                onClick={showFilter}
               >
                 Filters
               </Button>
@@ -515,17 +507,9 @@ const CarListingLayout = () => {
             setMainImage={setMainImage} // gui mainimage xuong CarInfoTab
           />
         )}
-        <Drawer
-          title="Filters"
-          placement="left"
-          onClose={onCloseFilter}
-          visible={isFilterVisible}
-          width={300}
-          style={{ background: "#fff" }} // Drawer nền trắng
-        >
-          {renderSidebar()}
-        </Drawer>
+        
       </Layout>
+    </div>
     </div>
   );
 };

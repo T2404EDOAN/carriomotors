@@ -26,4 +26,43 @@
   .hover-item:hover {
     background-color: #f0f0f0; /* Màu nền khi hover */
   }
-    
+  .page-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .custom-drawer {
+    font-size: 16px; /* Điều chỉnh kích thước chữ theo ý muốn */
+  }
+  .custom-statistic-value .ant-statistic-content-value {
+    font-size: 16px; 
+  }
+  .custom-statistic-value .ant-statistic-content
+  .custom-collapse {
+    margin-top: 20px; /* Điều chỉnh khoảng cách giữa các Collapse */
+  }
+  .custom-collapse .ant-collapse-item {
+    margin-bottom: 10px; /* Khoảng cách giữa các Panel */
+  }
+  .statistic-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .statistic-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+  }
+  
+  .statistic-title {
+    flex: 1; /* Để tên thông số chiếm 1 phần */
+  }
+  
+  .statistic-value {
+    font-weight: bold; /* In đậm giá trị */
+    flex: 1; /* Để giá trị chiếm 1 phần */
+    text-align: right; /* Căn kịch phải giá trị */
+  }
+  
