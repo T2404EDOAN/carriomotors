@@ -17,4 +17,13 @@
     background-color: #f1f1f1; /* Màu nền của thanh cuộn */
     border-radius: 10px;
   }
+
   
+  .hover-item:active {
+    background-color: #e6f7ff;
+    color: #096dd9; /* Đổi màu chữ khi nhấn (click) */
+  }
+  .hover-item:hover {
+    background-color: #f0f0f0; /* Màu nền khi hover */
+  }
+    

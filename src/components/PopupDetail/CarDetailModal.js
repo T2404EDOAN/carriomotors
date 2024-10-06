@@ -30,10 +30,13 @@ const CarDetailModal = ({
       open={isVisible}
       onCancel={onClose}
       footer={null}
-      width={1400}
+      width={1200}
+      height={600}
+      
+      
     >
       <Tabs activeKey={activeTab} onChange={handleTabChange}>
-        <TabPane tab="Design" key="1">
+        <TabPane tab="Exterior Colours" key="1">
           {/* Hiển thị thông tin và hình ảnh trong CarInfoTab */}
           <CarInfoTab
             car={car}

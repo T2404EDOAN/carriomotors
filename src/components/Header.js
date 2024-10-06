@@ -148,68 +148,63 @@ const ImprovedHeader = () => {
       </Drawer>
       {/* Style tùy chỉnh để bỏ in đậm và gạch chân khi hover */}
       <style jsx>{`
-        /* In đậm tất cả các mục menu và submenu */
-        .ant-menu-horizontal > .ant-menu-item,
-        .ant-menu-horizontal > .ant-menu-submenu-title,
-        .ant-menu-item,
-        .ant-menu-submenu-title {
-          font-weight: bold !important; /* Bắt buộc in đậm */
-          font-size: 16px !important; /* Đặt cỡ chữ 16px */
-        }
-        /* Đảm bảo các liên kết trong menu không có gạch chân */
-        .ant-menu-item a,
-        .ant-menu-submenu-title {
-          text-decoration: none !important; /* Không có gạch chân */
-          font-weight: bold !important; /* In đậm các liên kết */
-        }
-        /* Không có gạch chân khi hover vào liên kết */
-        .ant-menu-item a:hover,
-        .ant-menu-submenu-title:hover {
-          text-decoration: none !important; /* Không có gạch chân khi hover */
-          font-weight: bold !important; /* In đậm khi hover */
-        }
-        .ant-input {
-          font-size: 16px;
-          font-weight: bold !important; /* In đậm phần input */
-        }
-        .ant-btn {
-          font-size: 16px;
-          font-weight: bold !important; /* In đậm các nút */
-        }
-        @media (min-width: 1024px) {
-          .ant-menu-horizontal {
-            display: flex !important;
-          }
-        }
+  /* Đảm bảo các liên kết trong menu không có gạch chân và không in đậm */
+  .ant-menu-item a,
+  .ant-menu-submenu-title {
+    text-decoration: none !important; /* Không có gạch chân */
+    font-weight: normal !important; /* Font bình thường */
+  }
+  /* Không có gạch chân khi hover vào liên kết */
+  .ant-menu-item a:hover,
+  .ant-menu-submenu-title:hover {
+    text-decoration: none !important; /* Không có gạch chân khi hover */
+    font-weight: normal !important; /* Font bình thường khi hover */
+  }
 
-        /* Remove underline and ellipsis */
-        .ant-menu-item a,
-        .ant-menu-submenu-title a {
-          text-decoration: none !important;
-        }
+  /* Chỉnh sửa vấn đề ellipsis */
+  .ant-menu-item,
+  .ant-menu-submenu-title {
+    white-space: nowrap !important; /* Không cho phép xuống dòng */
+    overflow: visible !important;   /* Đảm bảo văn bản không bị ẩn */
+    text-overflow: initial !important; /* Không cắt văn bản */
+  }
 
-        .ant-menu-item:hover,
-        .ant-menu-item-active,
-        .ant-menu-item-selected,
-        .ant-menu-submenu:hover,
-        .ant-menu-submenu-active,
-        .ant-menu-submenu-selected {
-          background-color: transparent !important;
-          border-bottom: none !important;
-        }
+  /* Các thuộc tính khác của input và button */
+  .ant-input {
+    font-size: 16px;
+  }
+  .ant-btn {
+    font-size: 16px;
+  }
 
-        .ant-menu-item a:hover,
-        .ant-menu-submenu-title:hover {
-          text-decoration: none !important;
-        }
+  @media (min-width: 1024px) {
+    .ant-menu-horizontal {
+      display: flex !important;
+    }
+  }
 
-        .ant-menu-item,
-        .ant-menu-submenu-title {
-          white-space: normal !important;
-          overflow: visible !important;
-          text-overflow: clip !important;
-        }
-      `}</style>
+  /* Remove underline and ellipsis */
+  .ant-menu-item a,
+  .ant-menu-submenu-title a {
+    text-decoration: none !important;
+  }
+
+  .ant-menu-item:hover,
+  .ant-menu-item-active,
+  .ant-menu-item-selected,
+  .ant-menu-submenu:hover,
+  .ant-menu-submenu-active,
+  .ant-menu-submenu-selected {
+    background-color: transparent !important;
+    border-bottom: none !important;
+  }
+
+  .ant-menu-item a:hover,
+  .ant-menu-submenu-title:hover {
+    text-decoration: none !important;
+  }
+`}</style>
+
     </header>
   );
 };

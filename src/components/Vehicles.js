@@ -46,6 +46,8 @@ const CarListingLayout = () => {
   const [selectedCar, setSelectedCar] = useState(null);
   const [mainImage, setMainImage] = useState(null); // anh chinh
   const searchInputRef = useRef(null);
+  const [currentImages, setCurrentImages] = useState({});
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -113,7 +115,6 @@ const CarListingLayout = () => {
 
   const showModal = (car) => {
     setSelectedCar(car);
-    setMainImage(car.img); // dat tam anh chinh
     setIsModalVisible(true);
   };
 
@@ -283,14 +284,13 @@ const CarListingLayout = () => {
     <div style={{ background: "#fff" }}>
       {" "}
       {/* Nền trắng cho sidebar */}
-      <Row justify="space-between" align="middle" style={{ marginBottom: 20 }}>
-        <Title level={3}>Filter</Title>
+      {/* <Row justify="space-between" align="middle" style={{ marginBottom: 20 }}>
         <Button type="link" onClick={reset}>
           Reset
         </Button>
-      </Row>
+      </Row> */}
       {/* model */}
-      <Title level={5}>Models</Title>
+      <Title level={4}>Models</Title>
       <Select
         showSearch
         style={{
@@ -309,7 +309,7 @@ const CarListingLayout = () => {
         ))}
       </Select>
       {/* Location */}
-      <Title level={5}>Location</Title>
+      <Title level={4}>Location</Title>
       <Select
         showSearch
         style={{
@@ -328,7 +328,7 @@ const CarListingLayout = () => {
         ))}
       </Select>
       {/* brand */}
-      <Title level={5}>Brand</Title>
+      <Title level={4}>Brand</Title>
       <Checkbox.Group
         value={selectedBrands}
         onChange={handleBrandSelection}
@@ -349,24 +349,27 @@ const CarListingLayout = () => {
         </div>
       </Checkbox.Group>
       {/* price */}
-      <Title level={5}>Price Range</Title>
+      <Title level={4}>Price Range</Title>
       <Slider
-        style={{ color: "black" }}
-        range
-        defaultValue={PriceRange}
-        min={0}
-        max={500000}
-        onChange={handlePriceChage}
-      />
-      <Row justify="space-between">
+  style={{ width: '200px' }}
+  range
+  defaultValue={PriceRange}
+  min={0}
+  max={500000}
+  onChange={handlePriceChage}
+  trackStyle={{ backgroundColor: 'black' }}   // Black color for the track
+
+/>
+
+      <Row justify="space-between" style={{width:'200px'}}>
         <Text>${PriceRange[0]}</Text>
         <Text>${PriceRange[1]}</Text>
       </Row>
       {/* color */}
-      <Title level={5} style={{ marginTop: "15px" }}>
+      <Title level={4} style={{ marginTop: "15px" }}>
         Color
       </Title>
-      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap",width:'200px' }}>
         {colors.map((color) => (
           <Avatar
             key={color}
@@ -388,14 +391,28 @@ const CarListingLayout = () => {
       </div>
     </div>
   );
-
+  const handleImageClick = (car) => {
+    const currentImageIndex = currentImages[car.id]?.index || 0; // Lấy chỉ số hiện tại hoặc mặc định là 0
+    const nextImageIndex = (currentImageIndex + 1) % (car.images.length + 1); // Tính chỉ số ảnh kế tiếp, quay lại ảnh chính sau khi duyệt hết ảnh phụ
+    
+    const newImage =
+      nextImageIndex === 0 ? car.main_img : car.images[nextImageIndex - 1].image_url; // Nếu là chỉ số 0 thì là ảnh chính, ngược lại lấy ảnh phụ
+  
+    setCurrentImages((prevState) => ({
+      ...prevState,
+      [car.id]: { url: newImage, index: nextImageIndex }, // Cập nhật chỉ số và ảnh mới
+    }));
+  };
+  
   // Card rendering
   const renderCarCard = (car) => (
     <Card
       key={car.id}
-      className="custom-card" // Custom class for styling
+      className="custom-card"
+      bodyStyle={{ padding: 0 }}
       style={{
-        background: "#fff",
+        width: "100%",
+        background: "#ffffff",
         boxShadow: "none",
         border: "none",
         borderRadius: 0,
@@ -404,104 +421,112 @@ const CarListingLayout = () => {
       cover={
         <div
           style={{
-            height: 300,
-            background: "#f0f0f0",
+            height: "216px",
+            background: "#ffffff",
             position: "relative",
             cursor: "pointer",
           }}
-          onClick={() => showModal(car)}
+          onClick={() => showModal(car)} // Khi nhấn vào ảnh, mở popup
         >
           <img
-            src={car.main_img}
-            alt={car.model}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            src={car.main_img} // Hiển thị ảnh chính trong danh sách
+            alt={car.car_model_name}
+            style={{ width: "100%", height: "100%", objectFit: "contain" }}
           />
         </div>
       }
     >
-      <Card.Meta title={car.name} description={car.type} />
-      <Row justify="space-between" align="middle" style={{ marginTop: 16 }}>
+      <div style={{ height: "24px", marginTop: "8px" }}>
+        <Title level={5} style={{ margin: 0 }}>
+          {car.car_model_name}
+        </Title>
+      </div>
+      <Row justify="space-between" align="middle" style={{ height: "24px" }}>
         <Text strong>${car.price}</Text>
       </Row>
     </Card>
   );
+  
+  
+  
 
   return (
-    <Layout style={{ background: "#fff" }}>
-      {" "}
-      {/* Nền trắng cho Layout */}
-      <Header style={headerStyle}>
-        <Row
-          justify="end"
-          align="middle"
-          style={{ marginTop: "10px", display: "flex", justifyContent: "left" }}
-        >
-          <h2 style={{ fontSize: "50px" }}>Model Overview</h2>
-        </Row>
-      </Header>
+    <div style={{ maxWidth: "1400px", margin: "0 auto" }}> {/* Add this container for fixed width */}
       <Layout style={{ background: "#fff" }}>
-        {screens.md ? (
-          <Sider
-            width={400}
-            theme="light"
-            style={{
-              padding: "20px",
-              background: "#fff",
-              borderRight: "1px solid #f0f0f0",
-            }}
+        {/* Nền trắng cho Layout */}
+        <Header style={headerStyle}>
+          <Row
+            justify="end"
+            align="middle"
+            style={{ marginTop: "10px", display: "flex", justifyContent: "left" }}
           >
-            {renderSidebar()}
-          </Sider>
-        ) : null}
-        <Content style={{ padding: "20px", background: "#fff" }}>
-          {!screens.md && (
-            <Button
-              icon={<MenuOutlined />}
-              style={{ marginBottom: 16 }}
-              onClick={showFilter}
+            <h2 style={{ fontSize: "40px" }}>Model Overview</h2>
+          </Row>
+        </Header>
+        <Layout style={{ background: "#fff" }}>
+          {screens.md ? (
+            <Sider
+              width={300}
+              theme="light"
+              style={{
+                padding: "20px",
+                background: "#fff",
+                borderRight: "1px solid #f0f0f0",
+              }}
             >
-              Filters
-            </Button>
-          )}
-          <Title level={4}>{filteredCars.length} Cars Found</Title>
-          <Row gutter={[16, 16]}>
-            {filteredCars.map((car) => (
-              <Col xs={24} sm={12} lg={8} key={car.id}>
-                {renderCarCard(car)}
-              </Col>
-            ))}
-          </Row>
-          <Row justify="center" style={{ marginTop: 20 }}>
-            <Pagination
-              current={currentPage}
-              total={filteredCars.length}
-              pageSize={itemsPerPage}
-              onChange={handlePageChange}
-              showSizeChanger={false}
-            />
-          </Row>
-        </Content>
+              {renderSidebar()}
+            </Sider>
+          ) : null}
+          <Content style={{ padding: "20px", background: "#fff", width: "calc(100% - 300px)" }}>
+            {!screens.md && (
+              <Button
+                icon={<MenuOutlined />}
+                style={{ marginBottom: 16 }}
+                onClick={showFilter}
+              >
+                Filters
+              </Button>
+            )}
+            <Title level={4}>{filteredCars.length} Cars </Title>
+            <Row gutter={[16, 16]}>
+              {filteredCars.map((car) => (
+                <Col xs={24} sm={12} lg={8} key={car.id}>
+                  {renderCarCard(car)}
+                </Col>
+              ))}
+            </Row>
+            <Row justify="center" style={{ marginTop: 20 }}>
+              <Pagination
+                current={currentPage}
+                total={filteredCars.length}
+                pageSize={itemsPerPage}
+                onChange={handlePageChange}
+                showSizeChanger={false}
+              />
+            </Row>
+          </Content>
+        </Layout>
+        {selectedCar && (
+          <CarDetailModal
+            isVisible={isModalVisible}
+            onClose={closeModal}
+            car={selectedCar}
+            mainImage={mainImage}
+            setMainImage={setMainImage} // gui mainimage xuong CarInfoTab
+          />
+        )}
+        <Drawer
+          title="Filters"
+          placement="left"
+          onClose={onCloseFilter}
+          visible={isFilterVisible}
+          width={300}
+          style={{ background: "#fff" }} // Drawer nền trắng
+        >
+          {renderSidebar()}
+        </Drawer>
       </Layout>
-      {selectedCar && (
-        <CarDetailModal
-          isVisible={isModalVisible}
-          onClose={closeModal}
-          car={selectedCar}
-          mainImage={mainImage}
-          setMainImage={setMainImage} // gui mainimage xuong CarInfoTab
-        />
-      )}
-      <Drawer
-        title="Filters"
-        placement="left"
-        onClose={onCloseFilter}
-        visible={isFilterVisible}
-        width={300}
-        style={{ background: "#fff" }} // Drawer nền trắng
-      >
-        {renderSidebar()}
-      </Drawer>
-    </Layout>
+    </div>
   );
 };
 

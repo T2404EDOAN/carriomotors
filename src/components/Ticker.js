@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faCalendarAlt, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Ticker = ({ dateTime, locationInfo }) => {
+  useEffect(() => {
+    // Tạo thẻ <style> mới và thêm vào <head>
+    const style = document.createElement("style");
+    style.type = "text/css";
+
+    // Định nghĩa keyframes
+    const keyframes = `
+      @keyframes scroll-left {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+      }
+    `;
+
+    // Chèn keyframes vào thẻ <style>
+    style.appendChild(document.createTextNode(keyframes));
+
+    // Thêm thẻ <style> vào <head> của trang
+    document.head.appendChild(style);
+
+    // Cleanup khi component bị unmount
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []); // Chạy effect một lần khi component được mount
+
   const formatTime = (date) => {
     return date.toLocaleTimeString();
   };
@@ -25,15 +50,15 @@ const Ticker = ({ dateTime, locationInfo }) => {
     <div style={tickerStyle}>
       <div style={tickerContentStyle}>
         <span style={iconTextStyle}>
-          <FontAwesomeIcon icon={faCalendarAlt} style={iconStyle} /> 
+          <FontAwesomeIcon icon={faCalendarAlt} style={iconStyle} />
           {`Ngày: ${formatDate(dateTime)}`}
         </span>
         <span style={iconTextStyle}>
-          <FontAwesomeIcon icon={faClock} style={iconStyle} /> 
+          <FontAwesomeIcon icon={faClock} style={iconStyle} />
           {`Giờ: ${formatTime(dateTime)}`}
         </span>
         <span style={iconTextStyle}>
-          <FontAwesomeIcon icon={faMapMarkerAlt} style={iconStyle} /> 
+          <FontAwesomeIcon icon={faMapMarkerAlt} style={iconStyle} />
           {`Vị trí: ${formatLocation(locationInfo)}`}
         </span>
       </div>
@@ -75,16 +100,5 @@ const iconStyle = {
   fontSize: "20px", // Kích thước biểu tượng
   color: "#fff", // Màu biểu tượng trắng
 };
-
-// Định nghĩa keyframe cho hiệu ứng scroll
-const styleSheet = document.styleSheets[0];
-const keyframes = `
-  @keyframes scroll-left {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
-`;
-
-styleSheet.insertRule(keyframes, styleSheet.cssRules.length);
 
 export default Ticker;
