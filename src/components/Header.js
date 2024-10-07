@@ -39,6 +39,7 @@ const ImprovedHeader = () => {
         { key: "company", label: "Our Company", link: "/about/company" },
         { key: "careers", label: "Careers", link: "/about/careers" },
         { key: "contact", label: "Contact Us", link: "/about/contact" },
+        { key: "location", label: "Location", link: "/about/location" },
       ],
     },
   ];
@@ -148,63 +149,62 @@ const ImprovedHeader = () => {
       </Drawer>
       {/* Style tùy chỉnh để bỏ in đậm và gạch chân khi hover */}
       <style jsx>{`
-  /* Đảm bảo các liên kết trong menu không có gạch chân và không in đậm */
-  .ant-menu-item a,
-  .ant-menu-submenu-title {
-    text-decoration: none !important; /* Không có gạch chân */
-    font-weight: normal !important; /* Font bình thường */
-  }
-  /* Không có gạch chân khi hover vào liên kết */
-  .ant-menu-item a:hover,
-  .ant-menu-submenu-title:hover {
-    text-decoration: none !important; /* Không có gạch chân khi hover */
-    font-weight: normal !important; /* Font bình thường khi hover */
-  }
+        /* Đảm bảo các liên kết trong menu không có gạch chân và không in đậm */
+        .ant-menu-item a,
+        .ant-menu-submenu-title {
+          text-decoration: none !important; /* Không có gạch chân */
+          font-weight: normal !important; /* Font bình thường */
+        }
+        /* Không có gạch chân khi hover vào liên kết */
+        .ant-menu-item a:hover,
+        .ant-menu-submenu-title:hover {
+          text-decoration: none !important; /* Không có gạch chân khi hover */
+          font-weight: normal !important; /* Font bình thường khi hover */
+        }
 
-  /* Chỉnh sửa vấn đề ellipsis */
-  .ant-menu-item,
-  .ant-menu-submenu-title {
-    white-space: nowrap !important; /* Không cho phép xuống dòng */
-    overflow: visible !important;   /* Đảm bảo văn bản không bị ẩn */
-    text-overflow: initial !important; /* Không cắt văn bản */
-  }
+        /* Chỉnh sửa vấn đề ellipsis */
+        .ant-menu-item,
+        .ant-menu-submenu-title {
+          white-space: nowrap !important; /* Không cho phép xuống dòng */
+          overflow: visible !important; /* Đảm bảo văn bản không bị ẩn */
+          text-overflow: initial !important; /* Không cắt văn bản */
+        }
 
-  /* Các thuộc tính khác của input và button */
-  .ant-input {
-    font-size: 16px;
-  }
-  .ant-btn {
-    font-size: 16px;
-  }
+        /* Các thuộc tính khác của input và button */
+        .ant-input {
+          font-size: 16px;
+        }
+        .ant-btn {
+          font-size: 16px;
+        }
 
-  @media (min-width: 1024px) {
-    .ant-menu-horizontal {
-      display: flex !important;
-    }
-  }
+        @media (min-width: 1024px) {
+          .ant-menu-horizontal {
+            display: flex !important;
+          }
+        }
 
-  /* Remove underline and ellipsis */
-  .ant-menu-item a,
-  .ant-menu-submenu-title a {
-    text-decoration: none !important;
-  }
+        /* Remove underline and ellipsis */
+        .ant-menu-item a,
+        .ant-menu-submenu-title a {
+          text-decoration: none !important;
+        }
 
-  .ant-menu-item:hover,
-  .ant-menu-item-active,
-  .ant-menu-item-selected,
-  .ant-menu-submenu:hover,
-  .ant-menu-submenu-active,
-  .ant-menu-submenu-selected {
-    background-color: transparent !important;
-    border-bottom: none !important;
-  }
+        .ant-menu-item:hover,
+        .ant-menu-item-active,
+        .ant-menu-item-selected,
+        .ant-menu-submenu:hover,
+        .ant-menu-submenu-active,
+        .ant-menu-submenu-selected {
+          background-color: transparent !important;
+          border-bottom: none !important;
+        }
 
-  .ant-menu-item a:hover,
-  .ant-menu-submenu-title:hover {
-    text-decoration: none !important;
-  }
-`}</style>
-
+        .ant-menu-item a:hover,
+        .ant-menu-submenu-title:hover {
+          text-decoration: none !important;
+        }
+      `}</style>
     </header>
   );
 };

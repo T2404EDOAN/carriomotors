@@ -13,8 +13,9 @@ import FAQ from "./pages/FAQ";
 import "./App.css";
 import Ticker from "./components/Ticker";
 import CompanyPage from "./components/AboutUs/Company";
-import { fetchBannerData } from "./apiService"; 
+import { fetchBannerData } from "./apiService";
 import Careers from "./components/AboutUs/Careers";
+import Location from "./components/AboutUs/Location";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -48,9 +49,7 @@ function App() {
     );
   }
 
-  return (
-      <AppLayout />
-  );
+  return <AppLayout />;
 }
 
 function AppLayout() {
@@ -145,6 +144,7 @@ function AppLayout() {
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/about/company" element={<CompanyPage />} />
                 <Route path="/about/careers" element={<Careers />} />
+                <Route path="/about/location" element={<Location />} />
               </Routes>
             </div>
           </CSSTransition>
