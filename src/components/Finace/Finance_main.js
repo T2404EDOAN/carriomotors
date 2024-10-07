@@ -4,6 +4,7 @@ import TabList from "@mui/joy/TabList";
 import Tab from "@mui/joy/Tab";
 import TabPanel from "@mui/joy/TabPanel";
 import FinanceMec from "./Finance_Mec";
+import FinanceAudi from "./Finance_Audi";
 const Finance_main = () => {
   return (
     <Tabs aria-label="Basic tabs" defaultValue={0}>
@@ -22,7 +23,9 @@ const Finance_main = () => {
       <TabPanel value={0} sx={{ fontFamily: "Roboto, sans-serif" }}>
         <FinanceMec />
       </TabPanel>
-      <TabPanel value={1}></TabPanel>
+      <TabPanel value={1}>
+        <FinanceAudi />
+      </TabPanel>
       <TabPanel value={2}></TabPanel>
       <TabPanel value={3}></TabPanel>
     </Tabs>
