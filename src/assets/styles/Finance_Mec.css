@@ -1,0 +1,36 @@
+.mec_main_finance {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.tab {
+  font-size: 15px;
+  margin-left: 40px;
+}
+.box-finance1 {
+  text-align: center;
+}
+.box-finance11 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.box-finance2,
+.box-finance3 {
+  display: flex;
+  margin-top: 20px;
+}
+.box-finance2-img img {
+  width: 600px;
+  height: 400px;
+}
+.box-finance211 {
+  margin-left: 100px;
+}
+.box-finance2-text {
+  text-align: center;
+}
+.text1 {
+  font-weight: bold;
+}
