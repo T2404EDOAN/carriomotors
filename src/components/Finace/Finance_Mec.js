@@ -8,7 +8,6 @@ import "../../assets/styles/Finance_Mec.css";
 const FinanceMec = () => {
   return (
     <div className="mec_main_finance">
-      <div className="tab">Carrio Motors &gt; Mercedes Financial Service</div>
       <div className="box-finance1">
         <div className="box-finance11">Get Started</div>
         <div className="box-finance12">

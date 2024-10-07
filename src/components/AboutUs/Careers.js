@@ -12,7 +12,7 @@ const Careers = () => {
     lastName: "",
     email: "",
     phone: "",
-    contactMethod: "",
+    contactMethod: "Call",
     questions: "",
   });
   const validateField = (name, value) => {
