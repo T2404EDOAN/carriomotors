@@ -16,6 +16,7 @@ import CompanyPage from "./components/AboutUs/Company";
 import { fetchBannerData } from "./apiService";
 import Careers from "./components/AboutUs/Careers";
 import Location from "./components/AboutUs/Location";
+import Finance from "./components/Finace/Finance";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -140,7 +141,7 @@ function AppLayout() {
                 <Route path="/" element={<Home />} />
                 <Route path="/vehicles" element={<Vehicles />} />
                 <Route path="/services" element={<Services />} />
-                <Route path="/shopping" element={<Shopping />} />
+                <Route path="/finance" element={<Finance />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/about/company" element={<CompanyPage />} />
                 <Route path="/about/careers" element={<Careers />} />
