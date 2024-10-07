@@ -93,6 +93,13 @@ function AppLayout() {
       const page =
         location.pathname === "/" ? "home" : location.pathname.slice(1);
       const data = await fetchBannerData(page); // Gọi hàm fetchBannerData từ apiService
+      console.log(data);
+      const bannerImages = data.map((item) => ({
+
+        src: item.image_url,
+        alt: item.title, // Sử dụng title cho alt text
+        title: item.alt
+      }));
       setBannerImages(data);
       setIsLoading(false);
     };
