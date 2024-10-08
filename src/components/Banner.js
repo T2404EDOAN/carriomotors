@@ -30,12 +30,22 @@ const Banner = ({ images, interval = 5000 }) => {
   return (
     <section className="hero-section">
       {images.map((image, index) => (
-        <img
+        <div
           key={index}
-          src={image.src}
-          alt={image.alt}
-          className={`hero-image ${index === currentImage ? "active" : ""}`}
-        />
+          className={`hero-slide ${index === currentImage ? "active" : ""}`}
+        >
+          <img
+            src={image.src}
+            alt={image.alt}
+            className={`hero-image ${index === currentImage ? "active" : ""}`}
+          />
+          {/* Chỉ hiển thị title khi hình ảnh hiện tại active */}
+          {index === currentImage && (
+            <div className="hero-title">
+              <h2>{image.alt}</h2>
+            </div>
+          )}
+        </div>
       ))}
       <div className="hero-overlay"></div>
       {images.length > 1 && (

@@ -8,26 +8,19 @@ const { Panel } = Collapse;
 
 const CarInfoTab = ({ car, onDrawerToggle }) => {
   const colorKeywords = {
-    Red: "red",
+    
     Standard: "standard",
     Black: "black",
     Yellow: "yellow",
+    Grey:"gray",
+    Red: "red",
   };
 
-  const performanceData = {
-    "Top Speed": "275 km/h",
-    "Acceleration 0-100 km/h": "4.9 s",
-  };
 
-  const powerUnitData = {
-    "Engine Power": "300 PS",
-    "Torque": "380 Nm",
-  };
 
-  const otherDetailsData = {
-    "Transmission": "7-speed PDK",
-    "Fuel Type": "Petrol",
-  };
+
+
+ 
 
   const colorImagesMap = car.colors.reduce((acc, color) => {
     const colorKey = colorKeywords[color];
@@ -353,7 +346,7 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
   <Panel header="Other Details" key="3">
     <div>
       {/* Hiển thị các thông tin khác nếu có */}
-      {renderDetails(otherDetailsData)}
+     
     </div>
   </Panel>
 </Collapse>
