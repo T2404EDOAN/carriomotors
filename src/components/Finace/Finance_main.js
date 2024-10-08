@@ -1,14 +1,13 @@
-import * as React from "react";
+import React from "react";
 import Tabs from "@mui/joy/Tabs";
 import TabList from "@mui/joy/TabList";
 import Tab from "@mui/joy/Tab";
 import TabPanel from "@mui/joy/TabPanel";
-import Audi_main from "./Audi/Audi_main";
-import Porsche_main from "../Porsche/Porsche";
-import Mec_main from "./Mec/Mec_main";
-import Bmv_main from "./BMV/Bmv_main";
-import "../../";
-export default function TabsBasic() {
+import FinanceMec from "./Finance_Mec";
+import FinanceAudi from "./Finance_Audi";
+import FinanceBMW from "./Finace_Bmw";
+import FinancePorsche from "./Finance_Porsche";
+const Finance_main = () => {
   return (
     <Tabs aria-label="Basic tabs" defaultValue={0}>
       <TabList
@@ -24,17 +23,18 @@ export default function TabsBasic() {
         <Tab sx={{ width: "120px" }}>PORSCHE</Tab>
       </TabList>
       <TabPanel value={0} sx={{ fontFamily: "Roboto, sans-serif" }}>
-        <Mec_main />
+        <FinanceMec />
       </TabPanel>
       <TabPanel value={1}>
-        <Bmv_main />
+        <FinanceBMW />
       </TabPanel>
       <TabPanel value={2}>
-        <Audi_main />
+        <FinanceAudi />
       </TabPanel>
       <TabPanel value={3}>
-        <Porsche_main />
+        <FinancePorsche />
       </TabPanel>
     </Tabs>
   );
-}
+};
+export default Finance_main;

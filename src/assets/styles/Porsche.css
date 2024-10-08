@@ -78,7 +78,13 @@
     align-items: flex-start;
     margin-top: 40px;
 }
-
+body, html {
+    font-family: 'Roboto', sans-serif; /* Áp dụng font Roboto cho toàn bộ trang */
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 .img_3 {
     width: 50%; /* Adjust to fit the new layout */
 }
@@ -90,7 +96,6 @@
 }
 
 .title_2 {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 24px;
     margin-bottom: 20px;
     font-weight: bold;

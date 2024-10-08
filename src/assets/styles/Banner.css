@@ -1,11 +1,11 @@
-/* Banner.css */
 .hero-section {
   position: relative;
-  height: 80vh;
+  height: 95vh;
   width: 100%;
   overflow: hidden;
-  z-index: 1; /* Ensure it's below the CarCategory */
+  z-index: 1;
 }
+
 .hero-image {
   position: absolute;
   top: 0;
@@ -30,6 +30,21 @@
   background: rgba(0, 0, 0, 0.3);
 }
 
+/* Thêm style cho phần tiêu đề */
+.hero-title {
+  position: absolute;
+  bottom: 200px; /* Thử căn tiêu đề ở trên */
+  left: 20px; /* Căn từ trái */
+  color: rgb(255, 255, 255); /* Đổi màu chữ sang màu dễ nhìn hơn */
+  z-index: 2;
+  font-size: 76px;
+  font-weight: bold;
+  padding: 10px 20px;
+  padding-left: 40px;
+}
+
+
+/* Style cho các chỉ số của banner */
 .hero-indicators {
   position: absolute;
   bottom: 20px;

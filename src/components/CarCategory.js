@@ -9,8 +9,6 @@ const CarCategory = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedCar, setSelectedCar] = useState(null);
 
   useEffect(() => {
     axios
@@ -24,16 +22,6 @@ const CarCategory = () => {
         setLoading(false);
       });
   }, []);
-
-  const showModal = (product) => {
-    setSelectedCar(product);
-    setIsModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setIsModalVisible(false);
-    setSelectedCar(null);
-  };
 
   return (
     <div className="car-category">
@@ -65,20 +53,12 @@ const CarCategory = () => {
                   imageSrc={product.image_url}
                   carName={product.name}
                   index={index}
-                  onClick={() => showModal(product)}
                 />
               ))}
       </div>
       {error && (
         <p className="error-message">Error loading products: {error}</p>
       )}
-
-      {/* Sử dụng PopupVehiclesDetail để hiển thị thông tin xe */}
-      <CarDetailModal
-        isVisible={isModalVisible}
-        onClose={closeModal}
-        car={selectedCar}
-      />
     </div>
   );
 };

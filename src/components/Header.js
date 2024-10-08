@@ -31,7 +31,7 @@ const ImprovedHeader = () => {
     { key: "home", label: "Home", link: "/" },
     { key: "vehicles", label: "Vehicles", link: "/vehicles" },
     { key: "services", label: "Services", link: "/services" },
-    { key: "finance", label: "Finance", link: "/shopping" },
+    { key: "finance", label: "Finance", link: "/finance" },
     {
       key: "aboutus",
       label: "About Us",
@@ -39,6 +39,7 @@ const ImprovedHeader = () => {
         { key: "company", label: "Our Company", link: "/about/company" },
         { key: "careers", label: "Careers", link: "/about/careers" },
         { key: "contact", label: "Contact Us", link: "/about/contact" },
+        { key: "location", label: "Location", link: "/about/location" },
       ],
     },
   ];
@@ -148,34 +149,35 @@ const ImprovedHeader = () => {
       </Drawer>
       {/* Style tùy chỉnh để bỏ in đậm và gạch chân khi hover */}
       <style jsx>{`
-        /* In đậm tất cả các mục menu và submenu */
-        .ant-menu-horizontal > .ant-menu-item,
-        .ant-menu-horizontal > .ant-menu-submenu-title,
-        .ant-menu-item,
-        .ant-menu-submenu-title {
-          font-weight: bold !important; /* Bắt buộc in đậm */
-          font-size: 16px !important; /* Đặt cỡ chữ 16px */
-        }
-        /* Đảm bảo các liên kết trong menu không có gạch chân */
+        /* Đảm bảo các liên kết trong menu không có gạch chân và không in đậm */
         .ant-menu-item a,
         .ant-menu-submenu-title {
           text-decoration: none !important; /* Không có gạch chân */
-          font-weight: bold !important; /* In đậm các liên kết */
+          font-weight: normal !important; /* Font bình thường */
         }
         /* Không có gạch chân khi hover vào liên kết */
         .ant-menu-item a:hover,
         .ant-menu-submenu-title:hover {
           text-decoration: none !important; /* Không có gạch chân khi hover */
-          font-weight: bold !important; /* In đậm khi hover */
+          font-weight: normal !important; /* Font bình thường khi hover */
         }
+
+        /* Chỉnh sửa vấn đề ellipsis */
+        .ant-menu-item,
+        .ant-menu-submenu-title {
+          white-space: nowrap !important; /* Không cho phép xuống dòng */
+          overflow: visible !important; /* Đảm bảo văn bản không bị ẩn */
+          text-overflow: initial !important; /* Không cắt văn bản */
+        }
+
+        /* Các thuộc tính khác của input và button */
         .ant-input {
           font-size: 16px;
-          font-weight: bold !important; /* In đậm phần input */
         }
         .ant-btn {
           font-size: 16px;
-          font-weight: bold !important; /* In đậm các nút */
         }
+
         @media (min-width: 1024px) {
           .ant-menu-horizontal {
             display: flex !important;
@@ -201,13 +203,6 @@ const ImprovedHeader = () => {
         .ant-menu-item a:hover,
         .ant-menu-submenu-title:hover {
           text-decoration: none !important;
-        }
-
-        .ant-menu-item,
-        .ant-menu-submenu-title {
-          white-space: normal !important;
-          overflow: visible !important;
-          text-overflow: clip !important;
         }
       `}</style>
     </header>

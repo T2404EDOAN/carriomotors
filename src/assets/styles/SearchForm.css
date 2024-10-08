@@ -1,19 +1,9 @@
-.custom-header {
-  background: #fff;
-  padding: 0 20px;
-  height: 64px;
-  line-height: 64px;
+.custom-card .ant-card-body {
+  background-color: #fff; /* Optional: adjust as needed */
 }
-
-.custom-header .ant-row {
-  height: 100%;
-}
-
-.custom-header .ant-input-search {
-  vertical-align: middle;
-}
-
-.custom-header .ant-space {
-  line-height: normal;
-  float: right;
+.blur-background {
+  filter: blur(5px); /* Hiệu ứng mờ */
+  transition: filter 0.3s ease;
+  pointer-events: none; /* Đảm bảo không tương tác với nền khi mờ */
+  position: relative;
 }

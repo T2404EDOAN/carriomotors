@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Tabs } from "antd"; // Sử dụng Tabs từ Ant Design
+import { Modal, Tabs, Row, Col, Typography } from "antd";
 import CarInfoTab from "./CarInfoTab";
+import "./CarDetailModal.css";
 
-const { TabPane } = Tabs; // Sử dụng TabPane từ Ant Design
-
+const { Title, Text } = Typography;
+const { TabPane } = Tabs;
 
 const CarDetailModal = ({ isVisible, onClose, car, mainImage, setMainImage }) => {
   const [activeTab, setActiveTab] = useState("1");
+  const [isTechnicalDataVisible, setIsTechnicalDataVisible] = useState(false);
 
   // Reset tab về tab đầu tiên khi modal đóng
   useEffect(() => {
@@ -16,26 +18,45 @@ const CarDetailModal = ({ isVisible, onClose, car, mainImage, setMainImage }) =>
   }, [isVisible]);
 
   const handleTabChange = (key) => {
-    setActiveTab(key); 
+    setActiveTab(key);
+  };
+
+  const handleDrawerToggle = (isOpen) => {
+    setIsTechnicalDataVisible(isOpen); // Quản lý trạng thái mở/đóng Drawer
   };
 
   return (
     <Modal
-      title={car?.name || "Car Details"}
-      open={isVisible} 
+      open={isVisible}
       onCancel={onClose}
       footer={null}
       width={1200}
+      className={isTechnicalDataVisible ? 'blur-background' : ''}
     >
+      <Row justify="space-between" align="middle" style={{ marginTop: "30px" }}>
+        <Col>
+          <Title level={4}>{car?.car_model_name}</Title>
+        </Col>
+        <Col>
+          <Text strong style={{ fontSize: "18px" }}>
+            ${car?.price || "99999"}
+          </Text>
+        </Col>
+      </Row>
       <Tabs activeKey={activeTab} onChange={handleTabChange}>
-        <TabPane tab="Thông tin và Hình ảnh" key="1">
+        <TabPane tab="Exterior Colours" key="1">
           {/* Hiển thị thông tin và hình ảnh trong CarInfoTab */}
-          <CarInfoTab car={car} mainImage={mainImage} setMainImage={setMainImage} />
+          <CarInfoTab
+            car={car}
+            mainImage={mainImage}
+            setMainImage={setMainImage}
+            onDrawerToggle={handleDrawerToggle} // Truyền hàm để điều khiển Drawer
+          />
         </TabPane>
-        <TabPane tab="Thông số kỹ thuật" key="2">
+        <TabPane tab="Exterior" key="2">
           <div>Thông số kỹ thuật xe</div>
         </TabPane>
-        <TabPane tab="Bình luận" key="3">
+        <TabPane tab="Service" key="3">
           <div>Bình luận về xe</div>
         </TabPane>
       </Tabs>

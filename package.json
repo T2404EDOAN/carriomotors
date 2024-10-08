@@ -18,13 +18,14 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "antd": "^5.21.1",
+    "antd": "^5.21.2",
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",
     "framer-motion": "^11.7.0",
     "lucide-react": "^0.446.0",
     "rc-notification": "^5.6.2",
     "react": "^18.3.1",
+    "react-bootstrap": "^2.10.5",
     "react-custom-scrollbars-2": "^4.5.0",
     "react-dom": "^18.3.1",
     "react-image-crop": "^11.0.7",
@@ -32,6 +33,7 @@
     "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.5",
+    "runes2": "^1.1.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
