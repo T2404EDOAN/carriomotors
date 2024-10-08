@@ -135,6 +135,7 @@ const ImprovedHeader = () => {
           </Button>
         </div>
       </Drawer>
+      
       {/* Render SignInPopup */}
       <Modal
         visible={isSignInPopupVisible}
@@ -143,6 +144,64 @@ const ImprovedHeader = () => {
       >
         <SignInPopup />
       </Modal>
+      {/* Style tùy chỉnh để bỏ in đậm và gạch chân khi hover */}
+      <style jsx>{`
+        /* Đảm bảo các liên kết trong menu không có gạch chân và không in đậm */
+        .ant-menu-item a,
+        .ant-menu-submenu-title {
+          text-decoration: none !important; /* Không có gạch chân */
+          font-weight: normal !important; /* Font bình thường */
+        }
+        /* Không có gạch chân khi hover vào liên kết */
+        .ant-menu-item a:hover,
+        .ant-menu-submenu-title:hover {
+          text-decoration: none !important; /* Không có gạch chân khi hover */
+          font-weight: normal !important; /* Font bình thường khi hover */
+        }
+
+        /* Chỉnh sửa vấn đề ellipsis */
+        .ant-menu-item,
+        .ant-menu-submenu-title {
+          white-space: nowrap !important; /* Không cho phép xuống dòng */
+          overflow: visible !important; /* Đảm bảo văn bản không bị ẩn */
+          text-overflow: initial !important; /* Không cắt văn bản */
+        }
+
+        /* Các thuộc tính khác của input và button */
+        .ant-input {
+          font-size: 16px;
+        }
+        .ant-btn {
+          font-size: 16px;
+        }
+
+        @media (min-width: 1024px) {
+          .ant-menu-horizontal {
+            display: flex !important;
+          }
+        }
+
+        /* Remove underline and ellipsis */
+        .ant-menu-item a,
+        .ant-menu-submenu-title a {
+          text-decoration: none !important;
+        }
+
+        .ant-menu-item:hover,
+        .ant-menu-item-active,
+        .ant-menu-item-selected,
+        .ant-menu-submenu:hover,
+        .ant-menu-submenu-active,
+        .ant-menu-submenu-selected {
+          background-color: transparent !important;
+          border-bottom: none !important;
+        }
+
+        .ant-menu-item a:hover,
+        .ant-menu-submenu-title:hover {
+          text-decoration: none !important;
+        }
+      `}</style>
     </header>
   );
 };
