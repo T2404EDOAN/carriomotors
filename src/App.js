@@ -8,7 +8,6 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Vehicles from "./pages/Vehicles";
 import Services from "./pages/Services";
-import Shopping from "./pages/Shopping";
 import FAQ from "./pages/FAQ";
 import "./App.css";
 import Ticker from "./components/Ticker";
@@ -17,7 +16,7 @@ import { fetchBannerData } from "./apiService";
 import Careers from "./components/AboutUs/Careers";
 import Location from "./components/AboutUs/Location";
 import Finance from "./components/Finace/Finance_main";
-import Finance_main from "./components/Finace/Finance_main";
+import Admin from "./components/Admin";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,11 +54,10 @@ function App() {
 }
 
 function AppLayout() {
-  const location = useLocation();
+  const location = useLocation(); // Để xác định trang hiện tại
   const navigate = useNavigate();
   const [bannerImages, setBannerImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   const [dateTime, setDateTime] = useState(new Date());
   const [locationInfo, setLocationInfo] = useState({});
   const nodeRef = useRef(null); // Create a ref
@@ -93,12 +91,10 @@ function AppLayout() {
       const page =
         location.pathname === "/" ? "home" : location.pathname.slice(1);
       const data = await fetchBannerData(page); // Gọi hàm fetchBannerData từ apiService
-      console.log(data);
       const bannerImages = data.map((item) => ({
-
         src: item.image_url,
         alt: item.title, // Sử dụng title cho alt text
-        title: item.alt
+        title: item.alt,
       }));
       setBannerImages(data);
       setIsLoading(false);
@@ -111,6 +107,9 @@ function AppLayout() {
     setIsLoading(true);
     navigate(path);
   };
+
+  // Kiểm tra nếu trang hiện tại là '/admin'
+  const isAdminPage = location.pathname === "/admin";
 
   return (
     <div className="app-container">
@@ -132,10 +131,13 @@ function AppLayout() {
           <Spin size="large" />
         </div>
       )}
-      <Header onNavigate={handleRouteChange} />
-      {!isLoading && (
+      
+      {/* Chỉ hiển thị Header và Banner khi không phải trang admin */}
+      {!isAdminPage && <Header onNavigate={handleRouteChange} />}
+      {!isAdminPage && !isLoading && (
         <Banner images={bannerImages} autoSlide={location.pathname === "/"} />
       )}
+
       <main className="main-content">
         <TransitionGroup>
           <CSSTransition
@@ -148,8 +150,9 @@ function AppLayout() {
               <Routes location={location}>
                 <Route path="/" element={<Home />} />
                 <Route path="/vehicles" element={<Vehicles />} />
+                <Route path="/admin" element={<Admin />} />
                 <Route path="/services" element={<Services />} />
-                <Route path="/finance" element={<Finance_main />} />
+                <Route path="/finance" element={<Finance />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/about/company" element={<CompanyPage />} />
                 <Route path="/about/careers" element={<Careers />} />
@@ -159,8 +162,10 @@ function AppLayout() {
           </CSSTransition>
         </TransitionGroup>
       </main>
-      <Ticker dateTime={dateTime} locationInfo={locationInfo} />
-      <Footer />
+
+      {/* Chỉ hiển thị Footer khi không phải trang admin */}
+      {!isAdminPage && <Ticker dateTime={dateTime} locationInfo={locationInfo} />}
+      {!isAdminPage && <Footer />}
     </div>
   );
 }

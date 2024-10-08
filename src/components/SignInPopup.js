@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Input, Typography, Checkbox, Button, message } from "antd";
 import axios from "axios";
 import a from "./Admin";
-
+import { useNavigate } from "react-router-dom";
 const SignInPopup = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate(); // Sử dụng useNavigate để điều hướn
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -19,6 +19,7 @@ const SignInPopup = () => {
       );
       console.log(response.status);
       if (response.status == "200") {
+        navigate("/admin");
       } else {
         message.error("co loi gi do xay ra");
       }

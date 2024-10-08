@@ -1,4 +1,4 @@
-const a = () => {
-  return <div> aajdjasjdnlaksdl</div>;
+const Admin = () => {
+  return <div style={{marginTop:'40px'}}> aajdjasjdnlaksdl</div>;
 };
-export default a;
+export default Admin;
