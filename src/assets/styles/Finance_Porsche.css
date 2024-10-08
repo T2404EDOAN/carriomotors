@@ -1,0 +1,172 @@
+.porsche_main_finance {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.title-finance-porsche1 {
+  font-size: small;
+  margin-left: 20px;
+}
+.tab1 {
+  margin-left: 20px;
+}
+.title-finance-porsche2 {
+  font-size: 25px;
+}
+.box-finance-porsche {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.finance-porsche-img img {
+  width: 450px;
+  height: 300px;
+}
+.box-finance-porsche1,
+.box-finance-porsche2,
+.box-finance-porsche3 {
+  width: 450px;
+}
+.finance-porsche-img1,
+.finance-porsche-img3 {
+  position: relative;
+}
+.finance-porsche-img-text {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: aliceblue;
+  font-size: 20px;
+}
+.finance-porsche-img3 {
+  position: relative;
+}
+.finance-porsche-img-tex1 {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: aliceblue;
+  font-size: 20px;
+}
+.finance-porsche-text12,
+.finance-porsche-text22,
+.finance-porsche-text32 {
+  margin-top: 20px;
+}
+.finance-porsche-text1,
+.finance-porsche-text2,
+.finance-porsche-text3 {
+  margin-top: 20px;
+}
+.ulli {
+  list-style-type: disc;
+  margin-left: 30px;
+}
+.finance-porsche-text11,
+.finance-porsche-text21,
+.finance-porsche-text31 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.but-por {
+  display: flex;
+  margin-top: 15px;
+}
+.but1-por {
+  background-color: #65666d;
+  color: #ffffff;
+  width: 120px;
+  height: 30px;
+  text-align: center;
+  padding-top: 4px;
+  margin-left: 100px;
+}
+.but2-por {
+  background-color: #425adb;
+  color: #ffffff;
+  width: 210px;
+  height: 30px;
+  text-align: center;
+  padding-top: 4px;
+  margin-left: 30px;
+}
+
+@media (max-width: 1024px) {
+  .box-finance-porsche {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .finance-porsche-img img {
+    width: 100%;
+    height: auto;
+  }
+
+  .box-finance-porsche1,
+  .box-finance-porsche2,
+  .box-finance-porsche3 {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+
+  .title-finance-porsche2 {
+    font-size: 22px;
+  }
+
+  .finance-porsche-text11,
+  .finance-porsche-text21,
+  .finance-porsche-text31 {
+    font-size: 18px;
+  }
+
+  .but1-por,
+  .but2-por {
+    width: 100%;
+    max-width: 180px;
+  }
+  .but2-por {
+    margin-left: 50px;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .box-finance-porsche {
+    flex-direction: column;
+  }
+
+  .finance-porsche-img img {
+    width: 100%;
+    max-width: none;
+    height: auto;
+  }
+
+  .box-finance-porsche1,
+  .box-finance-porsche2,
+  .box-finance-porsche3 {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .title-finance-porsche2 {
+    font-size: 22px;
+  }
+
+  .finance-porsche-text11,
+  .finance-porsche-text21,
+  .finance-porsche-text31 {
+    font-size: 18px;
+  }
+
+  .but1-por,
+  .but2-por {
+    width: 100%;
+    max-width: 180px;
+  }
+  .but2-por {
+    margin-left: 50px;
+    max-width: 200px;
+  }
+}

@@ -5,6 +5,8 @@ import Tab from "@mui/joy/Tab";
 import TabPanel from "@mui/joy/TabPanel";
 import FinanceMec from "./Finance_Mec";
 import FinanceAudi from "./Finance_Audi";
+import FinanceBMW from "./Finace_Bmw";
+import FinancePorsche from "./Finance_Porsche";
 const Finance_main = () => {
   return (
     <Tabs aria-label="Basic tabs" defaultValue={0}>
@@ -16,7 +18,7 @@ const Finance_main = () => {
         }}
       >
         <Tab sx={{ width: "120px" }}>Mercedes -Benz</Tab>
-        <Tab sx={{ width: "120px" }}>BMV</Tab>
+        <Tab sx={{ width: "120px" }}>BMW</Tab>
         <Tab sx={{ width: "120px" }}>Audi</Tab>
         <Tab sx={{ width: "120px" }}>PORSCHE</Tab>
       </TabList>
@@ -24,10 +26,14 @@ const Finance_main = () => {
         <FinanceMec />
       </TabPanel>
       <TabPanel value={1}>
+        <FinanceBMW />
+      </TabPanel>
+      <TabPanel value={2}>
         <FinanceAudi />
       </TabPanel>
-      <TabPanel value={2}></TabPanel>
-      <TabPanel value={3}></TabPanel>
+      <TabPanel value={3}>
+        <FinancePorsche />
+      </TabPanel>
     </Tabs>
   );
 };
