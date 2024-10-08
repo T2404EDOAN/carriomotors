@@ -62,7 +62,7 @@ const Careers = () => {
         "https://carriomotors.io.vn/api/get_contact.php",
         new URLSearchParams(formData)
       );
-      console.log(response.status);
+      console.log(response);
       if (response.status == "200") {
         message.success("du lieu da duoc day");
         setFormData({
