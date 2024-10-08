@@ -1,0 +1,83 @@
+/* src/components/ContactUsFull.css */
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    color: #333;
+  }
+  
+  h1, h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  h3 {
+    font-size: 18px;
+    color: #000;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+  }
+  
+  a {
+    color: #004ba0;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .hours-address, .corporate-info, .owner-info, .shop-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+  
+  .contact-box {
+    width: 48%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+  }
+  
+  .contact-box p {
+    margin-bottom: 10px;
+  }
+  
+  .contact-box strong {
+    font-size: 18px;
+    color: #000;
+  }
+  
+  .contact-box a {
+    color: #004ba0;
+    font-weight: bold;
+  }
+  
+  .contact-sections {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+  
+  .contact-sections .contact-box {
+    width: 30%;
+  }
+  
+  .faq-section, .error-section {
+    margin-top: 40px;
+    text-align: left;
+  }
+  
+  .faq-section a, .error-section a {
+    color: #004ba0;
+    font-weight: bold;
+  }
+  
