@@ -6,7 +6,7 @@ import "../../assets/styles/Finance_Audi.css";
 const FinanceAudi = () => {
   return (
     <div className="audi_main_finance">
-      <div className="title-finance-audi1">Audi Financing.</div>
+      <div className="title-finance-audi1">Audi Financing</div>
       <div className="title-finance-audi2">
         When you purchase your Audi through Audi Financial Services, every
         payment you make brings you one step closer to ownership. Our loan terms

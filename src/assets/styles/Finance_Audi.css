@@ -11,6 +11,8 @@
 }
 .finance-audi-img {
   display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .finance-audi-img1 img,
 .finance-audi-img2 img {
