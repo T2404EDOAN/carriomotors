@@ -8,19 +8,12 @@ const { Panel } = Collapse;
 
 const CarInfoTab = ({ car, onDrawerToggle }) => {
   const colorKeywords = {
-    
     Standard: "standard",
     Black: "black",
     Yellow: "yellow",
-    Grey:"gray",
+    Grey: "gray",
     Red: "red",
   };
-
-
-
-
-
- 
 
   const colorImagesMap = car.colors.reduce((acc, color) => {
     const colorKey = colorKeywords[color];
@@ -74,19 +67,6 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
   const closeTechnicalDataDrawer = () => {
     setIsTechnicalDataVisible(false);
     onDrawerToggle(false);
-  };
-
-  const renderDetails = (data) => {
-    return Object.entries(data).map(([key, value]) => (
-      <Row key={key} gutter={[16, 16]} style={{ marginBottom: "8px" }}>
-        <Col span={12}>
-          {key}
-        </Col>
-        <Col span={12} style={{ textAlign: "right" }}>
-          {value}
-        </Col>
-      </Row>
-    ));
   };
 
   return (
@@ -215,7 +195,7 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
               justify="center"
               style={{ marginTop: "20px", flexWrap: "wrap", display: "flex", justifyContent: "space-between" }}
             >
-              {car.colors.map((color, index) => (
+              {car.colors.map((color) => (
                 <div
                   key={color}
                   style={{
@@ -267,13 +247,13 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
           <Card>
             <Row gutter={[16, 16]}>
               <Col span={12}>
-              <Statistic title="Model Name" className="custom-statistic-value" value={car.car_model_name} />
-      <Statistic title="Price ($)" className="custom-statistic-value" value={car.price} />
-      <Statistic title="Year" className="custom-statistic-value" value={car.year} />
-      <Statistic title="Fuel Type" className="custom-statistic-value" value={car.fuel_type} />
-      <Statistic title="Transmission" className="custom-statistic-value" value={car.transmission} />
-      <Statistic title="Seating Capacity" className="custom-statistic-value" value={car.seating_capacity} />
-      <Statistic title="Fuel Tank Capacity (L)" className="custom-statistic-value" value={car.fuel_tank_capacity} />
+                <Statistic title="Model Name" className="custom-statistic-value" value={car.car_model_name} />
+                <Statistic title="Price ($)" className="custom-statistic-value" value={car.price} />
+                <Statistic title="Year" className="custom-statistic-value" value={car.year} />
+                <Statistic title="Fuel Type" className="custom-statistic-value" value={car.fuel_type} />
+                <Statistic title="Transmission" className="custom-statistic-value" value={car.transmission} />
+                <Statistic title="Seating Capacity" className="custom-statistic-value" value={car.seating_capacity} />
+                <Statistic title="Fuel Tank Capacity (L)" className="custom-statistic-value" value={car.fuel_tank_capacity} />
               </Col>
               <Col span={12}>
                 <Image
@@ -286,72 +266,69 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
           </Card>
 
           <Collapse accordion className="custom-collapse">
-  {/* Phần Collapse cho Performance */}
-  <Panel header="Performance" key="1">
-    <div className="statistic-list">
-      <div className="statistic-item">
-        <span className="statistic-title">Top Speed :</span>
-        <span className="statistic-value">{car.top_speed} km/h</span>
-      </div>
-      <div className="statistic-item">
-        <span className="statistic-title">Acceleration 0-100 km/h :</span>
-        <span className="statistic-value">{car.acceleration_0_100} s</span>
-      </div>
-      <div className="statistic-item">
-        <span className="statistic-title">Torque :</span>
-        <span className="statistic-value">{car.torque} Nm</span>
-      </div>
-      <div className="statistic-item">
-        <span className="statistic-title">Braking Distance :</span>
-        <span className="statistic-value">{car.braking_distance} m</span>
-      </div>
-      <div className="statistic-item">
-        <span className="statistic-title">Curb Weight :</span>
-        <span className="statistic-value">{car.curb_weight} kg</span>
-      </div>
-      <div className="statistic-item">
-        <span className="statistic-title">Fuel Efficiency :</span>
-        <span className="statistic-value">{car.fuel_efficiency} L/100km</span>
-      </div>
-    </div>
-  </Panel>
+            {/* Phần Collapse cho Performance */}
+            <Panel header="Performance" key="1">
+              <div className="statistic-list">
+                <div className="statistic-item">
+                  <span className="statistic-title">Top Speed :</span>
+                  <span className="statistic-value">{car.top_speed} km/h</span>
+                </div>
+                <div className="statistic-item">
+                  <span className="statistic-title">Acceleration 0-100 km/h :</span>
+                  <span className="statistic-value">{car.acceleration_0_100} s</span>
+                </div>
+                <div className="statistic-item">
+                  <span className="statistic-title">Torque :</span>
+                  <span className="statistic-value">{car.torque} Nm</span>
+                </div>
+                <div className="statistic-item">
+                  <span className="statistic-title">Braking Distance :</span>
+                  <span className="statistic-value">{car.braking_distance} m</span>
+                </div>
+                <div className="statistic-item">
+                  <span className="statistic-title">Curb Weight :</span>
+                  <span className="statistic-value">{car.curb_weight} kg</span>
+                </div>
+                <div className="statistic-item">
+                  <span className="statistic-title">Fuel Efficiency :</span>
+                  <span className="statistic-value">{car.fuel_efficiency} L/100km</span>
+                </div>
+              </div>
+            </Panel>
 
-  {/* Phần Collapse cho Power Unit */}
-  <Panel header="Power Unit" key="2">
-    <div className="statistic-list">
-      <div className="statistic-item">
-        <span className="statistic-title">Engine Power :</span>
-        <span className="statistic-value">{car.engine_power} PS</span>
-      </div>
-      <div className="statistic-item">
-        <span className="statistic-title">Engine Type :</span>
-        <span className="statistic-value">{car.engine_type}</span>
-      </div>
-      <div className="statistic-item">
-        <span className="statistic-title">Horsepower :</span>
-        <span className="statistic-value">{car.horsepower} hp</span>
-      </div>
-      <div className="statistic-item">
-        <span className="statistic-title">Drivetrain :</span>
-        <span className="statistic-value">{car.drivetrain}</span>
-      </div>
-      <div className="statistic-item">
-        <span className="statistic-title">CO2 Emission :</span>
-        <span className="statistic-value">{car.co2_emission} g/km</span>
-      </div>
-    </div>
-  </Panel>
+            {/* Phần Collapse cho Power Unit */}
+            <Panel header="Power Unit" key="2">
+              <div className="statistic-list">
+                <div className="statistic-item">
+                  <span className="statistic-title">Engine Power :</span>
+                  <span className="statistic-value">{car.engine_power} PS</span>
+                </div>
+                <div className="statistic-item">
+                  <span className="statistic-title">Engine Type :</span>
+                  <span className="statistic-value">{car.engine_type}</span>
+                </div>
+                <div className="statistic-item">
+                  <span className="statistic-title">Horsepower :</span>
+                  <span className="statistic-value">{car.horsepower} hp</span>
+                </div>
+                <div className="statistic-item">
+                  <span className="statistic-title">Drivetrain :</span>
+                  <span className="statistic-value">{car.drivetrain}</span>
+                </div>
+                <div className="statistic-item">
+                  <span className="statistic-title">CO2 Emission :</span>
+                  <span className="statistic-value">{car.co2_emission} g/km</span>
+                </div>
+              </div>
+            </Panel>
 
-  {/* Phần Collapse cho Other details */}
-  <Panel header="Other Details" key="3">
-    <div>
-      {/* Hiển thị các thông tin khác nếu có */}
-     
-    </div>
-  </Panel>
-</Collapse>
-
-
+            {/* Phần Collapse cho Other details */}
+            <Panel header="Other Details" key="3">
+              <div>
+                {/* Hiển thị các thông tin khác nếu có */}
+              </div>
+            </Panel>
+          </Collapse>
         </Drawer>
       </Row>
     </div>
