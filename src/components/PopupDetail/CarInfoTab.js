@@ -1,6 +1,23 @@
 import React, { useState } from "react";
-import { Row, Col, Button, Typography, Card, Image, Input, Drawer, Collapse, Statistic } from "antd";
-import { LeftOutlined, CloseOutlined, RightOutlined, UnorderedListOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import {
+  Row,
+  Col,
+  Button,
+  Typography,
+  Card,
+  Image,
+  Input,
+  Drawer,
+  Collapse,
+  Statistic,
+} from "antd";
+import {
+  LeftOutlined,
+  CloseOutlined,
+  RightOutlined,
+  UnorderedListOutlined,
+  CheckCircleOutlined,
+} from "@ant-design/icons";
 import "./CarInfoTab.css";
 
 const { Title } = Typography;
@@ -17,21 +34,28 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
 
   const colorImagesMap = car.colors.reduce((acc, color) => {
     const colorKey = colorKeywords[color];
-    const imagesForColor = car.images.filter((img) => img.image_url.toLowerCase().includes(colorKey));
+    const imagesForColor = car.images.filter((img) =>
+      img.image_url.toLowerCase().includes(colorKey)
+    );
     acc[color] = imagesForColor;
     return acc;
   }, {});
 
   const [currentColor, setCurrentColor] = useState(car.colors?.[0]);
-  const [mainImage, setMainImage] = useState(colorImagesMap[currentColor]?.[0]?.image_url || car.main_img);
+  const [mainImage, setMainImage] = useState(
+    colorImagesMap[currentColor]?.[0]?.image_url || car.main_img
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTechnicalDataVisible, setIsTechnicalDataVisible] = useState(false);
 
   const thumbnailsPerPage = 6;
   const totalThumbnails = colorImagesMap[currentColor]?.length || 0;
 
-  const visibleThumbnails = colorImagesMap[currentColor]
-    ?.slice(currentIndex, Math.min(currentIndex + thumbnailsPerPage, totalThumbnails)) || [];
+  const visibleThumbnails =
+    colorImagesMap[currentColor]?.slice(
+      currentIndex,
+      Math.min(currentIndex + thumbnailsPerPage, totalThumbnails)
+    ) || [];
 
   const handleColorChange = (color) => {
     setCurrentColor(color);
@@ -51,7 +75,10 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
 
   const handleNextClick = () => {
     setCurrentIndex((prevIndex) =>
-      Math.min(prevIndex + thumbnailsPerPage, totalThumbnails - thumbnailsPerPage)
+      Math.min(
+        prevIndex + thumbnailsPerPage,
+        totalThumbnails - thumbnailsPerPage
+      )
     );
   };
 
@@ -81,7 +108,7 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
                 preview={false}
                 style={{
                   width: "100%",
-                  height: "400px",
+                  height: "500px",
                   objectFit: "cover",
                   borderRadius: "16px",
                 }}
@@ -115,7 +142,10 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
               }}
             >
               {visibleThumbnails.map((img, idx) => (
-                <Col key={idx} style={{ display: "inline-block", justifyContent: "center" }}>
+                <Col
+                  key={idx}
+                  style={{ display: "inline-block", justifyContent: "center" }}
+                >
                   <Image
                     src={img.image_url}
                     alt={`Thumbnail ${currentIndex + idx}`}
@@ -127,7 +157,10 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
                       height: "70px",
                       objectFit: "cover",
                       borderRadius: "10px",
-                      border: mainImage === img.image_url ? "2px solid #1890ff" : "2px solid transparent",
+                      border:
+                        mainImage === img.image_url
+                          ? "2px solid #1890ff"
+                          : "2px solid transparent",
                       padding: "2px",
                     }}
                   />
@@ -152,10 +185,23 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
         </Col>
 
         <Col xs={24} md={8}>
-          <div style={{ padding: "10px", border: "1px solid #e8e8e8", borderRadius: "10px", marginBottom: "20px" }}>
+          <div
+            style={{
+              padding: "10px",
+              border: "1px solid #e8e8e8",
+              borderRadius: "10px",
+              marginBottom: "20px",
+            }}
+          >
             <Input placeholder="Search color" />
 
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "10px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "10px",
+              }}
+            >
               <p
                 style={{
                   display: "flex",
@@ -189,11 +235,22 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
             </div>
           </div>
 
-          <div style={{ padding: "10px", border: "1px solid #e8e8e8", borderRadius: "10px" }}>
+          <div
+            style={{
+              padding: "10px",
+              border: "1px solid #e8e8e8",
+              borderRadius: "10px",
+            }}
+          >
             <Title level={3}>Exterior Colours</Title>
             <Row
               justify="center"
-              style={{ marginTop: "20px", flexWrap: "wrap", display: "flex", justifyContent: "space-between" }}
+              style={{
+                marginTop: "20px",
+                flexWrap: "wrap",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
             >
               {car.colors.map((color) => (
                 <div
@@ -216,13 +273,22 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
                       border:
                         currentColor === color
                           ? "2px solid #1890ff"
-                          : color.toLowerCase() === "white" || color.toLowerCase() === "#ffffff"
+                          : color.toLowerCase() === "white" ||
+                            color.toLowerCase() === "#ffffff"
                           ? "1px solid #000000"
                           : "none",
                       cursor: "pointer",
                     }}
                   />
-                  <span style={{ fontSize: "12px", marginTop: "5px", color: "#000" }}>{color}</span>
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      marginTop: "5px",
+                      color: "#000",
+                    }}
+                  >
+                    {color}
+                  </span>
                 </div>
               ))}
             </Row>
@@ -232,9 +298,19 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
         {/* Drawer */}
         <Drawer
           title={
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
               <span>Technical Data</span>
-              <CloseOutlined onClick={closeTechnicalDataDrawer} style={{ cursor: 'pointer' }} />
+              <CloseOutlined
+                onClick={closeTechnicalDataDrawer}
+                style={{ cursor: "pointer" }}
+              />
             </div>
           }
           placement="right"
@@ -247,13 +323,41 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
           <Card>
             <Row gutter={[16, 16]}>
               <Col span={12}>
-                <Statistic title="Model Name" className="custom-statistic-value" value={car.car_model_name} />
-                <Statistic title="Price ($)" className="custom-statistic-value" value={car.price} />
-                <Statistic title="Year" className="custom-statistic-value" value={car.year} />
-                <Statistic title="Fuel Type" className="custom-statistic-value" value={car.fuel_type} />
-                <Statistic title="Transmission" className="custom-statistic-value" value={car.transmission} />
-                <Statistic title="Seating Capacity" className="custom-statistic-value" value={car.seating_capacity} />
-                <Statistic title="Fuel Tank Capacity (L)" className="custom-statistic-value" value={car.fuel_tank_capacity} />
+                <Statistic
+                  title="Model Name"
+                  className="custom-statistic-value"
+                  value={car.car_model_name}
+                />
+                <Statistic
+                  title="Price ($)"
+                  className="custom-statistic-value"
+                  value={car.price}
+                />
+                <Statistic
+                  title="Year"
+                  className="custom-statistic-value"
+                  value={car.year}
+                />
+                <Statistic
+                  title="Fuel Type"
+                  className="custom-statistic-value"
+                  value={car.fuel_type}
+                />
+                <Statistic
+                  title="Transmission"
+                  className="custom-statistic-value"
+                  value={car.transmission}
+                />
+                <Statistic
+                  title="Seating Capacity"
+                  className="custom-statistic-value"
+                  value={car.seating_capacity}
+                />
+                <Statistic
+                  title="Fuel Tank Capacity (L)"
+                  className="custom-statistic-value"
+                  value={car.fuel_tank_capacity}
+                />
               </Col>
               <Col span={12}>
                 <Image
@@ -274,8 +378,12 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
                   <span className="statistic-value">{car.top_speed} km/h</span>
                 </div>
                 <div className="statistic-item">
-                  <span className="statistic-title">Acceleration 0-100 km/h :</span>
-                  <span className="statistic-value">{car.acceleration_0_100} s</span>
+                  <span className="statistic-title">
+                    Acceleration 0-100 km/h :
+                  </span>
+                  <span className="statistic-value">
+                    {car.acceleration_0_100} s
+                  </span>
                 </div>
                 <div className="statistic-item">
                   <span className="statistic-title">Torque :</span>
@@ -283,7 +391,9 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
                 </div>
                 <div className="statistic-item">
                   <span className="statistic-title">Braking Distance :</span>
-                  <span className="statistic-value">{car.braking_distance} m</span>
+                  <span className="statistic-value">
+                    {car.braking_distance} m
+                  </span>
                 </div>
                 <div className="statistic-item">
                   <span className="statistic-title">Curb Weight :</span>
@@ -291,7 +401,9 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
                 </div>
                 <div className="statistic-item">
                   <span className="statistic-title">Fuel Efficiency :</span>
-                  <span className="statistic-value">{car.fuel_efficiency} L/100km</span>
+                  <span className="statistic-value">
+                    {car.fuel_efficiency} L/100km
+                  </span>
                 </div>
               </div>
             </Panel>
@@ -317,16 +429,16 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
                 </div>
                 <div className="statistic-item">
                   <span className="statistic-title">CO2 Emission :</span>
-                  <span className="statistic-value">{car.co2_emission} g/km</span>
+                  <span className="statistic-value">
+                    {car.co2_emission} g/km
+                  </span>
                 </div>
               </div>
             </Panel>
 
             {/* Phần Collapse cho Other details */}
             <Panel header="Other Details" key="3">
-              <div>
-                {/* Hiển thị các thông tin khác nếu có */}
-              </div>
+              <div>{/* Hiển thị các thông tin khác nếu có */}</div>
             </Panel>
           </Collapse>
         </Drawer>
