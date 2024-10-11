@@ -28,7 +28,7 @@ const ImprovedHeader = () => {
 
   // Gọi API để lấy số lượng người truy cập thời gian thực từ Google Analytics
   const fetchRealtimeVisitors = async () => {
-    const accessToken = 'ya29.a0AcM612yW0TyKxdupSboOMQSo8DjLlTx5yiabKngfC1D0sT7gJcnevJKjjtq5VYt9VfGRf3dr7ADeUoGtcOuYyFRC6av4m8cdy1OFOwi-zVNVb4zzzXzqxGEknzefBzcllBpw7Y3xqYQyWssDMOGCu5KOPAHaac-eOm9cHhFAaCgYKASgSARASFQHGX2MiW7eYwVMQqVMtm8K67T4t4Q0175'; // Thay thế bằng Access Token hợp lệ của bạn
+    const accessToken = 'ya29.a0AcM612x5KFNvK46JPFgTRemHckVN2ocK0ag8olhzl2ZdwPDrB1emaAq7LO6VwiYdTGR-nZbDBM1AT5YvDSKNnjJT1pO8RHyPDOxYPXrDmNCuNJmnLDE26K7biO4dRD0JWgYvoDjGN_BsY6jwz8H3ttaK2aGLNDs3ILhsn-kgaCgYKAaMSARASFQHGX2Mi7NzPOHgPUvsIW6pOEDyw7w0175'; // Thay thế bằng Access Token hợp lệ của bạn
   
     try {
       const response = await fetch(
@@ -51,6 +51,12 @@ const ImprovedHeader = () => {
       } else {
         const data = await response.json();
         console.log("Realtime visitors:", data);
+        if (data.rows && data.rows.length > 0) {
+          const activeUsers = data.rows[0].metricValues[0].value; // Lấy giá trị activeUsers
+          setRealtimeVisitors(activeUsers); // Cập nhật số lượng người dùng đang truy cập
+        } else {
+          console.log("No active users found");
+        }
       }
     } catch (error) {
       console.error("Error fetching realtime visitors:", error);
