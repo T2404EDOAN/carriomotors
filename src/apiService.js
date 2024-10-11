@@ -8,6 +8,13 @@ const API_BASE_URL = 'https://carriomotors.io.vn/api';
 export const fetchBannerData = async (page) => {
   try {
     const response = await fetch(`${API_BASE_URL}/get_banner.php?page=${page}`);
+    
+    // Kiểm tra xem phản hồi có phải JSON không
+    const contentType = response.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new Error("Response is not JSON");
+    }
+
     const data = await response.json();
     return data.map((banner) => ({
       src: banner.image_url,
@@ -18,6 +25,7 @@ export const fetchBannerData = async (page) => {
     return [];
   }
 };
+
 
 // Vehicle
 export const fetchCars = async () => {
