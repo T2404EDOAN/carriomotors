@@ -2,15 +2,16 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 }
 
 .banner-container {
   position: relative;
   z-index: 1;
 }
-body, html {
-  font-family: 'Roboto', sans-serif; 
+body,
+html {
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   margin: 0;
   padding: 0;
@@ -22,9 +23,8 @@ body, html {
   z-index: 2;
   margin-top: -20px;
   background-color: #fff;
-  border-radius: 20px 20px 0 0;
   box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
-  overflow: hidden; 
+  overflow: hidden;
 }
 .blur-background {
   filter: blur(5px); /* Làm mờ toàn bộ nền */
@@ -48,7 +48,7 @@ body, html {
 .ant-card,
 .ant-form-item,
 .ant-menu-item {
-  font-family: 'Roboto', sans-serif !important;
+  font-family: "Roboto", sans-serif !important;
 }
 .fade-enter {
   opacity: 0;

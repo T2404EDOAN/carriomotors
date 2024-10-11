@@ -16,35 +16,30 @@ const Footer = () => {
         </div>
 
         <div className="footer-section">
-          <h3>Top cities</h3>
+          <h3>About us</h3>
           <ul>
-            <li>New York</li>
-            <li>London</li>
-            <li>Berlin</li>
-            <li>Los Angeles</li>
-            <li>Paris</li>
+            <li>Carrio Motors</li>
+            <li>Store system</li>
+            <li>Contact</li>
           </ul>
         </div>
 
         <div className="footer-section">
-          <h3>Explore</h3>
+          <h3>Services and finance</h3>
           <ul>
-            <li>Intercity rides</li>
-            <li>Limousine service</li>
-            <li>Chauffeur service</li>
-            <li>Private car service</li>
-            <li>Airport transfer</li>
+            <li>Warranty policy</li>
+            <li>Finance policy</li>
           </ul>
         </div>
 
         <div className="footer-section">
-          <h3>Intercity titles</h3>
+          <h3>Contact</h3>
           <ul>
-            <li>San Francisco - New York</li>
-            <li>New York - Washington</li>
-            <li>New York - Philadelphia</li>
-            <li>Abu Dhabi - Dubai</li>
-            <li>London - Birmingham</li>
+            <li>Facebook</li>
+            <li>Zalo</li>
+            <li>Email</li>
+            <li>Youtube</li>
+            <li>Tiktok</li>
           </ul>
         </div>
       </div>
