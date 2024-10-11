@@ -1,0 +1,50 @@
+/* ImprovedHeader.css */
+.ant-menu-item a,
+.ant-menu-submenu-title {
+  text-decoration: none !important; /* Không có gạch chân */
+  font-weight: normal !important; /* Font bình thường */
+}
+
+.ant-menu-item a:hover,
+.ant-menu-submenu-title:hover {
+  text-decoration: none !important; /* Không có gạch chân khi hover */
+  font-weight: normal !important; /* Font bình thường khi hover */
+}
+
+/* Chỉnh sửa vấn đề ellipsis */
+.ant-menu-item,
+.ant-menu-submenu-title {
+  white-space: nowrap !important; /* Không cho phép xuống dòng */
+  overflow: visible !important; /* Đảm bảo văn bản không bị ẩn */
+  text-overflow: initial !important; /* Không cắt văn bản */
+}
+
+/* Các thuộc tính khác của input và button */
+.ant-input {
+  font-size: 16px;
+}
+
+.ant-btn {
+  font-size: 16px;
+}
+
+/* Remove underline and ellipsis */
+.ant-menu-item a,
+.ant-menu-submenu-title a {
+  text-decoration: none !important;
+}
+
+.ant-menu-item:hover,
+.ant-menu-item-active,
+.ant-menu-item-selected,
+.ant-menu-submenu:hover,
+.ant-menu-submenu-active,
+.ant-menu-submenu-selected {
+  background-color: transparent !important;
+  border-bottom: none !important;
+}
+
+.ant-menu-item a:hover,
+.ant-menu-submenu-title:hover {
+  text-decoration: none !important;
+}
