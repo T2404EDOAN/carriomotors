@@ -1,14 +1,23 @@
 import React from "react";
 import logologo from "../../assets/images/Company_images/logologo.png";
-import anha from "../../assets/images/Company_images/anha.webp";
-import anha1 from "../../assets/images/Company_images/anha1.webp";
+import bmw1 from "../../assets/images/Company_images/bmw1.jpg";
+import bmw2 from "../../assets/images/Company_images/bmw2.jpg";
+import audi1 from "../../assets/images/Company_images/audi1.jpg";
+import audi2 from "../../assets/images/Company_images/audi2.jpg";
+import mec1 from "../../assets/images/Company_images/mec1.jpg";
+import mec2 from "../../assets/images/Company_images/mec2.png";
+import por1 from "../../assets/images/Company_images/por1.jpg";
+import por2 from "../../assets/images/Company_images/por2.jpg";
 import anhavata1 from "../../assets/images/Company_images/anhavata1.png";
 import anhavata2 from "../../assets/images/Company_images/anhavata2.png";
 import anhavata3 from "../../assets/images/Company_images/anhavata3.png";
 import des1 from "../../assets/images/Company_images/des1.jpg";
 import des2 from "../../assets/images/Company_images/des2.jpg";
 import des3 from "../../assets/images/Company_images/des3.jpg";
-import box5 from "../../assets/images/Company_images/box5.jpg";
+import car from "../../assets/images/Bmv_images/car.jpg";
+import Au2 from "../../assets/images/Bmv_images/Au2.jpg";
+import porche from "../../assets/images/Bmv_images/porche.jpg";
+import meccc from "../../assets/images/Bmv_images/meccc.png";
 import "../../assets/styles/Company.css";
 
 const CompanyPage = () => {
@@ -31,11 +40,11 @@ const CompanyPage = () => {
       <div className="box2-company">
         <div className="box-company2 k">
           <div className="list-company">
-            <img src={anha} alt="anha" className="anha" />
-            <img src={anha1} alt="anha1" className="a" />
+            <img src={bmw1} alt="anha" className="anha" />
+            <img src={bmw2} alt="anha1" className="a" />
           </div>
           <div className="list-company-text">
-            <div className="list-company-name">bmw abc</div>
+            <div className="list-company-name">BMW X7</div>
             <div className="list-company-price">Starting MSR $57,900</div>
             <div className="list-company-range">
               Range from 283 to 307 miles
@@ -44,25 +53,25 @@ const CompanyPage = () => {
         </div>
         <div className="box-company2 b" id="abcd">
           <div className="list-company">
-            <img src={anha} alt="anha" className="anha" id="abc" />
-            <img src={anha1} alt="anha1" className="a" />
+            <img src={audi1} alt="anha" className="anha" id="abc" />
+            <img src={audi2} alt="anha1" className="a" />
           </div>
           <div className="list-company-text">
-            <div className="list-company-name">bmw abc</div>
-            <div className="list-company-price">Starting MSR $57,900</div>
+            <div className="list-company-name">AUDI Q7</div>
+            <div className="list-company-price">Starting MSR $47,900</div>
             <div className="list-company-range">
-              Range from 283 to 307 miles
+              Range from 283 to 400 miles
             </div>
           </div>
         </div>
         <div className="box-company2 c">
           <div className="list-company">
-            <img src={anha} alt="anha" className="anha" />
-            <img src={anha1} alt="anha1" className="a" />
+            <img src={mec1} alt="anha" className="anha" />
+            <img src={mec2} alt="anha1" className="a" />
           </div>
           <div className="list-company-text">
-            <div className="list-company-name">bmw abc</div>
-            <div className="list-company-price">Starting MSR $57,900</div>
+            <div className="list-company-name">MEC C300</div>
+            <div className="list-company-price">Starting MSR $52,900</div>
             <div className="list-company-range">
               Range from 283 to 307 miles
             </div>
@@ -70,14 +79,14 @@ const CompanyPage = () => {
         </div>
         <div className="box-company2 ">
           <div className="list-company">
-            <img src={anha} alt="anha" className="anha" />
-            <img src={anha1} alt="anha1" className="a" />
+            <img src={por1} alt="anha" className="anha" />
+            <img src={por2} alt="anha1" className="a" />
           </div>
           <div className="list-company-text">
             <div className="list-company-name">bmw abc</div>
             <div className="list-company-price">Starting MSR $57,900</div>
             <div className="list-company-range">
-              Range from 283 to 307 miles
+              Range from 283 to 320 miles
             </div>
           </div>
         </div>
@@ -170,16 +179,16 @@ const CompanyPage = () => {
         <div className="box5-list">
           <div className="box5-list1">
             <div className="box5-list-img">
-              <img src={box5} alt="box5" />
+              <img src={car} alt="box5" />
             </div>
             <div className="box5-list-text">
-              <div className="box5-list-text1">BMV charging</div>
+              <div className="box5-list-text1">BMW charging</div>
               <div className="box5-list-text2">Learn More</div>
             </div>
           </div>
           <div className="box5-list1">
             <div className="box5-list-img">
-              <img src={box5} alt="box5" />
+              <img src={Au2} alt="box5" />
             </div>
             <div className="box5-list-text">
               <div className="box5-list-text1">Audi charging</div>
@@ -188,7 +197,7 @@ const CompanyPage = () => {
           </div>
           <div className="box5-list1">
             <div className="box5-list-img">
-              <img src={box5} alt="box5" />
+              <img src={porche} alt="box5" />
             </div>
             <div className="box5-list-text">
               <div className="box5-list-text1">Porsche charging</div>
@@ -197,7 +206,7 @@ const CompanyPage = () => {
           </div>
           <div className="box5-list1">
             <div className="box5-list-img">
-              <img src={box5} alt="box5" />
+              <img src={meccc} alt="box5" />
             </div>
             <div className="box5-list-text">
               <div className="box5-list-text1">Mec charging</div>

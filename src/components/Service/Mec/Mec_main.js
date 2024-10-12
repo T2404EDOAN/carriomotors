@@ -20,9 +20,9 @@ const Mec_main = () => {
             </div>
             <div className="content-left1-text">
               Mobile Service <br />
-              Convenient, comprehensive, and contact free, Mobile <br />
-              Service by Mercedes-Benz brings exceptional care
-              <br /> right to your preferred location with offerings like:
+              Convenient, comprehensive, and contact free, Mobile Service by
+              Mercedes-Benz brings exceptional care <br />
+              right to your preferred location with offerings like:
               <br />
               <ul>
                 <li>Oil services</li>

@@ -1,91 +1,126 @@
-.box-finance-tab {
+.ata {
   display: flex;
+  justify-content: space-between;
 }
-.box-finance-tab-insurance,
-.box-finance-tab-pay {
-  border: 2px solid rgb(243, 243, 243);
-  width: 600px;
-  border-radius: 5px;
-}
-.box-finance-tab-pay {
-  width: 600px;
-}
-.title-insurance,
-.title-pay {
-  font-size: 20px;
+.title11111 {
+  text-align: center;
   font-weight: bold;
-  margin-left: 5px;
+  font-size: 25px;
 }
-.box-box {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+.title-finance {
+  font-weight: bold;
+  text-align: center;
+  font-size: 15px;
+}
+.price-finance {
+  font-weight: bold;
+  text-align: center;
+  color: brown;
+}
+.img-finance img {
+  width: 230px;
+  height: 250px;
+  border-radius: 10px;
+  margin-left: 25px;
+  margin-top: 10px;
+}
+ul {
+  list-style-type: disc;
+  margin-top: 10px;
+  margin-left: 35px;
+}
+.booxx1,
+.booxx2,
+.booxx3,
+.booxx4 {
+  width: 300px;
+}
+.dam {
+  font-weight: bold;
+}
+.butts {
   margin-top: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 20px;
 }
-.insurance-box1,
-.insurance-box2,
-.insurance-box3,
-.insurance-box4 {
-  border: 1px solid black;
-  border-radius: 5px;
-  text-align: center;
+.buttt1 {
+  margin-left: 450px;
 }
-.buttons {
-  display: flex;
-  margin-top: 5px;
-  gap: 20px;
+.buttt2 {
+  margin-left: 50px;
 }
-.button1,
-.button2 {
-  background-color: #1677ff;
-  height: 30px;
-  width: 120px;
-  color: aliceblue;
-  font-size: 20px;
-  text-align: center;
-  border-radius: 5px;
-  margin-left: 10px;
+@media only screen and (max-width: 1024px) {
+  .ata {
+    align-items: center;
+  }
+  .title11111 {
+    font-size: 22px;
+  }
+  .booxx1 {
+    margin-top: -130px;
+  }
+  .title-finance {
+    font-size: 13px;
+  }
+  .price-finance {
+    font-size: 14px;
+  }
+  .img-finance img {
+    width: 200px;
+    height: 230px;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+  ul {
+    margin-left: 20px;
+  }
+  .booxx1,
+  .booxx2,
+  .booxx3,
+  .booxx4 {
+    width: 100%;
+    max-width: 280px;
+  }
+  .butts {
+    margin-top: 20px;
+  }
+  .buttt1 {
+    margin-left: 300px;
+  }
+  .buttt2 {
+    margin-left: 50px;
+  }
 }
-.offers-container {
-  border: 1px solid #d8d8d8;
-  margin-left: 10px;
-}
-.offers-container {
-  background-color: #f8f9fa;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.offers-container h4 {
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.offers-container ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.offers-container li {
-  margin-bottom: 5px;
-  font-size: 14px;
-}
-
-.offers-container li span {
-  margin-right: 5px;
-}
-
-.offers-container a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.offers-container a:hover {
-  text-decoration: underline;
-}
-.title3 {
-  border-bottom: 1px solid #afafb0;
+@media only screen and (max-width: 768px) {
+  .ata {
+    align-items: center;
+  }
+  .title11111 {
+    font-size: 20px;
+  }
+  .title-finance {
+    font-size: 12px;
+  }
+  .price-finance {
+    font-size: 12px;
+  }
+  .img-finance img {
+    width: 180px;
+    height: 200px;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+  ul {
+    margin-left: 15px;
+  }
+  .booxx1,
+  .booxx2,
+  .booxx3,
+  .booxx4 {
+    width: 100%;
+    max-width: 260px;
+  }
+  .buttt1,
+  .buttt2 {
+    margin-left: 0;
+    text-align: center;
+  }
 }
