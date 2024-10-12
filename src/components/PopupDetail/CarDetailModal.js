@@ -39,6 +39,7 @@ const CarDetailModal = ({
       onCancel={onClose}
       footer={null}
       width={1200}
+      // bodyStyle={{ height: "700px" }}
       className={isTechnicalDataVisible ? "blur-background" : ""}
     >
       <Row justify="space-between" align="middle" style={{ marginTop: "30px" }}>

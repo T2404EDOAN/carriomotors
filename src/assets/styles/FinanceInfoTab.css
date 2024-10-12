@@ -1,0 +1,91 @@
+.box-finance-tab {
+  display: flex;
+}
+.box-finance-tab-insurance,
+.box-finance-tab-pay {
+  border: 2px solid rgb(243, 243, 243);
+  width: 600px;
+  border-radius: 5px;
+}
+.box-finance-tab-pay {
+  width: 600px;
+}
+.title-insurance,
+.title-pay {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.box-box {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+.insurance-box1,
+.insurance-box2,
+.insurance-box3,
+.insurance-box4 {
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+}
+.buttons {
+  display: flex;
+  margin-top: 5px;
+  gap: 20px;
+}
+.button1,
+.button2 {
+  background-color: #1677ff;
+  height: 30px;
+  width: 120px;
+  color: aliceblue;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+.offers-container {
+  border: 1px solid #d8d8d8;
+  margin-left: 10px;
+}
+.offers-container {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.offers-container h4 {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.offers-container ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.offers-container li {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.offers-container li span {
+  margin-right: 5px;
+}
+
+.offers-container a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.offers-container a:hover {
+  text-decoration: underline;
+}
+.title3 {
+  border-bottom: 1px solid #afafb0;
+}
