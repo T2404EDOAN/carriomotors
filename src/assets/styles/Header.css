@@ -48,3 +48,20 @@
 .ant-menu-submenu-title:hover {
   text-decoration: none !important;
 }
+.all-products {
+  width: 100vw; /* 100% of the viewport width */
+  position: relative; /* Ensures it doesn't get limited by parent constraints */
+  left: 50%; /* Shifts it to align with the viewport */
+  transform: translateX(-50%); /* Centers the div */
+  background-color: #eff0f1; /* Optional: to visualize the full-width effect */
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.all-sanpham {
+  align-items: center;
+  width: 1400px;
+  font-size: 26px;
+  padding: 10px 20px;
+}

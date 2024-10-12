@@ -18,10 +18,10 @@ export default function TabsBasic() {
           fontFamily: "Roboto, sans-serif",
         }}
       >
-        <Tab sx={{ width: "120px" }}>Mercedes -Benz</Tab>
-        <Tab sx={{ width: "120px" }}>BMW</Tab>
-        <Tab sx={{ width: "120px" }}>Audi</Tab>
-        <Tab sx={{ width: "120px" }}>PORSCHE</Tab>
+        <Tab sx={{ width: "150px" }}>Mercedes -Benz</Tab>
+        <Tab sx={{ width: "150px" }}>BMW</Tab>
+        <Tab sx={{ width: "150px" }}>Audi</Tab>
+        <Tab sx={{ width: "150px" }}>PORSCHE</Tab>
       </TabList>
       <TabPanel value={0} sx={{ fontFamily: "Roboto, sans-serif" }}>
         <Mec_main />

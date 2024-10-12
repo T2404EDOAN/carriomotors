@@ -6,12 +6,6 @@
   border-radius: 10px;
 }
 
-.tab-list {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 16px;
-}
-
 .tab-item {
   padding: 8px 16px;
   cursor: pointer;

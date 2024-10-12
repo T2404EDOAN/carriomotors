@@ -43,7 +43,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
-  const [mainImage, setMainImage] = useState(null); // anh chinh
+  const [mainImage, setMainImage] = useState(null);
   const searchInputRef = useRef(null);
   const [currentImages, setCurrentImages] = useState({});
 
@@ -58,11 +58,10 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     "white",
     "silver",
     "gray",
-  ]); // List of colors
+  ]);
   const [selectedColors, setSelectedColors] = useState([]);
   const screens = useBreakpoint();
 
-  //api cua vehicle
   const fetchCars = async (value = "recommended") => {
     try {
       const response = await axios.get(
@@ -86,7 +85,6 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     }
   };
 
-  // api cua brands
   useEffect(() => {
     const fetchBrands = async () => {
       try {
@@ -122,7 +120,6 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     setSelectedCar(null);
   };
 
-  //api cua model
   const fetchModels = async () => {
     try {
       const response = await axios.get(
@@ -143,14 +140,13 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     }
   };
 
-  //api cua location
   const fetchLocations = async () => {
     try {
       const response = await axios.get(
         "https://carriomotors.io.vn/api/get_location.php"
       );
-      console.log("Raw response:", response); // Kiểm tra toàn bộ response từ API
-      const locationsData = response.data.data || response.data; // Đảm bảo lấy đúng API data
+      console.log("Raw response:", response);
+      const locationsData = response.data.data || response.data;
 
       if (Array.isArray(locationsData)) {
         setLocations(locationsData);
@@ -163,7 +159,6 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     }
   };
 
-  //api cua Search
   const fetchSearch = async (value) => {
     try {
       const response = await axios.get(
@@ -190,7 +185,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
   }, []);
 
   const headerStyle = {
-    background: "#fff", // Nền trắng
+    background: "#fff",
     padding: "10px 20px",
     height: "auto",
     lineHeight: "normal",
@@ -273,14 +268,6 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
   // Sidebar rendering
   const renderSidebar = () => (
     <div style={{ background: "#fff" }}>
-      {" "}
-      {/* Nền trắng cho sidebar */}
-      {/* <Row justify="space-between" align="middle" style={{ marginBottom: 20 }}>
-        <Button type="link" onClick={reset}>
-          Reset
-        </Button>
-      </Row> */}
-      {/* model */}
       <Title level={4}>Models</Title>
       <Select
         showSearch
@@ -299,7 +286,6 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
           </Select.Option>
         ))}
       </Select>
-      {/* Location */}
       <Title level={4}>Location</Title>
       <Select
         showSearch
@@ -318,7 +304,6 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
           </Select.Option>
         ))}
       </Select>
-      {/* brand */}
       <Title level={4}>Brand</Title>
       <Checkbox.Group
         value={selectedBrands}
@@ -339,7 +324,6 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
           ))}
         </div>
       </Checkbox.Group>
-      {/* price */}
       <Title level={4}>Price Range</Title>
       <Slider
         style={{ width: "200px" }}
@@ -348,13 +332,12 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         min={0}
         max={500000}
         onChange={handlePriceChage}
-        trackStyle={{ backgroundColor: "black" }} // Black color for the track
+        trackStyle={{ backgroundColor: "black" }}
       />
       <Row justify="space-between" style={{ width: "200px" }}>
         <Text>${PriceRange[0]}</Text>
         <Text>${PriceRange[1]}</Text>
       </Row>
-      {/* color */}
       <Title level={4} style={{ marginTop: "15px" }}>
         Color
       </Title>
@@ -387,22 +370,22 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
       </div>
     </div>
   );
+
   const handleImageClick = (car) => {
-    const currentImageIndex = currentImages[car.id]?.index || 0; // Lấy chỉ số hiện tại hoặc mặc định là 0
-    const nextImageIndex = (currentImageIndex + 1) % (car.images.length + 1); // Tính chỉ số ảnh kế tiếp, quay lại ảnh chính sau khi duyệt hết ảnh phụ
+    const currentImageIndex = currentImages[car.id]?.index || 0;
+    const nextImageIndex = (currentImageIndex + 1) % (car.images.length + 1);
 
     const newImage =
       nextImageIndex === 0
         ? car.main_img
-        : car.images[nextImageIndex - 1].image_url; // Nếu là chỉ số 0 thì là ảnh chính, ngược lại lấy ảnh phụ
+        : car.images[nextImageIndex - 1].image_url;
 
     setCurrentImages((prevState) => ({
       ...prevState,
-      [car.id]: { url: newImage, index: nextImageIndex }, // Cập nhật chỉ số và ảnh mới
+      [car.id]: { url: newImage, index: nextImageIndex },
     }));
   };
 
-  // Card rendering
   const renderCarCard = (car) => (
     <Card
       key={car.id}
@@ -424,10 +407,10 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
             position: "relative",
             cursor: "pointer",
           }}
-          onClick={() => showModal(car)} // Khi nhấn vào ảnh, mở popup
+          onClick={() => showModal(car)}
         >
           <img
-            src={car.main_img} // Hiển thị ảnh chính trong danh sách
+            src={car.main_img}
             alt={car.car_model_name}
             style={{ width: "100%", height: "100%", objectFit: "contain" }}
           />
@@ -435,7 +418,15 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
       }
     >
       <div style={{ height: "24px", marginTop: "8px" }}>
-        <Title level={5} style={{ margin: 0 }}>
+        <Title
+          level={5}
+          style={{
+            margin: 0,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
           {car.car_model_name}
         </Title>
       </div>
@@ -447,9 +438,12 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
 
   return (
     <div className={isModalVisible ? "blur-background" : ""}>
+      <div className="all-products">
+        {" "}
+        <div className="all-sanpham">All {filteredCars.length} Cars</div>
+      </div>{" "}
       <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
         <Layout style={{ background: "#fff" }}>
-          {/* Nền trắng cho Layout */}
           <Header style={headerStyle}>
             <Row
               justify="end"
@@ -457,10 +451,11 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
               style={{
                 marginTop: "10px",
                 display: "flex",
+                marginBottom: "20px",
                 justifyContent: "left",
               }}
             >
-              <h2 style={{ fontSize: "40px" }}>Model Overview</h2>
+              <h2 style={{ fontSize: "48px" }}>Model Overview</h2>
             </Row>
           </Header>
           <Layout style={{ background: "#fff" }}>
@@ -481,7 +476,11 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
               style={{
                 padding: "20px",
                 background: "#fff",
-                width: "calc(100% - 300px)",
+                width: screens.md ? "calc(100% - 300px)" : "100%",
+                marginLeft: "70px",
+                height: "1100px",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               {!screens.md && (
@@ -489,15 +488,23 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
                   Filters
                 </Button>
               )}
-              <Title level={4}>{filteredCars.length} Cars </Title>
-              <Row gutter={[16, 16]}>
-                {filteredCars.map((car) => (
-                  <Col xs={24} sm={12} lg={8} key={car.id}>
-                    {renderCarCard(car)}
-                  </Col>
-                ))}
-              </Row>
-              <Row justify="center" style={{ marginTop: 20 }}>
+
+              <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden" }}>
+                <Row gutter={[16, 16]} style={{ margin: 0 }}>
+                  {currentCars.map((car) => (
+                    <Col
+                      xs={24}
+                      sm={12}
+                      lg={8}
+                      key={car.id}
+                      style={{ padding: 12 }}
+                    >
+                      {renderCarCard(car)}
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+              <Row justify="center" style={{ marginTop: 20, flexShrink: 0 }}>
                 <Pagination
                   current={currentPage}
                   total={filteredCars.length}
@@ -514,7 +521,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
               onClose={closeModal}
               car={selectedCar}
               mainImage={mainImage}
-              setMainImage={setMainImage} // gui mainimage xuong CarInfoTab
+              setMainImage={setMainImage}
             />
           )}
         </Layout>

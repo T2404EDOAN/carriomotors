@@ -54,13 +54,13 @@ function App() {
 }
 
 function AppLayout() {
-  const location = useLocation(); // Để xác định trang hiện tại
+  const location = useLocation();
   const navigate = useNavigate();
   const [bannerImages, setBannerImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [dateTime, setDateTime] = useState(new Date());
   const [locationInfo, setLocationInfo] = useState({});
-  const nodeRef = useRef(null); // Create a ref
+  const nodeRef = useRef(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -90,10 +90,10 @@ function AppLayout() {
       setIsLoading(true);
       const page =
         location.pathname === "/" ? "home" : location.pathname.slice(1);
-      const data = await fetchBannerData(page); // Gọi hàm fetchBannerData từ apiService
+      const data = await fetchBannerData(page);
       const bannerImages = data.map((item) => ({
         src: item.image_url,
-        alt: item.title, // Sử dụng title cho alt text
+        alt: item.title,
         title: item.alt,
       }));
       setBannerImages(data);
@@ -108,11 +108,12 @@ function AppLayout() {
     navigate(path);
   };
 
-  // Kiểm tra nếu trang hiện tại là '/admin'
-  const isAdminPage = location.pathname === "/admin";
+  const isHomePage = location.pathname === "/"; // Check if it’s the home page
 
   return (
-    <div className="app-container">
+    <div className="app-container" style={{ paddingTop: "70px" }}>
+      {" "}
+      {/* Adjust padding-top */}
       {isLoading && (
         <div
           style={{
@@ -131,13 +132,11 @@ function AppLayout() {
           <Spin size="large" />
         </div>
       )}
-      
-      {/* Chỉ hiển thị Header và Banner khi không phải trang admin */}
-      {!isAdminPage && <Header onNavigate={handleRouteChange} />}
-      {!isAdminPage && !isLoading && (
-        <Banner images={bannerImages} autoSlide={location.pathname === "/"} />
+      <Header onNavigate={handleRouteChange} />
+      {/* Show Banner only on the home page */}
+      {isHomePage && !isLoading && (
+        <Banner images={bannerImages} autoSlide={isHomePage} />
       )}
-
       <main className="main-content">
         <TransitionGroup>
           <CSSTransition
@@ -162,10 +161,7 @@ function AppLayout() {
           </CSSTransition>
         </TransitionGroup>
       </main>
-
-      {/* Chỉ hiển thị Footer khi không phải trang admin */}
-      {!isAdminPage && <Ticker dateTime={dateTime} locationInfo={locationInfo} />}
-      {!isAdminPage && <Footer />}
+      <Footer />
     </div>
   );
 }
