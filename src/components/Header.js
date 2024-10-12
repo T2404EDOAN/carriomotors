@@ -3,21 +3,19 @@ import { Link } from "react-router-dom";
 import { Menu, Input, Button, Drawer, Modal } from "antd";
 import {
   SearchOutlined,
-  UserOutlined,
+  UserOutlined, // Icon người
   EnvironmentOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
-import SignInPopup from './SignInPopup'; // Assuming the popup is in a separate file
+import SignInPopup from './SignInPopup'; 
+import '../assets/styles/Header.css'; 
 
 const ImprovedHeader = () => {
-  // Quản lý trạng thái mở rộng của thanh tìm kiếm
   const [searchExpanded, setSearchExpanded] = useState(false);
-  // Quản lý trạng thái hiển thị của Drawer khi màn hình nhỏ
   const [drawerVisible, setDrawerVisible] = useState(false);
-  // Quản lý trạng thái màn hình lớn hay nhỏ
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
-  // Quản lý trạng thái hiển thị popup
   const [isSignInPopupVisible, setIsSignInPopupVisible] = useState(false);
+  const [realtimeVisitors, setRealtimeVisitors] = useState(0); // Số lượng người truy cập
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,6 +24,51 @@ const ImprovedHeader = () => {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Gọi API để lấy số lượng người truy cập thời gian thực từ Google Analytics
+  const fetchRealtimeVisitors = async () => {
+    const accessToken = 'ya29.a0AcM612x5KFNvK46JPFgTRemHckVN2ocK0ag8olhzl2ZdwPDrB1emaAq7LO6VwiYdTGR-nZbDBM1AT5YvDSKNnjJT1pO8RHyPDOxYPXrDmNCuNJmnLDE26K7biO4dRD0JWgYvoDjGN_BsY6jwz8H3ttaK2aGLNDs3ILhsn-kgaCgYKAaMSARASFQHGX2Mi7NzPOHgPUvsIW6pOEDyw7w0175'; // Thay thế bằng Access Token hợp lệ của bạn
+  
+    try {
+      const response = await fetch(
+        `https://analyticsdata.googleapis.com/v1beta/properties/462778286:runRealtimeReport`, 
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // Chèn Access Token vào Authorization Header
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            metrics: [{ name: "activeUsers" }] // Lấy số lượng người dùng đang hoạt động
+          }),
+        }
+      );
+  
+      if (!response.ok) {
+        const errorDetail = await response.json();
+        console.error("Error details:", errorDetail);
+      } else {
+        const data = await response.json();
+        console.log("Realtime visitors:", data);
+        if (data.rows && data.rows.length > 0) {
+          const activeUsers = data.rows[0].metricValues[0].value; // Lấy giá trị activeUsers
+          setRealtimeVisitors(activeUsers); // Cập nhật số lượng người dùng đang truy cập
+        } else {
+          console.log("No active users found");
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching realtime visitors:", error);
+    }
+  };
+  
+
+  // Gọi API mỗi 60 giây
+  useEffect(() => {
+    fetchRealtimeVisitors();
+    const interval = setInterval(fetchRealtimeVisitors, 60000); 
+    return () => clearInterval(interval);
   }, []);
 
   const menuItems = [
@@ -69,10 +112,17 @@ const ImprovedHeader = () => {
     <header className="fixed top-0 left-0 right-0 z-50 w-full bg-white">
       <div className="w-full px-4">
         <div className="flex items-center h-16 px-8">
-          <div className="flex-none mr-8">
+          <div className="flex-none mr-8 flex items-center">
             <Link to="/">
               <img src="/logo2.png" alt="Logo" className="h-12 md:h-16" />
             </Link>
+           
+            <div className="flex items-center ml-4">
+              <UserOutlined style={{ fontSize: '20px', marginRight: '5px' }} />
+              <span className="text-base">
+                {realtimeVisitors}
+              </span>
+            </div>
           </div>
           <div className="flex-grow flex justify-center">
             {isLargeScreen && renderMenu()}
@@ -117,23 +167,6 @@ const ImprovedHeader = () => {
         visible={drawerVisible}
       >
         {renderMenu("vertical")}
-        <div className="mt-4">
-          <Input
-            placeholder="Search..."
-            prefix={<SearchOutlined />}
-            className="rounded-full text-base mb-4"
-          />
-          <Button
-            type="primary"
-            icon={<EnvironmentOutlined />}
-            className="w-full mb-4"
-          >
-            Store location
-          </Button>
-          <Button type="primary" icon={<UserOutlined />} className="w-full">
-            User Account
-          </Button>
-        </div>
       </Drawer>
       
       {/* Render SignInPopup */}
@@ -144,64 +177,6 @@ const ImprovedHeader = () => {
       >
         <SignInPopup />
       </Modal>
-      {/* Style tùy chỉnh để bỏ in đậm và gạch chân khi hover */}
-      <style jsx>{`
-        /* Đảm bảo các liên kết trong menu không có gạch chân và không in đậm */
-        .ant-menu-item a,
-        .ant-menu-submenu-title {
-          text-decoration: none !important; /* Không có gạch chân */
-          font-weight: normal !important; /* Font bình thường */
-        }
-        /* Không có gạch chân khi hover vào liên kết */
-        .ant-menu-item a:hover,
-        .ant-menu-submenu-title:hover {
-          text-decoration: none !important; /* Không có gạch chân khi hover */
-          font-weight: normal !important; /* Font bình thường khi hover */
-        }
-
-        /* Chỉnh sửa vấn đề ellipsis */
-        .ant-menu-item,
-        .ant-menu-submenu-title {
-          white-space: nowrap !important; /* Không cho phép xuống dòng */
-          overflow: visible !important; /* Đảm bảo văn bản không bị ẩn */
-          text-overflow: initial !important; /* Không cắt văn bản */
-        }
-
-        /* Các thuộc tính khác của input và button */
-        .ant-input {
-          font-size: 16px;
-        }
-        .ant-btn {
-          font-size: 16px;
-        }
-
-        @media (min-width: 1024px) {
-          .ant-menu-horizontal {
-            display: flex !important;
-          }
-        }
-
-        /* Remove underline and ellipsis */
-        .ant-menu-item a,
-        .ant-menu-submenu-title a {
-          text-decoration: none !important;
-        }
-
-        .ant-menu-item:hover,
-        .ant-menu-item-active,
-        .ant-menu-item-selected,
-        .ant-menu-submenu:hover,
-        .ant-menu-submenu-active,
-        .ant-menu-submenu-selected {
-          background-color: transparent !important;
-          border-bottom: none !important;
-        }
-
-        .ant-menu-item a:hover,
-        .ant-menu-submenu-title:hover {
-          text-decoration: none !important;
-        }
-      `}</style>
     </header>
   );
 };

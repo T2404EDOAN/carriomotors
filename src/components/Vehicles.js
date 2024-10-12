@@ -25,14 +25,14 @@ const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
 const { useBreakpoint } = Grid;
 
-const CarListingLayout = ({isTechnicalDataVisible }) => {
-  const [isFilterVisible, setIsFilterVisible] = useState(false); 
-  const [cars, setCars] = useState([]); 
-  const [brands, setBrands] = useState([]); 
-  const [selectedBrands, setSelectedBrands] = useState([]); 
-  const [filteredCars, setFilteredCars] = useState([]); 
-  const [PriceRange, setPriceRange] = useState([0, 500000]); 
-  const [currentPage, setCurrentPage] = useState(1); 
+const CarListingLayout = ({ isTechnicalDataVisible }) => {
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [cars, setCars] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [filteredCars, setFilteredCars] = useState([]);
+  const [PriceRange, setPriceRange] = useState([0, 500000]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(9);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -202,7 +202,6 @@ const CarListingLayout = ({isTechnicalDataVisible }) => {
     height: "40px",
   };
 
-
   const handlePriceChage = (value) => {
     setPriceRange(value);
 
@@ -343,17 +342,15 @@ const CarListingLayout = ({isTechnicalDataVisible }) => {
       {/* price */}
       <Title level={4}>Price Range</Title>
       <Slider
-  style={{ width: '200px' }}
-  range
-  defaultValue={PriceRange}
-  min={0}
-  max={500000}
-  onChange={handlePriceChage}
-  trackStyle={{ backgroundColor: 'black' }}   // Black color for the track
-
-/>
-
-      <Row justify="space-between" style={{width:'200px'}}>
+        style={{ width: "200px" }}
+        range
+        defaultValue={PriceRange}
+        min={0}
+        max={500000}
+        onChange={handlePriceChage}
+        trackStyle={{ backgroundColor: "black" }} // Black color for the track
+      />
+      <Row justify="space-between" style={{ width: "200px" }}>
         <Text>${PriceRange[0]}</Text>
         <Text>${PriceRange[1]}</Text>
       </Row>
@@ -361,7 +358,14 @@ const CarListingLayout = ({isTechnicalDataVisible }) => {
       <Title level={4} style={{ marginTop: "15px" }}>
         Color
       </Title>
-      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap",width:'200px' }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          flexWrap: "wrap",
+          width: "200px",
+        }}
+      >
         {colors.map((color) => (
           <Avatar
             key={color}
@@ -386,16 +390,18 @@ const CarListingLayout = ({isTechnicalDataVisible }) => {
   const handleImageClick = (car) => {
     const currentImageIndex = currentImages[car.id]?.index || 0; // Lấy chỉ số hiện tại hoặc mặc định là 0
     const nextImageIndex = (currentImageIndex + 1) % (car.images.length + 1); // Tính chỉ số ảnh kế tiếp, quay lại ảnh chính sau khi duyệt hết ảnh phụ
-    
+
     const newImage =
-      nextImageIndex === 0 ? car.main_img : car.images[nextImageIndex - 1].image_url; // Nếu là chỉ số 0 thì là ảnh chính, ngược lại lấy ảnh phụ
-  
+      nextImageIndex === 0
+        ? car.main_img
+        : car.images[nextImageIndex - 1].image_url; // Nếu là chỉ số 0 thì là ảnh chính, ngược lại lấy ảnh phụ
+
     setCurrentImages((prevState) => ({
       ...prevState,
       [car.id]: { url: newImage, index: nextImageIndex }, // Cập nhật chỉ số và ảnh mới
     }));
   };
-  
+
   // Card rendering
   const renderCarCard = (car) => (
     <Card
@@ -438,78 +444,81 @@ const CarListingLayout = ({isTechnicalDataVisible }) => {
       </Row>
     </Card>
   );
-  
-  
-  
 
   return (
-    <div className={isModalVisible  ? "blur-background" : ""}> 
-    <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
-      <Layout style={{ background: "#fff" }}>
-        {/* Nền trắng cho Layout */}
-        <Header style={headerStyle}>
-          <Row
-            justify="end"
-            align="middle"
-            style={{ marginTop: "10px", display: "flex", justifyContent: "left" }}
-          >
-            <h2 style={{ fontSize: "40px" }}>Model Overview</h2>
-          </Row>
-        </Header>
+    <div className={isModalVisible ? "blur-background" : ""}>
+      <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
         <Layout style={{ background: "#fff" }}>
-          {screens.md ? (
-            <Sider
-              width={300}
-              theme="light"
+          {/* Nền trắng cho Layout */}
+          <Header style={headerStyle}>
+            <Row
+              justify="end"
+              align="middle"
+              style={{
+                marginTop: "10px",
+                display: "flex",
+                justifyContent: "left",
+              }}
+            >
+              <h2 style={{ fontSize: "40px" }}>Model Overview</h2>
+            </Row>
+          </Header>
+          <Layout style={{ background: "#fff" }}>
+            {screens.md ? (
+              <Sider
+                width={300}
+                theme="light"
+                style={{
+                  padding: "20px",
+                  background: "#fff",
+                  borderRight: "1px solid #f0f0f0",
+                }}
+              >
+                {renderSidebar()}
+              </Sider>
+            ) : null}
+            <Content
               style={{
                 padding: "20px",
                 background: "#fff",
-                borderRight: "1px solid #f0f0f0",
+                width: "calc(100% - 300px)",
               }}
             >
-              {renderSidebar()}
-            </Sider>
-          ) : null}
-          <Content style={{ padding: "20px", background: "#fff", width: "calc(100% - 300px)" }}>
-            {!screens.md && (
-              <Button
-                icon={<MenuOutlined />}
-                style={{ marginBottom: 16 }}
-              >
-                Filters
-              </Button>
-            )}
-            <Title level={4}>{filteredCars.length} Cars </Title>
-            <Row gutter={[16, 16]}>
-              {filteredCars.map((car) => (
-                <Col xs={24} sm={12} lg={8} key={car.id}>
-                  {renderCarCard(car)}
-                </Col>
-              ))}
-            </Row>
-            <Row justify="center" style={{ marginTop: 20 }}>
-              <Pagination
-                current={currentPage}
-                total={filteredCars.length}
-                pageSize={itemsPerPage}
-                onChange={handlePageChange}
-                showSizeChanger={false}
-              />
-            </Row>
-          </Content>
+              {!screens.md && (
+                <Button icon={<MenuOutlined />} style={{ marginBottom: 16 }}>
+                  Filters
+                </Button>
+              )}
+              <Title level={4}>{filteredCars.length} Cars </Title>
+              <Row gutter={[16, 16]}>
+                {filteredCars.map((car) => (
+                  <Col xs={24} sm={12} lg={8} key={car.id}>
+                    {renderCarCard(car)}
+                  </Col>
+                ))}
+              </Row>
+              <Row justify="center" style={{ marginTop: 20 }}>
+                <Pagination
+                  current={currentPage}
+                  total={filteredCars.length}
+                  pageSize={itemsPerPage}
+                  onChange={handlePageChange}
+                  showSizeChanger={false}
+                />
+              </Row>
+            </Content>
+          </Layout>
+          {selectedCar && (
+            <CarDetailModal
+              isVisible={isModalVisible}
+              onClose={closeModal}
+              car={selectedCar}
+              mainImage={mainImage}
+              setMainImage={setMainImage} // gui mainimage xuong CarInfoTab
+            />
+          )}
         </Layout>
-        {selectedCar && (
-          <CarDetailModal
-            isVisible={isModalVisible}
-            onClose={closeModal}
-            car={selectedCar}
-            mainImage={mainImage}
-            setMainImage={setMainImage} // gui mainimage xuong CarInfoTab
-          />
-        )}
-        
-      </Layout>
-    </div>
+      </div>
     </div>
   );
 };

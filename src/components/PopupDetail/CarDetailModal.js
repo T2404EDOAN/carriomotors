@@ -40,6 +40,8 @@ const CarDetailModal = ({
       footer={null}
       width={1200}
       // bodyStyle={{ height: "700px" }}
+      style={{ height: "1200px" }}
+      bodyStyle={{ height: "700px" }}
       className={isTechnicalDataVisible ? "blur-background" : ""}
     >
       <Row justify="space-between" align="middle" style={{ marginTop: "30px" }}>
@@ -54,28 +56,22 @@ const CarDetailModal = ({
       </Row>
       <Tabs activeKey={activeTab} onChange={handleTabChange}>
         <TabPane tab="Exterior Colours" key="1">
-          {/* Hiển thị thông tin và hình ảnh trong CarInfoTab */}
           <CarInfoTab
             car={car}
             mainImage={mainImage}
             setMainImage={setMainImage}
-            onDrawerToggle={handleDrawerToggle} // Truyền hàm để điều khiển Drawer
+            onDrawerToggle={handleDrawerToggle}
           />
         </TabPane>
         <TabPane tab="Exterior" key="2">
-          <div>
-            <FinanceInfoTab />
-          </div>
+          <FinanceInfoTab />
         </TabPane>
         <TabPane tab="Finance" key="3">
-          <div>
-            <FinanceInfoTab />
-          </div>
+          <FinanceInfoTab />
         </TabPane>
         <TabPane tab="Location" key="4">
-          <div>
-            <LocationInfoTab />
-          </div>
+          {/* Truyền thông tin location vào LocationInfoTab */}
+          <LocationInfoTab locationData={car?.locations || []} />
         </TabPane>
       </Tabs>
     </Modal>
