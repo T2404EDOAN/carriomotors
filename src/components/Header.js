@@ -3,19 +3,20 @@ import { Link } from "react-router-dom";
 import { Menu, Input, Button, Drawer, Modal } from "antd";
 import {
   SearchOutlined,
-  UserOutlined, // Icon người
+  UserOutlined,
   EnvironmentOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
 import SignInPopup from './SignInPopup'; 
 import '../assets/styles/Header.css'; 
 
+
 const ImprovedHeader = () => {
   const [searchExpanded, setSearchExpanded] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
   const [isSignInPopupVisible, setIsSignInPopupVisible] = useState(false);
-  const [realtimeVisitors, setRealtimeVisitors] = useState(0); // Số lượng người truy cập
+  const [realtimeVisitors, setRealtimeVisitors] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,48 +27,85 @@ const ImprovedHeader = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Gọi API để lấy số lượng người truy cập thời gian thực từ Google Analytics
-  const fetchRealtimeVisitors = async () => {
-    const accessToken = 'ya29.a0AcM612x5KFNvK46JPFgTRemHckVN2ocK0ag8olhzl2ZdwPDrB1emaAq7LO6VwiYdTGR-nZbDBM1AT5YvDSKNnjJT1pO8RHyPDOxYPXrDmNCuNJmnLDE26K7biO4dRD0JWgYvoDjGN_BsY6jwz8H3ttaK2aGLNDs3ILhsn-kgaCgYKAaMSARASFQHGX2Mi7NzPOHgPUvsIW6pOEDyw7w0175'; // Thay thế bằng Access Token hợp lệ của bạn
+  const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const CLIENT_SECRET = process.env.REACT_APP_GOOGLE_CLIENT_SECRET;
+  const REFRESH_TOKEN = process.env.REACT_APP_GOOGLE_REFRESH_TOKEN;
   
+  const fetchAccessToken = async () => {
     try {
-      const response = await fetch(
-        `https://analyticsdata.googleapis.com/v1beta/properties/462778286:runRealtimeReport`, 
+      const response = await fetch('https://oauth2.googleapis.com/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+          refresh_token: REFRESH_TOKEN,
+          grant_type: 'refresh_token',
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.access_token) {
+        console.log('Token mới:', data.access_token);
+        return data.access_token; 
+      } else {
+        console.error('Lỗi khi làm mới token', data);
+      }
+    } catch (error) {
+      console.error('Lỗi khi lấy token mới:', error);
+    }
+  };
+
+  const fetchRealtimeVisitors = async () => {
+    let accessToken = 'ya29.a0AcM612wRNj9vRc6TqEe9nKfUNndGCsHS9awbglytntvpKSEACt5s2NV3k_JfXf6_PgDJlsyDbRA1LaRIl_uj_DHAhH_7oy_7DC8aCHqySik2dFi9RS0MwdBdl-cV8PXp5LAxSuS-e7nhyDT-_l5hJhS1pCFxjovixHFMq6l_aCgYKAVgSARASFQHGX2MizBf1SLyr1ySUVTlOG5RqLA0175';
+
+    const response = await fetch(
+      `https://analyticsdata.googleapis.com/v1beta/properties/462778286:runRealtimeReport`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          metrics: [{ name: "activeUsers" }]
+        }),
+      }
+    );
+
+    if (response.status === 401) {
+      accessToken = await fetchAccessToken();
+      const retryResponse = await fetch(
+        `https://analyticsdata.googleapis.com/v1beta/properties/462778286:runRealtimeReport`,
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${accessToken}`, // Chèn Access Token vào Authorization Header
+            Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            metrics: [{ name: "activeUsers" }] // Lấy số lượng người dùng đang hoạt động
+            metrics: [{ name: "activeUsers" }]
           }),
         }
       );
-  
-      if (!response.ok) {
-        const errorDetail = await response.json();
-        console.error("Error details:", errorDetail);
+    } else {
+      const data = await response.json();
+      console.log("Số người dùng thời gian thực:", data);
+      if (data.rows && data.rows.length > 0) {
+        const activeUsers = data.rows[0].metricValues[0].value;
+        setRealtimeVisitors(activeUsers);
       } else {
-        const data = await response.json();
-        console.log("Realtime visitors:", data);
-        if (data.rows && data.rows.length > 0) {
-          const activeUsers = data.rows[0].metricValues[0].value; // Lấy giá trị activeUsers
-          setRealtimeVisitors(activeUsers); // Cập nhật số lượng người dùng đang truy cập
-        } else {
-          console.log("No active users found");
-        }
+        console.log("Không tìm thấy người dùng đang hoạt động");
       }
-    } catch (error) {
-      console.error("Error fetching realtime visitors:", error);
     }
   };
-  
 
-  // Gọi API mỗi 60 giây
   useEffect(() => {
     fetchRealtimeVisitors();
-    const interval = setInterval(fetchRealtimeVisitors, 60000); 
+    const interval = setInterval(fetchRealtimeVisitors, 30000);
     return () => clearInterval(interval);
   }, []);
 
@@ -116,7 +154,6 @@ const ImprovedHeader = () => {
             <Link to="/">
               <img src="/logo2.png" alt="Logo" className="h-12 md:h-16" />
             </Link>
-           
             <div className="flex items-center ml-4">
               <UserOutlined style={{ fontSize: '20px', marginRight: '5px' }} />
               <span className="text-base">
@@ -148,7 +185,7 @@ const ImprovedHeader = () => {
               type="text"
               icon={<UserOutlined />}
               className="text-base hidden sm:flex"
-              onClick={() => setIsSignInPopupVisible(true)} // Show popup on click
+              onClick={() => setIsSignInPopupVisible(true)}
             />
             {!isLargeScreen && (
               <Button
@@ -168,8 +205,6 @@ const ImprovedHeader = () => {
       >
         {renderMenu("vertical")}
       </Drawer>
-      
-      {/* Render SignInPopup */}
       <Modal
         visible={isSignInPopupVisible}
         onCancel={() => setIsSignInPopupVisible(false)}
