@@ -25,7 +25,7 @@ const CarCategory = () => {
 
   return (
     <div className="car-category">
-      <div className="car-category-header">Car Category</div>
+      <div className="car-category-header">Brand</div>
       <div className="car-grid">
         {loading
           ? Array(4)

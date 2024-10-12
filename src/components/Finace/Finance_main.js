@@ -15,12 +15,21 @@ const Finance_main = () => {
           height: "70px",
           justifyContent: "center",
           fontFamily: "Roboto, sans-serif",
+        
         }}
       >
-        <Tab sx={{ width: "120px" }}>Mercedes -Benz</Tab>
-        <Tab sx={{ width: "120px" }}>BMW</Tab>
-        <Tab sx={{ width: "120px" }}>Audi</Tab>
-        <Tab sx={{ width: "120px" }}>PORSCHE</Tab>
+         <Tab sx={{ width: "150px", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          Mercedes
+        </Tab>
+        <Tab sx={{ width: "150px", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          BMW
+        </Tab>
+        <Tab sx={{ width: "150px", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          Audi
+        </Tab>
+        <Tab sx={{ width: "150px", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          PORSCHE
+        </Tab>
       </TabList>
       <TabPanel value={0} sx={{ fontFamily: "Roboto, sans-serif" }}>
         <FinanceMec />
