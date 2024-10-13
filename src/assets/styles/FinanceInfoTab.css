@@ -21,7 +21,6 @@
 .img-finance img {
   width: 230px;
   height: 230px;
-  border-radius: 10px;
   margin-left: 25px;
   margin-top: 10px;
 }
@@ -39,13 +38,10 @@ ul {
   font-weight: bold;
 }
 .butts {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
   margin-top: 20px;
-}
-.buttt1 {
-  margin-left: 450px;
-}
-.buttt2 {
-  margin-left: 50px;
 }
 @media only screen and (max-width: 1024px) {
   .ata {
@@ -80,13 +76,10 @@ ul {
     max-width: 280px;
   }
   .butts {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
     margin-top: 20px;
-  }
-  .buttt1 {
-    margin-left: 300px;
-  }
-  .buttt2 {
-    margin-left: 50px;
   }
 }
 @media only screen and (max-width: 768px) {

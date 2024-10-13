@@ -84,7 +84,6 @@ const FinanceInfoTab = ({ car }) => {
                 <div className="texr-finance-3">
                   Up to $50/day for rentals during repairs.
                 </div>
-                <li className="dam">Weather Damage</li>
               </ul>
             </div>
             <div className="booxx3">

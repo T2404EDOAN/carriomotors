@@ -286,7 +286,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
           </Select.Option>
         ))}
       </Select>
-      <Title level={4}>Location</Title>
+      {/* <Title level={4}>Location</Title>
       <Select
         showSearch
         style={{
@@ -303,7 +303,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
             {location.name}
           </Select.Option>
         ))}
-      </Select>
+      </Select> */}
       <Title level={4}>Brand</Title>
       <Checkbox.Group
         value={selectedBrands}
