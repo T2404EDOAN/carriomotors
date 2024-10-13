@@ -24,19 +24,23 @@ const FinanceInfoTab = ({ car }) => {
     setSelectedPercentage(percentage);
   };
   const calculatedAmount = installmentAmount * selectedPercentage;
-  const totalInstallmentWithFee = calculatedAmount + 0.01 * calculatedAmount;
-  const totalInstallmentWithFee1 = calculatedAmount + 0.03 * calculatedAmount;
-  const totalInstallmentWithFee2 = calculatedAmount + 0.05 * calculatedAmount;
+  const calculatedAmount1 = (installmentAmount - calculatedAmount) / 12;
+  const calculatedAmount2 = (installmentAmount - calculatedAmount) / 24;
+  const calculatedAmount3 = (installmentAmount - calculatedAmount) / 48;
+  const totalInstallmentWithFee = calculatedAmount1 + 0.01 * calculatedAmount1;
+  const totalInstallmentWithFee1 = calculatedAmount2 + 0.03 * calculatedAmount2;
+  const totalInstallmentWithFee2 = calculatedAmount3 + 0.05 * calculatedAmount3;
 
-  const monthlyInstallment12 = totalInstallmentWithFee / 12;
-  const monthlyInstallment24 = totalInstallmentWithFee1 / 24;
-  const monthlyInstallment48 = totalInstallmentWithFee2 / 48;
+  const monthlyInstallment12 = totalInstallmentWithFee;
+  const monthlyInstallment24 = totalInstallmentWithFee1;
+  const monthlyInstallment48 = totalInstallmentWithFee2;
 
-  const calculateMonthlyDifference = totalInstallmentWithFee - calculatedAmount;
+  const calculateMonthlyDifference =
+    monthlyInstallment12 - (installmentAmount - calculatedAmount) / 12;
   const calculateMonthlyDifference1 =
-    totalInstallmentWithFee1 - calculatedAmount;
+    monthlyInstallment24 - (installmentAmount - calculatedAmount) / 24;
   const calculateMonthlyDifference2 =
-    totalInstallmentWithFee2 - calculatedAmount;
+    monthlyInstallment48 - (installmentAmount - calculatedAmount) / 48;
   return (
     <div>
       {isFinanceTabVisible ? (
