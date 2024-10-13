@@ -338,7 +338,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         <Text>${PriceRange[0]}</Text>
         <Text>${PriceRange[1]}</Text>
       </Row>
-      <Title level={4} style={{ marginTop: "15px" }}>
+      {/* <Title level={4} style={{ marginTop: "15px" }}>
         Color
       </Title>
       <div
@@ -367,7 +367,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
             size={30}
           />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 
