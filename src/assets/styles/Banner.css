@@ -1,9 +1,12 @@
 .hero-section {
   position: relative;
+  max-width: 1928px;
   height: 95vh;
+  margin: 0 auto;
   width: 100%;
   overflow: hidden;
   z-index: 1;
+  
 }
 
 .hero-image {
@@ -27,7 +30,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
 }
 
 /* Thêm style cho phần tiêu đề */
@@ -70,4 +72,55 @@
 .hero-indicator.active {
   background-color: white;
   color: black;
+}
+
+.prev-button,
+.next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 24px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.prev-button {
+  left: 10px;
+}
+
+.next-button {
+  right: 10px;
+}
+
+.prev-button:hover,
+.next-button:hover {
+  background-color: rgba(0, 0, 0, 0.8); 
+}
+
+
+.hero-indicators {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.indicator.active {
+  background-color: white;
 }

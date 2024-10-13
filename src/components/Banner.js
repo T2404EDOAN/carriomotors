@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons"; // Thêm icon từ Ant Design
 import "../assets/styles/Banner.css";
 
 const Banner = ({ images, interval = 5000 }) => {
@@ -16,6 +17,18 @@ const Banner = ({ images, interval = 5000 }) => {
       return () => clearInterval(timer);
     }
   }, [autoSlide, images, interval]);
+
+  const handlePrevClick = () => {
+    setCurrentImage((prevImage) =>
+      prevImage === 0 ? images.length - 1 : prevImage - 1
+    );
+  };
+
+  const handleNextClick = () => {
+    setCurrentImage((prevImage) =>
+      prevImage === images.length - 1 ? 0 : prevImage + 1
+    );
+  };
 
   if (!images || images.length === 0) {
     return (
@@ -39,7 +52,6 @@ const Banner = ({ images, interval = 5000 }) => {
             alt={image.alt}
             className={`hero-image ${index === currentImage ? "active" : ""}`}
           />
-          {/* Chỉ hiển thị title khi hình ảnh hiện tại active */}
           {index === currentImage && (
             <div className="hero-title">
               <h2>{image.alt}</h2>
@@ -47,7 +59,17 @@ const Banner = ({ images, interval = 5000 }) => {
           )}
         </div>
       ))}
+
       <div className="hero-overlay"></div>
+
+      {/* Nút điều khiển chuyển ảnh với Icon */}
+      <button className="prev-button" onClick={handlePrevClick}>
+        <LeftOutlined />
+      </button>
+      <button className="next-button" onClick={handleNextClick}>
+        <RightOutlined />
+      </button>
+
       {images.length > 1 && (
         <div className="hero-indicators">
           {images.map((_, index) => (

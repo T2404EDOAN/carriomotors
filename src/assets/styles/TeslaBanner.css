@@ -1,30 +1,110 @@
-/* TeslaBanner.css */
 .tesla-banner {
-  background-color: #1a1a1a;
-  color: white;
-  padding: 40px;
   position: relative;
-  overflow: hidden;
+  width: 100%;
+  height: auto; /* Chiều cao tự động dựa trên nội dung */
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 40px;
+  font-weight: 500;
 }
 
 .banner-content {
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  position: relative;
-  z-index: 2;
+  padding: 30px 20px;
+  text-align: left;
 }
 
+.image-gallery {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap; /* Để các ảnh xếp chồng khi màn hình nhỏ */
+}
+
+.image-gallery img {
+  width: 25%; /* Mỗi ảnh chiếm 1/4 không gian khi màn hình đủ rộng */
+  height: auto;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.single-image-content {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  text-align: left;
+  height: 300px;
+  margin-bottom: 90px;
+}
+
+.single-image-gallery {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.single-image-gallery img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* Responsive cho màn hình nhỏ hơn (điện thoại và máy tính bảng) */
 @media (max-width: 768px) {
-  .banner-content h1 {
-    font-size: 36px;
+  h2 {
+    font-size: 28px; /* Giảm kích thước chữ cho tiêu đề */
   }
 
-  .features {
-    flex-wrap: wrap;
+  .single-image-content,
+  .banner-content {
+    padding: 20px 10px; /* Giảm padding cho màn hình nhỏ hơn */
   }
 
-  .feature-item {
-    flex-basis: 50%;
-    margin-bottom: 20px;
+  .single-image-gallery img {
+    height: auto; /* Để ảnh tự điều chỉnh chiều cao */
+  }
+
+  .image-gallery {
+    flex-direction: column; /* Ảnh xếp chồng theo cột */
+    align-items: flex-start; /* Canh trái các ảnh */
+  }
+
+  .image-gallery img {
+    width: 100%; /* Mỗi ảnh chiếm toàn bộ chiều rộng màn hình */
+    margin-bottom: 10px; /* Khoảng cách giữa các ảnh */
+  }
+}
+
+/* Responsive cho màn hình trung bình (tablet và laptop nhỏ) */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .image-gallery img {
+    width: 50%; /* Mỗi ảnh chiếm 1/2 chiều rộng màn hình */
+  }
+
+  .single-image-gallery img {
+    height: 200px; /* Điều chỉnh chiều cao ảnh cho phù hợp */
+  }
+
+  .single-image-content {
+    height: 200px; /* Điều chỉnh chiều cao cho phần này */
+  }
+}
+
+/* Responsive cho màn hình lớn (desktop và laptop lớn) */
+@media (min-width: 1200px) {
+  .banner-content,
+  .single-image-content {
+    max-width: 1400px;
   }
 }

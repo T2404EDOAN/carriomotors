@@ -1,4 +1,17 @@
 /* ImprovedHeader.css */
+/* header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  width: 100%;
+  background-color: white;
+}
+.main-content {
+  padding-top: 70px; /* Khoảng trống tương đương chiều cao của header */
+
+
 .ant-menu-item a,
 .ant-menu-submenu-title {
   text-decoration: none !important; /* Không có gạch chân */
@@ -14,9 +27,8 @@
 /* Chỉnh sửa vấn đề ellipsis */
 .ant-menu-item,
 .ant-menu-submenu-title {
-  white-space: nowrap !important; /* Không cho phép xuống dòng */
-  overflow: visible !important; /* Đảm bảo văn bản không bị ẩn */
-  text-overflow: initial !important; /* Không cắt văn bản */
+  flex-shrink: 0; /* Ngăn việc co lại */
+  white-space: nowrap; /* Đảm bảo không xuống dòng */
 }
 
 /* Các thuộc tính khác của input và button */
@@ -48,6 +60,27 @@
 .ant-menu-submenu-title:hover {
   text-decoration: none !important;
 }
+@media (max-width: 1024px) {
+  .ant-menu-horizontal {
+    display: block; /* Hiển thị menu dạng khối khi màn hình nhỏ */
+  }
+
+  .ant-menu-item,
+  .ant-menu-submenu-title {
+    display: block; /* Mỗi item sẽ chiếm toàn bộ chiều rộng */
+  }
+}
+
+@media (min-width: 1024px) {
+  .ant-menu-horizontal {
+    display: flex; /* Flex cho các màn hình lớn */
+  }
+
+  .ant-menu-item,
+  .ant-menu-submenu-title {
+    display: inline-block; /* Dạng inline-block để chúng xếp theo hàng ngang */
+  }
+}
 .all-products {
   width: 100vw; /* 100% of the viewport width */
   position: relative; /* Ensures it doesn't get limited by parent constraints */
@@ -65,3 +98,4 @@
   font-size: 26px;
   padding: 10px 20px;
 }
+

@@ -33,7 +33,7 @@ const ImprovedHeader = () => {
   useEffect(() => {
     const initialTimeout = setTimeout(fetchRealtimeVisitors, 10000);
 
-    // Then, periodically increase the visitor count every 30 seconds
+   
     const interval = setInterval(fetchRealtimeVisitors, 30000);
 
     return () => {
@@ -90,7 +90,7 @@ const ImprovedHeader = () => {
         <div className="flex items-center h-16 px-8">
           <div className="flex-none mr-8 flex items-center">
             <Link to="/">
-              <img src="/logo2.png" alt="Logo" className="h-12 md:h-16" />
+              <img src="/logo2.png" alt="Logo" className="h-13 md:h-16" />
             </Link>
             <div className="flex items-center ml-4">
               <UserOutlined style={{ fontSize: "20px", marginRight: "5px" }} />
