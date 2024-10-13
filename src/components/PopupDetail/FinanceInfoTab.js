@@ -160,7 +160,9 @@ const FinanceInfoTab = ({ car }) => {
             </Button>
             <h2>Installment Information</h2>
           </div>
-          <div className="price-install">Choose the installment amount(%)</div>
+          <div className="price-install">
+            Choose the installment amount (%) :
+          </div>
           <Select
             defaultValue="10%"
             style={{ width: "100%" }}
@@ -174,7 +176,7 @@ const FinanceInfoTab = ({ car }) => {
               { value: "60%", label: "60%" },
             ]}
           />
-          <div className="price-plan">Refer to the installment plan</div>
+          <div className="price-plan">Refer to the installment plan :</div>
           <table className="installment-table">
             <thead>
               <tr>
