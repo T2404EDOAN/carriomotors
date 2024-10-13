@@ -1,33 +1,51 @@
 import React, { useState } from "react";
 import { Button } from "antd";
+import { Select } from "antd";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Insu1 from "../../assets/images/Finance_images/Insu1.jpg";
 import Insu2 from "../../assets/images/Finance_images/Insu2.jpg";
 import Insu3 from "../../assets/images/Finance_images/Insu3.jpg";
 import Insu4 from "../../assets/images/Finance_images/Insu4.jpg";
 import "../../assets/styles/FinanceInfoTab.css";
 
-const FinanceInfoTab = () => {
- 
+const FinanceInfoTab = ({ car }) => {
   const [isFinanceTabVisible, setIsFinanceTabVisible] = useState(true);
-
-  
+  const [installmentAmount, setInstallmentAmount] = useState(car?.price);
+  const [selectedPercentage, setSelectedPercentage] = useState(0.1);
   const handleInstallmentClick = () => {
-    setIsFinanceTabVisible(false); 
+    setIsFinanceTabVisible(false);
   };
-
 
   const handleCloseClick = () => {
-    setIsFinanceTabVisible(true); 
+    setIsFinanceTabVisible(true);
   };
+  const handleChange = (value) => {
+    const percentage = parseFloat(value) / 100;
+    setSelectedPercentage(percentage);
+  };
+  const calculatedAmount = installmentAmount * selectedPercentage;
+  const totalInstallmentWithFee = calculatedAmount + 0.01 * calculatedAmount;
+  const totalInstallmentWithFee1 = calculatedAmount + 0.03 * calculatedAmount;
+  const totalInstallmentWithFee2 = calculatedAmount + 0.05 * calculatedAmount;
 
+  const monthlyInstallment12 = totalInstallmentWithFee / 12;
+  const monthlyInstallment24 = totalInstallmentWithFee1 / 24;
+  const monthlyInstallment48 = totalInstallmentWithFee2 / 48;
+
+  const calculateMonthlyDifference = totalInstallmentWithFee - calculatedAmount;
+  const calculateMonthlyDifference1 =
+    totalInstallmentWithFee1 - calculatedAmount;
+  const calculateMonthlyDifference2 =
+    totalInstallmentWithFee2 - calculatedAmount;
   return (
     <div>
-      
       {isFinanceTabVisible ? (
         <div className="box-finance-tab">
-          <div className="title11111">Carrio Insurance - Protect your Dream</div>
+          <div className="title11111">
+            Carrio Insurance - Protect your Dream
+          </div>
           <div className="ata">
-            <div className="">
+            <div className="booxx1">
               <div className="title-finance">Basic auto damage insurance</div>
               <div className="price-finance">583 USD to 833 USD</div>
               <div className="img-finance">
@@ -37,12 +55,15 @@ const FinanceInfoTab = () => {
                 <li>Vehicle damage (after deductible)</li>
                 <li>Personal injury from collisions</li>
                 <li>
-                  Liability for damage to others' vehicles, property, or injuries
+                  Liability for damage to others' vehicles, property, or
+                  injuries
                 </li>
               </ul>
             </div>
             <div className="booxx2">
-              <div className="title-finance">Extended Vehicle Damage Insurance</div>
+              <div className="title-finance">
+                Extended Vehicle Damage Insurance
+              </div>
               <div className="price-finance">625 USD to 958 USD</div>
               <div className="img-finance">
                 <img src={Insu2} alt="anh2" />
@@ -117,23 +138,93 @@ const FinanceInfoTab = () => {
             <Button
               type="primary"
               className="buttt2"
-              onClick={handleInstallmentClick} 
+              onClick={handleInstallmentClick}
             >
               INSTALLMENT
             </Button>
           </div>
         </div>
       ) : (
-      
         <div className="new-div">
-          <h2>Installment Information</h2>
-          <p>Here you can enter installment details or other relevant information.</p>
-          <Button
-            type="default"
-            onClick={handleCloseClick} 
-          >
-            Close
-          </Button>
+          <div className="bo1">
+            <Button
+              type="default"
+              onClick={handleCloseClick}
+              style={{ border: "none" }}
+            >
+              <ArrowBackIcon />
+            </Button>
+            <h2>Installment Information</h2>
+          </div>
+          <div className="price-install">Choose the installment amount(%)</div>
+          <Select
+            defaultValue="10%"
+            style={{ width: "100%" }}
+            onChange={handleChange}
+            options={[
+              { value: "10%", label: "10%" },
+              { value: "20%", label: "20%" },
+              { value: "30%", label: "30%" },
+              { value: "40%", label: "40%" },
+              { value: "50%", label: "50%" },
+              { value: "60%", label: "60%" },
+            ]}
+          />
+          <div className="price-plan">Refer to the installment plan</div>
+          <table className="installment-table">
+            <thead>
+              <tr>
+                <th>Kỳ hạn</th>
+                <th>12 tháng</th>
+                <th>24 tháng</th>
+                <th>48 tháng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Giá mua trả góp</td>
+                <td>${installmentAmount.toLocaleString()}</td>
+                <td>${installmentAmount.toLocaleString()}</td>
+                <td>${installmentAmount.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td>Tổng giảm giá</td>
+                <td>$0</td>
+                <td>$0</td>
+                <td>$0</td>
+              </tr>
+              <tr>
+                <td>Tổng tiền trả góp</td>
+                <td>${calculatedAmount.toLocaleString()}</td>
+                <td>${calculatedAmount.toLocaleString()}</td>
+                <td>${calculatedAmount.toLocaleString()}</td>
+              </tr>
+              <tr>
+                <td>Thanh toán khi nhận máy</td>
+                <td>0 đ</td>
+                <td>0 đ</td>
+                <td>0 đ</td>
+              </tr>
+              <tr>
+                <td>Góp mỗi tháng</td>
+                <td>
+                  <strong>${monthlyInstallment12.toLocaleString()}</strong>
+                </td>
+                <td>
+                  <strong>${monthlyInstallment24.toLocaleString()}</strong>
+                </td>
+                <td>
+                  <strong>${monthlyInstallment48.toLocaleString()}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Chênh lệch trả tháng</td>
+                <td>${calculateMonthlyDifference.toLocaleString()}</td>
+                <td>${calculateMonthlyDifference1.toLocaleString()}</td>
+                <td>${calculateMonthlyDifference2.toLocaleString()}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       )}
     </div>

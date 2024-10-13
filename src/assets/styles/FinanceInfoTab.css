@@ -124,3 +124,54 @@ ul {
     text-align: center;
   }
 }
+/* nhap */
+.price-install,
+.price-plan {
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.installment-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.installment-header {
+  margin-bottom: 10px;
+}
+
+.installment-header label {
+  font-weight: bold;
+}
+
+.installment-header input {
+  width: 200px;
+  margin-left: 10px;
+}
+
+.installment-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.installment-table th,
+.installment-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.installment-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+.bo1 {
+  display: flex;
+  gap: 450px;
+}
+.bo1 h2 {
+  font-size: 25px;
+  font-weight: bold;
+}

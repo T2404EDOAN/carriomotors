@@ -67,10 +67,9 @@ const CarDetailModal = ({
           <FinanceInfoTab />
         </TabPane>
         <TabPane tab="Finance" key="3">
-          <FinanceInfoTab />
+          <FinanceInfoTab car={car} />
         </TabPane>
         <TabPane tab="Location" key="4">
-          {/* Truyền thông tin location vào LocationInfoTab */}
           <LocationInfoTab locationData={car?.locations || []} />
         </TabPane>
       </Tabs>
