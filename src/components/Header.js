@@ -47,6 +47,7 @@ const ImprovedHeader = () => {
     { key: "vehicles", label: "Vehicles", link: "/vehicles" },
     { key: "services", label: "Services", link: "/services" },
     { key: "finance", label: "Finance", link: "/finance" },
+    { key: "warranty", label: "Warranty", link: "/warranty" },
     {
       key: "aboutus",
       label: "About Us",

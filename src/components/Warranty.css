@@ -1,0 +1,455 @@
+.warranty-page {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+  }
+  
+  .warranty-header {
+    position: relative;
+    background-image: url('./BMW_banner.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    color: white;
+  }
+  
+  .header-text {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+  }
+  
+  .header-text h1 {
+    font-size: 48px;
+    margin: 0;
+  }
+  
+  .header-text p {
+    font-size: 24px;
+    margin: 5px 0 0;
+  }
+  
+  /* Tab Styling */
+  .warranty-tabs {
+    display: flex;
+    justify-content: flex-start;
+    margin: 20px 0;
+    border-bottom: 1px solid #ddd;
+    padding-left: 20px;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .tab.active {
+    font-weight: bold;
+    border-bottom: 3px solid black;
+  }
+  
+  .tab:hover {
+    color: #000;
+  }
+  
+  .warranty-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .warranty-content.alt {
+    flex-direction: row-reverse; /* Reverse the layout for the second section */
+  }
+  
+  .warranty-image {
+    width: 45%;
+    border-radius: 8px;
+  }
+  
+  .warranty-details {
+    width: 50%;
+    padding: 20px;
+  }
+  
+  .warranty-details h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .warranty-details p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  
+  .warranty-details ul {
+    margin-top: 10px;
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .warranty-details ul li {
+    margin-bottom: 10px;
+  }
+  
+  .extended-warranty-label {
+    display: inline-block;
+    background-color: #6b5b95;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  /* Benefits section */
+  .benefits-section {
+    background-color: #f9f9f9;
+    padding: 60px 40px; /* Increase padding for spacing */
+    text-align: left; /* Align text to the left */
+  }
+  
+  .benefits-section h2 {
+    font-size: 36px; /* Increase font size for the heading */
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .benefits-section p {
+    font-size: 18px; /* Adjust the font size for normal text */
+    color: #666;
+    line-height: 1.8; /* Adjust line height for better readability */
+    margin-bottom: 20px;
+  }
+  
+  .benefits-section ul {
+    list-style-type: disc;
+    padding-left: 40px; /* Add padding for indentation */
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 18px; /* Match font size with paragraph */
+  }
+  
+  .benefits-section ul li {
+    margin-bottom: 10px;
+  }
+  
+  /* Warranty content for the second part */
+  .warranty-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+  }
+  
+  .warranty-content.alt {
+    flex-direction: row-reverse;
+  }
+  
+  .warranty-image {
+    width: 45%;
+    border-radius: 8px;
+  }
+  
+  .warranty-details {
+    width: 50%;
+    padding: 20px;
+  }
+  
+  .warranty-details h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .warranty-details p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  .separator-header {
+    background-image: url('./BMW_banner.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    align-items: flex-start; /* Align content to the top */
+    justify-content: flex-start; /* Align content to the left */
+    color: white;
+    position: relative;
+    padding: 40px 20px; /* Add more padding to move the content from the edges */
+  }
+  
+  .header-content {
+    display: block; /* Stack the text vertically */
+    background-color: rgba(0, 0, 0, 0); /* Transparent black background for readability */
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 400px; /* Set a max-width to limit the width of the content */
+  }
+  
+  .separator-header h1 {
+    font-size: 28px; /* Adjust font size */
+    line-height: 1.2; /* Control line spacing for better readability */
+    margin: 0 0 10px 0; /* Margin between the heading and the text */
+    font-weight: bold; /* Ensure text is bold */
+  }
+  
+  .separator-header p {
+    font-size: 18px; /* Adjust the subheading font size */
+    margin-bottom: 20px; /* Space between the text and the button */
+  }
+  
+  .contact-button {
+    padding: 12px 25px;
+    background-color: #6b5b95;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase; /* Make button text uppercase */
+  }
+  
+  .contact-button:hover {
+    background-color: #59427a;
+  }
+  .audi-warranty-header {
+    background-image: url('./BMW_banner.jpg'); /* Placeholder image */
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align content to the right */
+    color: white;
+    padding-right: 50px; /* Add space between the text and the edge */
+  }
+  
+  .audi-warranty-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent black background for readability */
+    padding: 40px;
+    text-align: right; /* Right-align text inside the overlay */
+    color: white;
+    max-width: 400px; /* Limit the width of the text block */
+  }
+  
+  .audi-warranty-overlay h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .audi-warranty-overlay p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .contact-button {
+    padding: 10px 20px;
+    background-color: #6b5b95;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .contact-button:hover {
+    background-color: #59427a;
+  }
+  
+  .audi-warranty-overlay h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .audi-warranty-overlay p {
+    font-size: 18px;
+  }
+  
+  /* Audi Logo */
+  .audi-logo {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+  }
+  
+  .audi-logo img {
+    width: 100px; /* Adjust logo size */
+  }
+  
+  /* Warranty Cards */
+  .warranty-cards {
+    display: flex;
+    flex-direction: column; /* Stack warranty cards vertically */
+    padding: 20px;
+  }
+  
+  .warranty-card {
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-bottom: 40px; /* Add space between each card */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+  }
+  
+  .warranty-card-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .warranty-card-content {
+    padding: 20px;
+  }
+  
+  .warranty-card-content h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .warranty-card-content p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  .learn-more-button {
+    padding: 10px 20px;
+    background-color: #6b5b95;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .learn-more-button:hover {
+    background-color: #59427a;
+  }
+  /* Porsche Approved Warranty Header */
+  .porsche-warranty-header {
+    background-image: url('./BMW_banner.jpg'); /* Placeholder image */
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .porsche-warranty-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    text-align: center;
+    color: white;
+  }
+  
+  .porsche-warranty-overlay h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .porsche-warranty-overlay p {
+    font-size: 18px;
+  }
+  
+  /* Tabs */
+  .warranty-tabs {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .tab:hover {
+    color: #000;
+  }
+  
+  .tab:focus {
+    font-weight: bold;
+    border-bottom: 3px solid black;
+  }
+  
+  /* Content Section */
+  .content-section {
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .content-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .content-section p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  /* Scrollable info cards */
+  .info-cards-scrollable {
+    display: flex;
+    gap: 20px;
+    overflow-x: scroll;
+    padding: 20px 0;
+  }
+  
+  .info-card {
+    flex: 0 0 250px; /* Fixed width for each card */
+    text-align: center;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-right: 20px; /* Space between each card */
+  }
+  
+  .info-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .info-card h3 {
+    font-size: 20px;
+    margin-top: 15px;
+  }
+  
+  .info-card p {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+    line-height: 1.6;
+  }
