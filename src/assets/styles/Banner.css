@@ -6,7 +6,6 @@
   width: 100%;
   overflow: hidden;
   z-index: 1;
-  
 }
 
 .hero-image {
@@ -35,16 +34,18 @@
 /* Thêm style cho phần tiêu đề */
 .hero-title {
   position: absolute;
-  bottom: 200px; /* Thử căn tiêu đề ở trên */
-  left: 20px; /* Căn từ trái */
+  bottom: 550px; /* Thử căn tiêu đề ở trên */
+  left: 90px; /* Căn từ trái */
   color: rgb(255, 255, 255); /* Đổi màu chữ sang màu dễ nhìn hơn */
   z-index: 2;
   font-size: 76px;
   font-weight: bold;
   padding: 10px 20px;
   padding-left: 40px;
+  background-color: rgba(3, 3, 3, 0.5); /* Màu nền với độ trong suốt */
+  width: 550px;
+  height: 250px;
 }
-
 
 /* Style cho các chỉ số của banner */
 .hero-indicators {
@@ -85,7 +86,7 @@
   padding: 10px;
   cursor: pointer;
   z-index: 10;
-  font-size: 24px; 
+  font-size: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,9 +103,8 @@
 
 .prev-button:hover,
 .next-button:hover {
-  background-color: rgba(0, 0, 0, 0.8); 
+  background-color: rgba(0, 0, 0, 0.8);
 }
-
 
 .hero-indicators {
   display: flex;
