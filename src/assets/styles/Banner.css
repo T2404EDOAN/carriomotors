@@ -38,13 +38,15 @@
   left: 90px; /* Căn từ trái */
   color: rgb(255, 255, 255); /* Đổi màu chữ sang màu dễ nhìn hơn */
   z-index: 2;
-  font-size: 76px;
+  font-size: 90px;
   font-weight: bold;
   padding: 10px 20px;
   padding-left: 40px;
   background-color: rgba(3, 3, 3, 0.5); /* Màu nền với độ trong suốt */
   width: 550px;
   height: 250px;
+  justify-items: center;
+  align-items: center;
 }
 
 /* Style cho các chỉ số của banner */

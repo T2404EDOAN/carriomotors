@@ -35,7 +35,7 @@ const Trendvehicls = () => {
     <div className="trend-container">
       <div className="trend-vehicles">
         <div className="trend-vehicles-header">
-          <p>Find a Car near you</p>
+          <p>Drive Your Dream with Carrio Motors</p>
           <div>
             <Button type="primary" shape="round" size={size}>
               View all
