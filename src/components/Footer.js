@@ -17,7 +17,7 @@ const Footer = () => {
       <hr className="footer-divider" />
       <div className="footer-content">
         <div className="footer-section">
-          <h2 className="footer-logo">Build & Find</h2>
+          <h2 className="footer-logo">Home</h2>
           <ul>
             <li>Carrio Motors</li>
             <li>Store system</li>
