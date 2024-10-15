@@ -114,12 +114,7 @@
   position: absolute;
   bottom: 20px;
   right: 20px;
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); /* Optional, to make the icon stand out */
+  background-color: rgba(255, 255, 255, 0.4); /* Optional, to make the icon stand out */
   border-radius: 50%; /* Optional, for rounded icon background */
   display: flex;
   align-items: center;
