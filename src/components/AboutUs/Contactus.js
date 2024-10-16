@@ -1,7 +1,7 @@
 // src/components/ContactUsFull.js
 import React from 'react';
 import './ContactUs.css';
-
+import leftImage from './techsupport.png'; 
 const ContactUsFull = () => {
   return (
     <div className="contact-container">
@@ -12,8 +12,11 @@ const ContactUsFull = () => {
         If you don’t find what you’re looking for, please contact us using one of the methods below.
       </p>
 
-      {/* Hours and Address */}
-      <div className="contact-info">
+      {/* Box with shadow and hover effect */}
+      <div className="contact-box-with-image">
+        <div className="contact-image">
+          <img src={leftImage} alt="BMW" />
+        </div>
         <div className="hours-address">
           <div className="hours">
             <h3>Hours of Operation</h3>

@@ -13,7 +13,7 @@ const Audi_main = () => {
     return (<div className="audi-container">
         {/* Intro Section */}
         <section className="intro-section">
-          <h2>Keep your Audi performing like an Audi.</h2>
+          <h3>Keep your Audi performing like an Audi.</h3>
           <p>
             Quality service starts with our factory-trained Audi technicians who use the latest
             diagnostic equipment and Genuine Audi Parts to keep your vehicle in-tune. Learn more
@@ -76,9 +76,6 @@ const Audi_main = () => {
         {/* Keep Your Car in Top Form Section */}
         <section className="additional-support">
           <h3>Keep your car in top form.</h3>
-          <div className="Spacer">
-            <h3> .</h3>
-          </div>
           <div className="support-campaigns">
             <div className="campaign">
               <img src={anh6} alt="Recalls & Campaigns" />

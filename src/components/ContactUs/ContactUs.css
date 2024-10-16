@@ -45,8 +45,15 @@
     padding: 20px;
     border-radius: 8px;
     text-align: left;
-  }
-  
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adding shadow */
+}
+
+.contact-box:hover {
+    transform: scale(1.05); /* Expanding effect */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+}
+
   .contact-box p {
     margin-bottom: 10px;
   }
@@ -80,4 +87,35 @@
     color: #004ba0;
     font-weight: bold;
   }
-  
+  /* Box with shadow and hover effect */
+.contact-box-with-image {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px; /* Space between the image and content */
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-box-with-image:hover {
+  transform: scale(1.03);  /* Slightly enlarge on hover */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);  /* Increased shadow on hover */
+}
+
+.contact-image img {
+  max-width: 200px;  /* Set a max-width for the image */
+  height: auto;
+  border-radius: 8px; /* Optional: Add rounded corners */
+}
+
+.hours-address {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.hours, .address {
+  width: 48%;
+}

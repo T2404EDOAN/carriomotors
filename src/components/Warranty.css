@@ -1,11 +1,12 @@
 .warranty-page {
-    font-family: Arial, sans-serif;
     background-color: #f9f9f9;
+    max-width: 1400px;
+    padding: 50px;
   }
   
   .warranty-header {
     position: relative;
-    background-image: url('./BMW_banner.jpg');
+    background-image: url('../assets/images/Warranty/Merc_banner.avif');
     background-size: cover;
     background-position: center;
     height: 400px;
@@ -19,16 +20,19 @@
     position: absolute;
     bottom: 20px;
     left: 20px;
+    color:white;
   }
   
   .header-text h1 {
     font-size: 48px;
     margin: 0;
+    color:white;
   }
   
   .header-text p {
     font-size: 24px;
     margin: 5px 0 0;
+    color:white;
   }
   
   /* Tab Styling */
@@ -73,8 +77,11 @@
   }
   
   .warranty-image {
-    width: 45%;
+    /*width: 45%;*/
     border-radius: 8px;
+    width: 200px;
+    height: 500px;
+    object-fit:cover;
   }
   
   .warranty-details {
@@ -215,6 +222,7 @@
   .separator-header p {
     font-size: 18px; /* Adjust the subheading font size */
     margin-bottom: 20px; /* Space between the text and the button */
+    color: white;
   }
   
   .contact-button {

@@ -21,15 +21,43 @@
 /* Service Details */
 .service-details {
   display: flex;
-  flex-direction: row; /* Ensure row layout for desktop */
-  align-items: center;
-  justify-content: space-between; /* Space between image and text */
+  flex-direction: row; /* Keep row layout for desktop */
+  align-items: top;
+  justify-content: space-between;
   margin-bottom: 40px;
   flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  background-color: #f9f9f993; /* Background color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.support-option, .campaign {
+  text-align: center;
+  background: linear-gradient(135deg, #f9f9f9, #e0e0e0);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  border: 1px solid #ddd;
+}
+
+ .support-option img, .campaign img {
+  margin-bottom: 15px;
+}
+
+ .support-option:hover, .campaign:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.plan p, .support-option p, .campaign p {
+  margin-top: 10px;
 }
 
 .service-image {
-  max-width: 35vw;
+  max-width: 15vw;
   flex: 1; /* Image will take up available space */
   margin-right: 30px;
 }
@@ -52,7 +80,28 @@
   text-align: center;
   margin-bottom: 40px;
 }
+.service-plans h3 {
+  font-size: 2vw; /* Increased font size */
+  font-weight: 700; /* Bolder font weight */
+  color: #000; /* Solid black color */
+  text-transform: uppercase; /* Uppercase for emphasis */
+  letter-spacing: 1px; /* Adds spacing between letters */
+  position: relative; /* For positioning the underline effect */
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
 
+.service-plans h3::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #004ba0; /* Same underline color */
+  border-radius: 2px;
+}
 .plans {
   display: flex;
   flex-wrap: wrap;
@@ -66,8 +115,9 @@
 }
 
 .plan img {
-  max-width: 5vw;
+  max-width: 10vw;
   margin-bottom: 10px;
+  margin-left: 20px;
 }
 
 /* Customer Support */
@@ -76,7 +126,29 @@
   margin-bottom: 40px;
   font-size: 1.5vw;
 }
+.customer-support h3 {
+  font-size: 2vw; /* Increased font size */
+  font-weight: 700; /* Bolder font weight */
+  color: #000; /* Solid black color */
+  text-transform: uppercase; /* Makes the text all uppercase for emphasis */
+  letter-spacing: 1px; /* Adds some spacing between the letters */
+  position: relative; /* For positioning the underline effect */
+  margin-bottom: 20px; /* Adds some space below the heading */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
 
+/* Underline effect */
+.customer-support h3::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px; /* Adjust the position of the line */
+  transform: translateX(-50%);
+  width: 80px; /* Width of the underline */
+  height: 3px; /* Thickness of the underline */
+  background-color: #004ba0; /* Underline color */
+  border-radius: 2px; /* Slight rounding for smoother line */
+}
 .support-options {
   display: flex;
   flex-wrap: wrap;
@@ -87,6 +159,16 @@
   text-align: center;
   max-width: 300px;
   margin: 10px;
+  background-color: #f9f9f9; /* Background color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.support-option:hover {
+  transform: scale(1.03); /* Slight enlargement on hover */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
 }
 
 .support-option img {
@@ -100,7 +182,29 @@
   margin-bottom: 40px;
   font-size: 1.5vw;
 }
+/* Styling for Keep Your Car in Top Form heading */
+.additional-support h3 {
+  font-size: 2vw; /* Increased font size */
+  font-weight: 700; /* Bolder font weight */
+  color: #000; /* Solid black color */
+  text-transform: uppercase; /* Uppercase for emphasis */
+  letter-spacing: 1px;
+  position: relative;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
 
+.additional-support h3::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #004ba0;
+  border-radius: 2px;
+}
 .support-campaigns {
   display: flex;
   flex-wrap: wrap;
@@ -111,6 +215,16 @@
   text-align: center;
   max-width: 300px;
   margin: 10px;
+  background-color: #f9f9f9; /* Background color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.campaign:hover {
+  transform: scale(1.03); /* Slight enlargement on hover */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
 }
 
 .campaign img {
@@ -127,16 +241,36 @@ a {
 a:hover {
   text-decoration: underline;
 }
+.intro-section h3 {
+  font-size: 2vw; /* Increased font size */
+  font-weight: 700; /* Bolder font weight */
+  color: #000; /* Solid black color */
+  text-transform: uppercase; /* Uppercase for emphasis */
+  letter-spacing: 1px; /* Adds spacing between letters */
+  position: relative; /* For positioning the underline effect */
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
 
+.intro-section h3::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px; /* Adjust the position of the underline */
+  transform: translateX(-50%);
+  width: 100px; /* Width of the underline */
+  height: 4px; /* Thickness of the underline */
+  background-color: #004ba0; /* Underline color */
+  border-radius: 2px; /* Slight rounding for smoother line */
+}
+
+.intro-section p {
+  font-size: 1.5vw;
+}
 /* Responsive Breakpoints */
-@media (max-width: 1024px) {
-  .intro-section h2 {
-      font-size: 5vw;
-  }
+@media (max-width: 1400px) {
+  
 
-  .intro-section p {
-      font-size: 2vw;
-  }
 
   .service-details {
     flex-direction: column; /* Stack items in a column for smaller screens */

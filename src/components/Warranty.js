@@ -1,6 +1,10 @@
 // src/components/WarrantyPage.js
 import React, { useState } from 'react';
 import './Warranty.css';
+import warranty1 from '../assets/images/Warranty/Merc1.jpg';
+import warranty2 from '../assets/images/Warranty/Merc2.jpg';
+import warranty3 from '../assets/images/Warranty/Merc3.jpg';
+import bmwlogo from '../assets/images/Warranty/bmwlogo.png';
 
 const Warranty = () => {
   // State to track the active tab
@@ -47,7 +51,7 @@ const Warranty = () => {
       {activeTab === 'manufacturer' && (
         <>
           <div className="warranty-content">
-            <img src="./assets/images/Bmv_images/1.jpg" alt="Placeholder" className="warranty-image" />
+            <img src={warranty1} alt="Warranty1" className="warranty-image" />
             <div className="warranty-details">
               <h2>On the safe side from the outset.</h2>
               <p>
@@ -64,6 +68,7 @@ const Warranty = () => {
           </div>
 
           <div className="warranty-content alt">
+          <img src={warranty2} alt="warranty_alt" className="warranty-image right-aligned" />
             <div className="warranty-details">
               <span className="extended-warranty-label">Extended Warranty Program</span>
               <h2>Worry-free to enjoy the ride.</h2>
@@ -79,11 +84,11 @@ const Warranty = () => {
                 <li>Exclusive privileges such as 24-hour Star Assist (RSA) and more.</li>
               </ul>
             </div>
-            <img src="./assets/images/Bmv_images/1.jpg" alt="Placeholder" className="warranty-image right-aligned" />
+            
           </div>
 
           <div className="warranty-content">
-            <img src="./assets/images/Bmv_images/1.jpg" alt="Placeholder" className="warranty-image" />
+            <img src={warranty3} alt="wearingtrace" className="warranty-image" />
             <div className="warranty-details">
               <h2>Combat the traces of everyday wear.</h2>
               <p>
@@ -143,11 +148,10 @@ const Warranty = () => {
           </div>
         </>
       )}
-       {/* First part is done. Now let's work on the second part. */}
       {/* Separator Header Section */}
       <div className="separator-header">
         <div className="header-content">
-          <img src="./assets/images/Bmv_images/1.jpg" alt="BMW Logo" className="header-logo" />
+          <img src={bmwlogo} alt="BMW Logo" style={{ width: '100px', height: '100px' }} className="header-logo" />
           <h1>“I’M EQUIPPED FOR EVERYTHING. EVEN THE UNEXPECTED”</h1>
           <p>BMW Warranty</p>
           <button className="contact-button">CONTACT US</button>
