@@ -4,6 +4,7 @@ import { RiseOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "../assets/styles/CarCategory.css";
 import CarDetailModal from "./PopupDetail/CarDetailModal";
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 const CarCategory = () => {
   const [products, setProducts] = useState([]);
@@ -70,7 +71,7 @@ const CarCard = ({ imageSrc, carName, index, onClick }) => {
       <div className="car-card-image-container">
         <img src={imageSrc} alt={carName} />
         <div className="icon-container">
-          <RiseOutlined style={{ fontSize: "34px", color: "#fff" }} />
+          <ArrowOutwardIcon style={{ fontSize: "34px", color: "#fff" }} />
         </div>
       </div>
       <div className="car-card-content">

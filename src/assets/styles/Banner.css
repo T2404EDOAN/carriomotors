@@ -29,23 +29,28 @@
   left: 0;
   right: 0;
   bottom: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  z-index: 1; /* Đảm bảo lớp phủ này nằm dưới phần chữ nhưng trên ảnh */
 }
 
 /* Thêm style cho phần tiêu đề */
 .hero-title {
   position: absolute;
-  bottom: 550px; /* Thử căn tiêu đề ở trên */
-  left: 90px; /* Căn từ trái */
-  color: rgb(255, 255, 255); /* Đổi màu chữ sang màu dễ nhìn hơn */
-  z-index: 2;
-  font-size: 76px;
+  bottom: 450px;
+  left: 90px;
+  color: rgb(255, 255, 255);
+  z-index: 2; /* Giữ nguyên hoặc đảm bảo giá trị lớn hơn 1 */
+  font-size: 90px;
   font-weight: bold;
   padding: 10px 20px;
   padding-left: 40px;
-  background-color: rgba(3, 3, 3, 0.5); /* Màu nền với độ trong suốt */
+  
   width: 550px;
   height: 250px;
+  justify-items: center;
+  align-items: center;
 }
+
 
 /* Style cho các chỉ số của banner */
 .hero-indicators {

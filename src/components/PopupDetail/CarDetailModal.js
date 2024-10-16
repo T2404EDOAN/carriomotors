@@ -46,7 +46,7 @@ const CarDetailModal = ({
     >
       <Row justify="space-between" align="middle" style={{ marginTop: "30px" }}>
         <Col>
-          <Title level={4}>{car?.car_model_name}</Title>
+          <Title level={4}>{`${car.car_model_name}  ${car.series_name}`}</Title>
         </Col>
         <Col>
           <Text strong style={{ fontSize: "18px" }}>

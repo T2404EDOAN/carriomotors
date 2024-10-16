@@ -87,6 +87,11 @@ function AppLayout() {
     }
   }, []);
 
+  // Cuộn về đầu trang mỗi khi thay đổi đường dẫn (URL)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]); // Mỗi khi URL thay đổi, useEffect này sẽ được kích hoạt
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -110,12 +115,11 @@ function AppLayout() {
     navigate(path);
   };
 
-  const isHomePage = location.pathname === "/"; // Check if it’s the home page
+  const isHomePage = location.pathname === "/"; // Kiểm tra xem đây có phải là trang chủ không
 
   return (
     <div className="app-container" style={{ paddingTop: "70px" }}>
-      {" "}
-      {/* Adjust padding-top */}
+      {/* Hiển thị loading */}
       {isLoading && (
         <div
           style={{
@@ -135,7 +139,7 @@ function AppLayout() {
         </div>
       )}
       <Header onNavigate={handleRouteChange} />
-      {/* Show Banner only on the home page */}
+      {/* Chỉ hiển thị Banner trên trang chủ */}
       {isHomePage && !isLoading && (
         <Banner images={bannerImages} autoSlide={isHomePage} />
       )}
@@ -153,13 +157,13 @@ function AppLayout() {
                 <Route path="/vehicles" element={<Vehicles />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/services" element={<Services />} />
-                <Route path="/warranty" element= {<Warranty/>}/>
+                <Route path="/warranty" element={<Warranty />} />
                 <Route path="/finance" element={<Finance />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/about/company" element={<CompanyPage />} />
                 <Route path="/about/careers" element={<Careers />} />
                 <Route path="/about/location" element={<Location />} />
-                <Route path="//about/contact" element={<ContactUsFull />} />
+                <Route path="/about/contact" element={<ContactUsFull />} />
               </Routes>
             </div>
           </CSSTransition>
@@ -169,5 +173,4 @@ function AppLayout() {
     </div>
   );
 }
-
 export default App;

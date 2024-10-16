@@ -427,7 +427,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
             textOverflow: "ellipsis",
           }}
         >
-          {car.car_model_name}
+          {`${car.car_model_name}  ${car.series_name}`}
         </Title>
       </div>
       <Row justify="space-between" align="middle" style={{ height: "24px" }}>
