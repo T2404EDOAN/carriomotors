@@ -1,89 +1,86 @@
-import React from "react";
-import { Row, Col, Card, Image, Input, Button } from "antd";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import audi from "../../assets/images/Location_images/audi.jpg";
-import "../../assets/styles/Location.css";
+import React, { useState } from "react";
+import { Row, Col, Card, Image } from "antd";
 
-const LocationInfoTab = ({ locationData }) => {
+const LocationInfoTab = ({ locationData, onSelectLocation }) => {
   if (!locationData || locationData.length === 0) {
     return <p>Không có thông tin địa điểm.</p>;
   }
 
   return (
-    <Row gutter={[330, 330]} justify="start" style={{ marginLeft: "-143px" }}>
+    <Row gutter={[16, 16]} justify="start">
       {locationData.map((location, index) => (
-        <Col xs={24} sm={12} md={8} lg={6} key={index}>
+        <Col xs={24} sm={12} md={24} lg={12} key={index}>
           <Card
             hoverable
-            cover={
+            bordered={false}
+            style={{
+              textAlign: "left",
+              height: "100%",
+              width: "100%", // Chiều rộng full của div cha
+              border: "1px solid rgba(0, 0, 0, 0.1)", // Viền mờ nhạt
+              boxShadow: "none", // Không đổ bóng mặc định
+              transition: "transform 0.3s, box-shadow 0.3s",
+              borderRadius: "0",
+            }}
+            bodyStyle={{
+              padding: "0px",
+              display: "flex",
+              flexDirection: "column",
+              borderRadius: "0",
+            }}
+            onClick={() => onSelectLocation(location)}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)"; // Đổ bóng khi hover
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = "none"; // Không đổ bóng khi không hover
+            }}
+          >
+            {/* Phần logo riêng */}
+            <div
+              style={{
+                width: "100%",
+                textAlign: "center",
+                marginBottom: "10px",
+                borderBottom: "1px solid rgba(0, 0, 0, 0.1)", // Mỏng và mờ hơn
+                paddingBottom: "10px", // Tạo khoảng cách giữa logo và viền dưới
+              }}
+            >
               <Image
-                src="/src/bmwlogo.jpg" // Thay logo hoặc hình ảnh tương ứng
+                src="/src/bmwlogo.jpg"
                 alt="BMW Logo"
                 preview={false}
                 style={{
-                  width: "300px",
+                  width: "150px", // Kích thước logo
                   height: "150px",
                   objectFit: "contain",
+                  borderRadius: "0",
                 }}
               />
-            }
-            bordered={false}
-            style={{
-              textAlign: "center",
-              height: "100%",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-              width: "300px", // Điều chỉnh width phù hợp với layout mới
-              transition: "transform 0.3s, box-shadow 0.3s",
-            }}
-            bodyStyle={{
-              padding: "10px",
-              width: "300px", // Điều chỉnh width phù hợp với layout mới
-              overflow: "hidden",
-              display: "flex",
-              flexDirection: "column",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.05)";
-              e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            }}
-          >
+            </div>
+
+            {/* Phần thông tin */}
             <div
               style={{
                 padding: "10px",
-                backgroundColor: "#f9f9f9",
-                borderRadius: "8px",
               }}
             >
               <h3>{location.LocationName}</h3>
-              <p>
-                {location.Address ? location.Address : "Địa chỉ không có sẵn"}
-              </p>
+              <p>{location.Address || "Địa chỉ không có sẵn"}</p>
+              {/* Thêm viền trên số điện thoại, không full chiều rộng */}
               <p
                 style={{
                   fontWeight: "bold",
                   fontSize: "16px",
                   marginBottom: "8px",
+                  borderTop: "1px solid rgba(0, 0, 0, 0.1)", // Thêm viền trên
+                  width: "90%", // Chỉ chiếm 50% chiều rộng
+                  margin: "10px auto 0", // Căn giữa
+                  paddingTop: "10px", // Khoảng cách giữa viền và nội dung
                 }}
               >
-                {location.Telephone
-                  ? location.Telephone
-                  : "Số điện thoại không có sẵn"}
+                {location.Telephone || "Số điện thoại không có sẵn"}
               </p>
-              {location.iframe_link && (
-                <iframe
-                  src={location.iframe_link}
-                  width="100%"
-                  height="200"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  title="Map"
-                ></iframe>
-              )}
             </div>
           </Card>
         </Col>
@@ -92,61 +89,71 @@ const LocationInfoTab = ({ locationData }) => {
   );
 };
 
-const OtherContent = () => {
+const GoogleMap = ({ iframeLink }) => {
+  if (!iframeLink) {
+    return <p>Không có bản đồ cho địa điểm này.</p>;
+  }
+
+  // Kiểm tra và xử lý iframe_link
+  const sanitizedIframeLink = iframeLink.startsWith("<iframe")
+    ? new DOMParser()
+        .parseFromString(iframeLink, "text/html")
+        .querySelector("iframe")?.src
+    : iframeLink;
+
+  if (!sanitizedIframeLink) {
+    return <p>Liên kết bản đồ không hợp lệ.</p>;
+  }
+
   return (
-    <div>
-      {/* <div className="boxx1">
-        <LocationOnIcon
-          style={{
-            fontSize: "48px",
-            color: "#555",
-            width: "32px",
-            borderRadius: "45%",
-          }}
-        />
-        <div className="anhson">CHOOSE YOUR LOCAL LOCATION CARRIO CENTER</div>
-      </div>
-      <div className="boxx2">
-        <img src={audi} alt="audi" />
-      </div>
-      <div className="boxx3">
-        <div>SEARCH BY VEHICLE</div>
-        <Input placeholder="e.g. Audi of Anytown" />
-        <div>OR</div>
-        <div>SEARCH BY LOCATION</div>
-        <Input placeholder="ZIP or City/State" />
-      </div>
-      <div className="boxx4">
-        <Button type="primary">SEARCH</Button>
-      </div> */}
+    <div style={{ width: "100%", height: "500px", marginTop: "20px" }}>
+      <iframe
+        src={sanitizedIframeLink}
+        width="100%"
+        height="100%"
+        style={{ border: 0 }}
+        allowFullScreen=""
+        loading="lazy"
+        title="Google Map"
+      ></iframe>
     </div>
   );
 };
 
 const MainLayout = ({ locationData }) => {
-  return (
-    <Row gutter={5}>
-      {/* Phần chiếm 60% */}
-      <Col xs={24} md={14}>
-        <LocationInfoTab locationData={locationData} />
-      </Col>
+  const [selectedLocation, setSelectedLocation] = useState(null);
 
-      {/* Đường kẻ ngăn cách */}
-      <Col xs={0} md={1}>
-        <div
-          style={{
-            height: "600px",
-            width: "1px",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            backgroundColor: "#ccc", // Màu sắc của đường kẻ
-            margin: "0 auto",
-          }}
+  const handleSelectLocation = (location) => {
+    setSelectedLocation(location);
+  };
+
+  return (
+    <Row gutter={16}>
+      <Col xs={24} md={12}>
+        <LocationInfoTab
+          locationData={locationData}
+          onSelectLocation={handleSelectLocation}
         />
       </Col>
-
-      {/* Phần chiếm 45% */}
-      <Col xs={24} md={8}>
-        <OtherContent />
+      <Col xs={24} md={12}>
+        {selectedLocation ? (
+          <GoogleMap iframeLink={selectedLocation.iframe_link} />
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              height: "500px",
+              backgroundColor: "#f0f2f5",
+            }}
+          >
+            <p style={{ fontSize: "18px", color: "#8c8c8c" }}>
+              Vui lòng chọn một địa điểm để xem bản đồ
+            </p>
+          </div>
+        )}
       </Col>
     </Row>
   );

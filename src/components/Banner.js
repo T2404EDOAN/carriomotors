@@ -54,7 +54,7 @@ const Banner = ({ images, interval = 5000 }) => {
           />
           {index === currentImage && (
             <div className="hero-title">
-              <h2>{image.alt}</h2>
+              <h2 style={{ fontSize: "50px" }}>{image.alt}</h2>
             </div>
           )}
         </div>
