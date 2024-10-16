@@ -17,6 +17,8 @@ import Careers from "./components/AboutUs/Careers";
 import Location from "./components/AboutUs/Location";
 import Finance from "./components/Finace/Finance_main";
 import Admin from "./components/Admin";
+import ContactUsFull from "./components/AboutUs/Contactus";
+import Warranty from "./components/Warranty";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -151,11 +153,13 @@ function AppLayout() {
                 <Route path="/vehicles" element={<Vehicles />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/services" element={<Services />} />
+                <Route path="/warranty" element={<Warranty />} />
                 <Route path="/finance" element={<Finance />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/about/company" element={<CompanyPage />} />
                 <Route path="/about/careers" element={<Careers />} />
                 <Route path="/about/location" element={<Location />} />
+                <Route path="//about/contact" element={<ContactUsFull />} />
               </Routes>
             </div>
           </CSSTransition>
