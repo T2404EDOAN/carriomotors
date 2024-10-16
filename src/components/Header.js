@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Input, Button, Drawer, Modal } from "antd";
+
 import {
   SearchOutlined,
   UserOutlined,
@@ -47,6 +48,7 @@ const ImprovedHeader = () => {
     { key: "vehicles", label: "Vehicles", link: "/vehicles" },
     { key: "services", label: "Services", link: "/services" },
     { key: "finance", label: "Finance", link: "/finance" },
+    { key: "warranty", label: "Warranty", link: "/warranty" },
     {
       key: "aboutus",
       label: "About Us",
@@ -65,6 +67,7 @@ const ImprovedHeader = () => {
       className={`border-0 bg-transparent ${
         mode === "vertical" ? "w-full" : ""
       }`}
+      style={{ width: "500px" }}
     >
       {menuItems.map((item) =>
         item.children ? (
@@ -97,7 +100,7 @@ const ImprovedHeader = () => {
               <span className="text-base">{realtimeVisitors}</span>
             </div>
           </div>
-          <div className="flex-grow flex justify-center">
+          <div className="flex-grow flex justify-center" >
             {isLargeScreen && renderMenu()}
           </div>
           <div className="flex-none flex items-center space-x-4">
