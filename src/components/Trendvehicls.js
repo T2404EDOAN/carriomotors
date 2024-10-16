@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../assets/styles/Trendvehicls.css";
 import axios from "axios";
-import { Button } from "antd";  // Dùng Ant Design
-import * as icons from "@ant-design/icons";  // Dùng biểu tượng từ Ant Design
+import { Button, Divider, Radio } from "antd"; // Ensure 'antd' is installed
+import * as icons from "@ant-design/icons";
 const Trendvehicls = () => {
   const [size, setSize] = useState("large");
-  const { ArrowRightOutlined, LeftOutlined, RightOutlined } = icons;
+  const { ArrowRightOutlined } = icons;
   const [products, setProducts] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0); // Theo dõi vị trí hiện tại
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -15,6 +14,7 @@ const Trendvehicls = () => {
     axios
       .get("https://carriomotors.io.vn/api/get_vehicle.php")
       .then((response) => {
+        console.log(response.data);
         setProducts(response.data);
         setLoading(false);
       })
@@ -32,25 +32,11 @@ const Trendvehicls = () => {
     return <p>Error loading products: {error}</p>;
   }
 
-  // Hàm điều khiển di chuyển sang phải
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex + 4 < products.length ? prevIndex + 4 : 0
-    );
-  };
-
-  // Hàm điều khiển di chuyển sang trái
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? Math.max(products.length - 4, 0) : prevIndex - 4
-    );
-  };
-
   return (
     <div className="trend-container">
       <div className="trend-vehicles">
         <div className="trend-vehicles-header">
-          <h2>Drive Your Dream with Carrio Motors</h2>
+        <h2>Drive Your Dream with Carrio Motors</h2>
           <div>
             <Button type="primary" shape="round" size={size}>
               View all
@@ -59,45 +45,23 @@ const Trendvehicls = () => {
           </div>
         </div>
 
-        {/* Khu vực điều hướng */}
-        <div className="trend-vehicles-navigation">
-          {/* Nút điều hướng trái */}
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<LeftOutlined />}
-            onClick={prevSlide}
-            size="large"
-            className="trend-navigation-button trend-navigation-left"
-          />
+        <div className="trend-vehicles-grid">
+        {products.slice(1, 5).map((product, index) => (
+  <TrendVehicleCard
+    key={product.id}
+    imageSrc={product.main_img}
+    vehicleName={`${product.brand_name} ${product.car_model_name}`}  // Kết hợp brand name và model name
+    price={product.price}
+    isOdd={index % 2 === 0}
+  />
+))}
 
-          {/* Khu vực hiển thị sản phẩm */}
-          <div className="trend-vehicles-grid">
-            {products.slice(currentIndex, currentIndex + 4).map((product, index) => (
-              <TrendVehicleCard
-                key={product.id}
-                imageSrc={product.main_img}
-                vehicleName={product.car_model_name}
-                price={product.price}
-                isOdd={index % 2 === 0}
-              />
-            ))}
-          </div>
-
-          {/* Nút điều hướng phải */}
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<RightOutlined />}
-            onClick={nextSlide}
-            size="large"
-            className="trend-navigation-button trend-navigation-right"
-          />
         </div>
       </div>
     </div>
   );
 };
+
 
 const TrendVehicleCard = ({ imageSrc, vehicleName, price, isOdd }) => {
   const formattedPrice = new Intl.NumberFormat("en-US", {
@@ -109,11 +73,12 @@ const TrendVehicleCard = ({ imageSrc, vehicleName, price, isOdd }) => {
 
   return (
     <div className="trend-vehicle-card">
+      <img src={imageSrc} alt={vehicleName} />
       <div
         className="trend-vehicle-card-content"
         style={{ color: isOdd ? "#fff" : "#000" }}
       >
-        <h2>{vehicleName}</h2>
+        <h3>{vehicleName}</h3> {/* Hiển thị tên brand và model */}
       </div>
       <img src={imageSrc} alt={vehicleName} />
       <div className="trend-vehicle-footer">
@@ -132,5 +97,6 @@ const TrendVehicleCard = ({ imageSrc, vehicleName, price, isOdd }) => {
     </div>
   );
 };
+
 
 export default Trendvehicls;
