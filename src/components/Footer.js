@@ -17,40 +17,45 @@ const Footer = () => {
       <hr className="footer-divider" />
       <div className="footer-content">
         <div className="footer-section">
-          <h2 className="footer-logo">Home</h2>
+          <h2 className="footer-logo">Models</h2>
           <ul>
-            <li>Carrio Motors</li>
-            <li>Store system</li>
-            <li>Contact</li>
+            <li>Mecedes-Benz</li>
+            <li>BMW</li>
+            <li>Audi</li>
+            <li>Porsche</li>
           </ul>
           <p className="newsletter-text">Subscribe to the newsletter</p>
         </div>
 
         <div className="footer-section">
-          <h2 className="footer-logo">Online Services</h2>
+          <h2 className="footer-logo">Finance sevices</h2>
           <ul>
-            <li>Carrio Motors</li>
-            <li>Store system</li>
-            <li>Contact</li>
+            <li>Mercedes-Benz Finance Service</li>
+            <li>BMW Finance Service</li>
+            <li>Audi Finance Service</li>
+            <li>Porsche Finance Service</li>
+            <li>Carrio Insurance</li>
+            <li>Installment Policy</li>
           </ul>
         </div>
 
         <div className="footer-section">
-          <h2 className="footer-logo">Behind the Scenes</h2>
+          <h2 className="footer-logo">Service Intentives & Warranty Manual</h2>
           <ul>
-            <li>Warranty policy</li>
-            <li>Finance policy</li>
+            <li>Mercedes-Benz Service Incentives</li>
+            <li>BMW Service Incentives</li>
+            <li>Audi Service Incentives</li>
+            <li>Porsche Service Incentives</li>
+            <li>Warranty Policies of manufacturers</li>
           </ul>
         </div>
 
         <div className="footer-section">
-          <h2 className="footer-logo">Porsche Company</h2>
+          <h2 className="footer-logo">Discover Carrio Motors</h2>
           <ul>
-            <li>Facebook</li>
-            <li>Zalo</li>
-            <li>Email</li>
-            <li>Youtube</li>
-            <li>Tiktok</li>
+            <li>Our Values</li>
+            <li>Our System</li>
+            <li>Contact us</li>
           </ul>
 
           {/* Nút chia sẻ trang */}

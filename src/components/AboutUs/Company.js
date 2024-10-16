@@ -32,9 +32,9 @@ const CompanyPage = () => {
         </div>
         <div className="title-company2">
           Embodying the ideal blend of luxury, technology, and power,
-          Carriomotors delivers a thrilling, sustainably designed all-electric
-          line-up – including pioneering SUVs, stylish Gran Coupes, <br />
-          and ultra-luxurious Sedans.
+          Carrio Motors delivers a thrilling, sustainably designed
+          line-up – including pioneering BMW X7, stylish Merc C300, <br />
+          and ultra-luxurious Porsche Panamera.
         </div>
       </div>
       <div className="box2-company">
@@ -70,7 +70,7 @@ const CompanyPage = () => {
             <img src={mec2} alt="anha1" className="a" />
           </div>
           <div className="list-company-text">
-            <div className="list-company-name">MEC C300</div>
+            <div className="list-company-name">MERC C300</div>
             <div className="list-company-price">Starting MSR $52,900</div>
             <div className="list-company-range">
               Range from 283 to 307 miles
@@ -83,7 +83,7 @@ const CompanyPage = () => {
             <img src={por2} alt="anha1" className="a" />
           </div>
           <div className="list-company-text">
-            <div className="list-company-name">bmw abc</div>
+            <div className="list-company-name">Porsche Panamera</div>
             <div className="list-company-price">Starting MSR $57,900</div>
             <div className="list-company-range">
               Range from 283 to 320 miles
