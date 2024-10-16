@@ -17,7 +17,7 @@ import Careers from "./components/AboutUs/Careers";
 import Location from "./components/AboutUs/Location";
 import Finance from "./components/Finace/Finance_main";
 import Admin from "./components/Admin";
-import ContactUsFull from "./components/AboutUs/ContactUs";
+import ContactUsFull from "./components/AboutUs/Contactus";
 import Warranty from "./components/Warranty";
 
 function App() {
@@ -153,7 +153,7 @@ function AppLayout() {
                 <Route path="/vehicles" element={<Vehicles />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/services" element={<Services />} />
-                <Route path="/warranty" element= {<Warranty/>}/>
+                <Route path="/warranty" element={<Warranty />} />
                 <Route path="/finance" element={<Finance />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/about/company" element={<CompanyPage />} />
