@@ -30,7 +30,6 @@ const ContactUs = () => {
         </div>
       </div>
 
-      {/* Customer Relations, BMW Genius Hotline, and BMWi Hotline Section */}
       <div className="contact-boxes-section">
         <div className="contact-box">
           <h3>Customer Relations</h3>
