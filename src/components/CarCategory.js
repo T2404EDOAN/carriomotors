@@ -4,7 +4,7 @@ import { RiseOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "../assets/styles/CarCategory.css";
 import CarDetailModal from "./PopupDetail/CarDetailModal";
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
 const CarCategory = () => {
   const [products, setProducts] = useState([]);

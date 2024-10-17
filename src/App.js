@@ -17,7 +17,7 @@ import Careers from "./components/AboutUs/Careers";
 import Location from "./components/AboutUs/Location";
 import Finance from "./components/Finace/Finance_main";
 import Admin from "./components/Admin";
-import ContactUsFull from "./components/AboutUs/ContactUs";
+import ContactUsFull from "./components/AboutUs/Contactus";
 import Warranty from "./components/Warranty";
 
 function App() {
@@ -169,6 +169,7 @@ function AppLayout() {
           </CSSTransition>
         </TransitionGroup>
       </main>
+      <Ticker dateTime={dateTime} locationInfo={locationInfo} />
       <Footer />
     </div>
   );

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Input, Button, Drawer, Modal } from "antd";
-
 import {
   SearchOutlined,
   UserOutlined,
@@ -16,7 +15,9 @@ const ImprovedHeader = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
   const [isSignInPopupVisible, setIsSignInPopupVisible] = useState(false);
-  const [realtimeVisitors, setRealtimeVisitors] = useState(1); // Initially set to 1
+  const [realtimeVisitors, setRealtimeVisitors] = useState(1);
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [hoveredSubmenu, setHoveredSubmenu] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,8 +34,6 @@ const ImprovedHeader = () => {
 
   useEffect(() => {
     const initialTimeout = setTimeout(fetchRealtimeVisitors, 10000);
-
-   
     const interval = setInterval(fetchRealtimeVisitors, 30000);
 
     return () => {
@@ -64,22 +63,32 @@ const ImprovedHeader = () => {
   const renderMenu = (mode = "horizontal") => (
     <Menu
       mode={mode}
-      className={`border-0 bg-transparent ${
-        mode === "vertical" ? "w-full" : ""
-      }`}
+      className={`border-0 bg-transparent menu-fade ${
+        isMenuVisible ? "visible" : ""
+      } ${mode === "vertical" ? "w-full" : ""}`}
       style={{ width: "500px" }}
+      onMouseEnter={() => setIsMenuVisible(true)}
+      onMouseLeave={() => setIsMenuVisible(false)}
     >
       {menuItems.map((item) =>
         item.children ? (
-          <Menu.SubMenu key={item.key} title={item.label}>
+          <Menu.SubMenu
+            key={item.key}
+            title={item.label}
+            onTitleMouseEnter={() => setHoveredSubmenu(item.key)}
+            onTitleMouseLeave={() => setHoveredSubmenu(null)}
+            className={`submenu-fade ${
+              hoveredSubmenu === item.key ? "visible" : ""
+            }`}
+          >
             {item.children.map((child) => (
-              <Menu.Item key={child.key}>
+              <Menu.Item key={child.key} className="menu-item-fade">
                 <Link to={child.link}>{child.label}</Link>
               </Menu.Item>
             ))}
           </Menu.SubMenu>
         ) : (
-          <Menu.Item key={item.key}>
+          <Menu.Item key={item.key} className="menu-item-fade">
             <Link to={item.link}>{item.label}</Link>
           </Menu.Item>
         )
@@ -100,7 +109,7 @@ const ImprovedHeader = () => {
               <span className="text-base">{realtimeVisitors}</span>
             </div>
           </div>
-          <div className="flex-grow flex justify-center" >
+          <div className="flex-grow flex justify-center">
             {isLargeScreen && renderMenu()}
           </div>
           <div className="flex-none flex items-center space-x-4">
@@ -132,7 +141,10 @@ const ImprovedHeader = () => {
               <Button
                 type="text"
                 icon={<MenuOutlined />}
-                onClick={() => setDrawerVisible(true)}
+                onClick={() => {
+                  setIsMenuVisible(true);
+                  setDrawerVisible(true);
+                }}
               />
             )}
           </div>

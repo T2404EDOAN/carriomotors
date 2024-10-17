@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import "../assets/styles/Trendvehicls.css";
 import axios from "axios";
 import { Button, Divider, Radio } from "antd"; // Ensure 'antd' is installed
-import * as icons from "@ant-design/icons";
+import { ArrowRightOutlined } from "@ant-design/icons"; // Correct import of icon
+
 const Trendvehicls = () => {
   const [size, setSize] = useState("large");
-  const { ArrowRightOutlined } = icons;
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,7 +36,7 @@ const Trendvehicls = () => {
     <div className="trend-container">
       <div className="trend-vehicles">
         <div className="trend-vehicles-header">
-        <h2>Drive Your Dream with Carrio Motors</h2>
+          <h2>Drive Your Dream with Carrio Motors</h2>
           <div>
             <Button type="primary" shape="round" size={size}>
               View all
@@ -46,24 +46,21 @@ const Trendvehicls = () => {
         </div>
 
         <div className="trend-vehicles-grid">
-        {products.slice(1, 5).map((product, index) => (
-  <TrendVehicleCard
-    key={product.id}
-    imageSrc={product.main_img}
-    vehicleName={`${product.brand_name} ${product.car_model_name}`}  // Kết hợp brand name và model name
-    price={product.price}
-    isOdd={index % 2 === 0}
-  />
-))}
-
+          {products.slice(1, 5).map((product, index) => (
+            <TrendVehicleCard
+              key={product.id}
+              imageSrc={product.main_img}
+              vehicleName={`${product.brand_name} ${product.car_model_name}`}
+              price={product.price}
+            />
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-
-const TrendVehicleCard = ({ imageSrc, vehicleName, price, isOdd }) => {
+const TrendVehicleCard = ({ imageSrc, vehicleName, price }) => {
   const formattedPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -74,16 +71,12 @@ const TrendVehicleCard = ({ imageSrc, vehicleName, price, isOdd }) => {
   return (
     <div className="trend-vehicle-card">
       <img src={imageSrc} alt={vehicleName} />
-      <div
-        className="trend-vehicle-card-content"
-        style={{ color: isOdd ? "#fff" : "#000" }}
-      >
-        <h3>{vehicleName}</h3> {/* Hiển thị tên brand và model */}
+      <div className="trend-vehicle-card-content" style={{ color: "#000" }}>
+        <h3>{vehicleName}</h3>
       </div>
-      <img src={imageSrc} alt={vehicleName} />
       <div className="trend-vehicle-footer">
         <p className="vehicle-price">
-          {price ? formattedPrice : "Price not available"}
+          {price ? formattedPrice : "Coming soon"}
         </p>
         <Button
           type="default"
@@ -97,6 +90,5 @@ const TrendVehicleCard = ({ imageSrc, vehicleName, price, isOdd }) => {
     </div>
   );
 };
-
 
 export default Trendvehicls;
