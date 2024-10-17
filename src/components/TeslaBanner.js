@@ -8,6 +8,11 @@ const TeslaBanner = () => {
         <h2>Carrio Motors Social</h2>
         <div className="single-image-gallery">
           <img src="/Homenormal_images/porsche-normal.jpg" alt="Single Image" />
+          <div className="overlay-text">Information on data processing</div>
+          <div className="overlay-text1">
+            On our website we provide content from Storystream. To view this
+            content, you must agree to the data processing by Storystream.
+          </div>
         </div>
       </div>
       <div className="banner-content">
@@ -19,7 +24,6 @@ const TeslaBanner = () => {
           <img src="/Homenormal_images/porsche-normal (3).webp" alt="Image 4" />
         </div>
       </div>
-      
     </div>
   );
 };
