@@ -11,7 +11,6 @@
 .main-content {
   padding-top: 70px; /* Khoảng trống tương đương chiều cao của header */
 
-
 .ant-menu-item a,
 .ant-menu-submenu-title {
   text-decoration: none !important; /* Không có gạch chân */
@@ -44,6 +43,16 @@
 .ant-menu-item a,
 .ant-menu-submenu-title a {
   text-decoration: none !important;
+}
+.fade-menu {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.fade-menu.visible {
+  opacity: 1;
+  visibility: visible;
 }
 
 .ant-menu-item:hover,
@@ -98,4 +107,3 @@
   font-size: 26px;
   padding: 10px 20px;
 }
-

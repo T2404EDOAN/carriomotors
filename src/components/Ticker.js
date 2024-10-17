@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock, faCalendarAlt, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faClock,
+  faCalendarAlt,
+  faMapMarkerAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Ticker = ({ dateTime, locationInfo }) => {
   useEffect(() => {
@@ -41,7 +45,9 @@ const Ticker = ({ dateTime, locationInfo }) => {
       return location.error;
     }
     if (location.latitude && location.longitude) {
-      return `Vĩ độ: ${location.latitude.toFixed(2)}, Kinh độ: ${location.longitude.toFixed(2)}`;
+      return `Vĩ độ: ${location.latitude.toFixed(
+        2
+      )}, Kinh độ: ${location.longitude.toFixed(2)}`;
     }
     return "Đang lấy vị trí...";
   };
@@ -51,15 +57,15 @@ const Ticker = ({ dateTime, locationInfo }) => {
       <div style={tickerContentStyle}>
         <span style={iconTextStyle}>
           <FontAwesomeIcon icon={faCalendarAlt} style={iconStyle} />
-          {`Ngày: ${formatDate(dateTime)}`}
+          {`Date: ${formatDate(dateTime)}`}
         </span>
         <span style={iconTextStyle}>
           <FontAwesomeIcon icon={faClock} style={iconStyle} />
-          {`Giờ: ${formatTime(dateTime)}`}
+          {`Time: ${formatTime(dateTime)}`}
         </span>
         <span style={iconTextStyle}>
           <FontAwesomeIcon icon={faMapMarkerAlt} style={iconStyle} />
-          {`Vị trí: ${formatLocation(locationInfo)}`}
+          {`Location: ${formatLocation(locationInfo)}`}
         </span>
       </div>
     </div>
@@ -71,7 +77,7 @@ const tickerStyle = {
   position: "fixed",
   bottom: 0,
   width: "100%",
-  backgroundColor: "rgba(0, 0, 0, 0.85)", // Nền đen với độ mờ nhẹ
+  backgroundColor: "#191f22", // Nền đen với độ mờ nhẹ
   color: "#fff", // Chữ trắng
   padding: "10px 0",
   textAlign: "center",
