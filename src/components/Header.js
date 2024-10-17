@@ -1,14 +1,109 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Input, Button, Drawer, Modal } from "antd";
+import {
+  Menu,
+  Input,
+  Button,
+  Drawer,
+  Modal,
+  Popover,
+  Spin,
+  Typography,
+} from "antd";
 import {
   SearchOutlined,
   UserOutlined,
   EnvironmentOutlined,
   MenuOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 import SignInPopup from "./SignInPopup";
 import "../assets/styles/Header.css";
+const { Text } = Typography;
+
+const mapContainerStyle = {
+  width: "100%",
+  height: "250px",
+};
+
+const LocationContent = ({ location, error, isLoading }) => {
+  const mapRef = useRef(null);
+  const markerRef = useRef(null);
+
+  useEffect(() => {
+    if (location && !mapRef.current) {
+      // Tạo bản đồ và gắn vào ref
+      mapRef.current = L.map("mapContainer").setView(
+        [location.latitude, location.longitude],
+        13
+      );
+
+      // Thêm tile layer vào bản đồ
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(mapRef.current);
+
+      // Sử dụng icon mặc định của Leaflet (import từ leaflet/dist/images/)
+      const defaultIcon = L.icon({
+        iconUrl: "/iconlocation.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+      });
+
+      // Thêm marker vào bản đồ với icon mặc định
+      markerRef.current = L.marker([location.latitude, location.longitude], {
+        icon: defaultIcon,
+      }).addTo(mapRef.current);
+    }
+
+    // Cleanup khi component unmount hoặc khi location thay đổi
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove(); // Xóa bản đồ khi component unmount
+        mapRef.current = null;
+      }
+    };
+  }, [location]);
+
+  return (
+    <div style={{ width: 300, padding: "8px 0" }}>
+      <div
+        style={{
+          borderBottom: "1px solid #f0f0f0",
+          paddingBottom: 8,
+          marginBottom: 8,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Text strong>Vị trí của bạn</Text>
+      </div>
+
+      {isLoading ? (
+        <div style={{ textAlign: "center", padding: "10px 0" }}>
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+          <div style={{ marginTop: 8 }}>
+            <Text type="secondary">Đang lấy vị trí...</Text>
+          </div>
+        </div>
+      ) : error ? (
+        <div style={{ padding: "10px 0" }}>
+          <Text type="danger">{error}</Text>
+        </div>
+      ) : location ? (
+        <div>
+          <div id="mapContainer" style={mapContainerStyle}></div>
+        </div>
+      ) : null}
+    </div>
+  );
+};
 
 const ImprovedHeader = () => {
   const [searchExpanded, setSearchExpanded] = useState(false);
@@ -18,6 +113,9 @@ const ImprovedHeader = () => {
   const [realtimeVisitors, setRealtimeVisitors] = useState(1);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [hoveredSubmenu, setHoveredSubmenu] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const [locationError, setLocationError] = useState(null);
+  const [isLoadingLocation, setIsLoadingLocation] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,6 +139,38 @@ const ImprovedHeader = () => {
       clearInterval(interval);
     };
   }, []);
+
+  const getLocation = () => {
+    if (!currentLocation && !isLoadingLocation) {
+      setIsLoadingLocation(true);
+      setLocationError(null);
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setCurrentLocation({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            });
+            setLocationError(null);
+            setIsLoadingLocation(false);
+          },
+          (error) => {
+            setLocationError("Không thể lấy vị trí của bạn");
+            setIsLoadingLocation(false);
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0,
+          }
+        );
+      } else {
+        setLocationError("Trình duyệt của bạn không hỗ trợ geolocation");
+        setIsLoadingLocation(false);
+      }
+    }
+  };
 
   const menuItems = [
     { key: "home", label: "Home", link: "/" },
@@ -97,7 +227,7 @@ const ImprovedHeader = () => {
   );
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-white">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-white shadow-sm">
       <div className="w-full px-4">
         <div className="flex items-center h-16 px-8">
           <div className="flex-none mr-8 flex items-center">
@@ -109,15 +239,33 @@ const ImprovedHeader = () => {
               <span className="text-base">{realtimeVisitors}</span>
             </div>
           </div>
+
           <div className="flex-grow flex justify-center">
             {isLargeScreen && renderMenu()}
           </div>
+
           <div className="flex-none flex items-center space-x-4">
-            <Button
-              type="text"
-              icon={<EnvironmentOutlined />}
-              className="hidden md:flex items-center text-base"
-            ></Button>
+            <Popover
+              content={
+                <LocationContent
+                  location={currentLocation}
+                  error={locationError}
+                  isLoading={isLoadingLocation}
+                />
+              }
+              trigger="click"
+              placement="bottomRight"
+              onOpenChange={(visible) => {
+                if (visible) getLocation();
+              }}
+            >
+              <Button
+                type="text"
+                icon={<EnvironmentOutlined />}
+                className="hidden md:flex items-center text-base"
+              />
+            </Popover>
+
             <div
               className={`transition-all duration-300 ease-in-out ${
                 searchExpanded ? "w-64" : "w-10"
@@ -131,12 +279,14 @@ const ImprovedHeader = () => {
                 onBlur={() => setSearchExpanded(false)}
               />
             </div>
+
             <Button
               type="text"
               icon={<UserOutlined />}
               className="text-base hidden sm:flex"
               onClick={() => setIsSignInPopupVisible(true)}
             />
+
             {!isLargeScreen && (
               <Button
                 type="text"
@@ -150,6 +300,7 @@ const ImprovedHeader = () => {
           </div>
         </div>
       </div>
+
       <Drawer
         title="Menu"
         placement="right"
@@ -158,6 +309,7 @@ const ImprovedHeader = () => {
       >
         {renderMenu("vertical")}
       </Drawer>
+
       <Modal
         visible={isSignInPopupVisible}
         onCancel={() => setIsSignInPopupVisible(false)}
