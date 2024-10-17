@@ -49,7 +49,7 @@ const LocationContent = ({ location, error, isLoading }) => {
       // Sử dụng icon mặc định của Leaflet (import từ leaflet/dist/images/)
       const defaultIcon = L.icon({
         iconUrl: "/iconlocation.png",
-        iconSize: [25, 41],
+        iconSize: [25, 25],
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
         shadowSize: [41, 41],
