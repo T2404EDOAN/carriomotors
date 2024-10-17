@@ -17,6 +17,7 @@ import {
   Pagination,
   Avatar,
 } from "antd";
+import { useLocation } from "react-router-dom";
 import { FilterOutlined, MenuOutlined } from "@ant-design/icons";
 import axios from "axios";
 import CarDetailModal from "./PopupDetail/CarDetailModal";
@@ -26,6 +27,8 @@ const { Title, Text } = Typography;
 const { useBreakpoint } = Grid;
 
 const CarListingLayout = ({ isTechnicalDataVisible }) => {
+  const location = useLocation();
+  const { brandId } = location.state || {};
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [cars, setCars] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -62,28 +65,83 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
   const [selectedColors, setSelectedColors] = useState([]);
   const screens = useBreakpoint();
 
-  const fetchCars = async (value = "recommended") => {
+  const fetchCars = async () => {
     try {
       const response = await axios.get(
-        `https://carriomotors.io.vn/api/get_vehicle.php?sort=${value}`
+        `https://carriomotors.io.vn/api/get_vehicle.php`
       );
 
-      console.log("Raw response:", response);
+      console.log("Phản hồi từ API:", response);
+
       const carsData = response.data.data || response.data;
 
       if (Array.isArray(carsData)) {
-        setCars(carsData);
-        setFilteredCars(carsData);
-        const uniqueColors = [...new Set(carsData.map((car) => car.color))];
+        // Lọc bỏ các xe không có brand_id
+        const validCars = carsData.filter((car) => car.brand_id !== undefined);
+
+        if (validCars.length === 0) {
+          console.warn("Không có xe hợp lệ (có brand_id) được tìm thấy.");
+        }
+
+        // Cập nhật danh sách xe và hiển thị toàn bộ ngay từ đầu
+        setCars(validCars);
+        setFilteredCars(validCars); // Đảm bảo filteredCars khởi tạo với toàn bộ danh sách xe
+
+        // Tạo danh sách màu sắc độc đáo cho các xe
+        const uniqueColors = [...new Set(validCars.map((car) => car.color))];
         setColors(uniqueColors);
       } else {
+        // Nếu không có dữ liệu xe hoặc dữ liệu không hợp lệ
         setCars([]);
         setFilteredCars([]);
+        console.warn("Không có dữ liệu xe hợp lệ từ API.");
       }
     } catch (error) {
-      console.error("Error fetching cars:", error);
+      console.error("Lỗi khi tải dữ liệu xe:", error);
+      // Bạn có thể hiển thị thông báo lỗi cho người dùng ở đây nếu cần
     }
   };
+
+  useEffect(() => {
+    const fetchCarsByBrand = async () => {
+      try {
+        const response = await axios.get(
+          "https://carriomotors.io.vn/api/get_vehicle.php"
+        );
+
+        // Truy xuất dữ liệu từ trường `data`
+        const allCars = response.data.data || [];
+
+        if (brandId) {
+          // Lọc các xe có brand_id khớp với brandId
+          const filtered = allCars.filter(
+            (car) => String(car.brand_id) === String(brandId)
+          );
+          setFilteredCars(filtered);
+          setSelectedBrands([String(brandId)]);
+        } else {
+          setFilteredCars(allCars);
+        }
+        setCars(allCars);
+      } catch (error) {
+        console.error("Lỗi khi tải dữ liệu xe:", error);
+      }
+    };
+
+    fetchCarsByBrand();
+  }, [brandId]);
+
+  // Cập nhật danh sách xe khi thay đổi thương hiệu được chọn
+  useEffect(() => {
+    if (selectedBrands.length === 0) {
+      setFilteredCars(cars); // Hiển thị tất cả xe nếu không chọn brand nào
+    } else {
+      const filtered = cars.filter((car) =>
+        selectedBrands.includes(String(car.brand_id))
+      );
+      setFilteredCars(filtered);
+    }
+  }, [selectedBrands, cars]); // Mỗi khi selectedBrands hoặc cars thay đổi, danh sách filteredCars được cập nhật
 
   useEffect(() => {
     const fetchBrands = async () => {
@@ -207,12 +265,13 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
   };
 
   const handleBrandSelection = (checkedValues) => {
-    setSelectedBrands(checkedValues);
+    setSelectedBrands(checkedValues); // Cập nhật danh sách thương hiệu được chọn
+
     if (checkedValues.length === 0) {
-      setFilteredCars(cars);
+      setFilteredCars(cars); // Nếu không chọn thương hiệu nào, hiển thị tất cả xe
     } else {
       const filtered = cars.filter((car) =>
-        checkedValues.includes(car.brandid)
+        checkedValues.includes(String(car.brand_id))
       );
       setFilteredCars(filtered);
     }
@@ -287,26 +346,26 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         ))}
       </Select>
       {/* <Title level={4}>Location</Title>
-      <Select
-        showSearch
-        style={{
-          width: 200,
-          marginBottom: 20,
-        }}
-        placeholder="Search to Select"
-        optionFilterProp="label"
-        value={selectedLocations}
-        onChange={handleLocationSelection}
-      >
-        {locations.map((location) => (
-          <Select.Option key={location.id} value={location.id}>
-            {location.name}
-          </Select.Option>
-        ))}
-      </Select> */}
+          <Select
+            showSearch
+            style={{
+              width: 200,
+              marginBottom: 20,
+            }}
+            placeholder="Search to Select"
+            optionFilterProp="label"
+            value={selectedLocations}
+            onChange={handleLocationSelection}
+          >
+            {locations.map((location) => (
+              <Select.Option key={location.id} value={location.id}>
+                {location.name}
+              </Select.Option>
+            ))}
+          </Select> */}
       <Title level={4}>Brand</Title>
       <Checkbox.Group
-        value={selectedBrands}
+        value={selectedBrands} // Dựa trên selectedBrands
         onChange={handleBrandSelection}
         style={{ marginBottom: 20 }}
       >
@@ -318,7 +377,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
           }}
         >
           {brands.map((brand) => (
-            <Checkbox key={brand.id} value={brand.id}>
+            <Checkbox key={brand.id} value={String(brand.id)}>
               {brand.name}
             </Checkbox>
           ))}
@@ -339,35 +398,35 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         <Text>${PriceRange[1]}</Text>
       </Row>
       {/* <Title level={4} style={{ marginTop: "15px" }}>
-        Color
-      </Title>
-      <div
-        style={{
-          display: "flex",
-          gap: "10px",
-          flexWrap: "wrap",
-          width: "200px",
-        }}
-      >
-        {colors.map((color) => (
-          <Avatar
-            key={color}
-            onClick={() => handleColorSelection(color)}
+            Color
+          </Title>
+          <div
             style={{
-              backgroundColor: color,
-              cursor: "pointer",
-              border: selectedColors.includes(color)
-                ? "1px solid #488ded"
-                : "none",
-              transition: "transform 0.3s",
-              transform: selectedColors.includes(color)
-                ? "scale(1.1)"
-                : "scale(1)",
+              display: "flex",
+              gap: "10px",
+              flexWrap: "wrap",
+              width: "200px",
             }}
-            size={30}
-          />
-        ))}
-      </div> */}
+          >
+            {colors.map((color) => (
+              <Avatar
+                key={color}
+                onClick={() => handleColorSelection(color)}
+                style={{
+                  backgroundColor: color,
+                  cursor: "pointer",
+                  border: selectedColors.includes(color)
+                    ? "1px solid #488ded"
+                    : "none",
+                  transition: "transform 0.3s",
+                  transform: selectedColors.includes(color)
+                    ? "scale(1.1)"
+                    : "scale(1)",
+                }}
+                size={30}
+              />
+            ))}
+          </div> */}
     </div>
   );
 

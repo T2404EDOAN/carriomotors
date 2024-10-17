@@ -22,21 +22,17 @@ const Ticker = ({ dateTime, locationInfo }) => {
       }
     `;
 
-    // Chèn keyframes vào thẻ <style>
     style.appendChild(document.createTextNode(keyframes));
 
-    // Thêm thẻ <style> vào <head> của trang
     document.head.appendChild(style);
 
-    // Cleanup khi component bị unmount
     return () => {
       document.head.removeChild(style);
     };
-  }, []); // Chạy effect một lần khi component được mount
+  }, []);
 
   useEffect(() => {
     if (locationInfo.latitude && locationInfo.longitude) {
-      // Gọi API Nominatim để lấy tên vị trí chi tiết
       fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${locationInfo.latitude}&lon=${locationInfo.longitude}&zoom=18&addressdetails=1`
       )

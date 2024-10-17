@@ -5,7 +5,7 @@ import axios from "axios";
 import "../assets/styles/CarCategory.css";
 import CarDetailModal from "./PopupDetail/CarDetailModal";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-
+import { useNavigate } from "react-router-dom";
 const CarCategory = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,6 +54,7 @@ const CarCategory = () => {
                   imageSrc={product.image_url}
                   carName={product.name}
                   index={index}
+                  brandId={product.id}
                 />
               ))}
       </div>
@@ -64,15 +65,27 @@ const CarCategory = () => {
   );
 };
 
-const CarCard = ({ imageSrc, carName, index, onClick }) => {
+const CarCard = ({ imageSrc, carName, index, brandId }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    console.log("brandId trước khi điều hướng:", brandId);
+    if (brandId) {
+      navigate(`/vehicles`, { state: { brandId } }); // Đảm bảo `brandId` không bị null
+    } else {
+      console.error("brandId bị null hoặc undefined");
+    }
+  };
+
   const isEven = index % 2 === 0;
   return (
-    <div className={`car-card ${isEven ? "even" : "odd"}`} onClick={onClick}>
+    <div
+      className={`car-card ${index % 2 === 0 ? "even" : "odd"}`}
+      onClick={handleClick}
+    >
       <div className="car-card-image-container">
         <img src={imageSrc} alt={carName} />
-        <div className="icon-container">
-          <ArrowOutwardIcon style={{ fontSize: "34px", color: "#fff" }} />
-        </div>
+        <div className="icon-container"></div>
       </div>
       <div className="car-card-content">
         <h2>{carName}</h2>

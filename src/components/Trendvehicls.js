@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "../assets/styles/Trendvehicls.css";
 import axios from "axios";
-import { Button, Divider, Radio } from "antd"; // Ensure 'antd' is installed
+import { Button } from "antd"; // Ensure 'antd' is installed
 import { ArrowRightOutlined } from "@ant-design/icons"; // Correct import of icon
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Trendvehicls = () => {
   const [size, setSize] = useState("large");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate(); // Initialize the navigate hook
 
   useEffect(() => {
     axios
@@ -38,7 +41,12 @@ const Trendvehicls = () => {
         <div className="trend-vehicles-header">
           <h2>Drive Your Dream with Carrio Motors</h2>
           <div>
-            <Button type="primary" shape="round" size={size}>
+            <Button
+              type="primary"
+              shape="round"
+              size={size}
+              onClick={() => navigate("/vehicles")}
+            >
               View all
               <ArrowRightOutlined />
             </Button>
