@@ -15,6 +15,7 @@
 .ant-menu-submenu-title {
   text-decoration: none !important; /* Không có gạch chân */
   font-weight: normal !important; /* Font bình thường */
+  font-size: 18px normal !important;
 }
 
 .ant-menu-item a:hover,
@@ -71,23 +72,23 @@
 }
 @media (max-width: 1024px) {
   .ant-menu-horizontal {
-    display: block; /* Hiển thị menu dạng khối khi màn hình nhỏ */
+    display: block; 
   }
 
   .ant-menu-item,
   .ant-menu-submenu-title {
-    display: block; /* Mỗi item sẽ chiếm toàn bộ chiều rộng */
+    display: block; 
   }
 }
 
 @media (min-width: 1024px) {
   .ant-menu-horizontal {
-    display: flex; /* Flex cho các màn hình lớn */
+    display: flex; 
   }
 
   .ant-menu-item,
   .ant-menu-submenu-title {
-    display: inline-block; /* Dạng inline-block để chúng xếp theo hàng ngang */
+    display: inline-block; 
   }
 }
 .all-products {

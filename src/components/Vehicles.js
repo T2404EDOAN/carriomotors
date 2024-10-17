@@ -73,32 +73,32 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
 
       console.log("Phản hồi từ API:", response);
 
-      const carsData = response.data.data || response.data;
+      const carsData = response.data;
 
       if (Array.isArray(carsData)) {
-        // Lọc bỏ các xe không có brand_id
+     
         const validCars = carsData.filter((car) => car.brand_id !== undefined);
 
         if (validCars.length === 0) {
           console.warn("Không có xe hợp lệ (có brand_id) được tìm thấy.");
         }
 
-        // Cập nhật danh sách xe và hiển thị toàn bộ ngay từ đầu
+       
         setCars(validCars);
-        setFilteredCars(validCars); // Đảm bảo filteredCars khởi tạo với toàn bộ danh sách xe
+        setFilteredCars(validCars); 
 
-        // Tạo danh sách màu sắc độc đáo cho các xe
+      
         const uniqueColors = [...new Set(validCars.map((car) => car.color))];
         setColors(uniqueColors);
       } else {
-        // Nếu không có dữ liệu xe hoặc dữ liệu không hợp lệ
+      
         setCars([]);
         setFilteredCars([]);
         console.warn("Không có dữ liệu xe hợp lệ từ API.");
       }
     } catch (error) {
       console.error("Lỗi khi tải dữ liệu xe:", error);
-      // Bạn có thể hiển thị thông báo lỗi cho người dùng ở đây nếu cần
+     
     }
   };
 
@@ -108,40 +108,47 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         const response = await axios.get(
           "https://carriomotors.io.vn/api/get_vehicle.php"
         );
-
+  
         // Truy xuất dữ liệu từ trường `data`
         const allCars = response.data.data || [];
-
+  
+        // Luôn cập nhật state cars với tất cả xe
+        setCars(allCars);
+  
         if (brandId) {
-          // Lọc các xe có brand_id khớp với brandId
           const filtered = allCars.filter(
             (car) => String(car.brand_id) === String(brandId)
           );
           setFilteredCars(filtered);
           setSelectedBrands([String(brandId)]);
         } else {
+          // Nếu không có brandId, hiển thị tất cả xe
           setFilteredCars(allCars);
+          setSelectedBrands([]); // Reset selected brands
         }
-        setCars(allCars);
+  
       } catch (error) {
         console.error("Lỗi khi tải dữ liệu xe:", error);
+        // Xử lý lỗi, có thể set state để hiển thị thông báo lỗi
+        setFilteredCars([]);
+        setCars([]);
       }
     };
-
+  
     fetchCarsByBrand();
   }, [brandId]);
 
   // Cập nhật danh sách xe khi thay đổi thương hiệu được chọn
   useEffect(() => {
     if (selectedBrands.length === 0) {
-      setFilteredCars(cars); // Hiển thị tất cả xe nếu không chọn brand nào
+      setFilteredCars(cars); 
     } else {
       const filtered = cars.filter((car) =>
-        selectedBrands.includes(String(car.brand_id))
+        selectedBrands.includes(car.brand_id)
       );
       setFilteredCars(filtered);
     }
-  }, [selectedBrands, cars]); // Mỗi khi selectedBrands hoặc cars thay đổi, danh sách filteredCars được cập nhật
+  }, [selectedBrands, cars]); 
 
   useEffect(() => {
     const fetchBrands = async () => {
@@ -151,7 +158,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         );
 
         console.log("Raw response:", response);
-        const brandsData = response.data.data || response.data;
+        const brandsData =response.data;
 
         if (Array.isArray(brandsData)) {
           setBrands(brandsData);
@@ -184,7 +191,6 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         "https://carriomotors.io.vn/api/get_model.php"
       );
 
-      console.log("Raw response:", response);
       const modelsData = response.data.data || response.data;
 
       if (Array.isArray(modelsData)) {
@@ -203,7 +209,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
       const response = await axios.get(
         "https://carriomotors.io.vn/api/get_location.php"
       );
-      console.log("Raw response:", response);
+    
       const locationsData = response.data.data || response.data;
 
       if (Array.isArray(locationsData)) {
@@ -222,7 +228,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
       const response = await axios.get(
         `https://carriomotors.io.vn/api/get_search.php?name=${value}`
       );
-      console.log("Raw response:", response);
+      
       const searchData = response.data.data || response.data;
 
       if (Array.isArray(searchData)) {
@@ -312,6 +318,15 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     setFilteredCars(filtered);
   };
 
+  useEffect(() => {
+    const reloadPage = sessionStorage.getItem("reloadPage");
+    
+    if (!reloadPage) {
+      sessionStorage.setItem("reloadPage", "true");
+      window.location.reload();
+    }
+  }, []);
+  
   const reset = () => {
     setSelectedModels([]);
     setSelectedBrands([]);
