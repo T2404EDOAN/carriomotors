@@ -7,6 +7,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Ticker = ({ dateTime, locationInfo }) => {
+  const [locationName, setLocationName] = React.useState("Đang lấy vị trí...");
+
   useEffect(() => {
     // Tạo thẻ <style> mới và thêm vào <head>
     const style = document.createElement("style");
@@ -32,24 +34,44 @@ const Ticker = ({ dateTime, locationInfo }) => {
     };
   }, []); // Chạy effect một lần khi component được mount
 
+  useEffect(() => {
+    if (locationInfo.latitude && locationInfo.longitude) {
+      // Gọi API Nominatim để lấy tên vị trí chi tiết
+      fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${locationInfo.latitude}&lon=${locationInfo.longitude}&zoom=18&addressdetails=1`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && data.address) {
+            const { road, suburb, city, state, country } = data.address;
+            // Ghép các phần của địa chỉ thành chuỗi
+            const fullAddress = [
+              road, // Đường
+              suburb, // Phường hoặc quận
+              city, // Thành phố
+              state, // Bang hoặc tỉnh
+              country, // Quốc gia
+            ]
+              .filter(Boolean) // Loại bỏ các phần null hoặc undefined
+              .join(", "); // Ghép lại bằng dấu phẩy
+
+            setLocationName(fullAddress || "Không xác định");
+          } else {
+            setLocationName("Không xác định");
+          }
+        })
+        .catch((error) => {
+          setLocationName("Lỗi khi lấy vị trí");
+        });
+    }
+  }, [locationInfo]);
+
   const formatTime = (date) => {
     return date.toLocaleTimeString();
   };
 
   const formatDate = (date) => {
     return date.toLocaleDateString();
-  };
-
-  const formatLocation = (location) => {
-    if (location.error) {
-      return location.error;
-    }
-    if (location.latitude && location.longitude) {
-      return `Vĩ độ: ${location.latitude.toFixed(
-        2
-      )}, Kinh độ: ${location.longitude.toFixed(2)}`;
-    }
-    return "Đang lấy vị trí...";
   };
 
   return (
@@ -65,7 +87,7 @@ const Ticker = ({ dateTime, locationInfo }) => {
         </span>
         <span style={iconTextStyle}>
           <FontAwesomeIcon icon={faMapMarkerAlt} style={iconStyle} />
-          {`Location: ${formatLocation(locationInfo)}`}
+          {`Location: ${locationName}`}
         </span>
       </div>
     </div>
