@@ -1,163 +1,291 @@
-/* General Container */
-.contact-container {
-  max-width: 1200px;
+/* General container */
+.contact-header-container {
+  max-width: 1400px;
   margin: 0 auto;
   padding: 40px;
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #f0f0f0, #ffffff);
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  text-align: left;
 }
 
-/* Header Section */
-.header-section {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.header-section h1 {
-  font-size: 48px;
-  font-weight: 700;
+/* Main Heading */
+.contact-header-container h1 {
+  font-size: 42px;
+  font-weight: 400;
   color: #000;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.header-section p {
-  font-size: 20px;
-  color: #555;
   margin-bottom: 20px;
 }
 
-.header-section a {
-  color: #004ba0;
-  font-weight: bold;
-  text-decoration: none;
+/* Introductory Paragraph */
+.contact-header-container p {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
 }
 
-.header-section a:hover {
+.contact-header-container a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.contact-header-container a:hover {
   text-decoration: underline;
 }
 
-/* Contact Info Section */
-.contact-info {
+/* Info Section (Hours and Address) */
+.info-section {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-top: 30px;
+}
+
+.hours, .address {
+  width: 48%;
+}
+
+.hours h3, .address h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.hours p, .address p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Contact Boxes Section */
+.contact-boxes-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
 }
 
 .contact-box {
   width: 30%;
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
   text-align: center;
-  border: 2px solid #e0e0e0;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-}
-
-.contact-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  border-color: #004ba0;
-}
-
-.contact-box i {
-  font-size: 40px;
-  color: #004ba0;
-  margin-bottom: 15px;
 }
 
 .contact-box h3 {
-  font-size: 22px;
-  font-weight: 600;
-  color: #000;
-  margin-bottom: 15px;
+  font-size: 20px;
+  color: black;
+  margin-bottom: 10px;
 }
 
 .contact-box p {
   font-size: 16px;
   color: #555;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .contact-box a {
-  display: inline-block;
-  padding: 10px 20px;
-  color: #fff;
-  background-color: #004ba0;
-  border-radius: 5px;
-  font-weight: bold;
+  color: black;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .contact-box a:hover {
-  background-color: #002b80;
+  text-decoration: underline;
 }
 
-/* Corporate Information Section */
-.corporate-info {
+/* Separator Line */
+.separator-line {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 40px 0;
+}
+
+/* Corporate Section */
+.corporate-section h2 {
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.corporate-boxes {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-top: 20px;
 }
 
-.corporate-info .contact-box {
+.corporate-box {
   width: 48%;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.corporate-box h3 {
+  font-size: 20px;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.corporate-box p {
+  font-size: 16px;
+  color: #555;
+}
+
+.corporate-box a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.corporate-box a:hover {
+  text-decoration: underline;
+}
+
+/* Fraud Warning */
+.fraud-warning h3 {
+  color: #c00000; /* Red color for fraud warning */
+}
+
+/* Owners Section */
+.owners-section h2 {
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.owners-boxes {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.owners-box {
+  width: 48%;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.owners-box h3 {
+  font-size: 20px;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.owners-box p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.owners-box a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.owners-box a:hover {
+  text-decoration: underline;
+}
+
+/* Shop Section */
+.shop-section h2 {
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.shop-boxes {
+  display: flex;
+  justify-content: space-between;
+}
+
+.shop-box {
+  width: 48%;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.shop-box h3 {
+  font-size: 20px;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.shop-box p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.shop-box a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.shop-box a:hover {
+  text-decoration: underline;
 }
 
 /* FAQ Section */
-.faq-section {
-  text-align: center;
-  margin-top: 40px;
+.faq-section h2 {
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 20px;
 }
 
-.faq-section h2 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #000;
-  margin-bottom: 20px;
-  text-transform: uppercase;
+.faq-section p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
 }
 
 .faq-section a {
-  font-size: 18px;
-  color: #004ba0;
+  color: black;
+  font-weight: bold;
   text-decoration: none;
 }
 
 .faq-section a:hover {
   text-decoration: underline;
 }
-
 /* Error Reporting Section */
-.error-reporting {
-  text-align: center;
+.error-reporting-section {
   margin-top: 40px;
 }
 
-.error-reporting h2 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #000;
+.error-reporting-section h2 {
+  font-size: 32px;
+  font-weight: 400;
   margin-bottom: 20px;
-  text-transform: uppercase;
 }
 
-.error-reporting p {
+.error-reporting-section h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.error-reporting-section p {
   font-size: 16px;
   color: #555;
+  margin-bottom: 20px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .contact-info, .corporate-info {
-    flex-direction: column;
-  }
-
-  .contact-box {
-    width: 100%;
-    margin-bottom: 20px;
-  }
+.error-reporting-section a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
 }
+
+.error-reporting-section a span {
+  font-size: 12px;
+}
+
+.error-reporting-section a:hover {
+  text-decoration: underline;
+}
+
