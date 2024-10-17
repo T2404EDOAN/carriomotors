@@ -1,121 +1,127 @@
-/* src/components/ContactUsFull.css */
-
+/* General Container */
 .contact-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px;
-    color: #333;
-  }
-  
-  h1, h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
-  h3 {
-    font-size: 18px;
-    color: #000;
-    margin-bottom: 10px;
-  }
-  
-  p {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #555;
-  }
-  
-  a {
-    color: #004ba0;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  .hours-address, .corporate-info, .owner-info, .shop-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 40px;
-  }
-  
-  .contact-box {
-    width: 48%;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adding shadow */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px;
+  font-family: 'Arial', sans-serif;
 }
 
-.contact-box:hover {
-    transform: scale(1.05); /* Expanding effect */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+/* Header Section */
+.header-section {
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-  .contact-box p {
-    margin-bottom: 10px;
-  }
-  
-  .contact-box strong {
-    font-size: 18px;
-    color: #000;
-  }
-  
-  .contact-box a {
-    color: #004ba0;
-    font-weight: bold;
-  }
-  
-  .contact-sections {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 40px;
-  }
-  
-  .contact-sections .contact-box {
-    width: 30%;
-  }
-  
-  .faq-section, .error-section {
-    margin-top: 40px;
-    text-align: left;
-  }
-  
-  .faq-section a, .error-section a {
-    color: #004ba0;
-    font-weight: bold;
-  }
-  /* Box with shadow and hover effect */
-.contact-box-with-image {
+.header-section h1 {
+  font-size: 36px;
+  color: #000;
+}
+
+.header-section p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.header-section a {
+  color: #004ba0;
+  text-decoration: none;
+}
+
+.header-section a:hover {
+  text-decoration: underline;
+}
+
+/* Contact Info Section */
+.contact-info {
   display: flex;
-  align-items: flex-start;
-  gap: 20px; /* Space between the image and content */
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.contact-box {
+  width: 30%;
   background-color: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
+  text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.contact-box-with-image:hover {
-  transform: scale(1.03);  /* Slightly enlarge on hover */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);  /* Increased shadow on hover */
+.contact-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-.contact-image img {
-  max-width: 200px;  /* Set a max-width for the image */
-  height: auto;
-  border-radius: 8px; /* Optional: Add rounded corners */
+.contact-box h3 {
+  font-size: 22px;
+  color: #000;
+  margin-bottom: 10px;
 }
 
-.hours-address {
+.contact-box p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.contact-box a {
+  color: #004ba0;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.contact-box a:hover {
+  text-decoration: underline;
+}
+
+/* Corporate Information Section */
+.corporate-info {
   display: flex;
   justify-content: space-between;
-  flex: 1;
+  margin-bottom: 40px;
 }
 
-.hours, .address {
+.corporate-info .contact-box {
   width: 48%;
+}
+
+/* FAQ Section */
+.faq-section {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.faq-section h2 {
+  font-size: 24px;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.faq-section a {
+  font-size: 18px;
+  color: #004ba0;
+  text-decoration: none;
+}
+
+.faq-section a:hover {
+  text-decoration: underline;
+}
+
+/* Error Reporting Section */
+.error-reporting {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.error-reporting h2 {
+  font-size: 24px;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.error-reporting p {
+  font-size: 16px;
+  color: #555;
 }
