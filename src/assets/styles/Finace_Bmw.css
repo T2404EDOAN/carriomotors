@@ -6,8 +6,9 @@
   margin-bottom: 20px;
 }
 .title-finance-bmw2 {
-  font-size: 30px;
+  font-size: 40px;
   text-align: center;
+  margin-top: 20px;
 }
 .finance-bmw-img {
   display: flex;
@@ -22,15 +23,18 @@
   margin-left: 100px;
 }
 .finance-bmw-text {
+  font-size: 20px;
   margin-top: 20px;
 }
 .finance-bmw-text12,
 .finance-bmw-text22 {
   margin-left: 10px;
+  font-size: 20px;
 }
 .but {
   display: flex;
   margin-top: 20px;
+  gap: 30px;
 }
 .but1 {
   background-color: #65666d;
@@ -40,6 +44,7 @@
   text-align: center;
   padding-top: 4px;
   margin-left: 10px;
+  border-radius: 5px;
 }
 .but2 {
   background-color: #425adb;
@@ -48,12 +53,13 @@
   height: 30px;
   text-align: center;
   padding-top: 4px;
-  margin-left: 30px;
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 1024px) {
   .title-finance-bmw2 {
     font-size: 26px;
+    font-weight: bold;
   }
 
   .finance-bmw-img1 img,

@@ -7,23 +7,26 @@
 }
 
 .title-finance-audi1 {
-  font-size: 30px;
+  font-size: 40px;
+  font-weight: bold;
 }
 .finance-audi-img {
   display: flex;
   margin-top: 20px;
   margin-bottom: 20px;
+  justify-content: space-between;
 }
 .finance-audi-img1 img,
 .finance-audi-img2 img {
   width: 650px;
   height: 400px;
 }
-.finance-audi-img2 img {
-  margin-left: 100px;
-}
+
 .but-audi {
   display: flex;
+  gap: 50px;
+  justify-content: center;
+  margin-top: 20px;
 }
 .but1-audi {
   background-color: #65666d;
@@ -32,7 +35,7 @@
   height: 30px;
   text-align: center;
   padding-top: 4px;
-  margin-left: 500px;
+  border-radius: 5px;
 }
 .but2-audi {
   background-color: #425adb;
@@ -41,10 +44,11 @@
   height: 30px;
   text-align: center;
   padding-top: 4px;
-  margin-left: 30px;
+  border-radius: 5px;
 }
 .title-finance-audi2 {
   margin-top: 20px;
+  font-size: 20px;
 }
 @media screen and (max-width: 1024px) {
   .title-finance-audi1 {
@@ -60,9 +64,6 @@
   .but1-audi,
   .but2-audi {
     max-width: 180px;
-  }
-  .but1-audi {
-    margin-left: 330px;
   }
   .but2-audi {
     max-width: 210px;
@@ -98,7 +99,6 @@
     margin-top: 10px;
     width: 100%;
     max-width: 180px;
-    margin-left: -50px;
   }
   .but2-audi {
     max-width: 210px;

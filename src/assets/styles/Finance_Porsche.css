@@ -13,7 +13,9 @@
   margin-left: 20px;
 }
 .title-finance-porsche2 {
-  font-size: 25px;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 20px;
 }
 .box-finance-porsche {
   display: flex;
@@ -54,6 +56,7 @@
 .finance-porsche-text22,
 .finance-porsche-text32 {
   margin-top: 20px;
+  font-size: 20px;
 }
 .finance-porsche-text1,
 .finance-porsche-text2,
@@ -73,7 +76,10 @@
 .but-por {
   display: flex;
   margin-top: 15px;
-  margin-left: 170px;
+
+  justify-content: center;
+  gap: 50px;
+  margin-top: 30px;
 }
 .but1-por {
   background-color: #65666d;
@@ -82,7 +88,7 @@
   height: 30px;
   text-align: center;
   padding-top: 4px;
-  margin-left: 100px;
+  border-radius: 5px;
 }
 .but2-por {
   background-color: #425adb;
@@ -91,7 +97,7 @@
   height: 30px;
   text-align: center;
   padding-top: 4px;
-  margin-left: 30px;
+  border-radius: 5px;
 }
 
 @media (max-width: 1024px) {
@@ -128,7 +134,6 @@
     max-width: 180px;
   }
   .but2-por {
-    margin-left: 50px;
     max-width: 200px;
   }
 }
@@ -160,14 +165,16 @@
   .finance-porsche-text31 {
     font-size: 18px;
   }
-
+  .but-por {
+    display: flex;
+    justify-content: center;
+  }
   .but1-por,
   .but2-por {
     width: 100%;
     max-width: 180px;
   }
   .but2-por {
-    margin-left: 50px;
     max-width: 200px;
   }
 }

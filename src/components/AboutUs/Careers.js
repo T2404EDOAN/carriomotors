@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../assets/styles/Careers.css";
-import anhe from "../../assets/images/Mec_images/anhe.jpg";
+import anhhhhhhh from "../../assets/images/Mec_images/anhhhhhhh.jpg";
 import { Input, Typography, Checkbox, Button, message } from "antd";
 import axios from "axios";
 const { TextArea } = Input;
@@ -113,7 +113,7 @@ const Careers = () => {
   return (
     <div className="careers-main-container">
       <div className="careers-left">
-        <img src={anhe} alt="anhe" />
+        <img src={anhhhhhhh} alt="anhe" />
       </div>
       <div className="careers-right">
         <div className="title-careers1">

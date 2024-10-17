@@ -21,8 +21,8 @@ const Mec_main = () => {
             <div className="content-left1-text">
               Mobile Service <br />
               Convenient, comprehensive, and contact free, Mobile Service by
-              Mercedes-Benz brings exceptional care <br />
-              right to your preferred location with offerings like:
+              Mercedes-Benz brings exceptional care right to your preferred
+              location with offerings like:
               <br />
               <ul>
                 <li>Oil services</li>
@@ -43,14 +43,11 @@ const Mec_main = () => {
             <div className="content-right1-text">
               Express Service <br />
               Available with or without an appointment, Express Service is
-              dedicated vehicle <br />
-              care in about 60 minutes or less. With two diagnostic technicians
-              working <br />
-              on your Mercedes-Benz using the latest tools and tests, it’s
-              <br />a comprehensive and complete way to get thorough service –
-              in less time than
-              <br /> you think. Services Offered in Mercedes-Benz Express
-              <br /> Service include:
+              dedicated vehicle care in about 60 minutes or less. With two
+              diagnostic technicians working on your Mercedes-Benz using the
+              latest tools and tests, it’s a comprehensive and complete way to
+              get thorough service – in less time than you think. Services
+              Offered in Mercedes-Benz Express Service include:
               <ul>
                 <li>Service A/B</li>
                 <li>Air/Cabin Filter Replacement</li>
@@ -70,12 +67,9 @@ const Mec_main = () => {
             <div className="content-left2-text">
               Night Drop
               <br /> We understand it’s not always convenient to bring your
-              <br />
-              vehicle in during regular dealership <br />
-              business hours. With Night Drop, available at participating
-              Mercedes-Benz dealerships, you <br />
+              vehicle in during regular dealership business hours. With Night
+              Drop, available at participating Mercedes-Benz dealerships, you
               can securely leave your vehicle at the dealership after-hours,
-              <br />
               ready to be serviced the next morning.
             </div>
           </div>
@@ -107,12 +101,11 @@ const Mec_main = () => {
             Roadside Assistance <br />
             <br />
             <br />
-            The Mercedes-Benz Roadside Assistance Program is available 24/7
-            <br />
-            to help fix a flat, jumpstart the battery or fuel up — whatever it
-            takes <br /> to get you back on the road. Call 1-800-367-6372, press
-            the me-button in <br />
-            your vehicle, or use the Mercedes me connect app to contact us.
+            The Mercedes-Benz Roadside Assistance Program is available 24/7 to
+            help fix a flat, jumpstart the battery or fuel up — whatever it
+            takes to get you back on the road. Call 1-800-367-6372, press the
+            me-button in your vehicle, or use the Mercedes me connect app to
+            contact us.
             <div className="more3">Learn More about Roadside Assistance</div>
           </div>
           <div className="content3-right-img">
@@ -125,21 +118,18 @@ const Mec_main = () => {
           </div>
           <div className="content4-right4-text">
             Certified Collision Centers
-            <br /> In the event of an accident, Mercedes-Benz Collision <br />
-            Centers have the tools, equipment and training to restore
-            <br /> your vehicle to its pre-collision condition.
+            <br /> In the event of an accident, Mercedes-Benz Collision Centers
+            have the tools, equipment and training to restore your vehicle to
+            its pre-collision condition.
             <div className="more4">Learn More about Roadside Assistance</div>
           </div>
         </div>
         <div className="content5">
           <div className="content5-left5-text">
             Recall Information <br />
-            Mercedes-Benz is committed to keeping you informed <br />
-            about any recalls on your vehicle. Visit the link for the
-            <br />
-            most up-to-date information on current or previous recalls.
-            <br />
-            Mercedes-Benz Recall Information.
+            Mercedes-Benz is committed to keeping you informed about any recalls
+            on your vehicle. Visit the link for the most up-to-date information
+            on current or previous recalls. Mercedes-Benz Recall Information.
             <div className="more5">Learn More about Roadside Assistance</div>
           </div>
           <div className="content5-right5-img">

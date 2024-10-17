@@ -179,54 +179,100 @@ const FinanceInfoTab = ({ car }) => {
           <table className="installment-table">
             <thead>
               <tr>
-                <th>Kỳ hạn</th>
-                <th>12 tháng</th>
-                <th>24 tháng</th>
-                <th>48 tháng</th>
+                <th>Term</th>
+                <th>12 months</th>
+                <th>24 months</th>
+                <th>48 months</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Giá mua trả góp</td>
-                <td>${installmentAmount.toLocaleString()}</td>
-                <td>${installmentAmount.toLocaleString()}</td>
-                <td>${installmentAmount.toLocaleString()}</td>
+                <td>Installment Price</td>
+                <td>
+                  $
+                  {installmentAmount ? installmentAmount.toLocaleString() : "0"}
+                </td>
+                <td>
+                  {" "}
+                  $
+                  {installmentAmount ? installmentAmount.toLocaleString() : "0"}
+                </td>
+                <td>
+                  $ $
+                  {installmentAmount ? installmentAmount.toLocaleString() : "0"}
+                </td>
               </tr>
               <tr>
-                <td>Tổng giảm giá</td>
+                <td>Total Discount</td>
                 <td>$0</td>
                 <td>$0</td>
                 <td>$0</td>
               </tr>
               <tr>
-                <td>Tổng tiền trả góp</td>
-                <td>${calculatedAmount.toLocaleString()}</td>
-                <td>${calculatedAmount.toLocaleString()}</td>
-                <td>${calculatedAmount.toLocaleString()}</td>
+                <td>Total Installment Price</td>
+                <td>
+                  ${calculatedAmount ? calculatedAmount.toLocaleString() : "0"}
+                </td>
+                <td>
+                  ${calculatedAmount ? calculatedAmount.toLocaleString() : "0"}
+                </td>
+                <td>
+                  ${calculatedAmount ? calculatedAmount.toLocaleString() : "0"}
+                </td>
               </tr>
               <tr>
-                <td>Thanh toán khi nhận máy</td>
+                <td>Payment upon Delivery</td>
                 <td>0 đ</td>
                 <td>0 đ</td>
                 <td>0 đ</td>
               </tr>
               <tr>
-                <td>Góp mỗi tháng</td>
+                <td>Monthly Payment</td>
                 <td>
-                  <strong>${monthlyInstallment12.toLocaleString()}</strong>
+                  <strong>
+                    $
+                    {monthlyInstallment12
+                      ? monthlyInstallment12.toLocaleString()
+                      : "0"}
+                  </strong>
                 </td>
                 <td>
-                  <strong>${monthlyInstallment24.toLocaleString()}</strong>
+                  <strong>
+                    $
+                    {monthlyInstallment24
+                      ? monthlyInstallment24.toLocaleString()
+                      : "0"}
+                  </strong>
                 </td>
                 <td>
-                  <strong>${monthlyInstallment48.toLocaleString()}</strong>
+                  <strong>
+                    $
+                    {monthlyInstallment48
+                      ? monthlyInstallment48.toLocaleString()
+                      : "0"}
+                  </strong>
                 </td>
               </tr>
               <tr>
-                <td>Chênh lệch trả tháng</td>
-                <td>${calculateMonthlyDifference.toLocaleString()}</td>
-                <td>${calculateMonthlyDifference1.toLocaleString()}</td>
-                <td>${calculateMonthlyDifference2.toLocaleString()}</td>
+                <td>Monthly Payment Difference</td>
+                <td>
+                  $
+                  {calculateMonthlyDifference
+                    ? calculateMonthlyDifference.toLocaleString()
+                    : "0"}
+                </td>
+                <td>
+                  $
+                  {calculateMonthlyDifference1
+                    ? calculateMonthlyDifference1.toLocaleString()
+                    : "0"}
+                </td>
+                <td>
+                  $
+                  {calculateMonthlyDifference2
+                    ? calculateMonthlyDifference2.toLocaleString()
+                    : "0"}
+                </td>
               </tr>
             </tbody>
           </table>

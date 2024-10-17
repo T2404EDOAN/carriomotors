@@ -89,19 +89,6 @@
   margin-top: 20px;
 }
 
-/* Adjust layout for larger screens */
-@media screen and (min-width: 1024px) {
-  .careers-left {
-    width: 700px;
-  }
-
-  .careers-right {
-    width: 500px;
-    margin-left: 200px;
-    margin-top: 0;
-  }
-}
-
 .title-careers1 {
   font-size: 40px;
   font-weight: bold;
@@ -152,4 +139,115 @@
 .star {
   top: -0.2rem;
   color: red;
+}
+@media screen and (min-width: 1024px) {
+  .careers-main-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  .careers-left {
+    width: 60%;
+    max-width: 1024px;
+  }
+
+  .careers-left img {
+    width: 100%;
+    height: 1050px;
+    object-fit: cover;
+  }
+
+  .careers-right {
+    width: 40%;
+    margin: 0;
+    margin-right: 20px;
+  }
+
+  .title-careers1 {
+    font-size: 35px;
+  }
+
+  .information {
+    font-size: 28px;
+  }
+
+  .careers-right {
+    margin-left: 50px;
+    margin-top: 0;
+  }
+
+  .inputcar-info input {
+    height: 50px;
+  }
+
+  .line1,
+  .line2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .end {
+    font-size: smaller;
+    margin-top: 10px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .careers-main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
+
+  .careers-left {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .careers-left img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .careers-right {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+  }
+
+  .title-careers1 {
+    font-size: 28px;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .information {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .inputcar-info input {
+    height: 40px;
+    width: 100%;
+  }
+
+  .line1,
+  .line2 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .end {
+    font-size: 12px;
+    margin-top: 10px;
+  }
 }
