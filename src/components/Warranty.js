@@ -5,6 +5,24 @@ import warranty1 from '../assets/images/Warranty/Merc1.jpg';
 import warranty2 from '../assets/images/Warranty/Merc2.jpg';
 import warranty3 from '../assets/images/Warranty/Merc3.jpg';
 import bmwlogo from '../assets/images/Warranty/bmwlogo.png';
+import icon1 from '../assets/images/Warranty/Merc5.jpg';
+import icon2 from '../assets/images/Warranty/Merc1.jpg';
+import icon3 from '../assets/images/Warranty/Merc4.jpg';
+import icon4 from '../assets/images/Warranty/BMW1.jpg';
+import icon5 from '../assets/images/Warranty/BMW2.jpg';
+import icon6 from '../assets/images/Warranty/BMW3.jpg';
+import icon7 from '../assets/images/Warranty/BMWparts.jpg';
+import icon8 from '../assets/images/Warranty/Audi_logo.png';
+import icon9 from '../assets/images/Warranty/Audi1.jpg';
+import icon10 from '../assets/images/Warranty/Audi2.jpg';
+import icon11 from '../assets/images/Warranty/Porsche1.jpg';
+import icon12 from '../assets/images/Warranty/Porsche2.jpg';
+import icon13 from '../assets/images/Warranty/Porsche3_11zon.jpg';
+import icon14 from '../assets/images/Warranty/Porscher4_11zon.jpg';
+import icon15 from '../assets/images/Warranty/Porsche5_11zon.jpg';
+import icon16 from '../assets/images/Warranty/Porsche6_11zon.jpg';
+import icon17 from '../assets/images/Warranty/bmwlogo.png';
+import icon18 from '../assets/images/Warranty/bmwlogo.png';
 
 const Warranty = () => {
   // State to track the active tab
@@ -68,7 +86,7 @@ const Warranty = () => {
           </div>
 
           <div className="warranty-content alt">
-          <img src={warranty2} alt="warranty_alt" className="warranty-image right-aligned" />
+          <img src={warranty2} alt="warranty2" className="warranty-image right-aligned" />
             <div className="warranty-details">
               <span className="extended-warranty-label">Extended Warranty Program</span>
               <h2>Worry-free to enjoy the ride.</h2>
@@ -106,7 +124,7 @@ const Warranty = () => {
       {activeTab === 'spare-parts' && (
         <>
           <div className="warranty-content">
-            <img src="./1.jpg" alt="Placeholder" className="warranty-image" />
+            <img src={icon1} alt="icon1" className="warranty-image" />
             <div className="warranty-details">
               <h2>The seal of quality for spare parts.</h2>
               <p>
@@ -117,6 +135,7 @@ const Warranty = () => {
           </div>
 
           <div className="warranty-content alt">
+          <img src={icon2} alt="icon2" className="warranty-image right-aligned" />
             <div className="warranty-details">
               <span className="extended-warranty-label">Extended Warranty Program</span>
               <h2>Worry-free to enjoy the ride.</h2>
@@ -132,11 +151,11 @@ const Warranty = () => {
                 <li>Exclusive privileges such as 24-hour Star Assist (RSA) and more.</li>
               </ul>
             </div>
-            <img src="./1.jpg" alt="Placeholder" className="warranty-image right-aligned" />
+            
           </div>
 
           <div className="warranty-content">
-            <img src="./1.jpg" alt="Placeholder" className="warranty-image" />
+            <img src={icon3} alt="icon3" className="warranty-image" />
             <div className="warranty-details">
               <h2>The matching solution for any issue.</h2>
               <p>
@@ -151,7 +170,7 @@ const Warranty = () => {
       {/* Separator Header Section */}
       <div className="separator-header">
         <div className="header-content">
-          <img src={bmwlogo} alt="BMW Logo" style={{ width: '100px', height: '100px' }} className="header-logo" />
+          <img src={bmwlogo} alt="icon4" style={{ width: '100px', height: '100px' }} className="header-logo" />
           <h1>“I’M EQUIPPED FOR EVERYTHING. EVEN THE UNEXPECTED”</h1>
           <p>BMW Warranty</p>
           <button className="contact-button">CONTACT US</button>
@@ -182,11 +201,11 @@ const Warranty = () => {
             The BMW Three Year Unlimited Mileage Retailer Warranty gives you peace of mind for the first three years of your ownership and even includes BMW Roadside Assistance. As always, any work you do require will be completed by a trained BMW Technician at a BMW Authorised Workshop.
           </p>
         </div>
-        <img src="./1.jpg" alt="Placeholder" className="warranty-image" />
+        <img src={icon4} alt="icon6" className="warranty-image" />
       </div>
 
       <div className="warranty-content alt">
-        <img src="./1.jpg" alt="Placeholder" className="warranty-image" />
+        <img src={icon5} alt="Placeholder" className="warranty-image" />
         <div className="warranty-details">
           <h2>BMW i Warranty</h2>
           <p>
@@ -208,11 +227,11 @@ const Warranty = () => {
             Generation 5 PHEV batteries - 8 years or 100,000 miles from the first registration date, whichever occurs first.
           </p>
         </div>
-        <img src="./1.jpg" alt="Placeholder" className="warranty-image" />
+        <img src={icon6} alt="icon6" className="warranty-image" />
       </div>
 
       <div className="warranty-content alt">
-        <img src="./1.jpg" alt="Placeholder" className="warranty-image" />
+        <img src={icon7} alt="icon7" className="warranty-image" />
         <div className="warranty-details">
           <h2>Genuine BMW Parts</h2>
           <p>
@@ -231,13 +250,14 @@ const Warranty = () => {
       <div className="audi-warranty-content">
         {/* Audi logo */}
         <div className="audi-logo">
-          <img src="./1.jpg" alt="Audi Logo" />
+          <img src={icon8} alt="Audi Logo" />
         </div>
 
         {/* Warranty Cards */}
+        
         <div className="warranty-cards">
           <div className="warranty-card">
-            <img src="./1.jpg" alt="Audi New Vehicle" className="warranty-card-image" />
+          <img src={icon9} alt="Audi New Vehicle" className="warranty-card-image" />            
             <div className="warranty-card-content">
               <h2>New Vehicle Limited Warranty</h2>
               <p>
@@ -249,7 +269,7 @@ const Warranty = () => {
           </div>
 
           <div className="warranty-card">
-            <img src="./1.jpg" alt="Audi Certified Pre-Owned" className="warranty-card-image" />
+            
             <div className="warranty-card-content">
               <h2>Audi Certified pre-owned Limited Warranty</h2>
               <p>
@@ -257,6 +277,7 @@ const Warranty = () => {
               </p>
               <button className="learn-more-button">View more</button>
             </div>
+            <img src={icon10} alt="Audi Certified Pre-Owned" className="warranty-card-image" />
           </div>
         </div>
       </div>
@@ -281,48 +302,69 @@ const Warranty = () => {
           Further information
         </button>
       </div>
-
+      {/* Introduction Section */}
+<div id="warranty-intro" className="content-section warranty-intro">
+  <h2>A new level of peace of mind with the Porsche Approved Warranty.</h2>
+  <p>
+    With the Porsche Approved Warranty, you can enjoy unlimited driving pleasure – and along with it a new level of peace of mind. Because no matter how often or how far you drive your Porsche, the Porsche Approved Warranty applies without any mileage limit during the contract term up to a vehicle age of 15 years – even without prior warranty coverage.
+  </p>
+</div>
       {/* Benefits Section */}
-      <div id="benefits" className="content-section">
-        <h2>Your benefits at a glance</h2>
-        <p>With the Porsche Approved Warranty, you can enjoy...</p>
-        <ul>
-          <li>Valid worldwide – redeemable at any Porsche Centre</li>
-          <li>Warranty coverage for Porsche vehicles up to 15 years...</li>
-        </ul>
-        <img src="./1.jpg" alt="Placeholder" className="content-image" />
-      </div>
+<div id="benefits" className="content-section benefits-row">
+  <div className="benefits-details">
+    <h2>Your benefits at a glance</h2>
+    <ul>
+      <li>Valid worldwide – redeemable at any Porsche Centre</li>
+      <li>Warranty coverage for Porsche vehicles up to an age of 15 years, with the possibility to conclude the warranty for vehicles of up to 14 years of age / 125,000 miles – even without prior warranty coverage.</li>
+      <li>Flexible terms of 12, 24 or 36 months – without mileage limitation during the duration of the warranty period.</li>
+      <li>Coverage of all vehicle components* and assumption of 100% of labour and material costs up to the vehicle’s current value – without any deductible.</li>
+      <li>Ensuring Porsche value retention and longevity – exclusive use of Porsche Genuine Parts.</li>
+      <li>Increase in value, extendability and transferability – in case of private sale or sale to a Porsche Centre – optionally with the Porsche Assistance.</li>
+    </ul>
+  </div>
+  <img src={icon11} alt="Porsche benefits" className="benefits-image" />
+</div>
 
-      {/* Warranty Types Section */}
-      <div id="types" className="content-section">
-        <h2>Warranty types</h2>
-        <div className="warranty-card">
-          <img src="./1.jpg" alt="Warranty type" className="warranty-card-image" />
-          <p>The Porsche Approved Warranty is available in the following variants...</p>
-        </div>
-      </div>
+     {/* Warranty Types Section */}
+<div id="warranty-types" className="content-section warranty-types-row">
+  <div className="warranty-image">
+    <img src={icon12} alt="Warranty Types" className="warranty-type-image" />
+  </div>
+  <div className="warranty-text">
+    <h2>Warranty types</h2>
+    <p>The Porsche Approved Warranty is available in the following variants:</p>
+    <ul>
+      <li>As an extension warranty to extend an existing new vehicle warranty or Porsche Approved Warranty.</li>
+      <li>As a pre-owned vehicle warranty when purchasing a Porsche Approved Pre-Owned Car.</li>
+      <li>As a stand-alone warranty for a Porsche vehicle without existing warranty protection after successful completion of the 111 Point Check*</li>
+    </ul>
+    <p>
+      * Carrying out the 111 Point Check involves additional costs, which your Porsche Centre can provide further information on. For standalone policies, the warranty policy must be added the same day as completion of the 111 Point Check.
+    </p>
+  </div>
+</div>
 
       {/* Further Information Section */}
       <div id="info" className="content-section">
         <h2>Further information</h2>
         <div className="info-cards-scrollable">
           <div className="info-card">
-            <img src="./1.jpg" alt="111 Point Check" />
+            <img src={icon13} alt="111 Point Check" />
             <h3>111 Point Check</h3>
-            <p>Using a 111 Point Check list...</p>
+            <p>Using a 111 Point Check list, our technicians meticulously check the functionality of the entire vehicle as well as the complete vehicle documentation and history. For your peace of mind</p>
           </div>
           <div className="info-card">
-            <img src="./1.jpg" alt="Porsche Assistance" />
+            <img src={icon14} alt="Porsche Assistance" />
             <h3>Porsche Assistance</h3>
-            <p>In combination with our warranty services...</p>
+            <p>In combination with our warranty services, Porsche Assistance offers you an exclusive mobility guarantee – 24 hours a day, 365 days a year. From roadside assistance to organising your return journey – we take care of your needs.</p>
           </div>
           <div className="info-card">
-            <img src="./1.jpg" alt="Porsche Approved Pre-Owned Cars" />
+            <img src={icon15} alt="Porsche Approved Pre-Owned Cars" />
             <h3>Porsche Approved Pre-Owned Cars</h3>
             <p>Our Porsche Approved Pre-Owned cars are just as thrilling as they were when they were first driven. And with our Porsche Approved Warranty, you have nothing to worry about.</p>
           </div>
           <div className="info-card">
-            <img src="./1.jpg" alt="Porsche Finder" />
+            <img src={icon16} alt="icon16" />
             <h3>Porsche Finder</h3>
             <p>Discover the attractive range of pre-owned cars at your Porsche Centre and in our online pre-owned car search.</p>
           </div>
