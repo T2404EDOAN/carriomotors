@@ -82,7 +82,7 @@ const LocationContent = ({ location, error, isLoading }) => {
           alignItems: "center",
         }}
       >
-        <Text strong>Vị trí của bạn</Text>
+        <Text strong>Your location</Text>
       </div>
 
       {isLoading ? (
