@@ -66,23 +66,17 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         `https://carriomotors.io.vn/api/get_vehicle.php`
       );
       const carsData = response.data;
-
+  
       if (Array.isArray(carsData)) {
-        // Map brand name to each car
-        const validCars = carsData
-          .filter((car) => car.brand_id !== undefined)
-          .map((car) => {
-            const brand = brands.find((brand) => brand.id === car.brand_id);
-            return {
-              ...car,
-              brand_name: brand ? brand.name : "Unknown Brand", // Thêm tên brand
-              price: Math.floor(car.price),
-            };
-          });
-
+        // Dữ liệu trả về đã có sẵn tên thương hiệu (brand_name), không cần ánh xạ thêm
+        const validCars = carsData.map((car) => ({
+          ...car,
+          price: Math.floor(car.price), // Xử lý giá nếu cần
+        }));
+  
         setCars(validCars);
         setFilteredCars(validCars);
-
+  
         const uniqueColors = [...new Set(validCars.map((car) => car.color))];
         setColors(uniqueColors);
       } else {
@@ -90,7 +84,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         setFilteredCars([]);
       }
     } catch (error) {
-      console.error("Lỗi khi tải dữ liệu xe:", error);
+      console.error("Error fetching cars:", error);
     }
   };
 
@@ -398,7 +392,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         trackStyle={{ backgroundColor: "black" }}
       />
 
-      <Row justify="space-between" style={{ width: "60%" }}>
+      <Row justify="space-between" style={{ width: "100%" }}>
         <Text style={{ fontSize: "16px" }}>${PriceRange[0]}</Text>
         <Text style={{ fontSize: "16px" }}>${PriceRange[1]}</Text>
       </Row>
@@ -444,13 +438,15 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
+            fontWeight: "normal",
+            fontSize:"14px",
           }}
         >
           {`${car.brand_name} ${car.car_model_name} ${car.series_name}`}
         </Title>
       </div>
       <Row justify="space-between" align="middle" style={{ height: "24px" }}>
-        <Text strong>${car.price}</Text>
+      <Text style={{ fontWeight: "normal" }}>${car.price}</Text>
       </Row>
     </Card>
   );

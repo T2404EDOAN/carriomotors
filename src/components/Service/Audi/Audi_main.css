@@ -1,5 +1,15 @@
+/* Audi_main.css */
+html {
+  font-size: 16px;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
 .audi-container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -11,7 +21,10 @@
 }
 
 .intro-section h2 {
+  font-size: 2rem;
   color: #000;
+  text-transform: uppercase;
+ 
 }
 
 .intro-section p {
@@ -19,50 +32,25 @@
 }
 
 /* Service Details */
-
-
-
-.support-option, .campaign {
-  text-align: center;
-  padding: 20px;
-  border-radius: 10px;
- 
-  transition: transform 0.3s ease;
-}
-
- .support-option img, .campaign img {
-  margin-bottom: 15px;
-}
-
-
-.plan p, .support-option p, .campaign p {
-  margin-top: 10px;
-}
 .service-details {
   display: flex;
-  flex-direction: row; /* Keep row layout for desktop */
-  align-items: middle;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 40px;
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  background-color: #f9f9f993; /* Background color */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .service-image {
-  max-width: 25vw;
-  flex: 1; /* Image will take up available space */
-  margin-right: 30px;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px;
 }
 
 .service-info {
-  flex: 2; /* Text content will take more space compared to the image */
+  width: 100%;
 }
 
 .service-info h3 {
-  font-size: 2vw;
+  font-size: 1.5rem;
   margin-bottom: 10px;
 }
 
@@ -70,154 +58,109 @@
   list-style-type: disc;
   margin-left: 20px;
 }
+
 /* Service Plans */
 .service-plans {
   text-align: center;
   margin-bottom: 40px;
 }
+
 .service-plans h3 {
-  font-size: 2vw; /* Increased font size */
-  font-weight: 700; /* Bolder font weight */
-  color: #000; /* Solid black color */
-  text-transform: uppercase; /* Uppercase for emphasis */
-  letter-spacing: 1px; /* Adds spacing between letters */
-  position: relative; /* For positioning the underline effect */
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
+  text-transform: uppercase;
+ 
 }
 
-.service-plans h3::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -10px;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background-color: #000000; /* Same underline color */
-  border-radius: 2px;
-}
 .plans {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 .plan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  max-width: 200px;
-  margin: 10px;
 }
 
 .plan img {
-  max-width: 10vw;
-  margin-bottom: 10px;
-  margin-left: 20px;
+  width: 100%;
+  max-width: 200px;
+  margin-bottom: 15px;
 }
 
 /* Customer Support */
 .customer-support {
   text-align: center;
   margin-bottom: 40px;
-  font-size: 1.5vw;
-}
-.customer-support h3 {
-  font-size: 2vw; /* Increased font size */
-  font-weight: 700; /* Bolder font weight */
-  color: #000; /* Solid black color */
-  text-transform: uppercase; /* Makes the text all uppercase for emphasis */
-  letter-spacing: 1px; /* Adds some spacing between the letters */
-  position: relative; /* For positioning the underline effect */
-  margin-bottom: 20px; /* Adds some space below the heading */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-/* Underline effect */
-.customer-support h3::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -10px; /* Adjust the position of the line */
-  transform: translateX(-50%);
-  width: 80px; /* Width of the underline */
-  height: 3px; /* Thickness of the underline */
-  background-color: #000000; /* Underline color */
-  border-radius: 2px; /* Slight rounding for smoother line */
+.customer-support h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
+  text-transform: uppercase;
+ 
 }
+
 .support-options {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 .support-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  max-width: 600px;
-  margin: 10px;
   padding: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
-.support-option:hover {
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+.support-option,
+.campaign {
+  width: 100%;
+  max-width: 600px; /* Hoặc kích thước phù hợp với thiết kế của bạn */
+  margin: 0 auto 20px;
 }
-
-.support-option img {
-  max-width: 100%;
-  margin-bottom: 10px;
-}
-
 /* Additional Support */
 .additional-support {
   text-align: center;
   margin-bottom: 40px;
-  font-size: 1.5vw;
-}
-/* Styling for Keep Your Car in Top Form heading */
-.additional-support h3 {
-  font-size: 2vw; /* Increased font size */
-  font-weight: 700; /* Bolder font weight */
-  color: #000; /* Solid black color */
-  text-transform: uppercase; /* Uppercase for emphasis */
-  letter-spacing: 1px;
-  position: relative;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-.additional-support h3::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -10px;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background-color: #000000;
-  border-radius: 2px;
+.additional-support h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
+  text-transform: uppercase;
+
 }
+
+.support-options,
 .support-campaigns {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Tăng minmax từ 250px lên 300px */
+  gap: 30px; /* Tăng khoảng cách giữa các item */
 }
 
 .campaign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  max-width: 600px;
-  margin: 10px;
   padding: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.campaign:hover {
-
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Increased shadow on hover */
+  transition: transform 0.3s ease;
 }
 
 .campaign img {
-  max-width: 100%;
-  margin-bottom: 10px;
+  width: 100%;
+  max-width: 200px;
+  margin-bottom: 15px;
 }
 
 a {
@@ -229,152 +172,72 @@ a {
 a:hover {
   text-decoration: underline;
 }
-.intro-section h3 {
-  font-size: 2vw; /* Increased font size */
-  font-weight: 700; /* Bolder font weight */
-  color: #000; /* Solid black color */
-  text-transform: uppercase; /* Uppercase for emphasis */
-  letter-spacing: 1px; /* Adds spacing between letters */
-  position: relative; /* For positioning the underline effect */
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
 
-.intro-section h3::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -10px; /* Adjust the position of the underline */
-  transform: translateX(-50%);
-  width: 100px; /* Width of the underline */
-  height: 4px; /* Thickness of the underline */
-  background-color: #000000; /* Underline color */
-  border-radius: 2px; /* Slight rounding for smoother line */
-}
-
-.intro-section p {
-  font-size: 1.5vw;
-}
 /* Responsive Breakpoints */
-@media (max-width: 1400px) {
-  
-
-
+@media (min-width: 768px) {
   .service-details {
-    flex-direction: column; /* Stack items in a column for smaller screens */
-    text-align: center; /* Center align text on smaller screens */
-}
-
-.service-image {
-    max-width: 80vw;
-    margin-bottom: 20px; /* Add margin below image when stacked */
-}
-
-.service-info {
-    flex: unset; /* Reset flex on smaller screens */
-}
-
-.service-info h3 {
-    font-size: 3.5vw;
-}
-
-  .plans {
-      flex-direction: column;
+    flex-direction: row;
+    align-items: flex-start;
   }
 
-  .plan {
-      max-width: 100%;
+  .service-image {
+    width: 40%;
+    margin-right: 5%;
+    margin-bottom: 0;
   }
 
-  .plan img {
-      max-width: 10vw;
-  }
-
-  .support-options {
-      flex-direction: column;
-  }
-
-  .support-option {
-      max-width: 100%;
+  .service-info {
+    width: 55%;
   }
 }
 
+@media (max-width: 992px) {
+  html {
+    font-size: 15px;
+  }
+}
+.support-option img,
+.campaign img,
+.additional-support .campaign img {  /* Thêm selector cho phần "Keep your car in top form" */
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+.support-option,
+.campaign,
+.additional-support .campaign {  /* Thêm selector cho phần "Keep your car in top form" */
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+.support-options,
+.support-campaigns,
+.additional-support .support-campaigns {  /* Thêm selector cho phần "Keep your car in top form" */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
 @media (max-width: 768px) {
-  .intro-section h2 {
-      font-size: 6vw;
+  .support-options,
+  .support-campaigns,
+  .additional-support .support-campaigns {  /* Thêm selector cho phần "Keep your car in top form" */
+    grid-template-columns: 1fr;
   }
-
-  .intro-section p {
-      font-size: 3vw;
-  }
-
-  .service-details {
-      font-size: 3vw;
-  }
-
-  .service-image {
-    max-width: 90vw; /* Larger image on small screens */
-}
-
-.service-info h3 {
-    font-size: 4vw;
-}
-
-  .plans {
-      flex-direction: column;
-  }
-
-  .plan {
-      max-width: 100%;
-  }
-
-  .plan img {
-      max-width: 15vw;
-  }
-
-  .support-options {
-      flex-direction: column;
-  }
-
-  .support-option {
-      max-width: 100%;
+  
+  .support-option,
+  .campaign,
+  .additional-support .campaign {  /* Thêm selector cho phần "Keep your car in top form" */
+    max-width: 100%;
   }
 }
 
-@media (max-width: 480px) {
-  .intro-section h2 {
-      font-size: 8vw;
+@media (max-width: 576px) {
+  html {
+    font-size: 13px;
   }
 
-  .intro-section p {
-      font-size: 4vw;
-  }
-
-  .service-details {
-      font-size: 4vw;
-  }
-
-  .service-image {
-      max-width: 100%;
-  }
-
-  .service-info h3 {
-      font-size: 6vw;
-  }
-
-  .plans {
-      flex-direction: column;
-  }
-
-  .plan img {
-      max-width: 20vw;
-  }
-
-  .support-options {
-      flex-direction: column;
-  }
-
-  .support-option {
-      max-width: 100%;
+  .audi-container {
+    padding: 10px;
   }
 }

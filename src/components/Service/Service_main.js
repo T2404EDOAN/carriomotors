@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Tabs } from "antd";
 import Audi_main from "./Audi/Audi_main";
 import Porsche_main from "../Porsche/Porsche";
 import Mec_main from "./Mec/Mec_main";
 import Bmv_main from "./BMV/Bmv_main";
 
-export default function TabsBasic() {
+
+export default function Service_main() {
+  const [activeKey, setActiveKey] = useState("1");
+
   const items = [
     {
       key: "1",
@@ -13,10 +16,17 @@ export default function TabsBasic() {
         <img
           src="./logo/logomec.png"
           alt="MEC Logo"
-          style={{ width: "80px", transition: "transform 0.3s ease" }}
+          style={{
+            width: activeKey === "1" ? "70px" : "50px",
+            transition: "transform 0.3s ease, width 0.3s ease",
+          }}
         />
       ),
-      children: <Mec_main />,
+      children: (
+        <div style={{ fontSize: "16px", fontFamily: "Roboto, sans-serif" }}>
+          <Mec_main />
+        </div>
+      ),
     },
     {
       key: "2",
@@ -24,10 +34,17 @@ export default function TabsBasic() {
         <img
           src="./logo/logobmw.png"
           alt="BMW Logo"
-          style={{ width: "80px", transition: "transform 0.3s ease" }}
+          style={{
+            width: activeKey === "2" ? "70px" : "50px",
+            transition: "transform 0.3s ease, width 0.3s ease",
+          }}
         />
       ),
-      children: <Bmv_main />,
+      children: (
+        <div style={{ fontSize: "16px", fontFamily: "Roboto, sans-serif" }}>
+          <Bmv_main />
+        </div>
+      ),
     },
     {
       key: "3",
@@ -35,10 +52,17 @@ export default function TabsBasic() {
         <img
           src="./logo/logoaudi.png"
           alt="Audi Logo"
-          style={{ width: "80px", transition: "transform 0.3s ease" }}
+          style={{
+            width: activeKey === "3" ? "70px" : "50px",
+            transition: "transform 0.3s ease, width 0.3s ease",
+          }}
         />
       ),
-      children: <Audi_main />,
+      children: (
+        <div style={{ fontSize: "16px", fontFamily: "Roboto, sans-serif" }}>
+          <Audi_main />
+        </div>
+      ),
     },
     {
       key: "4",
@@ -46,10 +70,17 @@ export default function TabsBasic() {
         <img
           src="./logo/logoporsche.png"
           alt="Porsche Logo"
-          style={{ width: "80px", transition: "transform 0.3s ease" }}
+          style={{
+            width: activeKey === "4" ? "65px" : "45px",
+            transition: "transform 0.3s ease, width 0.3s ease",
+          }}
         />
       ),
-      children: <Porsche_main />,
+      children: (
+        <div style={{ fontSize: "16px", fontFamily: "Roboto, sans-serif" }}>
+          <Porsche_main />
+        </div>
+      ),
     },
   ];
 
@@ -57,10 +88,13 @@ export default function TabsBasic() {
     <div
       style={{
         backgroundColor: "white",
+        fontFamily: "Roboto, sans-serif", // Áp dụng cho toàn bộ container
       }}
     >
       <Tabs
         defaultActiveKey="1"
+        activeKey={activeKey}
+        onChange={(key) => setActiveKey(key)}
         centered
         items={items}
         tabBarStyle={{

@@ -18,19 +18,16 @@ body {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .service-box {
-  width: 30%;
-  padding: 20px;
-  margin: 10px;
+  width: 31%;
+ 
+ 
   transition: transform 0.3s ease;
 }
 
-.service-box:hover {
-  transform: scale(1.05);
-}
 
 .service-box img {
   width: 100%;
@@ -109,7 +106,7 @@ font-size: 1.5vw;
 .benefits {
   list-style-type: disc;
   padding-left: 20px; /* Ensure the bullets are aligned */
-  font-size: 14px;
+  font-size: 16px;
   color: #555;
   margin-bottom: 20px;
 }

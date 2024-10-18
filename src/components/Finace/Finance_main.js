@@ -1,49 +1,106 @@
-import React from "react";
-import Tabs from "@mui/joy/Tabs";
-import TabList from "@mui/joy/TabList";
-import Tab from "@mui/joy/Tab";
-import TabPanel from "@mui/joy/TabPanel";
+import React, { useState } from "react";
+import { Tabs } from "antd";
+
 import FinanceMec from "./Finance_Mec";
-import FinanceAudi from "./Finance_Audi";
 import FinanceBMW from "./Finace_Bmw";
+import FinanceAudi from "./Finance_Audi";
 import FinancePorsche from "./Finance_Porsche";
-const Finance_main = () => {
+
+export default function Finance_Main() {
+  const [activeKey, setActiveKey] = useState("1");
+
+  const items = [
+    {
+      key: "1",
+      label: (
+        <img
+          src="./logo/logomec.png"
+          alt="MEC Logo"
+          style={{
+            width: activeKey === "1" ? "70px" : "50px", // Kích thước khi tab được chọn và không chọn
+            transition: "transform 0.3s ease, width 0.3s ease", // Thêm transition cho mượt
+          }}
+        />
+      ),
+      children: (
+        <div style={{ fontSize: "16px", fontFamily: "Roboto, sans-serif" }}>
+          <FinanceMec/>
+        </div>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <img
+          src="./logo/logobmw.png"
+          alt="BMW Logo"
+          style={{
+            width: activeKey === "2" ? "70px" : "50px",
+            transition: "transform 0.3s ease, width 0.3s ease",
+          }}
+        />
+      ),
+      children: (
+        <div style={{ fontSize: "16px", fontFamily: "Roboto, sans-serif" }}>
+          <FinanceBMW />
+        </div>
+      ),
+    },
+    {
+      key: "3",
+      label: (
+        <img
+          src="./logo/logoaudi.png"
+          alt="Audi Logo"
+          style={{
+            width: activeKey === "3" ? "70px" : "50px",
+            transition: "transform 0.3s ease, width 0.3s ease",
+          }}
+        />
+      ),
+      children: (
+        <div style={{ fontSize: "16px", fontFamily: "Roboto, sans-serif" }}>
+          <FinanceAudi />
+        </div>
+      ),
+    },
+    {
+      key: "4",
+      label: (
+        <img
+          src="./logo/logoporsche.png"
+          alt="Porsche Logo"
+          style={{
+            width: activeKey === "4" ? "65px" : "45px",
+            transition: "transform 0.3s ease, width 0.3s ease",
+          }}
+        />
+      ),
+      children: (
+        <div style={{ fontSize: "16px", fontFamily: "Roboto, sans-serif" }}>
+          <FinancePorsche />
+        </div>
+      ),
+    },
+  ];
+<FinancePorsche />
   return (
-    <Tabs aria-label="Basic tabs" defaultValue={0}>
-      <TabList
-        sx={{
-          height: "70px",
-          justifyContent: "center",
-          fontFamily: "Roboto, sans-serif",
-        
+    <div
+      style={{
+        backgroundColor: "white",
+      }}
+    >
+      <Tabs
+        defaultActiveKey="1"
+        activeKey={activeKey}
+        onChange={(key) => setActiveKey(key)}
+        centered
+        items={items}
+        tabBarStyle={{
+          backgroundColor: "white",
+          border: "none",
         }}
-      >
-         <Tab sx={{ width: "150px", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          Mercedes
-        </Tab>
-        <Tab sx={{ width: "150px", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          BMW
-        </Tab>
-        <Tab sx={{ width: "150px", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          Audi
-        </Tab>
-        <Tab sx={{ width: "150px", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          PORSCHE
-        </Tab>
-      </TabList>
-      <TabPanel value={0} sx={{ fontFamily: "Roboto, sans-serif" }}>
-        <FinanceMec />
-      </TabPanel>
-      <TabPanel value={1}>
-        <FinanceBMW />
-      </TabPanel>
-      <TabPanel value={2}>
-        <FinanceAudi />
-      </TabPanel>
-      <TabPanel value={3}>
-        <FinancePorsche />
-      </TabPanel>
-    </Tabs>
+      />
+    </div>
   );
-};
-export default Finance_main;
+}

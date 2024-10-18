@@ -63,9 +63,7 @@ const CarDetailModal = ({
             onDrawerToggle={handleDrawerToggle}
           />
         </TabPane>
-        <TabPane tab="Exterior" key="2">
-          <FinanceInfoTab />
-        </TabPane>
+        
         <TabPane tab="Finance" key="3">
           <FinanceInfoTab car={car} />
         </TabPane>

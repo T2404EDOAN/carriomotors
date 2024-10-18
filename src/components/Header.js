@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import PersonIcon from '@mui/icons-material/Person';
 import {
   Menu,
   Input,
@@ -235,8 +236,8 @@ const ImprovedHeader = () => {
               <img src="/logo2.png" alt="Logo" className="h-13 md:h-16" />
             </Link>
             <div className="flex items-center ml-4">
-              <UserOutlined style={{ fontSize: "20px", marginRight: "5px" }} />
-              <span className="text-base">{realtimeVisitors}</span>
+              <PersonIcon style={{ fontSize: "15px", marginRight: "5px" }} />
+              <span className="text-base" style={{fontSize:"12px"}}>{realtimeVisitors}</span>
             </div>
           </div>
 
