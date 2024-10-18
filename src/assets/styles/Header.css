@@ -1,43 +1,31 @@
-/* ImprovedHeader.css */
-/* header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  width: 100%;
-  background-color: white;
-}
-.main-content {
-  padding-top: 70px; /* Khoảng trống tương đương chiều cao của header */
-
+/* Set header font sizes to 16px */
 .ant-menu-item a,
 .ant-menu-submenu-title {
-  text-decoration: none !important; /* Không có gạch chân */
-  font-weight: normal !important; /* Font bình thường */
-  font-size: 18px normal !important;
+  text-decoration: none !important; /* Remove underline */
+  font-weight: normal !important; /* Regular font weight */
+  font-size: 16px !important; /* Set font size to 16px */
 }
 
 .ant-menu-item a:hover,
 .ant-menu-submenu-title:hover {
-  text-decoration: none !important; /* Không có gạch chân khi hover */
-  font-weight: normal !important; /* Font bình thường khi hover */
+  text-decoration: none !important; /* No underline on hover */
+  font-weight: normal !important; /* Regular font weight on hover */
 }
 
-/* Chỉnh sửa vấn đề ellipsis */
+/* Handle ellipsis issue */
 .ant-menu-item,
 .ant-menu-submenu-title {
-  flex-shrink: 0; /* Ngăn việc co lại */
-  white-space: nowrap; /* Đảm bảo không xuống dòng */
+  flex-shrink: 0; /* Prevent shrinking */
+  white-space: nowrap; /* Ensure no line wrapping */
 }
 
-/* Các thuộc tính khác của input và button */
+/* Additional styling for inputs and buttons */
 .ant-input {
-  font-size: 16px;
+  font-size: 16px; /* Set input font size to 16px */
 }
 
 .ant-btn {
-  font-size: 16px;
+  font-size: 16px; /* Set button font size to 16px */
 }
 
 /* Remove underline and ellipsis */
@@ -45,6 +33,8 @@
 .ant-menu-submenu-title a {
   text-decoration: none !important;
 }
+
+/* Fade menu effects */
 .fade-menu {
   opacity: 0;
   visibility: hidden;
@@ -70,38 +60,43 @@
 .ant-menu-submenu-title:hover {
   text-decoration: none !important;
 }
+
+/* Responsive styling */
 @media (max-width: 1024px) {
   .ant-menu-horizontal {
-    display: block; 
+    display: block;
   }
 
   .ant-menu-item,
   .ant-menu-submenu-title {
-    display: block; 
+    display: block;
   }
 }
 
 @media (min-width: 1024px) {
   .ant-menu-horizontal {
-    display: flex; 
+    display: flex;
   }
 
   .ant-menu-item,
   .ant-menu-submenu-title {
-    display: inline-block; 
+    display: inline-block;
   }
 }
+
+/* Other styles */
 .all-products {
-  width: 100vw; /* 100% of the viewport width */
-  position: relative; /* Ensures it doesn't get limited by parent constraints */
-  left: 50%; /* Shifts it to align with the viewport */
-  transform: translateX(-50%); /* Centers the div */
-  background-color: #eff0f1; /* Optional: to visualize the full-width effect */
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #eff0f1;
   height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .all-sanpham {
   align-items: center;
   width: 1400px;

@@ -1,17 +1,16 @@
 /* Banner Section */
 .location-banner {
   width: 100%;
-  height: 200px;
   margin-bottom: 20px;
-  overflow: hidden;  /* Ensures the image doesn't overflow */
+  overflow: hidden; /* Ensures the image doesn't overflow */
 }
 
 .location-banner-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;     /* Ensures the image covers the entire banner area */
-  object-position: center;  /* Centers the image */
-  border-radius: 0;      /* Keep the design consistent */
+  object-fit: cover; /* Ensures the image covers the entire banner area */
+  object-position: center; /* Centers the image */
+  border-radius: 0; /* Keep the design consistent */
 }
 
 /* Location Info Section with 20px left-right padding */
@@ -19,18 +18,15 @@
   padding-left: 40px;
   padding-right: 40px;
   margin-top: 30px;
-
 }
 
 /* Existing CSS for Location cards (unchanged) */
 .Location-Container {
-
   margin-top: 20px;
 }
 
 .ant-card {
   text-align: left;
-  height: 100%;
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: none;
@@ -65,8 +61,6 @@
   border-radius: 0;
 }
 
-
-
 .location-info-section h2 {
   font-size: 24px;
 }
@@ -87,5 +81,4 @@
 
 .location-details {
   text-align: right;
-
 }

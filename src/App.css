@@ -23,7 +23,6 @@ html {
   z-index: 2;
   margin-top: -10px;
   background-color: #fff;
-  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 .blur-background {

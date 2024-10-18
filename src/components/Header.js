@@ -196,7 +196,7 @@ const ImprovedHeader = () => {
       className={`border-0 bg-transparent menu-fade ${
         isMenuVisible ? "visible" : ""
       } ${mode === "vertical" ? "w-full" : ""}`}
-      style={{ width: "600px" }}
+      style={{ width: "570px" }}
       onMouseEnter={() => setIsMenuVisible(true)}
       onMouseLeave={() => setIsMenuVisible(false)}
     >

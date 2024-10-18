@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   Layout,
   Button,
-  Input,
   Select,
   Card,
   Checkbox,
@@ -10,29 +9,29 @@ import {
   Row,
   Col,
   Typography,
-  Space,
   Grid,
-  Drawer,
-  message,
   Pagination,
   Avatar,
 } from "antd";
 import { useLocation } from "react-router-dom";
-import { FilterOutlined, MenuOutlined } from "@ant-design/icons";
+import { MenuOutlined } from "@ant-design/icons";
 import axios from "axios";
 import CarDetailModal from "./PopupDetail/CarDetailModal";
 import "../assets/styles/SearchForm.css";
+
 const { Header, Sider, Content } = Layout;
 const { Title, Text } = Typography;
 const { useBreakpoint } = Grid;
 
 const CarListingLayout = ({ isTechnicalDataVisible }) => {
   const location = useLocation();
-  const { brandId } = location.state || {};
+  const { brandId } = location.state || {}; // Nhận brandId từ location.state (trang category)
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [cars, setCars] = useState([]);
   const [brands, setBrands] = useState([]);
-  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [selectedBrands, setSelectedBrands] = useState(
+    brandId ? [String(brandId)] : []
+  ); // Áp dụng brandId vào selectedBrands khi có brandId
   const [filteredCars, setFilteredCars] = useState([]);
   const [PriceRange, setPriceRange] = useState([0, 500000]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,12 +46,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCar, setSelectedCar] = useState(null);
   const [mainImage, setMainImage] = useState(null);
-  const searchInputRef = useRef(null);
-  const [currentImages, setCurrentImages] = useState({});
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+  const [selectedSpeedRange, setSelectedSpeedRange] = useState(null);
   const [colors, setColors] = useState([
     "red",
     "blue",
@@ -65,27 +59,26 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
   const [selectedColors, setSelectedColors] = useState([]);
   const screens = useBreakpoint();
 
+  // Hàm lấy danh sách xe từ API
   const fetchCars = async () => {
     try {
       const response = await axios.get(
         `https://carriomotors.io.vn/api/get_vehicle.php`
       );
-
-      console.log("Phản hồi từ API:", response);
-
       const carsData = response.data;
 
       if (Array.isArray(carsData)) {
+        // Map brand name to each car
         const validCars = carsData
           .filter((car) => car.brand_id !== undefined)
-          .map((car) => ({
-            ...car,
-            price: Math.floor(car.price),
-          }));
-
-        if (validCars.length === 0) {
-          console.warn("Không có xe hợp lệ (có brand_id) được tìm thấy.");
-        }
+          .map((car) => {
+            const brand = brands.find((brand) => brand.id === car.brand_id);
+            return {
+              ...car,
+              brand_name: brand ? brand.name : "Unknown Brand", // Thêm tên brand
+              price: Math.floor(car.price),
+            };
+          });
 
         setCars(validCars);
         setFilteredCars(validCars);
@@ -95,60 +88,19 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
       } else {
         setCars([]);
         setFilteredCars([]);
-        console.warn("Không có dữ liệu xe hợp lệ từ API.");
       }
     } catch (error) {
       console.error("Lỗi khi tải dữ liệu xe:", error);
     }
   };
 
+  // Gọi API để lấy dữ liệu xe và các thông tin ban đầu
   useEffect(() => {
-    const fetchCarsByBrand = async () => {
-      try {
-        const response = await axios.get(
-          "https://carriomotors.io.vn/api/get_vehicle.php"
-        );
+    fetchCars();
+    fetchLocations();
+  }, []);
 
-        // Truy xuất dữ liệu từ trường `data`
-        const allCars = response.data.data || [];
-
-        // Luôn cập nhật state cars với tất cả xe
-        setCars(allCars);
-
-        if (brandId) {
-          const filtered = allCars.filter(
-            (car) => String(car.brand_id) === String(brandId)
-          );
-          setFilteredCars(filtered);
-          setSelectedBrands([String(brandId)]);
-        } else {
-          // Nếu không có brandId, hiển thị tất cả xe
-          setFilteredCars(allCars);
-          setSelectedBrands([]); // Reset selected brands
-        }
-      } catch (error) {
-        console.error("Lỗi khi tải dữ liệu xe:", error);
-        // Xử lý lỗi, có thể set state để hiển thị thông báo lỗi
-        setFilteredCars([]);
-        setCars([]);
-      }
-    };
-
-    fetchCarsByBrand();
-  }, [brandId]);
-
-  // Cập nhật danh sách xe khi thay đổi thương hiệu được chọn
-  useEffect(() => {
-    if (selectedBrands.length === 0) {
-      setFilteredCars(cars);
-    } else {
-      const filtered = cars.filter((car) =>
-        selectedBrands.includes(car.brand_id)
-      );
-      setFilteredCars(filtered);
-    }
-  }, [selectedBrands, cars]);
-
+  // Gọi API để lấy danh sách hãng xe
   useEffect(() => {
     const fetchBrands = async () => {
       try {
@@ -156,52 +108,174 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
           "https://carriomotors.io.vn/api/get_brands.php"
         );
 
-        console.log("Raw response:", response);
         const brandsData = response.data;
 
         if (Array.isArray(brandsData)) {
           setBrands(brandsData);
-          setSelectedBrands(brandsData);
         } else {
           setBrands([]);
-          setSelectedBrands([]);
         }
       } catch (error) {
-        console.error("Error fetching cars:", error);
+        console.error("Error fetching brands:", error);
       }
     };
 
     fetchBrands();
   }, []);
 
-  const showModal = (car) => {
-    setSelectedCar(car);
-    setIsModalVisible(true);
-  };
+  // Hàm lọc xe dựa trên các tiêu chí đã chọn (bao gồm brandId)
+  const applyFilters = () => {
+    let filtered = cars;
 
-  const closeModal = () => {
-    setIsModalVisible(false);
-    setSelectedCar(null);
-  };
-
-  const fetchModels = async () => {
-    try {
-      const response = await axios.get(
-        "https://carriomotors.io.vn/api/get_model.php"
+    // Lọc theo thương hiệu
+    if (selectedBrands.length > 0) {
+      filtered = filtered.filter((car) =>
+        selectedBrands.includes(String(car.brand_id))
       );
+    }
 
-      const modelsData = response.data.data || response.data;
+    // Lọc theo mô hình
+    if (selectedModels.length > 0) {
+      filtered = filtered.filter((car) =>
+        selectedModels.includes(car.car_modelid)
+      );
+    }
 
-      if (Array.isArray(modelsData)) {
-        setModels(modelsData);
-      } else {
-        console.error("Data is not an array:", modelsData);
-        setModels([]);
+    // Lọc theo địa điểm
+    if (selectedLocations.length > 0) {
+      filtered = filtered.filter((car) =>
+        selectedLocations.includes(car.locationid)
+      );
+    }
+
+    // Lọc theo màu sắc
+    if (selectedColors.length > 0) {
+      filtered = filtered.filter((car) => selectedColors.includes(car.color));
+    }
+
+    // Lọc theo tốc độ
+    if (selectedSpeedRange && selectedSpeedRange.length > 0) {
+      filtered = filtered.filter((car) => {
+        return selectedSpeedRange.some((value) => {
+          const [minSpeed, maxSpeed] = value.split("-").map(Number);
+          return car.top_speed >= minSpeed && car.top_speed <= maxSpeed;
+        });
+      });
+    }
+
+    // Lọc theo giá
+    filtered = filtered.filter(
+      (car) => car.price >= PriceRange[0] && car.price <= PriceRange[1]
+    );
+
+    setFilteredCars(filtered);
+  };
+
+  // Cập nhật danh sách xe mỗi khi có thay đổi ở các tiêu chí lọc
+  useEffect(() => {
+    applyFilters();
+  }, [
+    selectedBrands,
+    selectedModels,
+    selectedLocations,
+    selectedColors,
+    selectedSpeedRange,
+    PriceRange,
+    cars,
+  ]);
+
+  // Xử lý thay đổi trang
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // Xử lý khi chọn tốc độ
+  const handleSpeedRangeChange = (selectedValues) => {
+    setSelectedSpeedRange(selectedValues);
+    applyFilters();
+  };
+
+  // Xử lý khi chọn giá
+  const handlePriceChange = (value) => {
+    setPriceRange(value);
+    applyFilters();
+  };
+
+  // Xử lý khi chọn thương hiệu
+  const handleBrandSelection = (checkedValues) => {
+    setSelectedBrands(checkedValues);
+    applyFilters();
+  };
+
+  // Xử lý khi chọn mô hình
+  const handleModelSelection = (checkedValues) => {
+    setSelectedModels(checkedValues);
+    applyFilters();
+  };
+
+  // Xử lý khi chọn địa điểm
+  const handleLocationSelection = (checkedValues) => {
+    setSelectedLocations(checkedValues);
+    applyFilters();
+  };
+
+  // Xử lý khi chọn màu sắc
+  const handleColorSelection = (color) => {
+    if (selectedColors.includes(color)) {
+      setSelectedColors(selectedColors.filter((c) => c !== color));
+    } else {
+      setSelectedColors([...selectedColors, color]);
+    }
+    applyFilters();
+  };
+
+  useEffect(() => {
+    // Fetch models từ API
+    const fetchModels = async () => {
+      try {
+        const response = await axios.get(
+          "https://carriomotors.io.vn/api/get_model.php"
+        );
+        const modelsData = response.data.data || response.data;
+        if (Array.isArray(modelsData)) {
+          setModels(modelsData);
+        } else {
+          setModels([]);
+        }
+      } catch (error) {
+        console.error("Error fetching models:", error);
       }
-    } catch (error) {
-      console.error("Error fetching cars:", error);
+    };
+
+    fetchModels();
+  }, []);
+  // Hàm chuyển đổi phân loại từ 1, 2, 3 sang tên dòng xe
+  // Cập nhật hàm phân loại dựa trên car_model_status
+  const getCategoryName = (status) => {
+    switch (
+      String(status) // Chuyển đổi status thành chuỗi
+    ) {
+      case "1":
+        return "Sport Utility Vehicle";
+      case "2":
+        return "Sedan";
+      case "3":
+        return "Sport Coupe";
+      default:
+        return "Other";
     }
   };
+
+  // Nhóm các models theo phân loại dòng xe
+  const groupedModels = models.reduce((acc, model) => {
+    console.log(model); // Kiểm tra giá trị car_model_status
+    const category = getCategoryName(model.status); // Sử dụng car_model_status
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(model);
+    return acc;
+  }, {});
 
   const fetchLocations = async () => {
     try {
@@ -214,172 +288,37 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
       if (Array.isArray(locationsData)) {
         setLocations(locationsData);
       } else {
-        console.error("Data is not an array:", locationsData);
         setLocations([]);
       }
     } catch (error) {
-      console.error("Error fetching cars:", error);
+      console.error("Error fetching locations:", error);
     }
   };
-
-  const fetchSearch = async (value) => {
-    try {
-      const response = await axios.get(
-        `https://carriomotors.io.vn/api/get_search.php?name=${value}`
-      );
-
-      const searchData = response.data.data || response.data;
-
-      if (Array.isArray(searchData)) {
-        setFilteredCars(searchData);
-      } else {
-        console.error("Data is not an array:", searchData);
-        setFilteredCars([]);
-      }
-    } catch (error) {
-      console.error("Error fetching cars:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCars();
-    fetchModels();
-    fetchLocations();
-  }, []);
-
-  const headerStyle = {
-    background: "#fff",
-    padding: "10px 20px",
-    height: "auto",
-    lineHeight: "normal",
-  };
-
-  const colStyle = {
-    display: "flex",
-    alignItems: "center",
-    height: "40px",
-  };
-
-  const handlePriceChage = (value) => {
-    setPriceRange(value);
-
-    const filterPrice = cars.filter(
-      (car) => car.price >= value[0] && car.price <= value[1]
-    );
-    setFilteredCars(filterPrice);
-  };
-
-  const handleBrandSelection = (checkedValues) => {
-    setSelectedBrands(checkedValues); // Cập nhật danh sách thương hiệu được chọn
-
-    if (checkedValues.length === 0) {
-      setFilteredCars(cars); // Nếu không chọn thương hiệu nào, hiển thị tất cả xe
-    } else {
-      const filtered = cars.filter((car) =>
-        checkedValues.includes(String(car.brand_id))
-      );
-      setFilteredCars(filtered);
-    }
-  };
-
-  const handleModelSelection = (checkedValues) => {
-    setSelectedModels(checkedValues);
-    if (checkedValues.length === 0) {
-      setFilteredCars(cars);
-    } else {
-      const filtered = cars.filter((car) =>
-        checkedValues.includes(car.car_modelid)
-      );
-      setFilteredCars(filtered);
-    }
-  };
-
-  const handleLocationSelection = (checkedValues) => {
-    setSelectedLocations(checkedValues);
-    if (checkedValues.length === 0) {
-      setFilteredCars(cars);
-    } else {
-      const filtered = cars.filter((car) =>
-        checkedValues.includes(car.locationid)
-      );
-      setFilteredCars(filtered);
-    }
-  };
-
-  const handleColorSelection = (color) => {
-    if (selectedColors.includes(color)) {
-      setSelectedColors(selectedColors.filter((c) => c !== color));
-    } else {
-      setSelectedColors([...selectedColors, color]);
-    }
-
-    const filtered = cars.filter((car) => selectedColors.includes(car.color));
-    setFilteredCars(filtered);
-  };
-
-  useEffect(() => {
-    const reloadPage = sessionStorage.getItem("reloadPage");
-
-    if (!reloadPage) {
-      sessionStorage.setItem("reloadPage", "true");
-      window.location.reload();
-    }
-  }, []);
 
   const reset = () => {
     setSelectedModels([]);
-    setSelectedBrands([]);
+    setSelectedBrands(brandId ? [String(brandId)] : []); // Đặt lại brandId khi reset
     setSelectedLocations([]);
+    setSelectedColors([]);
     setPriceRange([0, 500000]);
+    setSelectedSpeedRange([]);
     setFilteredCars(cars);
-
-    if (searchInputRef.current) {
-      searchInputRef.current.input.value = "";
-    }
+  };
+  const showModal = (car) => {
+    setSelectedCar(car); // Cập nhật thông tin xe được chọn
+    setIsModalVisible(true); // Hiển thị modal
   };
 
-  // Sidebar rendering
+  const closeModal = () => {
+    setIsModalVisible(false); // Ẩn modal
+    setSelectedCar(null); // Xóa thông tin xe đã chọn
+  };
+
   const renderSidebar = () => (
     <div style={{ background: "#fff" }}>
-      <Title level={4}>Models</Title>
-      <Select
-        showSearch
-        style={{
-          width: 200,
-          marginBottom: 20,
-        }}
-        placeholder="Search to Select"
-        optionFilterProp="label"
-        value={selectedModels}
-        onChange={handleModelSelection}
-      >
-        {models.map((model) => (
-          <Select.Option key={model.id} value={model.id}>
-            {model.name}
-          </Select.Option>
-        ))}
-      </Select>
-      {/* <Title level={4}>Location</Title>
-          <Select
-            showSearch
-            style={{
-              width: 200,
-              marginBottom: 20,
-            }}
-            placeholder="Search to Select"
-            optionFilterProp="label"
-            value={selectedLocations}
-            onChange={handleLocationSelection}
-          >
-            {locations.map((location) => (
-              <Select.Option key={location.id} value={location.id}>
-                {location.name}
-              </Select.Option>
-            ))}
-          </Select> */}
       <Title level={4}>Brand</Title>
       <Checkbox.Group
-        value={selectedBrands} // Dựa trên selectedBrands
+        value={selectedBrands}
         onChange={handleBrandSelection}
         style={{ marginBottom: 20 }}
       >
@@ -391,73 +330,80 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
           }}
         >
           {brands.map((brand) => (
-            <Checkbox key={brand.id} value={String(brand.id)}>
+            <Checkbox
+              key={brand.id}
+              value={String(brand.id)}
+              style={{ fontSize: "16px" }}
+            >
               {brand.name}
             </Checkbox>
           ))}
         </div>
       </Checkbox.Group>
-      <Title level={4}>Price Range</Title>
+      <Title level={4}>Models</Title>
+      <Select
+        mode="multiple"
+        showSearch
+        style={{ width: "100%", marginBottom: 20 }}
+        placeholder="Search to Select"
+        optionFilterProp="label"
+        value={selectedModels}
+        onChange={setSelectedModels}
+        allowClear
+      >
+        {Object.keys(groupedModels).map((category) => (
+          <Select.OptGroup key={category} label={category}>
+            {groupedModels[category].map((model) => (
+              <Select.Option key={model.id} value={model.id}>
+                {model.name}
+              </Select.Option>
+            ))}
+          </Select.OptGroup>
+        ))}
+      </Select>
+
+      <Title level={4}>Select Top Speed</Title>
+      <Select
+        mode="multiple"
+        showSearch
+        placeholder="Select a speed range"
+        style={{
+          width: "100%",
+          marginBottom: 20,
+        }}
+        value={selectedSpeedRange}
+        onChange={handleSpeedRangeChange}
+        filterOption={(input, option) =>
+          (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+        }
+        options={[
+          { value: "0-100", label: "0-100 km/h" },
+          { value: "100-200", label: "100-200 km/h" },
+          { value: "200-300", label: "200-300 km/h" },
+          { value: "300-400", label: "300-400 km/h" },
+        ]}
+        allowClear
+      />
+
+      <Title level={4} style={{ fontSize: "16px" }}>
+        Price Range
+      </Title>
       <Slider
-        style={{ width: "200px" }}
+        style={{ width: "95%" }}
         range
         defaultValue={PriceRange}
         min={0}
         max={500000}
-        onChange={handlePriceChage}
+        onChange={handlePriceChange}
         trackStyle={{ backgroundColor: "black" }}
       />
-      <Row justify="space-between" style={{ width: "200px" }}>
-        <Text>${PriceRange[0]}</Text>
-        <Text>${PriceRange[1]}</Text>
+
+      <Row justify="space-between" style={{ width: "60%" }}>
+        <Text style={{ fontSize: "16px" }}>${PriceRange[0]}</Text>
+        <Text style={{ fontSize: "16px" }}>${PriceRange[1]}</Text>
       </Row>
-      {/* <Title level={4} style={{ marginTop: "15px" }}>
-            Color
-          </Title>
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              flexWrap: "wrap",
-              width: "200px",
-            }}
-          >
-            {colors.map((color) => (
-              <Avatar
-                key={color}
-                onClick={() => handleColorSelection(color)}
-                style={{
-                  backgroundColor: color,
-                  cursor: "pointer",
-                  border: selectedColors.includes(color)
-                    ? "1px solid #488ded"
-                    : "none",
-                  transition: "transform 0.3s",
-                  transform: selectedColors.includes(color)
-                    ? "scale(1.1)"
-                    : "scale(1)",
-                }}
-                size={30}
-              />
-            ))}
-          </div> */}
     </div>
   );
-
-  const handleImageClick = (car) => {
-    const currentImageIndex = currentImages[car.id]?.index || 0;
-    const nextImageIndex = (currentImageIndex + 1) % (car.images.length + 1);
-
-    const newImage =
-      nextImageIndex === 0
-        ? car.main_img
-        : car.images[nextImageIndex - 1].image_url;
-
-    setCurrentImages((prevState) => ({
-      ...prevState,
-      [car.id]: { url: newImage, index: nextImageIndex },
-    }));
-  };
 
   const renderCarCard = (car) => (
     <Card
@@ -500,7 +446,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
             textOverflow: "ellipsis",
           }}
         >
-          {`${car.car_model_name}  ${car.series_name}`}
+          {`${car.brand_name} ${car.car_model_name} ${car.series_name}`}
         </Title>
       </div>
       <Row justify="space-between" align="middle" style={{ height: "24px" }}>
@@ -509,12 +455,18 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     </Card>
   );
 
+  const headerStyle = {
+    background: "#fff",
+    padding: "10px 20px",
+    height: "auto",
+    lineHeight: "normal",
+  };
+
   return (
     <div className={isModalVisible ? "blur-background" : ""}>
       <div className="all-products">
-        {" "}
         <div className="all-sanpham">All {filteredCars.length} Cars</div>
-      </div>{" "}
+      </div>
       <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
         <Layout style={{ background: "#fff" }}>
           <Header style={headerStyle}>
