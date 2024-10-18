@@ -7,7 +7,7 @@
 }
 
 .title-finance-audi1 {
-  font-size: 40px;
+  font-size: 20px;
   font-weight: bold;
 }
 .finance-audi-img {
@@ -48,13 +48,8 @@
 }
 .title-finance-audi2 {
   margin-top: 20px;
-  font-size: 20px;
 }
 @media screen and (max-width: 1024px) {
-  .title-finance-audi1 {
-    font-size: 26px;
-  }
-
   .finance-audi-img1 img,
   .finance-audi-img2 img {
     width: 100%;
@@ -70,10 +65,6 @@
   }
 }
 @media screen and (max-width: 768px) {
-  .title-finance-audi1 {
-    font-size: 24px;
-  }
-
   .finance-audi-img {
     flex-direction: column;
     align-items: center;

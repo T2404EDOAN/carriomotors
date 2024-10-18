@@ -16,22 +16,20 @@
 }
 .content-left1-img img {
   width: 650px;
-  height: 450px;
+  height: 400px;
   border-radius: 5px;
 }
 .content-right1-img img {
   width: 650px;
-  height: 450px;
+  height: 400px;
   border-radius: 5px;
 }
 .content-left1-text {
   width: 650px;
   margin-top: 20px;
-  font-size: 22px;
 }
 .content-right1-text {
   margin-top: 20px;
-  font-size: 22px;
   width: 650px;
 }
 .content-left1-text li {
@@ -49,12 +47,12 @@
 }
 .content-left2-img img {
   width: 650px;
-  height: 450px;
+  height: 400px;
   border-radius: 5px;
 }
 .content-right2-img img {
   width: 650px;
-  height: 450px;
+  height: 400px;
   border-radius: 5px;
 }
 .content-right2 {
@@ -62,11 +60,9 @@
 }
 .content-left2-text {
   width: 650px;
-  font-size: 22px;
   margin-top: 20px;
 }
 .content-right-text {
-  font-size: 22px;
   margin-top: 20px;
 }
 .box2 {
@@ -81,21 +77,20 @@
   margin-top: 100px;
   margin-bottom: 20px;
 }
-.title2-extra {
-  font-size: 22px;
-}
 .content3 {
   margin-top: 30px;
   display: flex;
   justify-content: space-between;
 }
+content3-right-img {
+  width: 650px;
+}
 .content3-right-img img {
   width: 650px;
-  height: 450px;
+  height: 400px;
   border-radius: 5px;
 }
 .content3-left-text {
-  font-size: 22px;
   width: 650px;
 }
 .more3 {
@@ -104,6 +99,7 @@
   padding-left: 10px;
   width: 400px;
   margin-top: 10px;
+  border-radius: 5px;
 }
 .content4 {
   margin-top: 30px;
@@ -113,11 +109,10 @@
 .content4-right4-text {
   width: 650px;
   margin-top: 60px;
-  font-size: 22px;
 }
 .content4-left4-img img {
   width: 650px;
-  height: 450px;
+  height: 400px;
   border-radius: 5px;
 }
 .more4 {
@@ -126,6 +121,7 @@
   padding-left: 10px;
   width: 400px;
   margin-top: 10px;
+  border-radius: 5px;
 }
 .content4-right4-text {
   margin-left: 100px;
@@ -140,17 +136,17 @@
   background-color: rgb(45, 45, 243);
   color: white;
   padding-left: 10px;
-  width: 400px;
+  width: 300px;
   margin-top: 10px;
+  border-radius: 5px;
 }
 .content5-right5-img img {
   width: 650px;
-  height: 450px;
+  height: 400px;
   border-radius: 5px;
 }
 .content5-left5-text {
   width: 650px;
-  font-size: 22px;
   margin-top: 60px;
 }
 

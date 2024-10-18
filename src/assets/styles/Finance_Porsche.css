@@ -13,7 +13,7 @@
   margin-left: 20px;
 }
 .title-finance-porsche2 {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
   margin-top: 20px;
 }
@@ -40,7 +40,6 @@
   top: 10px;
   left: 10px;
   color: aliceblue;
-  font-size: 20px;
 }
 .finance-porsche-img3 {
   position: relative;
@@ -50,13 +49,11 @@
   bottom: 10px;
   right: 10px;
   color: aliceblue;
-  font-size: 20px;
 }
 .finance-porsche-text12,
 .finance-porsche-text22,
 .finance-porsche-text32 {
   margin-top: 20px;
-  font-size: 20px;
 }
 .finance-porsche-text1,
 .finance-porsche-text2,
@@ -70,7 +67,6 @@
 .finance-porsche-text11,
 .finance-porsche-text21,
 .finance-porsche-text31 {
-  font-size: 20px;
   font-weight: bold;
 }
 .but-por {
@@ -118,16 +114,6 @@
     margin-bottom: 20px;
   }
 
-  .title-finance-porsche2 {
-    font-size: 22px;
-  }
-
-  .finance-porsche-text11,
-  .finance-porsche-text21,
-  .finance-porsche-text31 {
-    font-size: 18px;
-  }
-
   .but1-por,
   .but2-por {
     width: 100%;
@@ -154,10 +140,6 @@
   .box-finance-porsche3 {
     width: 100%;
     margin-bottom: 20px;
-  }
-
-  .title-finance-porsche2 {
-    font-size: 22px;
   }
 
   .finance-porsche-text11,

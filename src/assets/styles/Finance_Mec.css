@@ -12,11 +12,8 @@
 .box-finance1 {
   text-align: center;
 }
-.box-finance12 {
-  font-size: 20px;
-}
 .box-finance11 {
-  font-size: 40px;
+  font-size: 20px;
   margin-bottom: 20px;
   font-weight: bold;
 }
@@ -27,7 +24,7 @@
   margin-left: 50px;
 }
 .box-finance2-img img {
-  width: 600px;
+  width: 650px;
   height: 400px;
 }
 .box-finance211 {
@@ -37,10 +34,7 @@
   text-align: center;
   margin-top: 20px;
 }
-.text1,
-.text2 {
-  font-size: 20px;
-}
+
 .text1 {
   font-weight: bold;
 }
@@ -63,7 +57,7 @@
   }
 
   .box-finance11 {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
   }
 
@@ -72,11 +66,11 @@
     margin-left: 20px;
   }
   .box-finance2-img img {
-    width: 690px;
+    width: 600px;
     height: 450px;
   }
   .box-finance2-img {
-    width: 690px;
+    width: 600px;
   }
   .text1 {
     font-weight: bold;
