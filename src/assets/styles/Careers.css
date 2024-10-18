@@ -84,13 +84,13 @@
 
 .careers-right {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
   margin-top: 20px;
 }
 
 .title-careers1 {
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bold;
 }
 
@@ -165,11 +165,11 @@
   }
 
   .title-careers1 {
-    font-size: 35px;
+    font-size: 30px;
   }
 
   .information {
-    font-size: 28px;
+    font-size: 30px;
   }
 
   .careers-right {
@@ -224,13 +224,13 @@
   }
 
   .title-careers1 {
-    font-size: 28px;
+    font-size: 30px;
     text-align: center;
     margin-top: 10px;
   }
 
   .information {
-    font-size: 22px;
+    font-size: 30px;
     text-align: center;
     margin-bottom: 15px;
   }
