@@ -126,6 +126,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
       filtered = filtered.filter((car) =>
         selectedBrands.includes(String(car.brand_id))
       );
+      console.log("After brand filter:", filtered);
     }
 
     // Lọc theo mô hình
@@ -167,16 +168,10 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
 
   // Cập nhật danh sách xe mỗi khi có thay đổi ở các tiêu chí lọc
   useEffect(() => {
+    setCurrentPage(1);
     applyFilters();
-  }, [
-    selectedBrands,
-    selectedModels,
-    selectedLocations,
-    selectedColors,
-    selectedSpeedRange,
-    PriceRange,
-    cars,
-  ]);
+  }, [selectedBrands, selectedModels, selectedLocations, selectedColors, selectedSpeedRange, PriceRange, cars]);
+  
 
   // Xử lý thay đổi trang
   const handlePageChange = (page) => {
@@ -202,11 +197,11 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
   };
 
   // Xử lý khi chọn mô hình
-  const handleModelSelection = (checkedValues) => {
-    setSelectedModels(checkedValues);
-    applyFilters();
+  const handleModelSelection = (selectedModelIds) => {
+    setSelectedModels(selectedModelIds);
+    applyFilters(); // Áp dụng bộ lọc khi chọn model
   };
-
+  
   // Xử lý khi chọn địa điểm
   const handleLocationSelection = (checkedValues) => {
     setSelectedLocations(checkedValues);
@@ -231,6 +226,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
           "https://carriomotors.io.vn/api/get_model.php"
         );
         const modelsData = response.data.data || response.data;
+       
         if (Array.isArray(modelsData)) {
           setModels(modelsData);
         } else {
@@ -240,11 +236,11 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         console.error("Error fetching models:", error);
       }
     };
-
+  
     fetchModels();
   }, []);
-  // Hàm chuyển đổi phân loại từ 1, 2, 3 sang tên dòng xe
-  // Cập nhật hàm phân loại dựa trên car_model_status
+  
+
   const getCategoryName = (status) => {
     switch (
       String(status) // Chuyển đổi status thành chuỗi
@@ -260,16 +256,21 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     }
   };
 
-  // Nhóm các models theo phân loại dòng xe
-  const groupedModels = models.reduce((acc, model) => {
-    console.log(model); // Kiểm tra giá trị car_model_status
-    const category = getCategoryName(model.status); // Sử dụng car_model_status
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push(model);
-    return acc;
-  }, {});
+// Cập nhật hàm lọc models dựa trên thương hiệu đã chọn
+const filteredModels = selectedBrands.length > 0
+  ? models.filter((model) => selectedBrands.includes(String(model.brandId)))
+  : models;
+
+// Nhóm các models theo phân loại dòng xe (dựa trên status)
+const groupedModels = filteredModels.reduce((acc, model) => {
+  const category = getCategoryName(model.status); 
+  if (!acc[category]) {
+    acc[category] = [];
+  }
+  acc[category].push(model);
+  return acc;
+}, {});
+
 
   const fetchLocations = async () => {
     try {
@@ -299,13 +300,13 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     setFilteredCars(cars);
   };
   const showModal = (car) => {
-    setSelectedCar(car); // Cập nhật thông tin xe được chọn
-    setIsModalVisible(true); // Hiển thị modal
+    setSelectedCar(car);
+    setIsModalVisible(true);
   };
 
   const closeModal = () => {
-    setIsModalVisible(false); // Ẩn modal
-    setSelectedCar(null); // Xóa thông tin xe đã chọn
+    setIsModalVisible(false); 
+    setSelectedCar(null);
   };
 
   const renderSidebar = () => (
@@ -336,25 +337,29 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
       </Checkbox.Group>
       <Title level={4}>Models</Title>
       <Select
-        mode="multiple"
-        showSearch
-        style={{ width: "100%", marginBottom: 20 }}
-        placeholder="Search to Select"
-        optionFilterProp="label"
-        value={selectedModels}
-        onChange={setSelectedModels}
-        allowClear
-      >
-        {Object.keys(groupedModels).map((category) => (
-          <Select.OptGroup key={category} label={category}>
-            {groupedModels[category].map((model) => (
-              <Select.Option key={model.id} value={model.id}>
-                {model.name}
-              </Select.Option>
-            ))}
-          </Select.OptGroup>
-        ))}
-      </Select>
+  mode="multiple"
+  showSearch
+  style={{ width: "100%", marginBottom: 20 }}
+  placeholder="Search to Select"
+  optionFilterProp="label"
+  value={selectedModels}
+  onChange={setSelectedModels}
+  allowClear
+>
+  {Object.keys(groupedModels).map((category) => (
+    <Select.OptGroup key={category} label={category}>
+      {groupedModels[category].map((model) => (
+        <Select.Option key={model.id} value={model.id}>
+          {model.name} - {model.seriesName} 
+        </Select.Option>
+      ))}
+    </Select.OptGroup>
+  ))}
+</Select>
+
+
+
+
 
       <Title level={4}>Select Top Speed</Title>
       <Select
@@ -442,7 +447,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
             fontSize:"14px",
           }}
         >
-          {`${car.brand_name} ${car.car_model_name} ${car.series_name}`}
+          {`${car.brand_name} ${car.car_model_name} - ${car.series_name}`}
         </Title>
       </div>
       <Row justify="space-between" align="middle" style={{ height: "24px" }}>

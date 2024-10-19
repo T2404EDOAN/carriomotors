@@ -115,7 +115,8 @@ function AppLayout() {
     navigate(path);
   };
 
-  const isHomePage = location.pathname === "/"; // Kiểm tra xem đây có phải là trang chủ không
+  const isHomePage = location.pathname === "/";
+  const isAdminPage = location.pathname === "/admin"; // Kiểm tra nếu là trang admin
 
   return (
     <div className="app-container" style={{ paddingTop: "70px" }}>
@@ -138,9 +139,9 @@ function AppLayout() {
           <Spin size="large" />
         </div>
       )}
-      <Header onNavigate={handleRouteChange} />
-      {/* Chỉ hiển thị Banner trên trang chủ */}
-      {isHomePage && !isLoading && (
+      {/* Chỉ hiển thị Header và Footer nếu không phải trang admin */}
+      {!isAdminPage && <Header onNavigate={handleRouteChange} />}
+      {!isAdminPage && isHomePage && !isLoading && (
         <Banner images={bannerImages} autoSlide={isHomePage} />
       )}
       <main className="main-content">
@@ -169,9 +170,10 @@ function AppLayout() {
           </CSSTransition>
         </TransitionGroup>
       </main>
-      <Ticker dateTime={dateTime} locationInfo={locationInfo} />
-      <Footer />
+      {!isAdminPage && <Ticker dateTime={dateTime} locationInfo={locationInfo} />}
+      {!isAdminPage && <Footer />}
     </div>
   );
 }
+
 export default App;

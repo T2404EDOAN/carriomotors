@@ -1,11 +1,12 @@
 import { div } from "framer-motion/client";
 import React from "react";
 import anhp1 from "../../assets/images/Porsce_images/anhp1.webp"
-import anhp2 from "../../assets/images/Porsce_images/anhp2.jpg"
-import anhp3 from "../../assets/images/Porsce_images/anhp3.jpg"
-import anhp6 from "../../assets/images/Porsce_images/anhp6.webp"
+import anhp2 from "../../assets/images/service-porsche/1.jpg"
+import anhp3 from "../../assets/images/service-porsche/2.jpg"
+import anhp6 from "../../assets/images/service-porsche/3.jpg"
 import anhp5 from "../../assets/images/Porsce_images/anhp5.jpg"
 import "../../assets/styles/Porsche.css";
+import {  Button, Flex  } from 'antd';
 const Porsche_main = () => {
     return (
     <div className="Porsche_main_container">
@@ -25,7 +26,7 @@ const Porsche_main = () => {
                     its maintenance, upkeep and repair. And, thanks to <br /> 
                     Porsche Genuine Parts, you can be sure that your <br /> 
                     original will stay just that.</div> 
-                    <div className="read_more_1">READ MORE</div>
+                    <Button type="primary" className="read-more">Read more</Button>
                 </div>   
                 </div>
                 
@@ -52,7 +53,7 @@ const Porsche_main = () => {
                 service. Precise, professtional and dynamic. <br/> <br/>
                 And above all: tailored to your exact requirements. <br/>
                 Typically Porsche.</div>
-                <div className="read_more_2">READ MORE</div>
+                <Button type="primary" className="read-more">Read more</Button>
             </div>
             
             </div> 
@@ -61,7 +62,7 @@ const Porsche_main = () => {
                 <div className="text_long_3">If you have question or need assistance, a <br/>
                  customer service representative will be happy to <br/>
                   chat.</div>
-                  <div className="contact_us">CONTACT US</div>
+                  <Button type="primary" className="read-more">Contac Us</Button>
             </div> 
     </div>
 

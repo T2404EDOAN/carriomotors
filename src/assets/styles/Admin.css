@@ -1,0 +1,21 @@
+/* Tùy chỉnh thanh cuộn của bảng */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px; /* Độ rộng của thanh cuộn dọc */
+    height: 6px; /* Độ cao của thanh cuộn ngang */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Màu nền của thanh cuộn */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888; /* Màu thanh kéo (thumb) */
+    border-radius: 4px; /* Góc bo của thanh kéo */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Màu của thanh kéo khi hover */
+  }
+  .custom-scrollbar .ant-table-body {
+    overflow-x: auto; /* Đảm bảo thanh cuộn ngang được kích hoạt */
+  }
