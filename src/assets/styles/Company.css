@@ -3,14 +3,6 @@
   max-width: 1400px;
   margin: 0 auto;
 }
-.logo-company {
-  text-align: center;
-}
-.logo-company img {
-  display: inline-block;
-  height: 50px;
-  width: 50px;
-}
 .title-copmany1 {
   text-align: center;
   font-size: 40px;
@@ -90,12 +82,18 @@
   font-weight: bold;
 }
 .box-company4 {
-  margin-top: 30px;
+  margin-top: 50px;
 }
-.title-company4 {
+.title-electric {
   text-align: center;
   font-size: 40px;
   font-weight: bold;
+}
+.title-company4 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 50px;
 }
 .description-list {
   display: flex;
@@ -137,7 +135,7 @@
 .title-company5 {
   font-weight: bold;
   text-align: center;
-  font-size: 40px;
+  font-size: 30px;
   margin-top: 20px;
 }
 .box5-list {

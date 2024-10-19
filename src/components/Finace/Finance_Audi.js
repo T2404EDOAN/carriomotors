@@ -24,7 +24,7 @@ const FinanceAudi = () => {
       </div>
       <div className="but-audi">
         <div className="but1-audi">CONTACT US</div>
-        <div className="but2-audi">GO TO AUDI VTOEHICLES</div>
+        <div className="but2-audi">GO TO AUDI VEHICLES</div>
       </div>
     </div>
   );
