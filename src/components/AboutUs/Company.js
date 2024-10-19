@@ -124,6 +124,7 @@ const CompanyPage = () => {
         </div>
       </div>
       <div className="box-company4">
+      <div className="title-electric">Upcoming Event in 2/2025 - The Arrival of a Series of Superior and Luxurious Electric Cars</div>
         <div className="title-company4">MORE REASONS TO GO ELECTRIC</div>
         <div className="description-list">
           <div className="description-list1">

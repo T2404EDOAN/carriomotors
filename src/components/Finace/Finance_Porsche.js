@@ -89,7 +89,7 @@ const FinancePorsche = () => {
       </div>
       <div className="but-por">
         <div className="but1-por">CONTACT US</div>
-        <div className="but2-por">GO TO AUDI VTOEHICLES</div>
+        <div className="but2-por">GO TO PORSCHE VEHICLES</div>
       </div>
     </div>
   );

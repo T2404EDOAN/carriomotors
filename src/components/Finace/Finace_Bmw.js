@@ -56,7 +56,7 @@ const FinanceBMW = () => {
       </div>
       <div className="but">
         <div className="but1">CONTACT US</div>
-        <div className="but2">GO TO BMW VTOEHICLES</div>
+        <div className="but2">GO TO BMW VEHICLES</div>
       </div>
     </div>
   );
