@@ -39,17 +39,17 @@ const CarDetailModal = ({
       onCancel={onClose}
       footer={null}
       width={1200}
-      // bodyStyle={{ height: "700px" }}
-      style={{ height: "1200px" }}
-      bodyStyle={{ height: "700px" }}
+      bodyStyle={{ height: "700px", fontFamily: "Roboto, sans-serif", fontSize: "16px" }}
       className={isTechnicalDataVisible ? "blur-background" : ""}
     >
       <Row justify="space-between" align="middle" style={{ marginTop: "30px" }}>
         <Col>
-          <Title level={4}>{`${car.car_model_name}  ${car.series_name}`}</Title>
+          <Title level={4} style={{ fontFamily: "Roboto, sans-serif" }}>
+            {`${car.car_model_name}  ${car.series_name}`}
+          </Title>
         </Col>
         <Col>
-          <Text strong style={{ fontSize: "18px" }}>
+          <Text strong style={{ fontSize: "18px", fontFamily: "Roboto, sans-serif" }}>
             ${car?.price || "99999"}
           </Text>
         </Col>
@@ -63,7 +63,7 @@ const CarDetailModal = ({
             onDrawerToggle={handleDrawerToggle}
           />
         </TabPane>
-        
+
         <TabPane tab="Finance" key="3">
           <FinanceInfoTab car={car} />
         </TabPane>

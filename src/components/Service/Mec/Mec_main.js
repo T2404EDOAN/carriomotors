@@ -7,6 +7,7 @@ import anh4 from "../../../assets/images/Mec_images/anh4.webp";
 import anh56 from "../../../assets/images/Mec_images/anh56.webp";
 import anh7 from "../../../assets/images/Mec_images/anh7.webp";
 import "../../../assets/styles/mec.css";
+import {  Button, Flex  } from 'antd';
 
 const Mec_main = () => {
   return (
@@ -105,8 +106,9 @@ const Mec_main = () => {
             help fix a flat, jumpstart the battery or fuel up — whatever it
             takes to get you back on the road. Call 1-800-367-6372, press the
             me-button in your vehicle, or use the Mercedes me connect app to
-            contact us.
-            <div className="more3">Learn More about Roadside Assistance</div>
+            contact us.<br></br>
+            <Button type="primary" className="more3">Learn More about Roadside Assistance</Button>
+          
           </div>
           <div className="content3-right-img">
             <img src={anh56} anh="anh5" />
@@ -121,7 +123,7 @@ const Mec_main = () => {
             <br /> In the event of an accident, Mercedes-Benz Collision Centers
             have the tools, equipment and training to restore your vehicle to
             its pre-collision condition.
-            <div className="more4">Learn More about Roadside Assistance</div>
+            <Button type="primary" className="more3">Learn More about Roadside Assistance</Button>
           </div>
         </div>
         <div className="content5">
@@ -129,8 +131,8 @@ const Mec_main = () => {
             Recall Information <br />
             Mercedes-Benz is committed to keeping you informed about any recalls
             on your vehicle. Visit the link for the most up-to-date information
-            on current or previous recalls. Mercedes-Benz Recall Information.
-            <div className="more5">Learn More about Roadside Assistance</div>
+            on current or previous recalls. Mercedes-Benz Recall Information.<br></br>
+            <Button type="primary" className="more3">Learn More about Roadside Assistance</Button>
           </div>
           <div className="content5-right5-img">
             <img src={anh7} alt="anh7" />

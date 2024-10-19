@@ -3,6 +3,7 @@ import porsche1 from "../../assets/images/Porsce_images/porsche1.jpg";
 import porsche2 from "../../assets/images/Porsce_images/porsche2.jpg";
 import porsche3 from "../../assets/images/Porsce_images/porsche 3.jpg";
 import "../../assets/styles/Finance_Porsche.css";
+import {  Button, Flex  } from 'antd';
 const FinancePorsche = () => {
   return (
     <div className="porsche_main_finance">
@@ -10,8 +11,8 @@ const FinancePorsche = () => {
         PFS is set up exclusively for Porsche customers in Vietnam. With
         diverse, flexible credit products and competitive interest rates,
         customers will be proactive in their financial plans and take advantage
-        of profitable investment{" "}
-        <span className="tab1">capital in the future.</span>
+        of profitable investment
+        capital in the future.
       </div>
       <div className="title-finance-porsche2">FINANCIAL PRODUCTS FROM PFS</div>
       <div className="box-finance-porsche">

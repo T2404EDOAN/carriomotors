@@ -111,6 +111,7 @@ const ImprovedHeader = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
   const [isSignInPopupVisible, setIsSignInPopupVisible] = useState(false);
+  const [isLocationModalVisible, setIsLocationModalVisible] = useState(false); // NEW: State for Location Modal
   const [realtimeVisitors, setRealtimeVisitors] = useState(1);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [hoveredSubmenu, setHoveredSubmenu] = useState(null);
@@ -173,6 +174,11 @@ const ImprovedHeader = () => {
     }
   };
 
+  const handleLocationClick = () => {
+    getLocation();
+    setIsLocationModalVisible(true); // Show the modal on mobile after fetching location
+  };
+
   const menuItems = [
     { key: "home", label: "Home", link: "/" },
     { key: "vehicles", label: "Vehicles", link: "/vehicles" },
@@ -224,6 +230,39 @@ const ImprovedHeader = () => {
           </Menu.Item>
         )
       )}
+
+      {/* Add Location, Search, and Login to the mobile menu */}
+      {!isLargeScreen && (
+        <>
+          <Menu.Item key="location" className="menu-item-fade">
+            <Button
+              type="text"
+              icon={<EnvironmentOutlined />}
+              onClick={handleLocationClick}
+            >
+              Location
+            </Button>
+          </Menu.Item>
+          <Menu.Item key="search" className="menu-item-fade">
+            <Input
+              placeholder="Search..."
+              prefix={<SearchOutlined />}
+              className="rounded-full text-base"
+              onFocus={() => setSearchExpanded(true)}
+              onBlur={() => setSearchExpanded(false)}
+            />
+          </Menu.Item>
+          <Menu.Item key="login" className="menu-item-fade">
+            <Button
+              type="text"
+              icon={<UserOutlined />}
+              onClick={() => setIsSignInPopupVisible(true)}
+            >
+              Login
+            </Button>
+          </Menu.Item>
+        </>
+      )}
     </Menu>
   );
 
@@ -233,11 +272,11 @@ const ImprovedHeader = () => {
         <div className="flex items-center h-16 px-8">
           <div className="flex-none mr-8 flex items-center">
             <Link to="/">
-              <img src="/logo2.png" alt="Logo" className="h-13 md:h-16" />
+              <img src="" alt="Logo" className="h-13 md:h-14" />
             </Link>
             <div className="flex items-center ml-4">
               <PersonIcon style={{ fontSize: "15px", marginRight: "5px" }} />
-              <span className="text-base" style={{fontSize:"12px"}}>{realtimeVisitors}</span>
+              <span className="text-base" style={{ fontSize: "12px" }}>{realtimeVisitors}</span>
             </div>
           </div>
 
@@ -246,47 +285,51 @@ const ImprovedHeader = () => {
           </div>
 
           <div className="flex-none flex items-center space-x-4">
-            <Popover
-              content={
-                <LocationContent
-                  location={currentLocation}
-                  error={locationError}
-                  isLoading={isLoadingLocation}
+            {isLargeScreen && (
+              <>
+                <Popover
+                  content={
+                    <LocationContent
+                      location={currentLocation}
+                      error={locationError}
+                      isLoading={isLoadingLocation}
+                    />
+                  }
+                  trigger="click"
+                  placement="bottomRight"
+                  onOpenChange={(visible) => {
+                    if (visible) getLocation();
+                  }}
+                >
+                  <Button
+                    type="text"
+                    icon={<EnvironmentOutlined />}
+                    className="flex items-center text-base"
+                  />
+                </Popover>
+
+                <div
+                  className={`transition-all duration-300 ease-in-out ${
+                    searchExpanded ? "w-64" : "w-10"
+                  } block sm:block`}
+                >
+                  <Input
+                    placeholder="Search..."
+                    prefix={<SearchOutlined />}
+                    className="rounded-full text-base"
+                    onFocus={() => setSearchExpanded(true)}
+                    onBlur={() => setSearchExpanded(false)}
+                  />
+                </div>
+
+                <Button
+                  type="text"
+                  icon={<UserOutlined />}
+                  className="text-base flex"
+                  onClick={() => setIsSignInPopupVisible(true)}
                 />
-              }
-              trigger="click"
-              placement="bottomRight"
-              onOpenChange={(visible) => {
-                if (visible) getLocation();
-              }}
-            >
-              <Button
-                type="text"
-                icon={<EnvironmentOutlined />}
-                className="hidden md:flex items-center text-base"
-              />
-            </Popover>
-
-            <div
-              className={`transition-all duration-300 ease-in-out ${
-                searchExpanded ? "w-64" : "w-10"
-              } hidden sm:block`}
-            >
-              <Input
-                placeholder="Search..."
-                prefix={<SearchOutlined />}
-                className="rounded-full text-base"
-                onFocus={() => setSearchExpanded(true)}
-                onBlur={() => setSearchExpanded(false)}
-              />
-            </div>
-
-            <Button
-              type="text"
-              icon={<UserOutlined />}
-              className="text-base hidden sm:flex"
-              onClick={() => setIsSignInPopupVisible(true)}
-            />
+              </>
+            )}
 
             {!isLargeScreen && (
               <Button
@@ -311,6 +354,20 @@ const ImprovedHeader = () => {
         {renderMenu("vertical")}
       </Drawer>
 
+      {/* Location Modal */}
+      <Modal
+        visible={isLocationModalVisible}
+        onCancel={() => setIsLocationModalVisible(false)}
+        footer={null}
+        title="Your Location"
+      >
+        <LocationContent
+          location={currentLocation}
+          error={locationError}
+          isLoading={isLoadingLocation}
+        />
+      </Modal>
+
       <Modal
         visible={isSignInPopupVisible}
         onCancel={() => setIsSignInPopupVisible(false)}
@@ -323,3 +380,5 @@ const ImprovedHeader = () => {
 };
 
 export default ImprovedHeader;
+
+

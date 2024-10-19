@@ -71,6 +71,24 @@
   .ant-menu-submenu-title {
     display: block;
   }
+
+  .header {
+    padding: 10px; /* Reduce padding for smaller screens */
+  }
+
+  /* Ensure the search bar is visible on smaller screens */
+  .search-bar {
+    display: block !important; /* Show search bar on mobile */
+    width: 100%; /* Full width on mobile */
+  }
+
+  /* Adjust logo size for mobile */
+  .header img {
+    width: 100px; /* Set logo width for smaller screens */
+    max-width: 100%; /* Ensure it doesn't exceed container */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 60px; /* Set a max height */
+  }
 }
 
 @media (min-width: 1024px) {
@@ -81,6 +99,18 @@
   .ant-menu-item,
   .ant-menu-submenu-title {
     display: inline-block;
+  }
+
+  .search-bar {
+    display: block;
+    width: auto; /* Keep regular width on larger screens */
+  }
+
+  /* Adjust logo size for larger screens */
+  .header img {
+    width: 160px; /* Set logo width for larger screens */
+    max-width: 100%; /* Ensure it doesn't exceed container */
+    height: auto; /* Maintain aspect ratio */
   }
 }
 

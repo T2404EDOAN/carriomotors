@@ -7,7 +7,10 @@
   scrollbar-width: thin; /* Dành cho Firefox */
   scrollbar-color: #1890ff #f1f1f1; /* Màu thanh cuộn và màu nền */
 }
-
+.modal-content {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px; /* Độ rộng của thanh cuộn */
 }

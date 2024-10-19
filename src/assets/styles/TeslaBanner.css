@@ -41,108 +41,83 @@ h2 {
   margin: 0 auto;
   padding: 30px 20px;
   text-align: left;
-  height: 300px;
-  margin-bottom: 90px;
+  position: relative; /* Đảm bảo overlay hoạt động */
+
 }
 
 .single-image-gallery {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 300px; /* Giữ chiều cao cố định cho ảnh */
 }
 
 .single-image-gallery img {
   width: 100%;
-  height: 300px;
-  object-fit: cover;
+  height: 100%; /* Ảnh sẽ bao phủ toàn bộ chiều cao và chiều rộng */
+  object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
   margin: 0;
   padding: 0;
   border: none;
 }
 
+/* Điều chỉnh văn bản overlay để đè lên ảnh */
+.overlay-text, .overlay-text1 {
+  position: absolute;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+.overlay-text {
+  top: 35%; /* Canh chỉnh vị trí overlay */
+  left: 20%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.overlay-text1 {
+  top: 50%; /* Canh chỉnh văn bản dưới */
+  left: 37%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  text-align: center;
+  width: 80%; /* Giới hạn chiều rộng để không bị tràn */
+}
+
 /* Responsive cho màn hình nhỏ hơn (điện thoại và máy tính bảng) */
 @media (max-width: 768px) {
-  h2 {
-    font-size: 28px; /* Giảm kích thước chữ cho tiêu đề */
+  .single-image-gallery {
+    height: 200px; /* Giảm chiều cao ảnh để phù hợp với màn hình nhỏ */
   }
 
-  .single-image-content,
-  .banner-content {
-    padding: 20px 10px; /* Giảm padding cho màn hình nhỏ hơn */
+  .overlay-text {
+    font-size: 18px;
+    width: 80%; /* Giới hạn chiều rộng của văn bản */
+    left: 50%; /* Canh giữa văn bản trên ảnh */
+    transform: translate(-50%, -50%); /* Giữ nguyên canh giữa */
   }
 
-  .single-image-gallery img {
-    height: auto; /* Để ảnh tự điều chỉnh chiều cao */
-  }
-
-  .image-gallery {
-    flex-direction: column; /* Ảnh xếp chồng theo cột */
-    align-items: flex-start; /* Canh trái các ảnh */
-  }
-
-  .image-gallery img {
-    width: 100%; /* Mỗi ảnh chiếm toàn bộ chiều rộng màn hình */
-    margin-bottom: 10px; /* Khoảng cách giữa các ảnh */
+  .overlay-text1 {
+    font-size: 12px;
+    width: 80%; /* Giới hạn chiều rộng của văn bản */
+    left: 50%; /* Canh giữa văn bản dưới */
+    transform: translate(-50%, -50%); /* Giữ nguyên canh giữa */
   }
 }
 
 /* Responsive cho màn hình trung bình (tablet và laptop nhỏ) */
 @media (min-width: 769px) and (max-width: 1200px) {
-  .image-gallery img {
-    width: 50%; /* Mỗi ảnh chiếm 1/2 chiều rộng màn hình */
+  .single-image-gallery {
+    height: 250px; /* Điều chỉnh chiều cao ảnh cho phù hợp */
   }
 
-  .single-image-gallery img {
-    height: 200px; /* Điều chỉnh chiều cao ảnh cho phù hợp */
+  .overlay-text {
+    font-size: 20px; /* Điều chỉnh kích thước chữ */
   }
 
-  .single-image-content {
-    height: 200px; /* Điều chỉnh chiều cao cho phần này */
+  .overlay-text1 {
+    font-size: 14px;
   }
-}
-
-/* Responsive cho màn hình lớn (desktop và laptop lớn) */
-@media (min-width: 1200px) {
-  .banner-content,
-  .single-image-content {
-    max-width: 1400px;
-  }
-}
-.single-image-gallery {
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.single-image-gallery img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  margin: 0;
-  padding: 0;
-  border: none;
-}
-
-.overlay-text {
-  position: absolute;
-  top: 35%;
-  left: 17%;
-  transform: translate(-50%, -50%);
-  font-size: 24px;
-  font-weight: bold;
-  color: rgb(255, 255, 255);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  z-index: 10; /* Ensure the text is above the image */
-}
-.overlay-text1 {
-  position: absolute;
-  top: 49%;
-  left: 34%;
-  transform: translate(-50%, -50%);
-  font-size: 14px;
-
-  color: rgb(255, 255, 255);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  z-index: 10; /* Ensure the text is above the image */
 }
