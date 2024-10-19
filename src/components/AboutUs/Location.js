@@ -10,7 +10,9 @@ const Location = () => {
   useEffect(() => {
     const fetchLocationData = async () => {
       try {
-        const response = await fetch("https://carriomotors.io.vn/api/get_location.php");
+        const response = await fetch(
+          "https://carriomotors.io.vn/api/get_location.php"
+        );
         const data = await response.json();
         setLocationData(data); // Assuming data is an array
         setLoading(false);
@@ -44,10 +46,7 @@ const Location = () => {
         <Row gutter={[16, 16]} justify="start">
           {locationData.map((location, index) => (
             <Col xs={24} sm={12} md={12} lg={6} key={index}>
-              <Card
-                hoverable
-                bordered={false}
-              >
+              <Card hoverable bordered={false}>
                 {/* Logo Section */}
                 <div className="location-logo-section">
                   <Image
@@ -61,11 +60,11 @@ const Location = () => {
                 {/* Info Section */}
                 <div className="location-info-section">
                   <h2>{location.name}</h2>
-                  <p>{location.address || "Địa chỉ không có sẵn"}</p>
+                  <p>{location.address || "Address not available"}</p>
                   <p className="location-telephone">
-                    {location.telephone || "Số điện thoại không có sẵn"}
+                    {location.telephone || "Phone number not available"}
                   </p>
-                  <p className="location-details">Chi tiết</p>
+                  <p className="location-details">Details</p>
                 </div>
               </Card>
             </Col>

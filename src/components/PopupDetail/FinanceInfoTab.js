@@ -198,7 +198,7 @@ const FinanceInfoTab = ({ car }) => {
                   {installmentAmount ? installmentAmount.toLocaleString() : "0"}
                 </td>
                 <td>
-                  $ $
+                  $
                   {installmentAmount ? installmentAmount.toLocaleString() : "0"}
                 </td>
               </tr>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import PersonIcon from '@mui/icons-material/Person';
+import PersonIcon from "@mui/icons-material/Person";
 import {
   Menu,
   Input,
@@ -190,7 +190,7 @@ const ImprovedHeader = () => {
       label: "About Us",
       children: [
         { key: "company", label: "Our Company", link: "/about/company" },
-        { key: "careers", label: "Careers", link: "/about/careers" },
+        { key: "careers", label: "Contact Dealer", link: "/about/careers" },
         { key: "contact", label: "Contact Us", link: "/about/contact" },
         { key: "location", label: "Location", link: "/about/location" },
       ],
@@ -276,7 +276,9 @@ const ImprovedHeader = () => {
             </Link>
             <div className="flex items-center ml-4">
               <PersonIcon style={{ fontSize: "15px", marginRight: "5px" }} />
-              <span className="text-base" style={{ fontSize: "12px" }}>{realtimeVisitors}</span>
+              <span className="text-base" style={{ fontSize: "12px" }}>
+                {realtimeVisitors}
+              </span>
             </div>
           </div>
 
@@ -380,5 +382,3 @@ const ImprovedHeader = () => {
 };
 
 export default ImprovedHeader;
-
-

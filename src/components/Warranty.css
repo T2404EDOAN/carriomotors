@@ -1,13 +1,15 @@
 .warranty-page {
   background-color: white;
   max-width: 1400px;
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: -6px;
   margin: 0 auto;
 }
 
 .warranty-header {
   position: relative;
-  background-image: url('../assets/images/Warranty/Merc_banner.avif');
+  background-image: url("../assets/images/Warranty/Merc_banner.avif");
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -21,19 +23,19 @@
   position: absolute;
   bottom: 20px;
   left: 20px;
-  color:white;
+  color: white;
 }
 
 .header-text h1 {
   font-size: 48px;
   margin: 0;
-  color:white;
+  color: white;
 }
 
 .header-text p {
   font-size: 24px;
   margin: 5px 0 0;
-  color:white;
+  color: white;
 }
 
 /* Tab Styling */
@@ -72,14 +74,12 @@
   margin-bottom: 20px;
 }
 
-
-
 .warranty-image {
   /*width: 45%;*/
 
   width: 200px;
   height: 500px;
-  object-fit:cover;
+  object-fit: cover;
 }
 
 .warranty-details {
@@ -159,8 +159,7 @@
   justify-content: space-between;
   padding: 20px;
   background-color: white;
- 
- 
+
   margin-bottom: 40px;
 }
 
@@ -191,7 +190,7 @@
   line-height: 1.6;
 }
 .separator-header {
-  background-image: url('./BMW_banner.jpg');
+  background-image: url("./BMW_banner.jpg");
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -205,7 +204,12 @@
 
 .header-content {
   display: block; /* Stack the text vertically */
-  background-color: rgba(0, 0, 0, 0); /* Transparent black background for readability */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0
+  ); /* Transparent black background for readability */
   padding: 20px;
   border-radius: 5px;
   max-width: 400px; /* Set a max-width to limit the width of the content */
@@ -239,7 +243,7 @@
   background-color: #59427a;
 }
 .audi-warranty-header {
-  background-image: url('../assets/images/Warranty/Audi_banner.jpg'); /* Placeholder image */
+  background-image: url("../assets/images/Warranty/Audi_banner.jpg"); /* Placeholder image */
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -252,7 +256,12 @@
 }
 
 .audi-warranty-overlay {
-  background-color: rgba(0, 0, 0, 0.5); /* Transparent black background for readability */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Transparent black background for readability */
   padding: 40px;
   text-align: right; /* Right-align text inside the overlay */
   color: white;
@@ -360,7 +369,7 @@
 }
 /* Porsche Approved Warranty Header */
 .porsche-warranty-header {
-  background-image: url('../assets/images/Warranty/Porsche_banner.jpg'); /* Placeholder image */
+  background-image: url("../assets/images/Warranty/Porsche_banner.jpg"); /* Placeholder image */
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -430,20 +439,20 @@
   margin-bottom: 20px;
   color: #333;
 }
-.comtent-section p{
+.comtent-section p {
   font-size: 16px;
-line-height: 1.6;
-color: #555;
+  line-height: 1.6;
+  color: #555;
 }
-.content-image{
+.content-image {
   width: 25vw;
   height: auto;
 }
-.warrant-content-image{
+.warrant-content-image {
   flex: 1; /* Takes up the same amount of space as the text */
-max-width: 40%; /* Sets the maximum width of the image */
-border-radius: 8px; /* Adds a slight border radius to the image */
-object-fit: cover; /* Ensures the image doesn't stretch or morph */
+  max-width: 40%; /* Sets the maximum width of the image */
+  border-radius: 8px; /* Adds a slight border radius to the image */
+  object-fit: cover; /* Ensures the image doesn't stretch or morph */
 }
 .content-section p {
   font-size: 16px;
@@ -485,22 +494,22 @@ object-fit: cover; /* Ensures the image doesn't stretch or morph */
   margin-top: 10px;
   line-height: 1.6;
 }
-.opening-paragraph{
+.opening-paragraph {
   align-items: center;
 }
-.opening-paragraph h2{
+.opening-paragraph h2 {
   font-size: 24px; /* Increase font size for the heading */
   color: #333;
   font-weight: bold;
   max-width: 300px;
   margin-bottom: 20px;
-  text-align :center;
+  text-align: center;
   place-items: center;
 }
-.opening-paragraph p{
+.opening-paragraph p {
   max-width: 500px;
   margin-bottom: 20px;
-  text-align :center;
+  text-align: center;
   place-items: center;
 }
 .benefits-row {
@@ -533,68 +542,68 @@ object-fit: cover; /* Ensures the image doesn't stretch or morph */
 }
 /* Introduction Section */
 .warranty-intro {
-text-align: center;
-padding: 20px 20px; /* Add more padding for a larger section */
-background-color: #ffffff; /* Lighter background to make it stand out */
-margin: 40px auto;
-max-width: 1000px; /* Limit the maximum width */
+  text-align: center;
+  padding: 20px 20px; /* Add more padding for a larger section */
+  background-color: #ffffff; /* Lighter background to make it stand out */
+  margin: 40px auto;
+  max-width: 1000px; /* Limit the maximum width */
 }
 
 .warranty-intro h2 {
-font-size: 36px; /* Bigger font for the title */
-font-weight: bold;
-margin-bottom: 20px;
-color: #333; /* Darker text color */
+  font-size: 36px; /* Bigger font for the title */
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333; /* Darker text color */
 }
 
 .warranty-intro p {
-font-size: 16px;
-line-height: 1.8;
-max-width: 800px; /* Limit the paragraph width for better readability */
-margin: 0 auto;
-color: #555; /* Subtle text color for contrast */
+  font-size: 16px;
+  line-height: 1.8;
+  max-width: 800px; /* Limit the paragraph width for better readability */
+  margin: 0 auto;
+  color: #555; /* Subtle text color for contrast */
 }
 /* Warranty Types Section */
 .warranty-types-row {
-display: flex;
-justify-content: space-between;
-align-items: flex-start;
-padding: 40px;
-background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 40px;
+  background-color: #ffffff;
 
-margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 .warranty-image {
-width: 40%;
+  width: 40%;
 }
 
 .warranty-type-image {
-width: 100%;
-border-radius: 8px;
-object-fit: cover;
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .warranty-text {
-width: 55%;
+  width: 55%;
 }
 
 .warranty-text h2 {
-font-size: 32px;
-margin-bottom: 20px;
+  font-size: 32px;
+  margin-bottom: 20px;
 }
 
 .warranty-text p {
-font-size: 16px;
-line-height: 1.8;
-color: #555;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
 }
 
 .warranty-text ul {
-list-style-type: disc;
-padding-left: 20px;
-font-size: 16px;
-line-height: 1.8;
-color: #555;
-margin-bottom: 20px;
+  list-style-type: disc;
+  padding-left: 20px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 20px;
 }

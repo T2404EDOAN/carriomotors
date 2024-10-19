@@ -3,7 +3,7 @@ import { Row, Col, Card, Image } from "antd";
 
 const LocationInfoTab = ({ locationData, onSelectLocation }) => {
   if (!locationData || locationData.length === 0) {
-    return <p>Không có thông tin địa điểm.</p>;
+    return <p>No location information available.</p>;
   }
 
   return (
@@ -16,9 +16,9 @@ const LocationInfoTab = ({ locationData, onSelectLocation }) => {
             style={{
               textAlign: "left",
               height: "100%",
-              width: "100%", // Chiều rộng full của div cha
-              border: "1px solid rgba(0, 0, 0, 0.1)", // Viền mờ nhạt
-              boxShadow: "none", // Không đổ bóng mặc định
+              width: "100%", // Full width of the parent div
+              border: "1px solid rgba(0, 0, 0, 0.1)", // Subtle border
+              boxShadow: "none", // No default shadow
               transition: "transform 0.3s, box-shadow 0.3s",
               borderRadius: "0",
             }}
@@ -30,20 +30,20 @@ const LocationInfoTab = ({ locationData, onSelectLocation }) => {
             }}
             onClick={() => onSelectLocation(location)}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)"; // Đổ bóng khi hover
+              e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)"; // Add shadow on hover
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "none"; // Không đổ bóng khi không hover
+              e.currentTarget.style.boxShadow = "none"; // Remove shadow when not hovering
             }}
           >
-            {/* Phần logo riêng */}
+            {/* Logo section */}
             <div
               style={{
                 width: "100%",
                 textAlign: "center",
                 marginBottom: "10px",
-                borderBottom: "1px solid rgba(0, 0, 0, 0.1)", // Mỏng và mờ hơn
-                paddingBottom: "10px", // Tạo khoảng cách giữa logo và viền dưới
+                borderBottom: "1px solid rgba(0, 0, 0, 0.1)", // Thinner and more subtle
+                paddingBottom: "10px", // Space between the logo and the bottom border
               }}
             >
               <Image
@@ -51,7 +51,7 @@ const LocationInfoTab = ({ locationData, onSelectLocation }) => {
                 alt="BMW Logo"
                 preview={false}
                 style={{
-                  width: "150px", // Kích thước logo
+                  width: "150px", // Logo size
                   height: "150px",
                   objectFit: "contain",
                   borderRadius: "0",
@@ -59,27 +59,27 @@ const LocationInfoTab = ({ locationData, onSelectLocation }) => {
               />
             </div>
 
-            {/* Phần thông tin */}
+            {/* Information section */}
             <div
               style={{
                 padding: "10px",
               }}
             >
               <h3>{location.LocationName}</h3>
-              <p>{location.Address || "Địa chỉ không có sẵn"}</p>
-              {/* Thêm viền trên số điện thoại, không full chiều rộng */}
+              <p>{location.Address || "Address not available"}</p>
+              {/* Add top border for the phone number, not full width */}
               <p
                 style={{
                   fontWeight: "bold",
                   fontSize: "16px",
                   marginBottom: "8px",
-                  borderTop: "1px solid rgba(0, 0, 0, 0.1)", // Thêm viền trên
-                  width: "90%", // Chỉ chiếm 50% chiều rộng
-                  margin: "10px auto 0", // Căn giữa
-                  paddingTop: "10px", // Khoảng cách giữa viền và nội dung
+                  borderTop: "1px solid rgba(0, 0, 0, 0.1)", // Add top border
+                  width: "90%", // Only takes up 90% width
+                  margin: "10px auto 0", // Center the content
+                  paddingTop: "10px", // Space between the border and content
                 }}
               >
-                {location.Telephone || "Số điện thoại không có sẵn"}
+                {location.Telephone || "Phone number not available"}
               </p>
             </div>
           </Card>
@@ -91,10 +91,10 @@ const LocationInfoTab = ({ locationData, onSelectLocation }) => {
 
 const GoogleMap = ({ iframeLink }) => {
   if (!iframeLink) {
-    return <p>Không có bản đồ cho địa điểm này.</p>;
+    return <p>No map available for this location.</p>;
   }
 
-  // Kiểm tra và xử lý iframe_link
+  // Validate and handle iframe_link
   const sanitizedIframeLink = iframeLink.startsWith("<iframe")
     ? new DOMParser()
         .parseFromString(iframeLink, "text/html")
@@ -102,7 +102,7 @@ const GoogleMap = ({ iframeLink }) => {
     : iframeLink;
 
   if (!sanitizedIframeLink) {
-    return <p>Liên kết bản đồ không hợp lệ.</p>;
+    return <p>Invalid map link.</p>;
   }
 
   return (
@@ -150,7 +150,7 @@ const MainLayout = ({ locationData }) => {
             }}
           >
             <p style={{ fontSize: "18px", color: "#8c8c8c" }}>
-              Vui lòng chọn một địa điểm để xem bản đồ
+              Please select a location to view the map
             </p>
           </div>
         )}

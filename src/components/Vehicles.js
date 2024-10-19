@@ -25,7 +25,7 @@ const { useBreakpoint } = Grid;
 
 const CarListingLayout = ({ isTechnicalDataVisible }) => {
   const location = useLocation();
-  const { brandId } = location.state || {}; // Nhận brandId từ location.state (trang category)
+  const { brandId } = location.state || {};
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const [cars, setCars] = useState([]);
   const [brands, setBrands] = useState([]);
@@ -33,7 +33,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     brandId ? [String(brandId)] : []
   ); // Áp dụng brandId vào selectedBrands khi có brandId
   const [filteredCars, setFilteredCars] = useState([]);
-  const [PriceRange, setPriceRange] = useState([0, 500000]);
+  const [PriceRange, setPriceRange] = useState([0, 99999999]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(9);
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -66,17 +66,16 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         `https://carriomotors.io.vn/api/get_vehicle.php`
       );
       const carsData = response.data;
-  
+
       if (Array.isArray(carsData)) {
-        // Dữ liệu trả về đã có sẵn tên thương hiệu (brand_name), không cần ánh xạ thêm
         const validCars = carsData.map((car) => ({
           ...car,
-          price: Math.floor(car.price), // Xử lý giá nếu cần
+          price: Math.floor(car.price),
         }));
-  
+
         setCars(validCars);
         setFilteredCars(validCars);
-  
+
         const uniqueColors = [...new Set(validCars.map((car) => car.color))];
         setColors(uniqueColors);
       } else {
@@ -126,7 +125,6 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
       filtered = filtered.filter((car) =>
         selectedBrands.includes(String(car.brand_id))
       );
-      console.log("After brand filter:", filtered);
     }
 
     // Lọc theo mô hình
@@ -159,9 +157,13 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     }
 
     // Lọc theo giá
-    filtered = filtered.filter(
-      (car) => car.price >= PriceRange[0] && car.price <= PriceRange[1]
-    );
+    filtered = filtered.filter((car) => {
+      const isInRange =
+        car.price >= PriceRange[0] && car.price <= PriceRange[1];
+      if (!isInRange) {
+      }
+      return isInRange;
+    });
 
     setFilteredCars(filtered);
   };
@@ -170,8 +172,15 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
   useEffect(() => {
     setCurrentPage(1);
     applyFilters();
-  }, [selectedBrands, selectedModels, selectedLocations, selectedColors, selectedSpeedRange, PriceRange, cars]);
-  
+  }, [
+    selectedBrands,
+    selectedModels,
+    selectedLocations,
+    selectedColors,
+    selectedSpeedRange,
+    PriceRange,
+    cars,
+  ]);
 
   // Xử lý thay đổi trang
   const handlePageChange = (page) => {
@@ -201,7 +210,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     setSelectedModels(selectedModelIds);
     applyFilters(); // Áp dụng bộ lọc khi chọn model
   };
-  
+
   // Xử lý khi chọn địa điểm
   const handleLocationSelection = (checkedValues) => {
     setSelectedLocations(checkedValues);
@@ -226,7 +235,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
           "https://carriomotors.io.vn/api/get_model.php"
         );
         const modelsData = response.data.data || response.data;
-       
+
         if (Array.isArray(modelsData)) {
           setModels(modelsData);
         } else {
@@ -236,10 +245,9 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         console.error("Error fetching models:", error);
       }
     };
-  
+
     fetchModels();
   }, []);
-  
 
   const getCategoryName = (status) => {
     switch (
@@ -256,21 +264,21 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     }
   };
 
-// Cập nhật hàm lọc models dựa trên thương hiệu đã chọn
-const filteredModels = selectedBrands.length > 0
-  ? models.filter((model) => selectedBrands.includes(String(model.brandId)))
-  : models;
+  // Cập nhật hàm lọc models dựa trên thương hiệu đã chọn
+  const filteredModels =
+    selectedBrands.length > 0
+      ? models.filter((model) => selectedBrands.includes(String(model.brandId)))
+      : models;
 
-// Nhóm các models theo phân loại dòng xe (dựa trên status)
-const groupedModels = filteredModels.reduce((acc, model) => {
-  const category = getCategoryName(model.status); 
-  if (!acc[category]) {
-    acc[category] = [];
-  }
-  acc[category].push(model);
-  return acc;
-}, {});
-
+  // Nhóm các models theo phân loại dòng xe (dựa trên status)
+  const groupedModels = filteredModels.reduce((acc, model) => {
+    const category = getCategoryName(model.status);
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(model);
+    return acc;
+  }, {});
 
   const fetchLocations = async () => {
     try {
@@ -305,7 +313,7 @@ const groupedModels = filteredModels.reduce((acc, model) => {
   };
 
   const closeModal = () => {
-    setIsModalVisible(false); 
+    setIsModalVisible(false);
     setSelectedCar(null);
   };
 
@@ -337,29 +345,25 @@ const groupedModels = filteredModels.reduce((acc, model) => {
       </Checkbox.Group>
       <Title level={4}>Models</Title>
       <Select
-  mode="multiple"
-  showSearch
-  style={{ width: "100%", marginBottom: 20 }}
-  placeholder="Search to Select"
-  optionFilterProp="label"
-  value={selectedModels}
-  onChange={setSelectedModels}
-  allowClear
->
-  {Object.keys(groupedModels).map((category) => (
-    <Select.OptGroup key={category} label={category}>
-      {groupedModels[category].map((model) => (
-        <Select.Option key={model.id} value={model.id}>
-          {model.name} - {model.seriesName} 
-        </Select.Option>
-      ))}
-    </Select.OptGroup>
-  ))}
-</Select>
-
-
-
-
+        mode="multiple"
+        showSearch
+        style={{ width: "100%", marginBottom: 20 }}
+        placeholder="Search to Select"
+        optionFilterProp="label"
+        value={selectedModels}
+        onChange={setSelectedModels}
+        allowClear
+      >
+        {Object.keys(groupedModels).map((category) => (
+          <Select.OptGroup key={category} label={category}>
+            {groupedModels[category].map((model) => (
+              <Select.Option key={model.id} value={model.id}>
+                {model.name} - {model.seriesName}
+              </Select.Option>
+            ))}
+          </Select.OptGroup>
+        ))}
+      </Select>
 
       <Title level={4}>Select Top Speed</Title>
       <Select
@@ -444,14 +448,14 @@ const groupedModels = filteredModels.reduce((acc, model) => {
             overflow: "hidden",
             textOverflow: "ellipsis",
             fontWeight: "normal",
-            fontSize:"14px",
+            fontSize: "14px",
           }}
         >
           {`${car.brand_name} ${car.car_model_name} - ${car.series_name}`}
         </Title>
       </div>
       <Row justify="space-between" align="middle" style={{ height: "24px" }}>
-      <Text style={{ fontWeight: "normal" }}>${car.price}</Text>
+        <Text style={{ fontWeight: "normal" }}>${car.price}</Text>
       </Row>
     </Card>
   );
