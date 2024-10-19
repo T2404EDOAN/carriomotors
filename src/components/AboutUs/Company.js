@@ -24,9 +24,6 @@ const CompanyPage = () => {
   return (
     <div className="company-main-container">
       <div className="box-company1">
-        <div className="logo-company">
-          <img src={logologo} alt="logo" />
-        </div>
         <div className="title-copmany1">
           Transform your life with every drive
         </div>
