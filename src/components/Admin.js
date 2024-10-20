@@ -12,14 +12,58 @@ import {
   SettingOutlined,
   LogoutOutlined,
   MenuUnfoldOutlined,
+  EditOutlined, DeleteOutlined,
 } from '@ant-design/icons';
 import { UploadOutlined } from '@ant-design/icons';
 import '../assets/styles/Admin.css';
+import axios from 'axios';
 
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;
 const { Search } = Input;
 const { Option } = Select;
+const inboxColumns = [
+  {
+    title: 'No.',
+    key: 'stt',
+    render: (text, record, index) => index + 1, // Generate sequential number
+  },
+  {
+    title: 'First Name',
+    dataIndex: 'first_name',
+    key: 'first_name',
+  },
+  {
+    title: 'Last Name',
+    dataIndex: 'last_name',
+    key: 'last_name',
+  },
+  {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
+  },
+  {
+    title: 'Phone',
+    dataIndex: 'phone',
+    key: 'phone',
+  },
+  {
+    title: 'Preferred Contact Method',
+    dataIndex: 'preferred_contact_method',
+    key: 'preferred_contact_method',
+  },
+  {
+    title: 'Special Requests',
+    dataIndex: 'special_requests',
+    key: 'special_requests',
+  },
+  {
+    title: 'Submission Date',
+    dataIndex: 'submission_date',
+    key: 'submission_date',
+  },
+];
 
 const columns = [
   {
@@ -27,7 +71,7 @@ const columns = [
     dataIndex: 'index',
     key: 'index',
     width: 70,
-    render: (text, record, index) => index + 1,
+    render: (text, record, index) => index + 1, // Số thứ tự tăng dần
   },
   {
     title: 'Actions',
@@ -35,38 +79,43 @@ const columns = [
     width: 150,
     render: (text, record) => (
       <Space size="middle">
-        <Button type="link">Edit</Button>
-        <Button type="link">Delete</Button>
+        <Button type="link" icon={<EditOutlined />}></Button>
+        <Button type="link"  icon={<DeleteOutlined />}></Button>
       </Space>
     ),
   },
-  { title: 'Vehicle ID', dataIndex: 'VehicleID', key: 'VehicleID', width: 120 },
-  { title: 'Model', dataIndex: 'Car_modelID', key: 'Car_modelID', width: 150 },
-  { title: 'Brand', dataIndex: 'BrandID', key: 'BrandID', width: 150 },
-  { title: 'Engine Power', dataIndex: 'Engine_power', key: 'Engine_power', width: 150 },
-  { title: 'Fuel Type', dataIndex: 'Fuel_type', key: 'Fuel_type', width: 120 },
-  { title: 'Transmission', dataIndex: 'Transmission', key: 'Transmission', width: 150 },
-  { title: 'Seating Capacity', dataIndex: 'Seating_capacity', key: 'Seating_capacity', width: 150 },
-  { title: 'Drivetrain', dataIndex: 'Drivetrain', key: 'Drivetrain', width: 150 },
-  { title: 'Origin', dataIndex: 'Origin', key: 'Origin', width: 150 },
-  { title: 'Mileage', dataIndex: 'Mileage', key: 'Mileage', width: 120 },
-  { title: 'Year', dataIndex: 'Year', key: 'Year', width: 120 },
-  { title: 'Price', dataIndex: 'Price', key: 'Price', width: 150 },
-  { title: 'Fuel Tank Capacity', dataIndex: 'Fuel_tank_capacity', key: 'Fuel_tank_capacity', width: 150 },
-  { title: 'Curb Weight', dataIndex: 'Curb_weight', key: 'Curb_weight', width: 120 },
-  { title: 'Torque', dataIndex: 'Torque', key: 'Torque', width: 120 },
-  { title: 'Top Speed', dataIndex: 'Top_speed', key: 'Top_speed', width: 120 },
-  { title: 'Acceleration (0-100)', dataIndex: 'Acceleration_0_100', key: 'Acceleration_0_100', width: 150 },
+  { title: 'Vehicle ID', dataIndex: 'id', key: 'id', width: 120 },
+  { title: 'Brand', dataIndex: 'brand_name', key: 'brand_name', width: 150 }, // Hiển thị tên thương hiệu
+  { title: 'Model', dataIndex: 'car_model_name', key: 'car_model_name', width: 150 }, // Hiển thị tên mẫu xe
+  { title: 'Series', dataIndex: 'series_name', key: 'series_name', width: 150 }, // Hiển thị tên series
+  { title: 'Engine Power', dataIndex: 'engine_power', key: 'engine_power', width: 150 },
+  { title: 'Fuel Type', dataIndex: 'fuel_type', key: 'fuel_type', width: 120 },
+  { title: 'Transmission', dataIndex: 'transmission', key: 'transmission', width: 150 },
+  { title: 'Seating Capacity', dataIndex: 'seating_capacity', key: 'seating_capacity', width: 150 },
+  { title: 'Drivetrain', dataIndex: 'drivetrain', key: 'drivetrain', width: 150 },
+  { title: 'Origin', dataIndex: 'origin', key: 'origin', width: 150 },
+  { title: 'Mileage', dataIndex: 'mileage', key: 'mileage', width: 120 },
+  { title: 'Year', dataIndex: 'year', key: 'year', width: 120 },
+  { title: 'Price', dataIndex: 'price', key: 'price', width: 150 },
+  { title: 'Fuel Tank Capacity', dataIndex: 'fuel_tank_capacity', key: 'fuel_tank_capacity', width: 150 },
+  { title: 'Curb Weight', dataIndex: 'curb_weight', key: 'curb_weight', width: 120 },
+  { title: 'Torque', dataIndex: 'torque', key: 'torque', width: 120 },
+  { title: 'Top Speed', dataIndex: 'top_speed', key: 'top_speed', width: 120 },
+  { title: 'Acceleration (0-100)', dataIndex: 'acceleration_0_100', key: 'acceleration_0_100', width: 150 },
   { title: 'Engine Type', dataIndex: 'engine_type', key: 'engine_type', width: 150 },
   { title: 'Horsepower', dataIndex: 'horsepower', key: 'horsepower', width: 120 },
   { title: 'Braking Distance', dataIndex: 'braking_distance', key: 'braking_distance', width: 150 },
   { title: 'Fuel Efficiency', dataIndex: 'fuel_efficiency', key: 'fuel_efficiency', width: 150 },
   { title: 'CO2 Emission', dataIndex: 'co2_emission', key: 'co2_emission', width: 150 },
-  { title: 'Status', dataIndex: 'status', key: 'status', width: 120 }
+  { title: 'Status', dataIndex: 'status', key: 'status', width: 120 },
+  { title: 'Car Model Status', dataIndex: 'car_model_status', key: 'car_model_status', width: 150 }, // Trạng thái của mẫu xe
 ];
+
+
 
 const Admin = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState('vehicles'); // Track selected menu
   const [tableHeight, setTableHeight] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
@@ -77,6 +126,10 @@ const Admin = () => {
   const [images, setImages] = useState([]); // Lưu trữ file ảnh
   const [mainImage, setMainImage] = useState('');
   const [gallery, setGallery] = useState([]);
+  const [inboxData, setInboxData] = useState([]);
+  const [vehiclesData, setvehiclesData] = useState([]);
+
+ 
   useEffect(() => {
     fetch('https://carriomotors.io.vn/api/get_location.php')
       .then(response => response.json())
@@ -104,19 +157,52 @@ const Admin = () => {
       .then(data => setColors(data))
       .catch(error => console.error("Error calling API to get color list:", error));
   }, []);
-  
+  useEffect(() => {
+    if (selectedMenu === 'inbox') {
+      fetchInboxData();
+    }
+  }, [selectedMenu]);
+  useEffect(() => {
+    if (selectedMenu === 'vehicles') {
+      fetchvehiclesData();
+    }
+  }, [selectedMenu]);
+  const fetchInboxData = async () => {
+    try {
+      const response = await axios.get('https://carriomotors.io.vn/api/get_contactus.php'); // Replace with your API URL
+      if (response.status === 200) {
+        setInboxData(response.data); // Assuming the API returns a list of contacts
+      } else {
+        message.error('Failed to fetch contact submissions.');
+      }
+    } catch (error) {
+      console.error('Error fetching contact submissions:', error);
+    }
+  };
+
+  const fetchvehiclesData = async () => {
+    try {
+      const response = await axios.get('https://carriomotors.io.vn/api/get_vehicle.php');
+      if (response.status === 200) {
+        setvehiclesData(response.data); // Assuming the API returns a list of contacts
+      } else {
+        message.error('Failed to fetch contact submissions.');
+      }
+    } catch (error) {
+      console.error('Error fetching contact submissions:', error);
+    }
+  };
   const uploadImageToImgbb = (file) => {
-    const apiKey = '5baca5ecaa39640800e17862d37b4a71'; // Replace with your API key
+    const apiKey = '5baca5ecaa39640800e17862d37b4a71'; 
     
     return new Promise((resolve, reject) => {
-      // Check if the file is a Blob or File
       if (!(file instanceof Blob || file instanceof File)) {
         reject(new Error("File is not of type Blob or File"));
         return;
       }
   
       const formData = new FormData();
-      formData.append('image', file); // Send file directly to imgbb
+      formData.append('image', file);
       
       fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
         method: 'POST',
@@ -125,7 +211,7 @@ const Admin = () => {
       .then(response => response.json())
       .then(data => {
         if (data.success) {
-          resolve(data.data.url); // Return the uploaded image URL
+          resolve(data.data.url); 
         } else {
           message.error(`Upload failed: ${data.error.message}`);
           reject(data.error.message);
@@ -163,7 +249,6 @@ const Admin = () => {
         return;
       }
 
-      // Upload images to imgbb and save the URL of each image
       const uploadedImages = await Promise.all(
         fileList.map(async (file) => {
           const fileToUpload = file.originFileObj || file;
@@ -177,17 +262,14 @@ const Admin = () => {
         })
       );
 
-      // Check if any images failed to upload
       if (uploadedImages.includes(null)) {
         message.error('Some images failed to upload.');
       } else {
-        // Separate the main image and the additional images
-        const mainImg = uploadedImages[0]; // First image is the main image
-        const additionalImgs = uploadedImages.slice(1); // Remaining images are additional
+        const mainImg = uploadedImages[0];
+        const additionalImgs = uploadedImages.slice(1);
 
-        // Store the main image and additional images in separate state variables
-        setMainImage(mainImg); // Save the main image in state
-        setGallery(additionalImgs); // Save the additional images in state
+        setMainImage(mainImg);
+        setGallery(additionalImgs);
       }
     } catch (error) {
       console.error('Error uploading images:', error);
@@ -199,13 +281,11 @@ const Admin = () => {
     try {
       const values = await form.validateFields();
 
-      // Check if there is a main image
       if (!mainImage) {
         message.error('Please upload at least one main image.');
         return;
       }
 
-      // Build the payload
       const payload = {
         brand_id: values.BrandID,
         car_modelid: values.Car_modelID,
@@ -232,14 +312,12 @@ const Admin = () => {
         co2_emission: values.CO2_emission,
         colors: values.colors,
         locations: values.locations,
-        main_image: mainImage, // Main image
-        gallery: gallery, // Additional images
+        main_image: mainImage,
+        gallery: gallery,
       };
 
-      // Log the payload before sending
       console.log('Payload before sending:', payload);
 
-      // Send payload to server
       const response = await fetch('https://carriomotors.io.vn/api/post_vehicles.php', {
         method: 'POST',
         headers: {
@@ -256,16 +334,19 @@ const Admin = () => {
         message.success('New vehicle added successfully!');
         setIsModalVisible(false);
         form.resetFields();
-        setMainImage(''); // Reset main image
-        setGallery([]); // Reset additional images
+        setMainImage('');
+        setGallery([]);
       }
     } catch (error) {
-      message.error('Error submitting form: ' + error.message);
     }
   };
 
   const toggle = () => {
     setCollapsed(!collapsed);
+  };
+
+  const handleMenuClick = (menuKey) => {
+    setSelectedMenu(menuKey); // Update selected menu when clicked
   };
 
   const userMenu = (
@@ -291,26 +372,26 @@ const Admin = () => {
             {collapsed ? 'AD' : 'Admin Dashboard'}
           </Title>
         </div>
-        <Menu mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1" icon={<DashboardOutlined />}>
+        <Menu mode="inline" defaultSelectedKeys={['1']} onClick={(e) => handleMenuClick(e.key)}>
+          <Menu.Item key="dashboard" icon={<DashboardOutlined />}>
             Dashboard
           </Menu.Item>
-          <Menu.Item key="2" icon={<CarOutlined />}>
+          <Menu.Item key="vehicles" icon={<CarOutlined />}>
             Vehicles
           </Menu.Item>
-          <Menu.Item key="3" icon={<InboxOutlined />}>
+          <Menu.Item key="inbox" icon={<InboxOutlined />}>
             Inbox
           </Menu.Item>
-          <Menu.Item key="4" icon={<UserOutlined />}>
+          <Menu.Item key="users" icon={<UserOutlined />}>
             Users
           </Menu.Item>
-          <Menu.Item key="5" icon={<ShoppingOutlined />}>
+          <Menu.Item key="products" icon={<ShoppingOutlined />}>
             Products
           </Menu.Item>
-          <Menu.Item key="6" icon={<LoginOutlined />}>
+          <Menu.Item key="signin" icon={<LoginOutlined />}>
             Sign In
           </Menu.Item>
-          <Menu.Item key="7" icon={<UserAddOutlined />}>
+          <Menu.Item key="signup" icon={<UserAddOutlined />}>
             Sign Up
           </Menu.Item>
         </Menu>
@@ -339,22 +420,57 @@ const Admin = () => {
           </div>
         </Header>
         <Content style={{ padding: '24px', minHeight: "100%", backgroundColor: "#ffffff" }}>
-          <Row style={{ height: '100%' }}>
-            <Col span={24}>
-              <div style={{ textAlign: "right", marginBottom: "20px" }}>
-                <Button type="primary" onClick={showModal}>Add vehicle</Button>
-              </div>
-              <Table
-  columns={columns}
-  dataSource={[]} // Đảm bảo dataSource là một mảng trống khi không có dữ liệu
-  pagination={false}
-  scroll={{ x: 1500, y: tableHeight }} // Đặt x với giá trị lớn hơn để có thanh cuộn ngang
-  className="custom-scrollbar"
-  locale={{ emptyText: 'No Data' }} // Hiển thị thông báo "No Data" khi không có dữ liệu
-/>
-
-            </Col>
-          </Row>
+          {/* Conditionally render based on selected menu */}
+          {selectedMenu === 'vehicles' && (
+            <div>
+              <Row style={{ height: '100%' }}>
+                <Col span={24}>
+                  <div style={{ textAlign: "right", marginBottom: "20px" }}>
+                    <Button type="primary" onClick={showModal}>Add vehicle</Button>
+                  </div>
+                  <Table
+                    columns={columns}
+                    dataSource={vehiclesData} 
+                    pagination={false}
+                    rowKey="id"
+                    scroll={{ x: 1500 }}
+                    className="custom-scrollbar"
+                    locale={{ emptyText: 'No Data' }} // Show "No Data" when empty
+                  />
+                </Col>
+              </Row>
+            </div>
+          )}
+          {selectedMenu === 'inbox' && (
+            <div>
+            <h2>Inbox</h2>
+            <Table
+              columns={inboxColumns}
+              dataSource={inboxData} // Data fetched from the backend
+              pagination={false}
+              rowKey="id" // Assuming each contact has a unique ID
+              locale={{ emptyText: 'No contact submissions found' }}
+            />
+          </div>
+          )}
+          {selectedMenu === 'dashboard' && (
+            <div>
+              <h2>Dashboard</h2>
+              <p>Your dashboard overview will appear here.</p>
+            </div>
+          )}
+          {selectedMenu === 'users' && (
+            <div>
+              <h2>Users</h2>
+              <p>User management will be available here.</p>
+            </div>
+          )}
+          {selectedMenu === 'products' && (
+            <div>
+              <h2>Products</h2>
+              <p>Your product management will appear here.</p>
+            </div>
+          )}
         </Content>
       </Layout>
       <Modal
@@ -364,7 +480,7 @@ const Admin = () => {
         onCancel={handleCancel}
         okText="Save"
         cancelText="Cancel"
-        width={1100} // Increase modal width for 4-column layout
+        width={1100}
       >
         <Form form={form} layout="vertical">
           {/* First row: General Information */}
@@ -608,8 +724,8 @@ const Admin = () => {
               >
                 <Upload
                   listType="picture"
-                  beforeUpload={() => false} // Do not upload directly, handle after selection
-                  onChange={handleImageUpload} // Call function when images are selected
+                  beforeUpload={() => false}
+                  onChange={handleImageUpload}
                   multiple
                 >
                   <Button icon={<UploadOutlined />}>Select Image</Button>
