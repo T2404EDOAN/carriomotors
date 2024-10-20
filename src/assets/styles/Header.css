@@ -5,6 +5,30 @@
   font-weight: normal !important; /* Regular font weight */
   font-size: 16px !important; /* Set font size to 16px */
 }
+/* Trạng thái bình thường - Không hiển thị gạch chân */
+:where(.css-dev-only-do-not-override-ccdg5a).ant-menu-light.ant-menu-horizontal > .ant-menu-item::after,
+:where(.css-dev-only-do-not-override-ccdg5a).ant-menu-light > .ant-menu.ant-menu-horizontal > .ant-menu-item::after,
+:where(.css-dev-only-do-not-override-ccdg5a).ant-menu-light.ant-menu-horizontal > .ant-menu-submenu::after,
+:where(.css-dev-only-do-not-override-ccdg5a).ant-menu-light > .ant-menu.ant-menu-horizontal > .ant-menu-submenu::after {
+    border-bottom: 2px solid transparent !important; /* Không hiển thị gạch chân */
+    transition: border-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* Khi hover vào, hiển thị gạch chân */
+:where(.css-dev-only-do-not-override-ccdg5a).ant-menu-light.ant-menu-horizontal > .ant-menu-item:hover::after,
+:where(.css-dev-only-do-not-override-ccdg5a).ant-menu-light > .ant-menu.ant-menu-horizontal > .ant-menu-item:hover::after,
+:where(.css-dev-only-do-not-override-ccdg5a).ant-menu-light.ant-menu-horizontal > .ant-menu-submenu:hover::after,
+:where(.css-dev-only-do-not-override-ccdg5a).ant-menu-light > .ant-menu.ant-menu-horizontal > .ant-menu-submenu:hover::after {
+    border-bottom: 2px solid blue !important; /* Hiển thị gạch chân màu xanh khi hover */
+}
+
+
+
+/* Nếu muốn điều chỉnh thêm màu chữ khi hover hoặc active */
+.ant-menu-item a:hover,
+.ant-menu-item-selected a {
+  color: inherit; /* Giữ nguyên màu sắc mà không thay đổi */
+}
 
 .ant-menu-item a:hover,
 .ant-menu-submenu-title:hover {
