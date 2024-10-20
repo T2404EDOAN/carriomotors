@@ -140,27 +140,24 @@ const ImprovedHeader = () => {
   const fetchRealtimeVisitors = async () => {
     try {
       const response = await axios.post(
-        "https://analyticsreporting.googleapis.com/v4/reports:batchGet", 
+        "https://analyticsdata.googleapis.com/v1beta/properties/462685637:runRealtimeReport", 
         {
-          reportRequests: [
-            {
-              viewId: "G-GDXK52QDYW",
-              metrics: [{ expression: "ga:activeUsers" }]
-            }
-          ]
+          metrics: [{ name: "activeUsers" }]
         },
         {
           headers: {
-            Authorization: `Bearer ya29.a0AcM612xJdv7ZGgStEHKg1NtO6B0hwSvNf5F14iPntXvbfxiHMUQT_8WBOzlmZ4sPyQgp4bh2EJ6oPa24RiV0ud2jaoxBA-_tMDGi39bC-ZTJsvQ5cxiKELKsYXczMKF33UVG21v-aLgoGPpqWoQpx9ialn-WkDSFgHgUSikWaCgYKAaYSARASFQHGX2MiCZpVzrCkAgfaCabVq19dpA0175`, 
+            Authorization: `Bearer ya29.a0AcM612xJdv7ZGgStEHKg1NtO6B0hwSvNf5F14iPntXvbfxiHMUQT_8WBOzlmZ4sPyQgp4bh2EJ6oPa24RiV0ud2jaoxBA-_tMDGi39bC-ZTJsvQ5cxiKELKsYXczMKF33UVG21v-aLgoGPpqWoQpx9ialn-WkDSFgHgUSikWaCgYKAaYSARASFQHGX2MiCZpVzrCkAgfaCabVq19dpA0175`, // Access Token từ OAuth
           },
         }
       );
-      const activeUsers = response.data.reports[0].data.totals[0].values[0]; 
-      setRealtimeVisitors(activeUsers); 
+      console.log(response.data); // Xem phản hồi API trong console
+      const activeUsers = response.data.rows[0].metricValues[0].value; 
+      setRealtimeVisitors(activeUsers);
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu người dùng thời gian thực", error);
     }
   };
+  
 
   
   useEffect(() => {
