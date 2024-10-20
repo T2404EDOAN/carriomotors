@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
+import { useLocation } from "react-router-dom"; // Import useLocation
 
 import FinanceMec from "./Finance_Mec";
 import FinanceBMW from "./Finace_Bmw";
@@ -7,7 +8,15 @@ import FinanceAudi from "./Finance_Audi";
 import FinancePorsche from "./Finance_Porsche";
 
 export default function Finance_Main() {
+  const location = useLocation();
   const [activeKey, setActiveKey] = useState("1");
+
+  // Kiểm tra nếu có activeKey được truyền qua state
+  useEffect(() => {
+    if (location.state && location.state.activeKey) {
+      setActiveKey(location.state.activeKey);
+    }
+  }, [location.state]);
 
   const items = [
     {
@@ -83,7 +92,7 @@ export default function Finance_Main() {
       ),
     },
   ];
-<FinancePorsche />
+
   return (
     <div
       style={{

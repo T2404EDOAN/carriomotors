@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
+import ReactGA from 'react-ga4';
 import {
   Menu,
   Input,
@@ -10,6 +11,7 @@ import {
   Popover,
   Spin,
   Typography,
+  AutoComplete,
 } from "antd";
 import {
   SearchOutlined,
@@ -22,6 +24,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import SignInPopup from "./SignInPopup";
 import "../assets/styles/Header.css";
+import ActiveUsersCounter from "./ActiveUsersCounter";
 const { Text } = Typography;
 
 const mapContainerStyle = {
@@ -105,20 +108,37 @@ const LocationContent = ({ location, error, isLoading }) => {
     </div>
   );
 };
-
+const TRACKING_ID = 'G-GDXK52QDYW';
 const ImprovedHeader = () => {
   const [searchExpanded, setSearchExpanded] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
   const [isSignInPopupVisible, setIsSignInPopupVisible] = useState(false);
-  const [isLocationModalVisible, setIsLocationModalVisible] = useState(false); // NEW: State for Location Modal
+  const [isLocationModalVisible, setIsLocationModalVisible] = useState(false); 
   const [realtimeVisitors, setRealtimeVisitors] = useState(1);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [hoveredSubmenu, setHoveredSubmenu] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [locationError, setLocationError] = useState(null);
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+  const [searchOptions, setSearchOptions] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation(); // Sử dụng useLocation để lấy đường dẫn hiện tại
+  const [searchValue, setSearchValue] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [activeUsers, setActiveUsers] = useState(0);
+  useEffect(() => {
+    // Khởi tạo Google Analytics
+    ReactGA.initialize(TRACKING_ID);
 
+    // Gửi page view khi người dùng vào trang
+    ReactGA.send("pageview");
+    console.log("Google Analytics initialized");
+    // Bạn cũng có thể gửi các sự kiện khác nếu cần
+  }, []);
+  useEffect(() => {
+    console.log("Active users:", activeUsers); // Log dữ liệu người dùng
+}, [activeUsers]);
   useEffect(() => {
     const handleResize = () => {
       setIsLargeScreen(window.innerWidth >= 1024);
@@ -128,20 +148,7 @@ const ImprovedHeader = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const fetchRealtimeVisitors = () => {
-    setRealtimeVisitors((prev) => prev + Math.floor(Math.random() * 2) + 1);
-  };
-
-  useEffect(() => {
-    const initialTimeout = setTimeout(fetchRealtimeVisitors, 10000);
-    const interval = setInterval(fetchRealtimeVisitors, 30000);
-
-    return () => {
-      clearTimeout(initialTimeout);
-      clearInterval(interval);
-    };
-  }, []);
-
+  
   const getLocation = () => {
     if (!currentLocation && !isLoadingLocation) {
       setIsLoadingLocation(true);
@@ -176,7 +183,7 @@ const ImprovedHeader = () => {
 
   const handleLocationClick = () => {
     getLocation();
-    setIsLocationModalVisible(true); // Show the modal on mobile after fetching location
+    setIsLocationModalVisible(true); 
   };
 
   const menuItems = [
@@ -197,6 +204,53 @@ const ImprovedHeader = () => {
     },
   ];
 
+  const flattenMenuItems = (items) => {
+    return items.reduce((acc, item) => {
+      if (item.children) {
+        return [...acc, ...flattenMenuItems(item.children)];
+      }
+      return [...acc, item];
+    }, []);
+  };
+
+  const allMenuItems = flattenMenuItems(menuItems);
+
+  const handleSearch = (value) => {
+    const filteredOptions = allMenuItems
+      .filter((item) =>
+        item.label.toLowerCase().includes(value.toLowerCase())
+      )
+      .map((item) => ({
+        value: item.link,
+        label: item.label,
+      }));
+    setSearchOptions(filteredOptions);
+  };
+
+  const onSelect = (value, option) => {
+    navigate(value);
+    setSearchValue(option.label);  
+  };
+
+  const handleSearchChange = (value) => {
+    setSearchValue(value);
+    if (value.trim() !== '') {
+      handleSearch(value);
+      setShowSuggestions(true);
+    } else {
+      setSearchOptions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const selectedOption = searchOptions.find(option => option.label.toLowerCase() === searchValue.toLowerCase());
+    if (selectedOption) {
+      navigate(selectedOption.value);
+    }
+  };
+
   const renderMenu = (mode = "horizontal") => (
     <Menu
       mode={mode}
@@ -210,6 +264,7 @@ const ImprovedHeader = () => {
       {menuItems.map((item) =>
         item.children ? (
           <Menu.SubMenu
+          
             key={item.key}
             title={item.label}
             onTitleMouseEnter={() => setHoveredSubmenu(item.key)}
@@ -219,19 +274,40 @@ const ImprovedHeader = () => {
             }`}
           >
             {item.children.map((child) => (
-              <Menu.Item key={child.key} className="menu-item-fade">
+              <Menu.Item
+                key={child.key}
+                className={`menu-item-fade ${
+                  location.pathname.includes(child.link) ? "active" : ""
+                }`}
+                style={{
+                  color: location.pathname.includes(child.link)
+                    ? "blue"
+                    : "black",
+                  fontWeight: location.pathname.includes(child.link)
+                    ? "bold"
+                    : "normal",
+                }}
+              >
                 <Link to={child.link}>{child.label}</Link>
               </Menu.Item>
             ))}
           </Menu.SubMenu>
         ) : (
-          <Menu.Item key={item.key} className="menu-item-fade">
+          <Menu.Item
+            key={item.key}
+            className={`menu-item-fade ${
+              location.pathname === item.link ? "active" : ""
+            }`}
+            style={{
+              color: location.pathname === item.link ? "blue" : "black",
+              fontWeight: location.pathname === item.link ? "bold" : "normal",
+            }}
+          >
             <Link to={item.link}>{item.label}</Link>
           </Menu.Item>
         )
       )}
-
-      {/* Add Location, Search, and Login to the mobile menu */}
+  
       {!isLargeScreen && (
         <>
           <Menu.Item key="location" className="menu-item-fade">
@@ -244,13 +320,26 @@ const ImprovedHeader = () => {
             </Button>
           </Menu.Item>
           <Menu.Item key="search" className="menu-item-fade">
-            <Input
-              placeholder="Search..."
-              prefix={<SearchOutlined />}
-              className="rounded-full text-base"
+            <AutoComplete
+              value={searchValue}
+              options={showSuggestions ? searchOptions : []}
+              onSelect={onSelect}
+              onSearch={handleSearch}
+              onChange={handleSearchChange}
               onFocus={() => setSearchExpanded(true)}
-              onBlur={() => setSearchExpanded(false)}
-            />
+              onBlur={() => {
+                setSearchExpanded(false);
+                setShowSuggestions(false);
+              }}
+              style={{ width: "100%" }}
+            >
+              <Input
+                placeholder="Search..."
+                prefix={<SearchOutlined />}
+                className="rounded-full text-base"
+                onPressEnter={handleSearchSubmit}
+              />
+            </AutoComplete>
           </Menu.Item>
           <Menu.Item key="login" className="menu-item-fade">
             <Button
@@ -265,6 +354,7 @@ const ImprovedHeader = () => {
       )}
     </Menu>
   );
+  
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full bg-white shadow-sm">
@@ -275,10 +365,9 @@ const ImprovedHeader = () => {
               <img src="" alt="Logo" className="h-13 md:h-14" />
             </Link>
             <div className="flex items-center ml-4">
-              <PersonIcon style={{ fontSize: "15px", marginRight: "5px" }} />
-              <span className="text-base" style={{ fontSize: "12px" }}>
-                {realtimeVisitors}
-              </span>
+              {/* <PersonIcon style={{ fontSize: "15px", marginRight: "5px" }} /> */}
+              <span>{activeUsers} người dùng đang truy cập</span>
+
             </div>
           </div>
 
@@ -315,13 +404,26 @@ const ImprovedHeader = () => {
                     searchExpanded ? "w-64" : "w-10"
                   } block sm:block`}
                 >
-                  <Input
-                    placeholder="Search..."
-                    prefix={<SearchOutlined />}
-                    className="rounded-full text-base"
-                    onFocus={() => setSearchExpanded(true)}
-                    onBlur={() => setSearchExpanded(false)}
-                  />
+                  <AutoComplete
+  value={searchValue}
+  options={showSuggestions ? searchOptions : []}
+  onSelect={onSelect}
+  onSearch={handleSearch}
+  onChange={handleSearchChange}
+  onFocus={() => setSearchExpanded(true)}
+  onBlur={() => {
+    setSearchExpanded(false);
+    setShowSuggestions(false);
+  }}
+  style={{ width: '100%' }}
+>
+  <Input
+    placeholder="Search..."
+    prefix={<SearchOutlined />}
+    className="rounded-full text-base"
+    onPressEnter={handleSearchSubmit}
+  />
+</AutoComplete>
                 </div>
 
                 <Button

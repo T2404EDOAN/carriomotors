@@ -2,8 +2,20 @@ import React from "react";
 import fb1 from "../../assets/images/Bmv_images/fb1.webp";
 import fb2 from "../../assets/images/Bmv_images/fb2.webp";
 import "../../assets/styles/Finace_Bmw.css";
-
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { Button } from 'antd'; // Import Button from Ant Design
 const FinanceBMW = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // Function to handle "CONTACT US" button click
+  const handleContactUsClick = () => {
+    navigate("/about/contact"); // Navigate to the contact page
+  };
+
+  // Function to handle "GO TO VEHICLES" button click
+  const handleGoToVehiclesClick = () => {
+    navigate("/vehicles"); // Navigate to the vehicles page
+  };
   return (
     <div className="bmw_main_finance">
       <div className="title-finance-bmw1">
@@ -55,8 +67,12 @@ const FinanceBMW = () => {
         </div>
       </div>
       <div className="but">
-        <div className="but1">CONTACT US</div>
-        <div className="but2">GO TO BMW VEHICLES</div>
+      <Button type="primary" className="but1" onClick={handleContactUsClick}>
+          CONTACT US
+        </Button>
+        <Button type="primary" className="but2" onClick={handleGoToVehiclesClick}>
+          GO TO VEHICLES
+        </Button>
       </div>
     </div>
   );

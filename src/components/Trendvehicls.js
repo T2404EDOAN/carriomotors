@@ -54,28 +54,32 @@ const Trendvehicls = () => {
         </div>
 
         <div className="trend-vehicles-grid">
-          {products.slice(1, 5).map((product, index) => (
-            <TrendVehicleCard
-              key={product.id}
-              imageSrc={product.main_img}
-              vehicleName={`${product.brand_name} ${product.car_model_name}`}
-              price={product.price}
-            />
-          ))}
-        </div>
+  {products.slice(1, 5).map((product, index) => (
+    <TrendVehicleCard
+      key={product.id}
+      imageSrc={product.main_img}
+      vehicleName={`${product.brand_name} ${product.car_model_name}`}
+      price={product.price}
+      car={product} // Pass car details here
+    />
+  ))}
+</div>
       </div>
     </div>
   );
 };
 
-const TrendVehicleCard = ({ imageSrc, vehicleName, price }) => {
+const TrendVehicleCard = ({ imageSrc, vehicleName, price,car }) => {
+  const navigate = useNavigate(); 
   const formattedPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(price);
-
+  const handleViewNow = () => {
+    navigate("/vehicles", { state: { selectedCar: car } });
+  };
   return (
     <div className="trend-vehicle-card">
       <img src={imageSrc} alt={vehicleName} />
@@ -91,6 +95,7 @@ const TrendVehicleCard = ({ imageSrc, vehicleName, price }) => {
           shape="round"
           size="small"
           className="view-now-button"
+          onClick={handleViewNow}
         >
           View Now
         </Button>

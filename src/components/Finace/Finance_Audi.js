@@ -2,8 +2,20 @@ import React from "react";
 import audi1 from "../../assets/images/Audi_images/audi1.jpg";
 import audi2 from "../../assets/images/Audi_images/audi2.jpg";
 import "../../assets/styles/Finance_Audi.css";
-
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { Button } from 'antd'; // Import Button from Ant Design
 const FinanceAudi = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // Function to handle "CONTACT US" button click
+  const handleContactUsClick = () => {
+    navigate("/about/contact"); // Navigate to the contact page
+  };
+
+  // Function to handle "GO TO VEHICLES" button click
+  const handleGoToVehiclesClick = () => {
+    navigate("/vehicles"); // Navigate to the vehicles page
+  };
   return (
     <div className="audi_main_finance">
       <div className="title-finance-audi1">Audi Financing</div>
@@ -23,8 +35,12 @@ const FinanceAudi = () => {
         </div>
       </div>
       <div className="but-audi">
-        <div className="but1-audi">CONTACT US</div>
-        <div className="but2-audi">GO TO AUDI VEHICLES</div>
+      <Button type="primary" className="but1" onClick={handleContactUsClick}>
+          CONTACT US
+        </Button>
+        <Button type="primary" className="but2" onClick={handleGoToVehiclesClick}>
+          GO TO VEHICLES
+        </Button>
       </div>
     </div>
   );
