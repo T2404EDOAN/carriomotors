@@ -8,8 +8,12 @@ import anh56 from "../../../assets/images/Mec_images/anh56.webp";
 import anh7 from "../../../assets/images/Mec_images/anh7.webp";
 import "../../../assets/styles/mec.css";
 import {  Button, Flex  } from 'antd';
-
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 const Mec_main = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+  const handleLearnMoreClick = () => {
+    navigate("/about/careers"); // Navigate to the careers page
+  };
   return (
     <div className="mec_main_container">
       <div className="box1">
@@ -107,7 +111,9 @@ const Mec_main = () => {
             takes to get you back on the road. Call 1-800-367-6372, press the
             me-button in your vehicle, or use the Mercedes me connect app to
             contact us.<br></br>
-            <Button type="primary" className="more3">Learn More about Roadside Assistance</Button>
+            <Button type="primary" className="more3" onClick={handleLearnMoreClick}>
+              Learn More about Roadside Assistance
+            </Button>
           
           </div>
           <div className="content3-right-img">
@@ -123,7 +129,9 @@ const Mec_main = () => {
             <br /> In the event of an accident, Mercedes-Benz Collision Centers
             have the tools, equipment and training to restore your vehicle to
             its pre-collision condition.
-            <Button type="primary" className="more3">Learn More about Roadside Assistance</Button>
+            <Button type="primary" className="more3" onClick={handleLearnMoreClick}>
+              Learn More about Roadside Assistance
+            </Button>
           </div>
         </div>
         <div className="content5">
@@ -132,7 +140,9 @@ const Mec_main = () => {
             Mercedes-Benz is committed to keeping you informed about any recalls
             on your vehicle. Visit the link for the most up-to-date information
             on current or previous recalls. Mercedes-Benz Recall Information.<br></br>
-            <Button type="primary" className="more3">Learn More about Roadside Assistance</Button>
+            <Button type="primary" className="more3" onClick={handleLearnMoreClick}>
+              Learn More about Roadside Assistance
+            </Button>
           </div>
           <div className="content5-right5-img">
             <img src={anh7} alt="anh7" />

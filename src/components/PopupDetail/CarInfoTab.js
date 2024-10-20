@@ -359,13 +359,20 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
                   value={car.fuel_tank_capacity}
                 />
               </Col>
-              <Col span={12}>
-                <Image
-                  src={car.main_img} // Hiển thị lại ảnh của xe
-                  alt="Car Top View"
-                  width="100%"
-                />
-              </Col>
+              <Col
+  span={12}
+  style={{
+    display: "flex",
+    justifyContent: "center",  // Căn giữa theo chiều ngang
+    alignItems: "center",      // Căn giữa theo chiều dọc
+  }}
+>
+  <Image
+    src={car.main_img} // Hiển thị lại ảnh của xe
+    alt="Car Top View"
+    width="100%"
+  />
+</Col>
             </Row>
           </Card>
 

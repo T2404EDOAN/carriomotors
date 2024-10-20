@@ -33,7 +33,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     brandId ? [String(brandId)] : []
   ); // Áp dụng brandId vào selectedBrands khi có brandId
   const [filteredCars, setFilteredCars] = useState([]);
-  const [PriceRange, setPriceRange] = useState([0, 99999999]);
+  const [PriceRange, setPriceRange] = useState([0, 999999999]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(9);
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -42,9 +42,10 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
   const [models, setModels] = useState([]);
   const [selectedModels, setSelectedModels] = useState([]);
   const [locations, setLocations] = useState([]);
+  const { selectedCar: selectedCarFromState } = location.state || {};
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedCar, setSelectedCar] = useState(null);
+  const [selectedCar, setSelectedCar] = useState(selectedCarFromState || null);
   const [mainImage, setMainImage] = useState(null);
   const [selectedSpeedRange, setSelectedSpeedRange] = useState(null);
   const [colors, setColors] = useState([
@@ -307,6 +308,12 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     setSelectedSpeedRange([]);
     setFilteredCars(cars);
   };
+  useEffect(() => {
+    // Automatically open the modal if the selected car comes from the state
+    if (selectedCarFromState) {
+      setIsModalVisible(true);
+    }
+  }, [selectedCarFromState]);
   const showModal = (car) => {
     setSelectedCar(car);
     setIsModalVisible(true);
@@ -396,7 +403,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         range
         defaultValue={PriceRange}
         min={0}
-        max={500000}
+        max={999999999}
         onChange={handlePriceChange}
         trackStyle={{ backgroundColor: "black" }}
       />

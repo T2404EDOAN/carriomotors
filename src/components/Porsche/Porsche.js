@@ -6,8 +6,18 @@ import anhp3 from "../../assets/images/service-porsche/2.jpg"
 import anhp6 from "../../assets/images/service-porsche/3.jpg"
 import anhp5 from "../../assets/images/Porsce_images/anhp5.jpg"
 import "../../assets/styles/Porsche.css";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import {  Button, Flex  } from 'antd';
 const Porsche_main = () => {
+    const navigate = useNavigate();
+    const handleReadMoreClick = () => {
+        navigate("/about/careers"); // Navigate to the careers page
+      };
+    
+      // Function to handle "Contact Us" button click and navigate to contact
+      const handleContactUsClick = () => {
+        navigate("/about/contact"); // Navigate to the contact page
+      };
     return (
     <div className="Porsche_main_container">
              <div className="main_title">Service & Porscher Genuine Parts </div>
@@ -26,7 +36,9 @@ const Porsche_main = () => {
                     its maintenance, upkeep and repair. And, thanks to <br /> 
                     Porsche Genuine Parts, you can be sure that your <br /> 
                     original will stay just that.</div> 
-                    <Button type="primary" className="read-more">Read more</Button>
+                    <Button type="primary" className="read-more" onClick={handleReadMoreClick}>
+            Read more
+          </Button>
                 </div>   
                 </div>
                 
@@ -53,7 +65,9 @@ const Porsche_main = () => {
                 service. Precise, professtional and dynamic. <br/> <br/>
                 And above all: tailored to your exact requirements. <br/>
                 Typically Porsche.</div>
-                <Button type="primary" className="read-more">Read more</Button>
+                <Button type="primary" className="read-more" onClick={handleReadMoreClick}>
+            Read more
+          </Button>
             </div>
             
             </div> 
@@ -62,7 +76,9 @@ const Porsche_main = () => {
                 <div className="text_long_3">If you have question or need assistance, a <br/>
                  customer service representative will be happy to <br/>
                   chat.</div>
-                  <Button type="primary" className="read-more">Contac Us</Button>
+                  <Button type="primary" className="read-more" onClick={handleContactUsClick}>
+          Contact Us
+        </Button>
             </div> 
     </div>
 

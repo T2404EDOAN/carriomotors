@@ -11,6 +11,10 @@
   text-decoration: none !important; /* No underline on hover */
   font-weight: normal !important; /* Regular font weight on hover */
 }
+.ant-menu-item-selected {
+  border-bottom: none !important; /* Xóa gạch chân hoặc đường kẻ dưới */
+  text-decoration: none !important; /* Xóa mọi gạch chân (nếu có) */
+}
 
 /* Handle ellipsis issue */
 .ant-menu-item,
@@ -54,6 +58,7 @@
 .ant-menu-submenu-selected {
   background-color: transparent !important;
   border-bottom: none !important;
+  text-decoration: none !important; 
 }
 
 .ant-menu-item a:hover,
