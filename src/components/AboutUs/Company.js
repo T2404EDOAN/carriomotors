@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import logologo from "../../assets/images/Company_images/logologo.png";
 import bmw1 from "../../assets/images/Company_images/bmw1.jpg";
 import bmw2 from "../../assets/images/Company_images/bmw2.jpg";
@@ -21,6 +22,51 @@ import meccc from "../../assets/images/Bmv_images/meccc.png";
 import "../../assets/styles/Company.css";
 
 const CompanyPage = () => {
+  const [cars, setCars] = useState([]);
+  const [cars1, setCars1] = useState([]);
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const response = await axios.get(
+          "https://carriomotors.io.vn/api/get_vihicle1.php"
+        );
+
+        const carsData = response.data;
+
+        if (Array.isArray(carsData)) {
+          setCars(carsData);
+        } else {
+          setCars([]);
+        }
+      } catch (error) {
+        console.error("Error fetching brands:", error);
+      }
+    };
+
+    fetchCars();
+  }, []);
+
+  useEffect(() => {
+    const fetchCars1 = async () => {
+      try {
+        const response = await axios.get(
+          "https://carriomotors.io.vn/api/get_vehicle1.php"
+        );
+
+        const cars1Data = response.data;
+
+        if (Array.isArray(cars1Data)) {
+          setCars1(cars1Data);
+        } else {
+          setCars1([]);
+        }
+      } catch (error) {
+        console.error("Error fetching brands:", error);
+      }
+    };
+
+    fetchCars1();
+  }, []);
   return (
     <div className="company-main-container">
       <div className="box-company1">
@@ -28,13 +74,33 @@ const CompanyPage = () => {
           Transform your life with every drive
         </div>
         <div className="title-company2">
-          Embodying the ideal blend of luxury, technology, and power,
-          Carrio Motors delivers a thrilling, sustainably designed
-          line-up – including pioneering BMW X7, stylish Merc C300, <br />
+          Embodying the ideal blend of luxury, technology, and power, Carrio
+          Motors delivers a thrilling, sustainably designed line-up – including
+          pioneering BMW X7, stylish Merc C300, <br />
           and ultra-luxurious Porsche Panamera.
         </div>
       </div>
       <div className="box2-company">
+        {cars.map((car, index) => (
+          <div className="box-company2" key={index}>
+            <div className="list-company">
+              <img src={car.image_url || bmw1} alt="Car" className="anha" />
+            </div>
+            <div className="list-company-text">
+              <div className="list-company-name">
+                {car.car_model_name} {car.series_name}
+              </div>
+              <div className="list-company-price">
+                Starting MSR ${car.price}
+              </div>
+              <div className="list-company-range">
+                Range from 100 to {car.top_speed} miles
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* <div className="box2-company">
         <div className="box-company2 k">
           <div className="list-company">
             <img src={bmw1} alt="anha" className="anha" />
@@ -42,7 +108,7 @@ const CompanyPage = () => {
           </div>
           <div className="list-company-text">
             <div className="list-company-name">BMW X7</div>
-            <div className="list-company-price">Starting MSR $57,900</div>
+            <div className="list-company-price">Starting MSR ${car.price}</div>
             <div className="list-company-range">
               Range from 283 to 307 miles
             </div>
@@ -87,7 +153,7 @@ const CompanyPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="box-company3">
         <div className="title-company3">
           <p className="title-company3-1">OWNER'S STORIES</p>
@@ -124,7 +190,10 @@ const CompanyPage = () => {
         </div>
       </div>
       <div className="box-company4">
-      <div className="title-electric">Upcoming Event in 2/2025 - The Arrival of a Series of Superior and Luxurious Electric Cars</div>
+        <div className="title-electric">
+          Upcoming Event in 2/2025 - The Arrival of a Series of Superior and
+          Luxurious Electric Cars
+        </div>
         <div className="title-company4">MORE REASONS TO GO ELECTRIC</div>
         <div className="description-list">
           <div className="description-list1">
@@ -171,11 +240,29 @@ const CompanyPage = () => {
         </div>
       </div>
       <div className="box-company5">
-        <div className="title-company5">
-          EXPLORE THE WORLD OF BMW ELECTRIFIED
-        </div>
-        <div className="box5-list">
-          <div className="box5-list1">
+        <div className="title-company5">EXPLORE THE WORLD OF ELECTRIFIED</div>
+        <div className="">
+          <div className="box2-company">
+            {cars1.map((car, index) => (
+              <div className="box-company2" key={index}>
+                <div className="list-company">
+                  <img src={car.image_url || bmw1} alt="Car" className="anha" />
+                </div>
+                <div className="list-company-text">
+                  <div className="list-company-name">
+                    {car.car_model_name} {car.series_name}
+                  </div>
+                  <div className="list-company-price">
+                    Starting MSR ${car.price}
+                  </div>
+                  <div className="list-company-range">
+                    Range from 100 to {car.top_speed} miles
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          {/* <div className="box5-list1">
             <div className="box5-list-img">
               <img src={car} alt="box5" />
             </div>
@@ -210,7 +297,7 @@ const CompanyPage = () => {
               <div className="box5-list-text1">Mec charging</div>
               <div className="box5-list-text2">Learn More</div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
