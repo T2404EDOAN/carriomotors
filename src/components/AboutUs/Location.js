@@ -45,9 +45,7 @@ const Location = () => {
   <div className="location-banner-text2">
   Find the nearest open dealer. We are ready to assist you
   </div>
-
       </div>
-
       {/* Location Info Section with padding */}
       <div className="Location-Info">
         <Row gutter={[16, 16]} justify="start">

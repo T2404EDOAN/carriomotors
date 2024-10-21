@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom"; // Import useLocation
 import { Tabs } from "antd";
 import Audi_main from "./Audi/Audi_main";
 import Porsche_main from "../Porsche/Porsche";
 import Mec_main from "./Mec/Mec_main";
 import Bmv_main from "./BMV/Bmv_main";
 
-
 export default function Service_main() {
+  const location = useLocation();
   const [activeKey, setActiveKey] = useState("1");
+
+  // Set activeKey from state if passed through navigate
+  useEffect(() => {
+    if (location.state?.activeKey) {
+      setActiveKey(location.state.activeKey);
+    }
+  }, [location.state]);
 
   const items = [
     {
@@ -88,7 +96,7 @@ export default function Service_main() {
     <div
       style={{
         backgroundColor: "white",
-        fontFamily: "Roboto, sans-serif", // Áp dụng cho toàn bộ container
+        fontFamily: "Roboto, sans-serif", // Apply to the entire container
       }}
     >
       <Tabs
