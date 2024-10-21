@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
-import ReactGA from 'react-ga4';
+import axios from 'axios';
+
 import {
   Menu,
   Input,
@@ -24,7 +25,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import SignInPopup from "./SignInPopup";
 import "../assets/styles/Header.css";
-import ActiveUsersCounter from "./ActiveUsersCounter";
+
 const { Text } = Typography;
 
 const mapContainerStyle = {
@@ -108,7 +109,6 @@ const LocationContent = ({ location, error, isLoading }) => {
     </div>
   );
 };
-const TRACKING_ID = 'G-GDXK52QDYW';
 const ImprovedHeader = () => {
   const [searchExpanded, setSearchExpanded] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -127,18 +127,7 @@ const ImprovedHeader = () => {
   const [searchValue, setSearchValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activeUsers, setActiveUsers] = useState(0);
-  useEffect(() => {
-    // Khởi tạo Google Analytics
-    ReactGA.initialize(TRACKING_ID);
-
-    // Gửi page view khi người dùng vào trang
-    ReactGA.send("pageview");
-    console.log("Google Analytics initialized");
-    // Bạn cũng có thể gửi các sự kiện khác nếu cần
-  }, []);
-  useEffect(() => {
-    console.log("Active users:", activeUsers); // Log dữ liệu người dùng
-}, [activeUsers]);
+ 
   useEffect(() => {
     const handleResize = () => {
       setIsLargeScreen(window.innerWidth >= 1024);
@@ -148,7 +137,35 @@ const ImprovedHeader = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const fetchRealtimeVisitors = async () => {
+    try {
+      const response = await axios.post(
+        "https://analyticsdata.googleapis.com/v1beta/properties/462685637:runRealtimeReport", 
+        {
+          metrics: [{ name: "activeUsers" }]
+        },
+        {
+          headers: {
+            Authorization: `Bearer ya29.a0AcM612xJdv7ZGgStEHKg1NtO6B0hwSvNf5F14iPntXvbfxiHMUQT_8WBOzlmZ4sPyQgp4bh2EJ6oPa24RiV0ud2jaoxBA-_tMDGi39bC-ZTJsvQ5cxiKELKsYXczMKF33UVG21v-aLgoGPpqWoQpx9ialn-WkDSFgHgUSikWaCgYKAaYSARASFQHGX2MiCZpVzrCkAgfaCabVq19dpA0175`, // Access Token từ OAuth
+          },
+        }
+      );
+      console.log(response.data); // Xem phản hồi API trong console
+      const activeUsers = response.data.rows[0].metricValues[0].value; 
+      setRealtimeVisitors(activeUsers);
+    } catch (error) {
+      console.error("Lỗi khi lấy dữ liệu người dùng thời gian thực", error);
+    }
+  };
   
+
+  
+  useEffect(() => {
+    fetchRealtimeVisitors();
+
+    const intervalId = setInterval(fetchRealtimeVisitors, 60000);
+    return () => clearInterval(intervalId); 
+  }, []);
   const getLocation = () => {
     if (!currentLocation && !isLoadingLocation) {
       setIsLoadingLocation(true);
@@ -366,8 +383,8 @@ const ImprovedHeader = () => {
             </Link>
             <div className="flex items-center ml-4">
               {/* <PersonIcon style={{ fontSize: "15px", marginRight: "5px" }} /> */}
-              <span>{activeUsers} người dùng đang truy cập</span>
-
+        
+              <span>{realtimeVisitors}</span>
             </div>
           </div>
 

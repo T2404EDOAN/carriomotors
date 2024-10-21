@@ -4,8 +4,11 @@ import f2 from "../../assets/images/Mec_images/f2.webp";
 import f3 from "../../assets/images/Mec_images/f3.webp";
 import f4 from "../../assets/images/Mec_images/f4.webp";
 import "../../assets/styles/Finance_Mec.css";
-
+import pdfFile from "../../PDF/mercedes-finance.pdf";
 const FinanceMec = () => {
+  const handlePdfOpen = () => {
+    window.open(pdfFile, "_blank"); // Opens the PDF file in a new tab
+  };
   return (
     <div className="mec_main_finance">
       <div className="box-finance1">
@@ -71,6 +74,9 @@ const FinanceMec = () => {
           </div>
         </div>
       </div>
+      <button onClick={handlePdfOpen} className="btn-pdf" style={{marginLeft:"50px"}}>
+        Details
+      </button>
     </div>
   );
 };
