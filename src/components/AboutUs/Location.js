@@ -39,8 +39,13 @@ const Location = () => {
           preview={false}
           className="location-banner-image"
         />
+        <div className="location-banner-text1">
+        Find the nearest dealer to you
+  </div>
+  <div className="location-banner-text2">
+  Find the nearest open dealer. We are ready to assist you
+  </div>
       </div>
-
       {/* Location Info Section with padding */}
       <div className="Location-Info">
         <Row gutter={[16, 16]} justify="start">
@@ -50,7 +55,7 @@ const Location = () => {
                 {/* Logo Section */}
                 <div className="location-logo-section">
                   <Image
-                    src="/src/bmwlogo.jpg"
+                    src="../Logolocation.png"
                     alt="Logo"
                     preview={false}
                     className="location-logo"

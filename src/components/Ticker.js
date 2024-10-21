@@ -106,11 +106,11 @@ const tickerStyle = {
 };
 
 const tickerContentStyle = {
-  display: "flex", // Sử dụng flexbox để căn chỉnh các biểu tượng và văn bản
+  display: "flex", 
   justifyContent: "center",
   alignItems: "center",
   whiteSpace: "nowrap",
-  animation: "scroll-left 15s linear infinite", // Cuộn ticker với tốc độ vừa phải
+  animation: "scroll-left 15s linear infinite", 
   gap: "30px", // Khoảng cách giữa các phần tử
 };
 

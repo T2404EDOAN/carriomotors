@@ -19,7 +19,15 @@ const Footer = () => {
   const handleFinanceClick = (brandKey) => {
     navigate(`/finance`, { state: { activeKey: brandKey } });
   };
-
+  const handleServiceIncentivesClick = (brandKey) => {
+    navigate(`/services`, { state: { activeKey: brandKey } });
+  };
+  const handleWarrantyClick = () => {
+    navigate(`/warranty`); 
+  };
+  const handleNavigationClick = (path) => {
+    navigate(path); // Generic navigation handler
+  };
   return (
     <footer className="footer-wrapper">
       <footer className="footer">
@@ -51,21 +59,20 @@ const Footer = () => {
           <div className="footer-section">
             <h2 className="footer-logo">Service Incentives & Warranty Manual</h2>
             <ul>
-              <li>Mercedes-Benz Service Incentives</li>
-              <li>BMW Service Incentives</li>
-              <li>Audi Service Incentives</li>
-              <li>Porsche Service Incentives</li>
-              <li>Warranty Policies of manufacturers</li>
-            </ul>
+          <li onClick={() => handleServiceIncentivesClick("1")}>Mercedes-Benz Service Incentives</li>
+          <li onClick={() => handleServiceIncentivesClick("2")}>BMW Service Incentives</li>
+          <li onClick={() => handleServiceIncentivesClick("3")}>Audi Service Incentives</li>
+          <li onClick={() => handleServiceIncentivesClick("4")}>Porsche Service Incentives</li>
+          <li onClick={handleWarrantyClick}>Warranty Policies of manufacturers</li> {/* Navigate to warranty */}        </ul>
           </div>
 
           {/* Discover Carrio Motors Section */}
           <div className="footer-section">
             <h2 className="footer-logo">Discover Carrio Motors</h2>
             <ul>
-              <li>Our Values</li>
-              <li>Our System</li>
-              <li>Contact us</li>
+            <li onClick={() => handleNavigationClick("/about/company")}>Our Values</li> {/* Navigate to Our Values */}
+          <li onClick={() => handleNavigationClick("/about/location")}>Our System</li> {/* Navigate to Our System */}
+          <li onClick={() => handleNavigationClick("/about/contact")}>Contact us</li> {/* Navigate to Contact Us */}
             </ul>
 
             {/* Share Page Button */}

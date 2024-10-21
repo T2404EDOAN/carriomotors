@@ -119,7 +119,7 @@ function AppLayout() {
   const isAdminPage = location.pathname === "/admin"; // Kiểm tra nếu là trang admin
 
   return (
-    <div className="app-container" style={{ paddingTop: "70px" }}>
+    <div className="app-container" style={{ paddingTop: "64px" }}>
       {/* Hiển thị loading */}
       {isLoading && (
         <div
@@ -160,7 +160,6 @@ function AppLayout() {
                 <Route path="/services" element={<Services />} />
                 <Route path="/warranty" element={<Warranty />} />
                 <Route path="/finance" element={<Finance />} />
-                <Route path="/faq" element={<FAQ />} />
                 <Route path="/about/company" element={<CompanyPage />} />
                 <Route path="/about/careers" element={<Careers />} />
                 <Route path="/about/location" element={<Location />} />

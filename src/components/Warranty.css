@@ -76,7 +76,6 @@
 }
 .warranty-details {
   width: 650px;
-  padding-top: 50px;
   line-height: 1.6;
 }
 .extended-warranty-label {
@@ -106,7 +105,6 @@
 
 .benefits-section p {
   font-size: 16px; /* Adjust the font size for normal text */
-  color: #666;
   line-height: 1.8; /* Adjust line height for better readability */
   margin-bottom: 20px;
 }
@@ -114,7 +112,6 @@
 .benefits-section ul {
   list-style-type: disc;
   padding-left: 40px; /* Add padding for indentation */
-  color: #666;
   margin-bottom: 20px;
   font-size: 16px; /* Match font size with paragraph */
 }
@@ -133,48 +130,43 @@
   justify-content: flex-start; /* Align content to the left */
   color: white;
   position: relative;
-  padding: 40px 20px; /* Add more padding to move the content from the edges */
+  padding: 40px 20px;
 }
 
 .header-content {
-  display: block; /* Stack the text vertically */
+  display: block; 
   background-color: rgba(
     0,
     0,
     0,
     0
-  ); /* Transparent black background for readability */
+  ); 
   padding: 20px;
   border-radius: 5px;
-  max-width: 400px; /* Set a max-width to limit the width of the content */
+  max-width: 400px; 
 }
 
 .separator-header h1 {
-  font-size: 28px; /* Adjust font size */
-  line-height: 1.2; /* Control line spacing for better readability */
-  margin: 0 0 10px 0; /* Margin between the heading and the text */
-  font-weight: bold; /* Ensure text is bold */
+  font-size: 28px; 
+  line-height: 1.2; 
+  margin: 0 0 10px 0; 
+  font-weight: bold; 
 }
 
 .separator-header p {
-  margin-bottom: 20px; /* Space between the text and the button */
+  margin-bottom: 20px;
 }
-
+.btn-1{
+  height: 50px;
+  margin-bottom: 30px;
+}
 .contact-button {
-  padding: 12px 25px;
-  background-color: #6b5b95;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  text-transform: uppercase; /* Make button text uppercase */
+  height: 50px;
+  text-transform: uppercase;
 }
 
-.contact-button:hover {
-  background-color: #59427a;
-}
 .audi-warranty-header {
-  background-image: url("../assets/images/Warranty/Audi_banner.jpg"); /* Placeholder image */
+  background-image: url("../assets/images/Warranty/Audi_banner.jpg");
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -207,20 +199,6 @@
 .audi-warranty-overlay p {
   font-size: 16px;
   margin-bottom: 20px;
-}
-
-.contact-button {
-  padding: 10px 20px;
-  background-color: #6b5b95;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.contact-button:hover {
-  background-color: #59427a;
 }
 
 .audi-warranty-overlay h1 {
@@ -357,7 +335,6 @@
 .warrant-content-image {
   flex: 1; /* Takes up the same amount of space as the text */
   max-width: 40%; /* Sets the maximum width of the image */
-  border-radius: 8px; /* Adds a slight border radius to the image */
   object-fit: cover; /* Ensures the image doesn't stretch or morph */
 }
 .content-section p {
@@ -382,7 +359,6 @@
 .info-card img {
   width: 100%;
   height: auto;
-  border-radius: 8px;
 }
 
 .info-card h3 {
@@ -392,7 +368,6 @@
 
 .info-card p {
   font-size: 16px;
-  color: #666;
   margin-top: 10px;
   line-height: 1.6;
 }

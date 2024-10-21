@@ -2,8 +2,10 @@ import React from "react";
 import fb1 from "../../assets/images/Bmv_images/fb1.webp";
 import fb2 from "../../assets/images/Bmv_images/fb2.webp";
 import "../../assets/styles/Finace_Bmw.css";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { Button } from 'antd'; // Import Button from Ant Design
+import { useNavigate } from "react-router-dom";
+import { Button } from 'antd'; 
+import pdfFile from "../../PDF/mercedes-finance.pdf";
+
 const FinanceBMW = () => {
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -13,8 +15,8 @@ const FinanceBMW = () => {
   };
 
   // Function to handle "GO TO VEHICLES" button click
-  const handleGoToVehiclesClick = () => {
-    navigate("/vehicles"); // Navigate to the vehicles page
+  const handlePdfOpen = () => {
+    window.open(pdfFile, "_blank"); 
   };
   return (
     <div className="bmw_main_finance">
@@ -70,8 +72,8 @@ const FinanceBMW = () => {
       <Button type="primary" className="but1" onClick={handleContactUsClick}>
           CONTACT US
         </Button>
-        <Button type="primary" className="but2" onClick={handleGoToVehiclesClick}>
-          GO TO VEHICLES
+        <Button type="primary" className="but2"  onClick={handlePdfOpen}>
+        Download extended Finance Handbook
         </Button>
       </div>
     </div>

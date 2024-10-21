@@ -162,3 +162,14 @@
   font-size: 26px;
   padding: 10px 20px;
 }
+.logo {
+  height: 50px;
+  width: auto;
+  max-height: 100%;
+}
+
+@media (min-width: 1024px) {
+  .logo {
+    height: 60px;
+  }
+}

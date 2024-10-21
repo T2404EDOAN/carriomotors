@@ -34,26 +34,17 @@
 .but {
   display: flex;
   margin-top: 20px;
+  justify-content: center;
   gap: 30px;
 }
 .but1 {
-  background-color: #65666d;
-  color: #ffffff;
-  width: 120px;
-  height: 30px;
-  text-align: center;
-  padding-top: 4px;
-  margin-left: 10px;
-  border-radius: 5px;
+  height: 50px;
+  background-color: gray;
+  margin-left: 250px;
+  margin-right: 40px
 }
 .but2 {
-  background-color: #425adb;
-  color: #ffffff;
-  width: 210px;
-  height: 30px;
-  text-align: center;
-  padding-top: 4px;
-  border-radius: 5px;
+  height: 50px;
 }
 
 @media screen and (max-width: 1024px) {

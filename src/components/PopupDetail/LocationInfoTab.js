@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { Row, Col, Card, Image } from "antd";
-
+import { Result, Button } from "antd";
+import { FrownOutlined } from "@ant-design/icons";
 const LocationInfoTab = ({ locationData, onSelectLocation }) => {
   if (!locationData || locationData.length === 0) {
     return <p>No location information available.</p>;
   }
 
   return (
+    <div
+    style={{
+      maxHeight: "600px", // Giới hạn chiều cao của danh sách
+      overflowY: "auto", // Thêm thanh cuộn dọc
+      paddingRight: "10px", // Thêm padding để tránh việc nội dung bị chèn vào thanh cuộn
+    }}
+  >
     <Row gutter={[16, 16]} justify="start">
       {locationData.map((location, index) => (
         <Col xs={24} sm={12} md={24} lg={12} key={index}>
@@ -47,7 +55,7 @@ const LocationInfoTab = ({ locationData, onSelectLocation }) => {
               }}
             >
               <Image
-                src="/src/bmwlogo.jpg"
+                src="./Logolocation.png"
                 alt="BMW Logo"
                 preview={false}
                 style={{
@@ -86,14 +94,20 @@ const LocationInfoTab = ({ locationData, onSelectLocation }) => {
         </Col>
       ))}
     </Row>
+  </div>
   );
 };
 
 const GoogleMap = ({ iframeLink }) => {
   if (!iframeLink) {
-    return <p>No map available for this location.</p>;
+    return (
+      <Result
+        icon={<FrownOutlined  style={{color:"red"}}/>}
+        title="No map available for this location."
+        
+      />
+    );
   }
-
   // Validate and handle iframe_link
   const sanitizedIframeLink = iframeLink.startsWith("<iframe")
     ? new DOMParser()
@@ -102,7 +116,13 @@ const GoogleMap = ({ iframeLink }) => {
     : iframeLink;
 
   if (!sanitizedIframeLink) {
-    return <p>Invalid map link.</p>;
+    return (
+      <Result
+        icon={<FrownOutlined />}
+        title="Invalid map link."
+        extra={<Button type="primary">Next</Button>}
+      />
+    );
   }
 
   return (
@@ -135,19 +155,29 @@ const MainLayout = ({ locationData }) => {
           onSelectLocation={handleSelectLocation}
         />
       </Col>
-      <Col xs={24} md={12}>
+      <Col xs={24} md={12}style={{
+    height: "600px", 
+    overflowY: "auto", 
+    border: "1px solid rgba(0, 0, 0, 0.1)",
+    padding: "16px", 
+    display: "flex",
+    alignItems: "center", 
+    justifyContent: "center"
+  }}>
         {selectedLocation ? (
           <GoogleMap iframeLink={selectedLocation.iframe_link} />
         ) : (
           <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center",
-              height: "500px",
-              backgroundColor: "#f0f2f5",
-            }}
+          style={{
+            height: "auto", 
+            overflowY: "auto", 
+            border: "1px solid rgba(0, 0, 0, 0.1)", 
+            padding: "16px", 
+            display: "flex", 
+            justifyContent: "center", 
+            alignItems: "center", 
+            flexDirection: "column", 
+          }}
           >
             <p style={{ fontSize: "18px", color: "#8c8c8c" }}>
               Please select a location to view the map

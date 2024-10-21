@@ -4,10 +4,17 @@ import f2 from "../../assets/images/Mec_images/f2.webp";
 import f3 from "../../assets/images/Mec_images/f3.webp";
 import f4 from "../../assets/images/Mec_images/f4.webp";
 import "../../assets/styles/Finance_Mec.css";
+import {  Button } from 'antd';
+import { useNavigate } from "react-router-dom"; 
+
 import pdfFile from "../../PDF/mercedes-finance.pdf";
 const FinanceMec = () => {
+  const navigate = useNavigate(); 
+  const handleLearnMoreClick = () => {
+    navigate("/about/contact"); 
+  };
   const handlePdfOpen = () => {
-    window.open(pdfFile, "_blank"); // Opens the PDF file in a new tab
+    window.open(pdfFile, "_blank"); 
   };
   return (
     <div className="mec_main_finance">
@@ -58,6 +65,9 @@ const FinanceMec = () => {
               <br />
               deducted from your selected banking account.
             </div>
+            <div className="button-left"><Button type="primary" onClick={handleLearnMoreClick} className="btn-contacus">
+        CONTACT US
+      </Button> </div>
           </div>
         </div>
         <div className="box-finance211">
@@ -71,12 +81,12 @@ const FinanceMec = () => {
               <br />
               account, update your payment info or enroll in Auto Pay.
             </div>
+            <div className="button-right"><Button type="primary" onClick={handlePdfOpen} className="btn-pdf">
+        Download extended Finance Handbook
+      </Button> </div>
           </div>
         </div>
       </div>
-      <button onClick={handlePdfOpen} className="btn-pdf" style={{marginLeft:"50px"}}>
-        Details
-      </button>
     </div>
   );
 };

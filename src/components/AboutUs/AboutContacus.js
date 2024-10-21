@@ -24,7 +24,7 @@ const ContactUs = () => {
 
         <div className="address">
           <h3>Our Address</h3>
-          <p>BMW of North America, LLC</p>
+          <p>Carrio Motors of North America, LLC</p>
           <p>300 Chestnut Ridge Road</p>
           <p>Woodcliff Lake, NJ 07677-7731</p>
         </div>
@@ -34,7 +34,7 @@ const ContactUs = () => {
         <div className="contact-box">
           <h3>Customer Relations</h3>
           <p>
-            For general inquiries and information regarding BMW's vehicles,
+            For general inquiries and information regarding Carrio's vehicles,
             services, products, and more.
           </p>
           <p>
@@ -44,10 +44,10 @@ const ContactUs = () => {
         </div>
 
         <div className="contact-box">
-          <h3>BMW Genius Hotline</h3>
+          <h3>Carrio Genius Hotline</h3>
           <p>
             Our Genius product specialists can assist with inquiries regarding
-            BMW technology, features, and options.
+            Carrio technology, features, and options.
           </p>
           <p>
             <strong>1-844-443-6487</strong>
@@ -56,15 +56,15 @@ const ContactUs = () => {
         </div>
 
         <div className="contact-box">
-          <h3>BMWi Hotline</h3>
+          <h3>Carrio Motors Hotline</h3>
           <p>
-            Contact our specially trained team to inquire about BMW electric or
+            Contact our specially trained team to inquire about
             plug-in hybrid vehicles.
           </p>
           <p>
             <strong>1-855-236-1025</strong>
           </p>
-          <a href="#">Connect with BMWi</a>
+          <a href="#">Connect with Carrio Motors</a>
         </div>
       </div>
 
@@ -78,7 +78,7 @@ const ContactUs = () => {
         <div className="corporate-boxes">
           {/* BMW Financial Services */}
           <div className="corporate-box">
-            <h3>BMW Financial Services</h3>
+            <h3>Carrio Financial Services</h3>
             <p>
               For inquiries regarding products and services for New Vehicles,
               Certified Pre-Owned Vehicles, Personal Banking, or Credit Cards.
@@ -89,7 +89,7 @@ const ContactUs = () => {
             <h4>Hours of Operation</h4>
             <p>Monday - Thursday 9:00 AM - 9:00 PM ET</p>
             <p>Friday: 9:00 AM - 6:00 PM ET</p>
-            <a href="#">BMW Financial Services</a>
+            <a href="#">Carrio Financial Services</a>
           </div>
 
           {/* Fraud Warnings */}
@@ -97,7 +97,7 @@ const ContactUs = () => {
             <h3>Fraud Warnings</h3>
             <p>
               Learn how to identify fraudulent emails and communications
-              purporting to be BMW, or a division of BMW.
+              purporting to be BMW, or a division of Carrio Motors.
             </p>
             <a href="#">Learn More</a>
           </div>
@@ -114,10 +114,10 @@ const ContactUs = () => {
         <div className="owners-boxes">
           {/* BMW Key Replacement */}
           <div className="owners-box">
-            <h3>BMW Key Replacement</h3>
+            <h3>Carrio Key Replacement</h3>
             <p>
               If you need assistance with a replacement key, please contact your
-              BMW Center directly.
+              Carrio Motors Center directly.
             </p>
             <p>California resident? Please call our 24-hour help line:</p>
             <p>
@@ -152,7 +152,7 @@ const ContactUs = () => {
           <div className="shop-box">
             <h3>Request a Test Drive</h3>
             <p>
-              Discover the thrills of BMW for yourself. Contact your local BMW
+              Discover the thrills of Carrio for yourself. Contact your local Carrio
               Center to schedule a test drive.
             </p>
             <a href="#">Schedule Now</a>
@@ -161,7 +161,7 @@ const ContactUs = () => {
           <div className="shop-box">
             <h3>Visit a Dealer</h3>
             <p>
-              Stop by your local BMW Center today – and discover all that BMW
+              Stop by your local Carrio Motors Center today – and discover all that Carrio
               has to offer.
             </p>
             <a href="#">Locate Dealer</a>
@@ -176,7 +176,7 @@ const ContactUs = () => {
       <div className="faq-section">
         <h2>FAQs</h2>
         <p>Find answers to frequently asked questions here.</p>
-        <a href="#">Go to BMW FAQ</a>
+        <a href="#">Go to Carrio FAQ</a>
       </div>
       {/* Separator Line */}
       <hr className="separator-line" />
@@ -186,7 +186,7 @@ const ContactUs = () => {
         <h2>Error Reporting</h2>
         <h3>Report a Navigation Map Error</h3>
         <p>
-          While your BMW's navigation system is powered by a global leader in
+          While your Carrio's navigation system is powered by a global leader in
           location data, errors may sometimes occur. To help maintain accuracy,
           please report any errors or corrections to Map Creator.
         </p>
