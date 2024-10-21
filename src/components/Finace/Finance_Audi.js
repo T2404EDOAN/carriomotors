@@ -4,6 +4,8 @@ import audi2 from "../../assets/images/Audi_images/audi2.jpg";
 import "../../assets/styles/Finance_Audi.css";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { Button } from 'antd'; // Import Button from Ant Design
+import pdfFile from "../../PDF/audi_finance.pdf";
+
 const FinanceAudi = () => {
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -13,8 +15,8 @@ const FinanceAudi = () => {
   };
 
   // Function to handle "GO TO VEHICLES" button click
-  const handleGoToVehiclesClick = () => {
-    navigate("/vehicles"); // Navigate to the vehicles page
+  const handlePdfOpen = () => {
+    window.open(pdfFile, "_blank"); 
   };
   return (
     <div className="audi_main_finance">
@@ -34,12 +36,12 @@ const FinanceAudi = () => {
           <img src={audi2} alt="audi2" />
         </div>
       </div>
-      <div className="but-audi">
+      <div className="but">
       <Button type="primary" className="but1" onClick={handleContactUsClick}>
           CONTACT US
         </Button>
-        <Button type="primary" className="but2" onClick={handleGoToVehiclesClick}>
-          GO TO VEHICLES
+        <Button type="primary" className="but2"  onClick={handlePdfOpen}>
+        Download extended Finance Handbook
         </Button>
       </div>
     </div>

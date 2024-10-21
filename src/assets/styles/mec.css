@@ -96,9 +96,9 @@ content3-right-img {
 .more3 {
   color: white;
   padding-left: 10px;
-  width: 100%;
   width: 300px;
   border-radius: 5px;
+  height: 50px;
   margin-top: 10px;
 }
 .content4 {

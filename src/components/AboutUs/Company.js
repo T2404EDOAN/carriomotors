@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import logologo from "../../assets/images/Company_images/logologo.png";
 import bmw1 from "../../assets/images/Company_images/bmw1.jpg";
 
 import anhavata1 from "../../assets/images/Company_images/anhavata1.png";
@@ -9,7 +8,6 @@ import anhavata3 from "../../assets/images/Company_images/anhavata3.png";
 import des1 from "../../assets/images/Company_images/des1.jpg";
 import des2 from "../../assets/images/Company_images/des2.jpg";
 import des3 from "../../assets/images/Company_images/des3.jpg";
-
 import "../../assets/styles/Company.css";
 
 const CompanyPage = () => {

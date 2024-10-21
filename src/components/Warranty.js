@@ -23,6 +23,7 @@ import icon15 from "../assets/images/Warranty/Porsche5_11zon.jpg";
 import icon16 from "../assets/images/Warranty/Porsche6_11zon.jpg";
 import icon17 from "../assets/images/Warranty/bmwlogo.png";
 import icon18 from "../assets/images/Warranty/bmwlogo.png";
+import {  Button } from 'antd';
 
 const Warranty = () => {
   // State to track the active tab
@@ -92,9 +93,8 @@ const Warranty = () => {
 
           <div className="warranty-content">
             <div className="warranty-details">
-              <span className="extended-warranty-label">
-                Extended Warranty Program
-              </span>
+                <Button type="primary"  className="btn-1">
+                Extended Warranty Program</Button>
               <h2>Worry-free to enjoy the ride.</h2>
               <p>
                 The Extended Limited Warranty Programme offers 1-year & 2-year
@@ -227,7 +227,8 @@ const Warranty = () => {
           />
           <h1>“I’M EQUIPPED FOR EVERYTHING. EVEN THE UNEXPECTED”</h1>
           <p>BMW Warranty</p>
-          <button className="contact-button">CONTACT US</button>
+          <Button type="primary" className="contact-button">CONTACT US</Button>
+          
         </div>
       </div>
       {/* Your benefits section */}
@@ -354,9 +355,9 @@ const Warranty = () => {
                 miles—whichever occurs first. In addition, enjoy four years of
                 Audi 24-Hour Roadside Assistance at no additional cost.
               </p>
-              <button className="learn-more-button">
-                Learn more about Audi Warranty
-              </button>
+          
+              <Button type="primary"  className="btn-1">
+              Learn more about Audi Warranty</Button>
             </div>
           </div>
 
@@ -369,7 +370,8 @@ const Warranty = () => {
                 your owner's manual or local Audi dealer for exclusions and
                 limitations.
               </p>
-              <button className="learn-more-button">View more</button>
+              <Button type="primary"  className="btn-1">
+              View more</Button>
             </div>
             <img
               src={icon10}

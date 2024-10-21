@@ -5,6 +5,7 @@ import anh1 from '../../../assets/images/Bmv_images/BMWcareoil.jpg';
 import anh2 from '../../../assets/images/Bmv_images/BMWbatteries.jpg';
 import anh3 from '../../../assets/images/Bmv_images/Original BMW tires.jpg';
 import anh4 from '../../../assets/images/Bmv_images/BMWapp.webp';
+import { Button } from "antd";
 
 
 const Bmv_main = () => {
@@ -68,9 +69,9 @@ const Bmv_main = () => {
             <li>Control and monitor your vehicle with ease, no matter where you are</li>
             <li>News and updates on all things BMW</li>
           </ul>
-          <button className="discover-button" onClick={handleDiscoverClick}>
+          <Button type="primary" className="discover-button" onClick={handleDiscoverClick}>
             Discover now
-          </button>
+          </Button>
         </div>
       </div>
     </div>

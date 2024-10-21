@@ -37,6 +37,21 @@
   padding-top: 4px;
   border-radius: 5px;
 }
+.but {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+  gap: 30px;
+}
+.but1 {
+  height: 50px;
+  background-color: gray;
+  margin-left: 250px;
+  margin-right: 40px
+}
+.but2 {
+  height: 50px;
+}
 .but2-audi {
   background-color: #425adb;
   color: #ffffff;

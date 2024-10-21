@@ -379,11 +379,11 @@ const ImprovedHeader = () => {
         <div className="flex items-center h-16 px-8">
           <div className="flex-none mr-8 flex items-center">
             <Link to="/">
-              <img src="" alt="Logo" className="h-13 md:h-14" />
+              <img src="./Logo.png" alt="Logo" className="logo" />
             </Link>
             <div className="flex items-center ml-4">
               {/* <PersonIcon style={{ fontSize: "15px", marginRight: "5px" }} /> */}
-        
+    
               <span>{realtimeVisitors}</span>
             </div>
           </div>

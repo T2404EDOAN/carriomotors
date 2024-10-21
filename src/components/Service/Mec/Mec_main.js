@@ -111,7 +111,7 @@ const Mec_main = () => {
             takes to get you back on the road. Call 1-800-367-6372, press the
             me-button in your vehicle, or use the Mercedes me connect app to
             contact us.<br></br>
-            <Button type="primary" className="more3" onClick={handleLearnMoreClick}>
+            <Button type="primary"className="more3" onClick={handleLearnMoreClick}>
               Learn More about Roadside Assistance
             </Button>
           

@@ -3,8 +3,21 @@ import porsche1 from "../../assets/images/Porsce_images/porsche1.jpg";
 import porsche2 from "../../assets/images/Porsce_images/porsche2.jpg";
 import porsche3 from "../../assets/images/Porsce_images/porsche 3.jpg";
 import "../../assets/styles/Finance_Porsche.css";
+import pdfFile from "../../PDF/porsche_finance.pdf";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import {  Button, Flex  } from 'antd';
 const FinancePorsche = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // Function to handle "CONTACT US" button click
+  const handleContactUsClick = () => {
+    navigate("/about/contact"); // Navigate to the contact page
+  };
+
+  // Function to handle "GO TO VEHICLES" button click
+  const handlePdfOpen = () => {
+    window.open(pdfFile, "_blank"); 
+  };
   return (
     <div className="porsche_main_finance">
       <div className="title-finance-porsche1">
@@ -88,9 +101,13 @@ const FinancePorsche = () => {
           </div>
         </div>
       </div>
-      <div className="but-por">
-        <div className="but1-por">CONTACT US</div>
-        <div className="but2-por">GO TO PORSCHE VEHICLES</div>
+      <div className="but">
+      <Button type="primary" className="but1" onClick={handleContactUsClick}>
+          CONTACT US
+        </Button>
+        <Button type="primary" className="but2"  onClick={handlePdfOpen}>
+        Download extended Finance Handbook
+        </Button>
       </div>
     </div>
   );
