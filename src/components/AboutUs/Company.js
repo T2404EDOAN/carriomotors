@@ -2,23 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import logologo from "../../assets/images/Company_images/logologo.png";
 import bmw1 from "../../assets/images/Company_images/bmw1.jpg";
-import bmw2 from "../../assets/images/Company_images/bmw2.jpg";
-import audi1 from "../../assets/images/Company_images/audi1.jpg";
-import audi2 from "../../assets/images/Company_images/audi2.jpg";
-import mec1 from "../../assets/images/Company_images/mec1.jpg";
-import mec2 from "../../assets/images/Company_images/mec2.png";
-import por1 from "../../assets/images/Company_images/por1.jpg";
-import por2 from "../../assets/images/Company_images/por2.jpg";
+
 import anhavata1 from "../../assets/images/Company_images/anhavata1.png";
 import anhavata2 from "../../assets/images/Company_images/anhavata2.png";
 import anhavata3 from "../../assets/images/Company_images/anhavata3.png";
 import des1 from "../../assets/images/Company_images/des1.jpg";
 import des2 from "../../assets/images/Company_images/des2.jpg";
 import des3 from "../../assets/images/Company_images/des3.jpg";
-import car from "../../assets/images/Bmv_images/car.jpg";
-import Au2 from "../../assets/images/Bmv_images/Au2.jpg";
-import porche from "../../assets/images/Bmv_images/porche.jpg";
-import meccc from "../../assets/images/Bmv_images/meccc.png";
+
 import "../../assets/styles/Company.css";
 
 const CompanyPage = () => {
