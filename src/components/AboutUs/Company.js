@@ -151,7 +151,7 @@ const CompanyPage = () => {
         <div className="list-comment">
           <div className="comment1">
             <div className="avata1-comment">
-              <img src="../anhavata1.png" alt="anh avata 1" />
+              <img src={anhavata1} alt="anh avata 1" />
             </div>
             <div className="text-comment">
               Simone chose the i4 because its performance and style stood out
