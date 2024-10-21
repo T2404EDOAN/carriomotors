@@ -163,7 +163,10 @@ const CompanyPage = () => {
           </div>
           <div className="comment2">
             <div className="avata2-comment">
-              <img src={anhavata2} alt="anh avata 2" />
+              <img
+                src="https://i.ibb.co/mzQmdKs/anhavata2.png"
+                alt="anh avata 2"
+              />
             </div>
             <div className="text-comment">
               Engineering first drew John to the i5 M60 and continues to thrill
@@ -172,7 +175,10 @@ const CompanyPage = () => {
           </div>
           <div className="comment3">
             <div className="avata3-comment">
-              <img src={anhavata3} alt="anh avata 3" />
+              <img
+                src="https://i.ibb.co/2tsdgbm/anhavata3.png"
+                alt="anh avata 3"
+              />
             </div>
             <div className="text-comment">
               Though his commute is over 100 miles, David says he never worries
@@ -190,7 +196,11 @@ const CompanyPage = () => {
         <div className="description-list">
           <div className="description-list1">
             <div className="description-img1">
-              <img src={des1} alt="des1" className="des1" />
+              <img
+                src="https://i.ibb.co/G53xmc8/des1.jpg"
+                alt="des1"
+                className="des1"
+              />
             </div>
             <div className="description-text1">
               <div className="description-text1-1">Feel like a VIP.</div>
@@ -204,7 +214,11 @@ const CompanyPage = () => {
           </div>
           <div className="description-list2">
             <div className="description-img2">
-              <img src={des2} alt="des2" className="des2" />
+              <img
+                src="https://i.ibb.co/1XnbtCW/des2.jpg"
+                alt="des2"
+                className="des2"
+              />
             </div>
             <div className="description-text2">
               <div className="description-text2-1">No more gas stations.</div>
@@ -216,7 +230,11 @@ const CompanyPage = () => {
           </div>
           <div className="description-list3">
             <div className="description-img3">
-              <img src={des3} alt="des3" className="des3" />
+              <img
+                src="https://i.ibb.co/0c4DM05/des3.jpg"
+                alt="des3"
+                className="des3"
+              />
             </div>
             <div className="description-text3">
               <div className="description-text3-1">
