@@ -224,7 +224,7 @@ const CompanyPage = () => {
           </div>
           <div className="description-list3">
             <div className="description-img3">
-              <img src={des3} alt="des3" />
+              <img src={des3} alt="des3" className="des3" />
             </div>
             <div className="description-text3">
               <div className="description-text3-1">
