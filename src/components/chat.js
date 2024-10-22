@@ -24,33 +24,47 @@ const Chat = () => {
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch('https://carriomotors.io.vn/api/chat/get_messages.php');
+      const response = await fetch(`https://carriomotors.io.vn/api/chat/get_messages.php?user_id=${userId}`);
       const data = await response.json();
-      setMessages(data);
+      
+      // Kiểm tra nếu data là một mảng, nếu không, gán nó là một mảng rỗng
+      if (Array.isArray(data)) {
+        setMessages(data);
+      } else {
+        console.error('API did not return an array:', data);
+        setMessages([]);  // Gán mảng rỗng nếu dữ liệu không đúng định dạng
+      }
     } catch (error) {
       console.error('Lỗi khi lấy tin nhắn:', error);
+      setMessages([]);  // Gán mảng rỗng nếu có lỗi
     }
   };
+  
 
   const sendMessage = async () => {
     if (message.trim() === '') return;
-
+  
     try {
       const response = await fetch('https://carriomotors.io.vn/api/chat/save_message.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: userId, message, sent_by: 'user' }),
       });
-
+    
       if (response.ok) {
+        const data = await response.json();
+        console.log('Response data:', data);
+    
         setMessages((prevMessages) => [
           ...prevMessages,
           { id: Date.now(), user_id: userId, message, sent_by: 'user', created_at: new Date().toISOString() },
         ]);
         setMessage('');
+      } else {
+        console.error('Failed to send message:', response.statusText);
       }
     } catch (error) {
-      console.error('Lỗi khi gửi tin nhắn:', error);
+      console.error('Error during message sending:', error);
     }
   };
 
@@ -144,34 +158,35 @@ const Chat = () => {
 
           {/* Phần nội dung tin nhắn */}
           <Box sx={{ flexGrow: 1, overflowY: 'auto', padding: 2 }}>
-            <List>
-              {messages.length > 0 ? (
-                messages.map((msg) => (
-                  <ListItem
-                    key={msg.id}
-                    sx={{
-                      display: 'flex',
-                      justifyContent: msg.sent_by === 'user' ? 'flex-end' : 'flex-start',
-                    }}
-                  >
-                      <ListItemText
-                        primary={msg.message}
-                        secondary={msg.sent_by === 'user' ? 'You' : 'Admin'}
-                        sx={{
-                          backgroundColor: msg.sent_by === 'user' ? '#d4edda' : '#f8d7da',
-                          padding: 1,
-                          borderRadius: 2,
-                          maxWidth: '70%',
-                        }}
-                      />
-                  </ListItem>
-                ))
-              ) : (
-                <Typography variant="body2">Chưa có tin nhắn nào...</Typography>
-              )}
-              {/* Phần tử ẩn để cuộn đến */}
-              <div ref={messagesEndRef} />
-            </List>
+          <List>
+  {messages.length > 0 ? (
+    messages.map((msg) => (
+      <ListItem
+        key={msg.id}
+        sx={{
+          display: 'flex',
+          justifyContent: msg.sent_by === 'user' ? 'flex-end' : 'flex-start',
+        }}
+      >
+        <ListItemText
+          primary={msg.message}
+          secondary={msg.sent_by === 'user' ? 'You' : 'Admin'}
+          sx={{
+            backgroundColor: msg.sent_by === 'user' ? '#d4edda' : '#f8d7da',
+            padding: 1,
+            borderRadius: 2,
+            maxWidth: '70%',
+          }}
+        />
+      </ListItem>
+    ))
+  ) : (
+    <Typography variant="body2">How can we help you?</Typography>
+  )}
+  {/* Phần tử ẩn để cuộn đến */}
+  <div ref={messagesEndRef} />
+</List>
+
           </Box>
 
           {/* Phần nhập tin nhắn */}

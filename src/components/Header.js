@@ -383,9 +383,9 @@ const ImprovedHeader = () => {
               <img src="./Logo.png" alt="Logo" className="logo" />
             </Link>
             <div className="flex items-center ml-4">
-              {/* <PersonIcon style={{ fontSize: "15px", marginRight: "5px" }} /> */}
-    
-              <span>{realtimeVisitors}</span>
+              
+  
+              <span style={{ fontSize: "15px"}}><PersonIcon style={{ fontSize: "15px", marginRight: "5px" }} />{realtimeVisitors}</span>
             </div>
           </div>
 

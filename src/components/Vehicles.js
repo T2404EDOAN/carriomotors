@@ -33,7 +33,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     brandId ? [String(brandId)] : []
   ); // Áp dụng brandId vào selectedBrands khi có brandId
   const [filteredCars, setFilteredCars] = useState([]);
-  const [PriceRange, setPriceRange] = useState([0, 999999999]);
+  const [PriceRange, setPriceRange] = useState([0, 10000000]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(9);
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -165,7 +165,11 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
       }
       return isInRange;
     });
-
+    filtered = filtered.sort((a, b) => {
+      if (a.brand_name === "Porsche") return -1;
+      if (b.brand_name === "Porsche") return 1;
+      return 0;
+    });
     setFilteredCars(filtered);
   };
 
@@ -403,7 +407,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
         range
         defaultValue={PriceRange}
         min={0}
-        max={999999999}
+        max={10000000}
         onChange={handlePriceChange}
         trackStyle={{ backgroundColor: "black" }}
       />
@@ -477,7 +481,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
   return (
     <div className={isModalVisible ? "blur-background" : ""}>
       <div className="all-products">
-        <div className="all-sanpham">All {filteredCars.length} Cars</div>
+        <div className="all-sanpham">Total {filteredCars.length} Cars</div>
       </div>
       <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
         <Layout style={{ background: "#fff" }}>

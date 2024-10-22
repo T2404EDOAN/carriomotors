@@ -89,10 +89,10 @@ function AppLayout() {
     }
   }, []);
 
-  // Cuộn về đầu trang mỗi khi thay đổi đường dẫn (URL)
+  // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location]); // Mỗi khi URL thay đổi, useEffect này sẽ được kích hoạt
+  }, [location]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -118,11 +118,11 @@ function AppLayout() {
   };
 
   const isHomePage = location.pathname === "/";
-  const isAdminPage = location.pathname === "/admin"; // Kiểm tra nếu là trang admin
+  const isAdminPage = location.pathname === "/admin"; // Check if it's the admin page
 
   return (
     <div className="app-container" style={{ paddingTop: "64px" }}>
-      {/* Hiển thị loading */}
+      {/* Show loading */}
       {isLoading && (
         <div
           style={{
@@ -141,7 +141,7 @@ function AppLayout() {
           <Spin size="large" />
         </div>
       )}
-      {/* Chỉ hiển thị Header và Footer nếu không phải trang admin */}
+      {/* Show Header and Footer only if not on admin page */}
       {!isAdminPage && <Header onNavigate={handleRouteChange} />}
       {!isAdminPage && isHomePage && !isLoading && (
         <Banner images={bannerImages} autoSlide={isHomePage} />
@@ -173,9 +173,9 @@ function AppLayout() {
         </TransitionGroup>
       </main>
       {!isAdminPage && <Ticker dateTime={dateTime} locationInfo={locationInfo} />}
-      <Chat/>
+      {/* Show Chat only if not on admin page */}
+      {!isAdminPage && <Chat />}
       {!isAdminPage && <Footer />}
-     
     </div>
   );
 }
