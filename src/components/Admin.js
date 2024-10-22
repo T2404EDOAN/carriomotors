@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Layout, Menu, Avatar, Dropdown, Typography, Input, Row, Col, Table, Button, Modal, Form, Input as AntInput, Space, Select, Upload, message } from 'antd';
+import React, { useState, useEffect,useRef  } from 'react';
+import { Layout, Menu, Avatar, Dropdown, Typography, Input, Row, Col, Table, Button, Modal, Form, Input as AntInput, Space, Select, Upload,message, message as antdMessage,Tabs } from 'antd';
 import {
   DashboardOutlined,
   CarOutlined,
@@ -11,18 +11,19 @@ import {
   MenuFoldOutlined,
   SettingOutlined,
   LogoutOutlined,
+  UploadOutlined,
   MenuUnfoldOutlined,
   EditOutlined, DeleteOutlined,
 } from '@ant-design/icons';
-import { UploadOutlined } from '@ant-design/icons';
 import '../assets/styles/Admin.css';
 import axios from 'axios';
 
+const { TabPane } = Tabs; 
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;
 const { Search } = Input;
 const { Option } = Select;
-const inboxColumns = [
+const contactColumns = [
   {
     title: 'No.',
     key: 'stt',
@@ -110,13 +111,39 @@ const columns = [
   { title: 'Status', dataIndex: 'status', key: 'status', width: 120 },
   { title: 'Car Model Status', dataIndex: 'car_model_status', key: 'car_model_status', width: 150 }, // Trạng thái của mẫu xe
 ];
+const inboxColumns = [
+  {
+    title: 'No.',
+    key: 'stt',
+    render: (text, record, index) => index + 1,
+  },
+  {
+    title: 'User ID',
+    dataIndex: 'user_id',
+    key: 'user_id',
+  },
+  {
+    title: 'Message',
+    dataIndex: 'message',
+    key: 'message',
+  },
+  {
+    title: 'Sent By',
+    dataIndex: 'sent_by',
+    key: 'sent_by',
+  },
+  {
+    title: 'Created At',
+    dataIndex: 'created_at',
+    key: 'created_at',
+  },
+];
 
 
 
 const Admin = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState('vehicles'); // Track selected menu
-  const [tableHeight, setTableHeight] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [locations, setLocations] = useState([]);
@@ -126,10 +153,16 @@ const Admin = () => {
   const [images, setImages] = useState([]); // Lưu trữ file ảnh
   const [mainImage, setMainImage] = useState('');
   const [gallery, setGallery] = useState([]);
-  const [inboxData, setInboxData] = useState([]);
+  const [contactData, setContactData] = useState([]);
   const [vehiclesData, setvehiclesData] = useState([]);
-
- 
+  const [inboxMessages, setInboxMessages] = useState([]);
+  const [adminMessage, setAdminMessage] = useState('');
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [selectedChats, setSelectedChats] = useState({}); // Quản lý các cuộc trò chuyện theo userId
+  const [activeTab, setActiveTab] = useState(null); // Track the active tab\
+  const [messageInput, setMessageInput] = useState('');
+  const messagesEndRef = useRef(null);
+  const pollingInterval = useRef(null); 
   useEffect(() => {
     fetch('https://carriomotors.io.vn/api/get_location.php')
       .then(response => response.json())
@@ -158,8 +191,8 @@ const Admin = () => {
       .catch(error => console.error("Error calling API to get color list:", error));
   }, []);
   useEffect(() => {
-    if (selectedMenu === 'inbox') {
-      fetchInboxData();
+    if (selectedMenu === 'contact') {
+      fetchContactData();
     }
   }, [selectedMenu]);
   useEffect(() => {
@@ -167,11 +200,112 @@ const Admin = () => {
       fetchvehiclesData();
     }
   }, [selectedMenu]);
-  const fetchInboxData = async () => {
+  const fetchInboxMessages = async () => {
+    try {
+      const response = await axios.get('https://carriomotors.io.vn/api/chat/get_admin_messages.php');
+      if (response.status === 200) {
+        setInboxMessages(response.data); // Lưu danh sách tin nhắn
+      } else {
+        antdMessage.error('Không thể lấy danh sách người dùng.');
+      }
+    } catch (error) {
+      console.error('Lỗi khi lấy danh sách người dùng:', error);
+    }
+  };
+  const startPollingMessages = () => {
+    if (pollingInterval.current) clearInterval(pollingInterval.current);
+
+    pollingInterval.current = setInterval(() => {
+      if (selectedUserId) {
+        fetchMessagesForUser(selectedUserId);
+      }
+    }, 5000); // Polling sau mỗi 5 giây
+  };
+  useEffect(() => {
+    fetchInboxMessages();
+    startPollingMessages(); // Bắt đầu polling tin nhắn
+    return () => {
+      if (pollingInterval.current) clearInterval(pollingInterval.current); // Clear interval khi component bị unmount
+    };
+  }, []);
+
+
+  useEffect(() => {
+    console.log('Selected User ID updated:', selectedUserId);
+  }, [selectedUserId]);
+  const handleRowClick = (record) => {
+    setSelectedUserId(record.user_id);
+    console.log('User selected for chat:', record.user_id);
+  };
+  
+  useEffect(() => {
+    if (selectedMenu === 'inbox') {
+      fetchInboxMessages();
+    }
+  }, [selectedMenu]);
+
+
+  const uniqueUsers = () => {
+    const userMap = new Map();
+    inboxMessages.forEach((msg) => {
+      if (!userMap.has(msg.user_id)) {
+        userMap.set(msg.user_id, msg); // Chỉ thêm user nếu chưa tồn tại
+      }
+    });
+    return Array.from(userMap.values()); // Trả về mảng các user duy nhất
+  };
+
+  const sendAdminMessage = async (userId) => {
+    const messageToSend = selectedChats[userId]?.adminMessage || '';
+    if (messageToSend.trim() === '') return;
+
+    try {
+      const response = await axios.post('https://carriomotors.io.vn/api/chat/save_admin_message.php', {
+        user_id: userId,
+        admin_id: 1,
+        message: messageToSend,
+        sent_by: 'admin',
+      });
+
+      if (response.status === 200) {
+        message.success('Tin nhắn đã được gửi thành công!');
+        setSelectedChats(prevChats => ({
+          ...prevChats,
+          [userId]: { ...prevChats[userId], adminMessage: '' },
+        }));
+      } else {
+        message.error('Không thể gửi tin nhắn.');
+      }
+    } catch (error) {
+      console.error('Lỗi khi gửi tin nhắn:', error);
+      message.error('Lỗi khi gửi tin nhắn.');
+    }
+  };
+  
+  const fetchMessagesForUser = async (userId) => {
+    try {
+      const response = await axios.get(`https://carriomotors.io.vn/api/chat/get_messages.php?user_id=${userId}`);
+      if (response.status === 200) {
+        setSelectedChats((prevChats) => ({
+          ...prevChats,
+          [userId]: response.data, // Lưu các tin nhắn của user đó
+        }));
+        scrollToBottom(); // Cuộn xuống cuối tin nhắn khi tải xong
+      } else {
+        antdMessage.error('Không thể lấy tin nhắn');
+      }
+    } catch (error) {
+      console.error('Lỗi khi lấy tin nhắn:', error);
+    }
+  };
+
+  
+
+  const fetchContactData = async () => {
     try {
       const response = await axios.get('https://carriomotors.io.vn/api/get_contactus.php'); // Replace with your API URL
       if (response.status === 200) {
-        setInboxData(response.data); // Assuming the API returns a list of contacts
+        setContactData(response.data); // Assuming the API returns a list of contacts
       } else {
         message.error('Failed to fetch contact submissions.');
       }
@@ -344,11 +478,76 @@ const Admin = () => {
   const toggle = () => {
     setCollapsed(!collapsed);
   };
-
-  const handleMenuClick = (menuKey) => {
-    setSelectedMenu(menuKey); // Update selected menu when clicked
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleMenuClick = (menuKey) => {
+    setSelectedMenu(menuKey); 
+  };
+  const handleUserSelect = (userId) => {
+    setSelectedUserId(userId);
+    if (!selectedChats[userId]) {
+      fetchMessagesForUser(userId); // Fetch tin nhắn nếu chưa có
+    }
+  };
+
+   useEffect(() => {
+    if (selectedUserId) {
+      fetchMessagesForUser(selectedUserId); // Fetch tin nhắn cho user mới chọn
+    }
+  }, [selectedUserId]);
+
+  useEffect(() => {
+    if (selectedChats[selectedUserId]) {
+      scrollToBottom();
+    }
+  }, [selectedChats, selectedUserId]);
+
+  const handleSendMessage = async () => {
+    if (!messageInput.trim()) return;
+
+    try {
+      const response = await axios.post('https://carriomotors.io.vn/api/chat/save_admin_message.php', {
+        user_id: selectedUserId,
+        admin_id: 1,
+        message: messageInput,
+        sent_by: 'admin',
+      });
+
+      if (response.status === 200) {
+        // Thêm tin nhắn mới vào danh sách tin nhắn của user
+        setSelectedChats((prevChats) => ({
+          ...prevChats,
+          [selectedUserId]: [
+            ...prevChats[selectedUserId],
+            {
+              id: Date.now(),
+              user_id: selectedUserId,
+              message: messageInput,
+              sent_by: 'admin',
+              created_at: new Date().toISOString(),
+            },
+          ],
+        }));
+        setMessageInput(''); // Xóa input sau khi gửi tin nhắn
+      } else {
+        antdMessage.error('Không thể gửi tin nhắn');
+      }
+    } catch (error) {
+      console.error('Lỗi khi gửi tin nhắn:', error);
+      antdMessage.error('Lỗi khi gửi tin nhắn.');
+    }
+  };
+
+
+  const handleMessageChange = (userId, e) => {
+    const messageValue = e.target.value;
+    setSelectedChats(prevChats => ({
+      ...prevChats,
+      [userId]: { ...prevChats[userId], adminMessage: messageValue },
+    }));
+  };
   const userMenu = (
     <Menu>
       <Menu.Item key="0">
@@ -382,8 +581,8 @@ const Admin = () => {
           <Menu.Item key="inbox" icon={<InboxOutlined />}>
             Inbox
           </Menu.Item>
-          <Menu.Item key="users" icon={<UserOutlined />}>
-            Users
+          <Menu.Item key="contact" icon={<UserOutlined />}>
+            Contact
           </Menu.Item>
           <Menu.Item key="products" icon={<ShoppingOutlined />}>
             Products
@@ -441,16 +640,18 @@ const Admin = () => {
               </Row>
             </div>
           )}
-          {selectedMenu === 'inbox' && (
+          {selectedMenu === 'contact' && (
             <div>
             <h2>Inbox</h2>
             <Table
-              columns={inboxColumns}
-              dataSource={inboxData} // Data fetched from the backend
-              pagination={false}
-              rowKey="id" // Assuming each contact has a unique ID
-              locale={{ emptyText: 'No contact submissions found' }}
-            />
+  columns={inboxColumns} 
+  dataSource={inboxMessages} 
+  rowKey="id"
+  pagination={false}
+  onRow={(record) => ({
+    onClick: () => handleRowClick(record),
+  })}
+/>
           </div>
           )}
           {selectedMenu === 'dashboard' && (
@@ -459,12 +660,78 @@ const Admin = () => {
               <p>Your dashboard overview will appear here.</p>
             </div>
           )}
-          {selectedMenu === 'users' && (
-            <div>
-              <h2>Users</h2>
-              <p>User management will be available here.</p>
+          {selectedMenu === 'inbox' && (
+  <div>
+  <h2>Admin Chat Inbox</h2>
+  <div style={{ display: 'flex', gap: '20px' }}>
+    {/* Hiển thị danh sách người dùng duy nhất */}
+    <div style={{ width: '30%' }}>
+      <h3>Users</h3>
+      {uniqueUsers().map((msg) => (
+        <div
+          key={msg.user_id}
+          style={{ padding: '10px', textAlign: 'center', cursor: 'pointer' }}
+          onClick={() => handleUserSelect(msg.user_id)} // Chọn người dùng khi nhấn vào icon
+        >
+          <Avatar size={64} icon={<UserOutlined />} />
+          <p>User ID: {msg.user_id}</p>
+        </div>
+      ))}
+    </div>
+
+    {/* Hiển thị form chat của người dùng đã chọn */}
+    <div style={{ width: '70%' }}>
+    {selectedUserId ? (
+                <div>
+                  <h3>Chat with User: {selectedUserId}</h3>
+                  <div style={{ height: '300px', overflowY: 'auto', border: '1px solid #ddd', padding: '10px' }}>
+                    {selectedChats[selectedUserId] ? (
+                      selectedChats[selectedUserId].map((msg) => (
+                        <div
+                          key={msg.id}
+                          style={{
+                            display: 'flex',
+                            justifyContent: msg.sent_by === 'admin' ? 'flex-end' : 'flex-start',
+                          }}
+                        >
+                          <div
+                            style={{
+                              backgroundColor: msg.sent_by === 'admin' ? '#d4edda' : '#f8d7da',
+                              padding: '8px',
+                              borderRadius: '8px',
+                              maxWidth: '60%',
+                              marginBottom: '10px',
+                            }}
+                          >
+                            <p>{msg.message}</p>
+                            <small>{msg.sent_by === 'admin' ? 'Admin' : 'User'}</small>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <p>Loading messages...</p>
+                    )}
+                    <div ref={messagesEndRef} />
+                  </div>
+                  <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
+                    <Input.TextArea
+                      rows={2}
+                      value={messageInput}
+                      onChange={(e) => setMessageInput(e.target.value)}
+                      placeholder="Enter your message..."
+                    />
+                    <Button type="primary" onClick={handleSendMessage}>
+                      Send
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <p>Please select a user to start chatting.</p>
+              )}
             </div>
-          )}
+          </div>
+</div>
+)}
           {selectedMenu === 'products' && (
             <div>
               <h2>Products</h2>

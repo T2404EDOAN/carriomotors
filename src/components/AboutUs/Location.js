@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Image } from "antd";
-import "../../assets/styles/Location.css"; // Import your new CSS file
+import "../../assets/styles/Location.css"; 
 
 const Location = () => {
   const [locationData, setLocationData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch data from the API
+  
   useEffect(() => {
     const fetchLocationData = async () => {
       try {
         const response = await fetch(
           "https://carriomotors.io.vn/api/get_location.php"
         );
+        console.log('data',response);
         const data = await response.json();
-        setLocationData(data); // Assuming data is an array
+        setLocationData(data); 
         setLoading(false);
       } catch (error) {
         console.error("Error fetching location data:", error);

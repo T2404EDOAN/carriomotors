@@ -42,14 +42,14 @@ const Ticker = ({ dateTime, locationInfo }) => {
             const { road, suburb, city, state, country } = data.address;
             // Ghép các phần của địa chỉ thành chuỗi
             const fullAddress = [
-              road, // Đường
-              suburb, // Phường hoặc quận
-              city, // Thành phố
-              state, // Bang hoặc tỉnh
-              country, // Quốc gia
+              road, 
+              suburb, 
+              city, 
+              state, 
+              country, 
             ]
-              .filter(Boolean) // Loại bỏ các phần null hoặc undefined
-              .join(", "); // Ghép lại bằng dấu phẩy
+              .filter(Boolean) 
+              .join(", "); 
 
             setLocationName(fullAddress || "Không xác định");
           } else {
@@ -90,19 +90,18 @@ const Ticker = ({ dateTime, locationInfo }) => {
   );
 };
 
-// CSS cho ticker với nền đen và chữ trắng
+
 const tickerStyle = {
   position: "fixed",
   bottom: 0,
   width: "100%",
-  backgroundColor: "#191f22", // Nền đen với độ mờ nhẹ
-  color: "#fff", // Chữ trắng
+  backgroundColor: "#191f22",
+  color: "#fff", 
   padding: "10px 0",
   textAlign: "center",
   zIndex: 9999,
   fontSize: "18px",
   fontWeight: "bold",
-  fontFamily: "'Arial', sans-serif",
 };
 
 const tickerContentStyle = {
@@ -111,7 +110,7 @@ const tickerContentStyle = {
   alignItems: "center",
   whiteSpace: "nowrap",
   animation: "scroll-left 15s linear infinite", 
-  gap: "30px", // Khoảng cách giữa các phần tử
+  gap: "30px", 
 };
 
 const iconTextStyle = {
@@ -120,9 +119,9 @@ const iconTextStyle = {
 };
 
 const iconStyle = {
-  marginRight: "8px", // Khoảng cách giữa biểu tượng và văn bản
-  fontSize: "20px", // Kích thước biểu tượng
-  color: "#fff", // Màu biểu tượng trắng
+  marginRight: "8px", 
+  fontSize: "20px", 
+  color: "#fff", 
 };
 
 export default Ticker;

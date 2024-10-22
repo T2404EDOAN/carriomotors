@@ -1,0 +1,15 @@
+.sitemap {
+    width: 1400px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .flexContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .column {
+    flex: 1;
+    margin: 0 10px;
+  }

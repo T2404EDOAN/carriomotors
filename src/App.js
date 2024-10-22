@@ -19,6 +19,8 @@ import Finance from "./components/Finace/Finance_main";
 import Admin from "./components/Admin";
 import ContactUsFull from "./components/AboutUs/AboutContacus";
 import Warranty from "./components/Warranty";
+import Chat from "./components/chat";
+import SiteMap from "./components/AboutUs/Sidemap";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -164,13 +166,16 @@ function AppLayout() {
                 <Route path="/about/careers" element={<Careers />} />
                 <Route path="/about/location" element={<Location />} />
                 <Route path="/about/contact" element={<ContactUsFull />} />
+                <Route path="/about/sitemap" element={<SiteMap />} />
               </Routes>
             </div>
           </CSSTransition>
         </TransitionGroup>
       </main>
       {!isAdminPage && <Ticker dateTime={dateTime} locationInfo={locationInfo} />}
+      <Chat/>
       {!isAdminPage && <Footer />}
+     
     </div>
   );
 }

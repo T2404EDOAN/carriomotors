@@ -73,6 +73,8 @@ const Footer = () => {
             <li onClick={() => handleNavigationClick("/about/company")}>Our Values</li> {/* Navigate to Our Values */}
           <li onClick={() => handleNavigationClick("/about/location")}>Our System</li> {/* Navigate to Our System */}
           <li onClick={() => handleNavigationClick("/about/contact")}>Contact us</li> {/* Navigate to Contact Us */}
+          <li onClick={() => handleNavigationClick("/about/location")}>Location</li>
+          <li onClick={() => handleNavigationClick("/about/sitemap")}>Site Map</li>
             </ul>
 
             {/* Share Page Button */}

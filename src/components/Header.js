@@ -217,6 +217,7 @@ const ImprovedHeader = () => {
         { key: "careers", label: "Contact Dealer", link: "/about/careers" },
         { key: "contact", label: "Contact Us", link: "/about/contact" },
         { key: "location", label: "Location", link: "/about/location" },
+        { key: "sitemap", label: "Site Map", link: "/about/sitemap" },
       ],
     },
   ];
