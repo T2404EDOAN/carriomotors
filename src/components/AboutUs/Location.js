@@ -56,7 +56,7 @@ const Location = () => {
                 {/* Logo Section */}
                 <div className="location-logo-section">
                   <Image
-                    src="../Logolocation.png"
+                    src="https://i.ibb.co/0QTycGN/Logolocation.png"
                     alt="Logo"
                     preview={false}
                     className="location-logo"

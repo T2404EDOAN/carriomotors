@@ -24,6 +24,7 @@ const { Title, Text } = Typography;
 const { useBreakpoint } = Grid;
 
 const CarListingLayout = ({ isTechnicalDataVisible }) => {
+
   const location = useLocation();
   const { brandId } = location.state || {};
   const [isFilterVisible, setIsFilterVisible] = useState(false);
@@ -33,6 +34,7 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     brandId ? [String(brandId)] : []
   ); // Áp dụng brandId vào selectedBrands khi có brandId
   const [filteredCars, setFilteredCars] = useState([]);
+  const { selectedVehicleId } = location.state || {};
   const [PriceRange, setPriceRange] = useState([0, 10000000]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(9);
@@ -88,7 +90,6 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     }
   };
 
-  // Gọi API để lấy dữ liệu xe và các thông tin ban đầu
   useEffect(() => {
     fetchCars();
     fetchLocations();
@@ -116,7 +117,16 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
 
     fetchBrands();
   }, []);
-
+  useEffect(() => {
+    if (selectedVehicleId && cars.length > 0) {
+      // Tìm xe trong danh sách cars dựa trên ID
+      const selectedCar = cars.find(car => car.id === selectedVehicleId);
+      if (selectedCar) {
+        setSelectedCar(selectedCar);
+        setIsModalVisible(true);
+      }
+    }
+  }, [selectedVehicleId, cars]);
   // Hàm lọc xe dựa trên các tiêu chí đã chọn (bao gồm brandId)
   const applyFilters = () => {
     let filtered = cars;
@@ -313,11 +323,12 @@ const CarListingLayout = ({ isTechnicalDataVisible }) => {
     setFilteredCars(cars);
   };
   useEffect(() => {
-    // Automatically open the modal if the selected car comes from the state
     if (selectedCarFromState) {
       setIsModalVisible(true);
     }
   }, [selectedCarFromState]);
+
+
   const showModal = (car) => {
     setSelectedCar(car);
     setIsModalVisible(true);

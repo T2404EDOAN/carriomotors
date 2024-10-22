@@ -10,7 +10,7 @@
 :where(.css-dev-only-do-not-override-ccdg5a).ant-menu-light > .ant-menu.ant-menu-horizontal > .ant-menu-item::after,
 :where(.css-dev-only-do-not-override-ccdg5a).ant-menu-light.ant-menu-horizontal > .ant-menu-submenu::after,
 :where(.css-dev-only-do-not-override-ccdg5a).ant-menu-light > .ant-menu.ant-menu-horizontal > .ant-menu-submenu::after {
-    border-bottom: none !important; /* Không hiển thị gạch chân */
+    border-bottom: 2px solid transparent !important; /* Không hiển thị gạch chân */
     transition: border-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 

@@ -110,7 +110,6 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
                   width: "100%",
                   height: "500px",
                   objectFit: "cover",
-                  borderRadius: "16px",
                 }}
               />
             }
@@ -218,20 +217,7 @@ const CarInfoTab = ({ car, onDrawerToggle }) => {
                 Technical Data
               </p>
 
-              <p
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  cursor: "pointer",
-                  padding: "5px 10px",
-                  borderRadius: "8px",
-                  transition: "background-color 0.3s ease",
-                }}
-                className="hover-item"
-              >
-                <CheckCircleOutlined style={{ marginRight: "5px" }} />
-                Standard Equipment
-              </p>
+              
             </div>
           </div>
 

@@ -234,23 +234,48 @@ const ImprovedHeader = () => {
 
   const allMenuItems = flattenMenuItems(menuItems);
 
-  const handleSearch = (value) => {
-    const filteredOptions = allMenuItems
-      .filter((item) =>
-        item.label.toLowerCase().includes(value.toLowerCase())
-      )
-      .map((item) => ({
-        value: item.link,
-        label: item.label,
+  const handleSearch = async (value) => {
+    if (value.trim() === "") {
+      setSearchOptions([]);
+      return;
+    }
+  
+    try {
+      const response = await axios.get('https://carriomotors.io.vn/api/get_search.php', {
+        params: {
+          query: value,
+        },
+      });
+  
+      const cars = response.data || [];
+  
+      const carOptions = cars.map((car) => ({
+        value: `/vehicles/${car.VehicleID || ''}`,
+        label: `${car.BrandName || ''} ${car.Car_modelName || ''}`,
+        vehicleId: car.VehicleID  // Chỉ lưu ID
       }));
-    setSearchOptions(filteredOptions);
+  
+      setSearchOptions([...carOptions]);
+    } catch (error) {
+      console.error("Lỗi khi tìm kiếm xe:", error);
+      setSearchOptions([]);
+    }
   };
-
+  
   const onSelect = (value, option) => {
-    navigate(value);
-    setSearchValue(option.label);  
+    if (value.startsWith("/vehicles/")) {
+      // Chỉ gửi ID của xe
+      navigate("/vehicles", { 
+        state: { 
+          selectedVehicleId: option.vehicleId  // Gửi ID xe
+        } 
+      });
+    } else {
+      navigate(value);
+    }
   };
-
+  
+  
   const handleSearchChange = (value) => {
     setSearchValue(value);
     if (value.trim() !== '') {
@@ -339,26 +364,26 @@ const ImprovedHeader = () => {
             </Button>
           </Menu.Item>
           <Menu.Item key="search" className="menu-item-fade">
-            <AutoComplete
-              value={searchValue}
-              options={showSuggestions ? searchOptions : []}
-              onSelect={onSelect}
-              onSearch={handleSearch}
-              onChange={handleSearchChange}
-              onFocus={() => setSearchExpanded(true)}
-              onBlur={() => {
-                setSearchExpanded(false);
-                setShowSuggestions(false);
-              }}
-              style={{ width: "100%" }}
-            >
-              <Input
-                placeholder="Search..."
-                prefix={<SearchOutlined />}
-                className="rounded-full text-base"
-                onPressEnter={handleSearchSubmit}
-              />
-            </AutoComplete>
+          <AutoComplete
+  value={searchValue}
+  options={showSuggestions ? searchOptions : []} // Chỉ hiển thị khi có suggestions hợp lệ
+  onSelect={onSelect}
+  onSearch={handleSearch}
+  onChange={handleSearchChange}
+  onFocus={() => setSearchExpanded(true)}
+  onBlur={() => {
+    setSearchExpanded(false);
+    setShowSuggestions(false);
+  }}
+  style={{ width: '100%' }}
+>
+  <Input
+    placeholder="Search by page or vehicle..."
+    prefix={<SearchOutlined />}
+    className="rounded-full text-base"
+    onPressEnter={handleSearchSubmit}
+  />
+</AutoComplete>
           </Menu.Item>
           <Menu.Item key="login" className="menu-item-fade">
             <Button
@@ -381,15 +406,14 @@ const ImprovedHeader = () => {
         <div className="flex items-center h-16 px-8">
           <div className="flex-none mr-8 flex items-center">
             <Link to="/">
-              <img src="./Logo.png" alt="Logo" className="logo" />
+              <img src="https://i.ibb.co/m4VqCS3/Logo.png" alt="Logo" className="logo" />
             </Link>
             <div className="flex items-center ml-4">
               
-            <span style={{ fontSize: "12px", display: 'flex', alignItems: 'center' }}>
-  <PersonIcon style={{ fontSize: "16px", marginRight: "2px", color: blue[700] }} />
+            <span style={{ fontSize: "12px" }}>
+  <PersonIcon style={{ fontSize: "16px", marginRight: "5px", color: blue[700] }} />
   {realtimeVisitors}
 </span>
-
             </div>
           </div>
 
