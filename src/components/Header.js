@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import axios from 'axios';
+import { blue } from '@mui/material/colors';
 
 import {
   Menu,
@@ -384,8 +385,11 @@ const ImprovedHeader = () => {
             </Link>
             <div className="flex items-center ml-4">
               
-  
-              <span style={{ fontSize: "15px"}}><PersonIcon style={{ fontSize: "15px", marginRight: "5px" }} />{realtimeVisitors}</span>
+            <span style={{ fontSize: "12px", display: 'flex', alignItems: 'center' }}>
+  <PersonIcon style={{ fontSize: "16px", marginRight: "2px", color: blue[700] }} />
+  {realtimeVisitors}
+</span>
+
             </div>
           </div>
 

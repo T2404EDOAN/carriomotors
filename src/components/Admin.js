@@ -17,7 +17,7 @@ import {
 } from '@ant-design/icons';
 import '../assets/styles/Admin.css';
 import axios from 'axios';
-
+import { Badge } from 'antd';
 const { TabPane } = Tabs; 
 const { Header, Sider, Content } = Layout;
 const { Title } = Typography;
@@ -163,6 +163,7 @@ const Admin = () => {
   const [messageInput, setMessageInput] = useState('');
   const messagesEndRef = useRef(null);
   const pollingInterval = useRef(null); 
+  const [unreadCounts, setUnreadCounts] = useState({});
   useEffect(() => {
     fetch('https://carriomotors.io.vn/api/get_location.php')
       .then(response => response.json())
@@ -214,16 +215,17 @@ const Admin = () => {
   };
   const startPollingMessages = () => {
     if (pollingInterval.current) clearInterval(pollingInterval.current);
-
+  
     pollingInterval.current = setInterval(() => {
+      fetchInboxMessages();
       if (selectedUserId) {
         fetchMessagesForUser(selectedUserId);
       }
-    }, 5000); // Polling sau mỗi 5 giây
+    }, 5000);
   };
   useEffect(() => {
     fetchInboxMessages();
-    startPollingMessages(); // Bắt đầu polling tin nhắn
+    startPollingMessages(); 
     return () => {
       if (pollingInterval.current) clearInterval(pollingInterval.current); // Clear interval khi component bị unmount
     };
@@ -241,20 +243,47 @@ const Admin = () => {
   useEffect(() => {
     if (selectedMenu === 'inbox') {
       fetchInboxMessages();
+      startPollingMessages();
     }
+  
+    return () => {
+      if (pollingInterval.current) {
+        clearInterval(pollingInterval.current);
+      }
+    };
   }, [selectedMenu]);
-
-
+  useEffect(() => {
+    if (selectedUserId && selectedChats[selectedUserId]) {
+      scrollToBottom();
+    }
+  }, [selectedChats, selectedUserId]);
+  useEffect(() => {
+    if (inboxMessages.length > 0 && !selectedUserId) {
+      const firstUser = uniqueUsers()[0];
+      if (firstUser) {
+        setSelectedUserId(firstUser.user_id);
+      }
+    }
+  }, [inboxMessages]);
   const uniqueUsers = () => {
     const userMap = new Map();
     inboxMessages.forEach((msg) => {
       if (!userMap.has(msg.user_id)) {
-        userMap.set(msg.user_id, msg); // Chỉ thêm user nếu chưa tồn tại
+        userMap.set(msg.user_id, {
+          ...msg,
+          unread: true, // Mark as unread when the user has a new message
+        });
       }
     });
-    return Array.from(userMap.values()); // Trả về mảng các user duy nhất
+    return Array.from(userMap.values());
   };
-
+  
+  const calculateUnreadCount = (userId, messages) => {
+    if (!messages) return 0;
+    return messages.filter(msg => 
+      msg.sent_by === 'user' && !msg.read_status
+    ).length;
+  };
   const sendAdminMessage = async (userId) => {
     const messageToSend = selectedChats[userId]?.adminMessage || '';
     if (messageToSend.trim() === '') return;
@@ -286,16 +315,25 @@ const Admin = () => {
     try {
       const response = await axios.get(`https://carriomotors.io.vn/api/chat/get_messages.php?user_id=${userId}`);
       if (response.status === 200) {
-        setSelectedChats((prevChats) => ({
-          ...prevChats,
-          [userId]: response.data, // Lưu các tin nhắn của user đó
+        const messages = response.data;
+        
+        // Cập nhật số lượng tin nhắn chưa đọc
+        const unreadCount = messages.filter(msg => 
+          msg.sent_by === 'user' && !msg.read_status
+        ).length;
+        
+        setUnreadCounts(prev => ({
+          ...prev,
+          [userId]: unreadCount
         }));
-        scrollToBottom(); // Cuộn xuống cuối tin nhắn khi tải xong
-      } else {
-        antdMessage.error('Không thể lấy tin nhắn');
+  
+        setSelectedChats(prev => ({
+          ...prev,
+          [userId]: messages
+        }));
       }
     } catch (error) {
-      console.error('Lỗi khi lấy tin nhắn:', error);
+      console.error('Error fetching messages:', error);
     }
   };
 
@@ -487,10 +525,13 @@ const Admin = () => {
   };
   const handleUserSelect = (userId) => {
     setSelectedUserId(userId);
-    if (!selectedChats[userId]) {
-      fetchMessagesForUser(userId); // Fetch tin nhắn nếu chưa có
-    }
+    // Đánh dấu tất cả tin nhắn của user này là đã đọc
+    setUnreadCounts(prev => ({
+      ...prev,
+      [userId]: 0
+    }));
   };
+
 
    useEffect(() => {
     if (selectedUserId) {
@@ -644,8 +685,8 @@ const Admin = () => {
             <div>
             <h2>Inbox</h2>
             <Table
-  columns={inboxColumns} 
-  dataSource={inboxMessages} 
+  columns={contactColumns} 
+  dataSource={contactData} 
   rowKey="id"
   pagination={false}
   onRow={(record) => ({
@@ -664,66 +705,71 @@ const Admin = () => {
   <div>
   <h2>Admin Chat Inbox</h2>
   <div style={{ display: 'flex', gap: '20px' }}>
-    {/* Hiển thị danh sách người dùng duy nhất */}
     <div style={{ width: '30%' }}>
-      <h3>Users</h3>
-      {uniqueUsers().map((msg) => (
+  <h2 style={{fontSize:"22px"}}>Users</h2>
+  <Row gutter={[16, 16]}>
+    {uniqueUsers().map((msg, index) => (
+      <Col span={12} key={msg.user_id}>
         <div
-          key={msg.user_id}
           style={{ padding: '10px', textAlign: 'center', cursor: 'pointer' }}
-          onClick={() => handleUserSelect(msg.user_id)} // Chọn người dùng khi nhấn vào icon
+          onClick={() => handleUserSelect(msg.user_id)} 
         >
           <Avatar size={64} icon={<UserOutlined />} />
           <p>User ID: {msg.user_id}</p>
         </div>
-      ))}
-    </div>
+      </Col>
+    ))}
+  </Row>
+</div>
 
-    {/* Hiển thị form chat của người dùng đã chọn */}
     <div style={{ width: '70%' }}>
     {selectedUserId ? (
                 <div>
-                  <h3>Chat with User: {selectedUserId}</h3>
-                  <div style={{ height: '300px', overflowY: 'auto', border: '1px solid #ddd', padding: '10px' }}>
-                    {selectedChats[selectedUserId] ? (
-                      selectedChats[selectedUserId].map((msg) => (
-                        <div
-                          key={msg.id}
-                          style={{
-                            display: 'flex',
-                            justifyContent: msg.sent_by === 'admin' ? 'flex-end' : 'flex-start',
-                          }}
-                        >
-                          <div
-                            style={{
-                              backgroundColor: msg.sent_by === 'admin' ? '#d4edda' : '#f8d7da',
-                              padding: '8px',
-                              borderRadius: '8px',
-                              maxWidth: '60%',
-                              marginBottom: '10px',
-                            }}
-                          >
-                            <p>{msg.message}</p>
-                            <small>{msg.sent_by === 'admin' ? 'Admin' : 'User'}</small>
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <p>Loading messages...</p>
-                    )}
-                    <div ref={messagesEndRef} />
-                  </div>
-                  <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
-                    <Input.TextArea
-                      rows={2}
-                      value={messageInput}
-                      onChange={(e) => setMessageInput(e.target.value)}
-                      placeholder="Enter your message..."
-                    />
-                    <Button type="primary" onClick={handleSendMessage}>
-                      Send
-                    </Button>
-                  </div>
+                  <h3 style={{marginBottom:"20px"}}>Chat with User: {selectedUserId}</h3>
+                  <div style={{ height: '600px', overflowY: 'auto', border: '1px solid #ddd', padding: '10px' }}>
+      {selectedChats[selectedUserId] ? (
+        selectedChats[selectedUserId].length > 0 ? (
+          selectedChats[selectedUserId].map((msg) => (
+            <div
+              key={msg.id}
+              style={{
+                display: 'flex',
+                justifyContent: msg.sent_by === 'admin' ? 'flex-end' : 'flex-start',
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: msg.sent_by === 'admin' ? '#d4edda' : '#f8d7da',
+                  padding: '8px',
+                  borderRadius: '8px',
+                  maxWidth: '60%',
+                  marginBottom: '10px',
+                }}
+              >
+                <p>{msg.message}</p>
+                <small>{msg.sent_by === 'admin' ? 'Admin' : 'User'}</small>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No messages yet</p>
+        )
+      ) : (
+        <p>Loading messages...</p>
+      )}
+      <div ref={messagesEndRef} />
+    </div>
+    <div style={{ marginTop: '20px', display: 'flex', gap: '10px' }}>
+      <Input.TextArea
+        rows={2}
+        value={messageInput}
+        onChange={(e) => setMessageInput(e.target.value)}
+        placeholder="Enter your message..."
+      />
+      <Button type="primary" onClick={handleSendMessage}>
+        Send
+      </Button>
+    </div>
                 </div>
               ) : (
                 <p>Please select a user to start chatting.</p>

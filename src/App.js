@@ -21,6 +21,7 @@ import ContactUsFull from "./components/AboutUs/AboutContacus";
 import Warranty from "./components/Warranty";
 import Chat from "./components/chat";
 import SiteMap from "./components/AboutUs/Sidemap";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -123,6 +124,7 @@ function AppLayout() {
   return (
     <div className="app-container" style={{ paddingTop: "64px" }}>
       {/* Show loading */}
+      <Analytics />
       {isLoading && (
         <div
           style={{

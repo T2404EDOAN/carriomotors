@@ -4,6 +4,8 @@ import ChatIcon from '@mui/icons-material/Chat';
 import AdminIcon from '@mui/icons-material/SupervisorAccount';
 import MinimizeIcon from '@mui/icons-material/Minimize';
 import SendIcon from '@mui/icons-material/Send';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Import Font Awesome
+import { faComments } from '@fortawesome/free-solid-svg-icons';
 const generateUserId = () => {
   return 'user_' + Math.random().toString(36).substr(2, 9);
 };
@@ -70,9 +72,23 @@ const Chat = () => {
 
   // Hàm cuộn xuống cuối danh sách tin nhắn
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100); // Add a slight delay to ensure rendering is complete
   };
-
+  
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        scrollToBottom();  // Trigger scrolling when screen size is small (mobile)
+      }
+    };
+  
+    window.addEventListener('resize', handleResize);
+    
+    return () => window.removeEventListener('resize', handleResize);  // Clean up the event listener
+  }, []);
+  
   // Cuộn xuống cuối khi tin nhắn mới được thêm
   useEffect(() => {
     scrollToBottom();
@@ -107,7 +123,7 @@ const Chat = () => {
             zIndex: 1000,
           }}
         >
-          <ChatIcon />
+         <FontAwesomeIcon icon={faComments} size="lg" />
         </IconButton>
       )}
 
@@ -195,7 +211,7 @@ const Chat = () => {
               fullWidth
               variant="outlined"
               size="small"
-              placeholder="Nhập tin nhắn..."
+              placeholder="Enter message..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
